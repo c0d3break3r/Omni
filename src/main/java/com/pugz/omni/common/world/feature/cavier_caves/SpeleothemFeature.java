@@ -1,7 +1,10 @@
 package com.pugz.omni.common.world.feature.cavier_caves;
 
 import com.mojang.serialization.Codec;
+import com.pugz.omni.common.block.cavier_caves.SpeleothemBlock;
 import com.pugz.omni.core.util.CaveGenUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ISeedReader;
@@ -20,9 +23,6 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
         //floor
         if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.END_STONE && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
             BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
-
-            System.out.println("Generated Speleothem at " + lowerStart.getX() + ", " + lowerStart.getY() + ", " + lowerStart.getZ());
-
             int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
             if (lowerLength == 0) return false;
 
@@ -42,7 +42,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
                     ++runs;
                 }
                 BlockPos place = new BlockPos(lowerStart.getX(), y, lowerStart.getZ());
-                placeSpeleothem(world, place, config, runs);
+                placeFullSpeleothem(world, place, SpeleothemBlock.Half.LOWER, config, runs);
             }
             return true;
         }
@@ -69,7 +69,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
                     ++runs;
                 }
                 BlockPos place = new BlockPos(upperStart.getX(), y, upperStart.getZ());
-                placeSpeleothem(world, place, config, runs);
+                placeFullSpeleothem(world, place, SpeleothemBlock.Half.UPPER, config, runs);
             }
             return true;
         }
@@ -81,26 +81,43 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
 
         for (int y = pos.getY(); y <= pos.getY() + length; ++y) {
             if (y > pos.getY() + (fifth * 4)) {
-                CaveGenUtils.placeFullSpeleothem(world, pos$mutable, config, 0);
+                placeFullSpeleothem(world, pos$mutable, SpeleothemBlock.Half.FULL, config, 0);
                 continue;
             }
             else if (y > pos.getY() + (fifth * 3)) {
-                CaveGenUtils.placeFullSpeleothem(world, pos$mutable, config, 1);
+                placeFullSpeleothem(world, pos$mutable, SpeleothemBlock.Half.FULL, config, 1);
                 continue;
             }
             else if (y > pos.getY() + (fifth * 2)) {
-                CaveGenUtils.placeFullSpeleothem(world, pos$mutable, config, 2);
+                placeFullSpeleothem(world, pos$mutable, SpeleothemBlock.Half.FULL, config, 2);
                 continue;
             }
             else if (y > pos.getY() + fifth) {
-                CaveGenUtils.placeFullSpeleothem(world, pos$mutable, config, 1);
+                placeFullSpeleothem(world, pos$mutable, SpeleothemBlock.Half.FULL, config, 1);
                 continue;
             }
             else if (y > pos.getY()) {
-                CaveGenUtils.placeFullSpeleothem(world, pos$mutable, config, 0);
+                placeFullSpeleothem(world, pos$mutable, SpeleothemBlock.Half.FULL, config, 0);
             }
 
             pos$mutable.setPos(pos.getX(), y, pos.getZ());
+        }
+    }
+
+    public static void placeSpeleothem(ISeedReader world, BlockPos pos, SpeleothemBlock.Size size, SpeleothemBlock.Half half, SpeleothemFeatureConfig config) {
+        Block block = world.getBlockState(pos).getBlock();
+        if (block == Blocks.CAVE_AIR || block == Blocks.WATER) world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.HALF, half).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
+    }
+
+    public static void placeFullSpeleothem(ISeedReader world, BlockPos pos, SpeleothemBlock.Half half, SpeleothemFeatureConfig config, int i) {
+        switch (i) {
+            case 0:
+                if (config.variant == SpeleothemFeatureConfig.Variant.ICE) placeSpeleothem(world, pos, SpeleothemBlock.Size.ICE_LARGE, half, config);
+                else placeSpeleothem(world, pos, SpeleothemBlock.Size.LARGE, half, config);
+            case 1:
+                placeSpeleothem(world, pos, SpeleothemBlock.Size.MEDIUM, half, config);
+            case 2:
+                placeSpeleothem(world, pos, SpeleothemBlock.Size.SMALL, half, config);
         }
     }
 }
