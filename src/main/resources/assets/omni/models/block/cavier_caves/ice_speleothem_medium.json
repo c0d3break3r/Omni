@@ -1,0 +1,6 @@
+{
+  "parent": "omni:block/cavier_caves/speleothem_medium",
+  "textures": {
+    "block": "block/packed_ice"
+  }
+}

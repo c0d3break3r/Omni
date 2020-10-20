@@ -1,0 +1,6 @@
+{
+  "parent": "omni:block/cavier_caves/speleothem_small",
+  "textures": {
+    "block": "block/end_stone"
+  }
+}

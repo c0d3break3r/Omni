@@ -1,0 +1,20 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#block",
+    "block": "block/packed_ice"
+  },
+  "elements": [
+    {   "from": [ 2, 0, 2 ],
+      "to": [ 14, 16, 14 ],
+      "faces": {
+        "down":  { "texture": "#block", "cullface": "down" },
+        "up":    { "texture": "#block", "cullface": "up"   },
+        "north": { "texture": "#block" },
+        "south": { "texture": "#block" },
+        "west":  { "texture": "#block" },
+        "east":  { "texture": "#block" }
+      }
+    }
+  ]
+}

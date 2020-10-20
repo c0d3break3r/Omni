@@ -1,0 +1,138 @@
+package com.pugz.omni.core.module;
+
+import com.pugz.omni.common.block.cavier_caves.SpeleothemBlock;
+import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
+import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import com.pugz.omni.core.Omni;
+import com.pugz.omni.core.registry.OmniBlocks;
+import com.pugz.omni.core.registry.OmniFeatures;
+import com.pugz.omni.core.util.RegistryUtil;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
+
+public class CavierCavesModule extends AbstractModule {
+    public static final CavierCavesModule instance = new CavierCavesModule();
+
+    public CavierCavesModule() {
+        super("Cavier Caves");
+    }
+
+    @Override
+    protected void registerBlocks() {
+        //RegistryObject<Block> SALT_ORE;
+        //RegistryObject<Block> SALT_CRYSTAL;
+        //RegistryObject<Block> SALT_BLOCK;
+
+        //RegistryObject<Block> SULFUR_BLOCK;
+
+        //RegistryObject<Block> EMBERTINE_ORE;
+        //RegistryObject<Block> EMBERTINE_BLOCK;
+        //RegistryObject<Block> EMBERTINE_BRICKS;
+
+        //RegistryObject<Block> PETRIFIED_PLANKS;
+
+        //RegistryObject<Block> CAVE_PAINTING;
+
+        //RegistryObject<Block> CAVE_MUSHROOM;
+        //RegistryObject<Block> RED_SHELF_MUSHROOM;
+        //RegistryObject<Block> BROWN_SHELF_MUSHROOM;
+        //RegistryObject<Block> CAVE_SHELF_MUSHROOM;
+        //RegistryObject<Block> SHELF_GLOWSHROOM;
+
+        //RegistryObject<Block> MALACHITE_CRYSTAL;
+        //RegistryObject<Block> MALACHITE_CRYSTAL_BLOCK;
+
+        //RegistryObject<Block> WEB_BLOCK;
+        //RegistryObject<Block> SPIDER_SAC;
+
+        //RegistryObject<Block> WEAK_STONE;
+
+        //RegistryObject<Block> SLIME;
+
+        //RegistryObject<Block> ROPE;
+
+        //RegistryObject<Block> THIN_ICE;
+        //RegistryObject<Block> PERMAFROST;
+
+        //RegistryObject<Block> STONE_SIGN;
+        //RegistryObject<Block> BLACKSTONE_SIGN;
+
+        //RegistryObject<Block> GOBLIN_TRAP;
+
+        //RegistryObject<Block> FOSSIL_ORE;
+
+        //RegistryObject<Block> STICKY_RAIL;
+
+        OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
+        OmniBlocks.ICE_SPELEOTHEM = RegistryUtil.createBlock("ice_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.from(Blocks.PACKED_ICE)), ItemGroup.DECORATIONS);
+        OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.from(Blocks.NETHERRACK)), ItemGroup.DECORATIONS);
+        OmniBlocks.END_STONE_SPELEOTHEM = RegistryUtil.createBlock("end_stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.from(Blocks.END_STONE)), ItemGroup.DECORATIONS);
+
+        //RegistryObject<Block> SPAWNER_STONE;
+    }
+
+    @Override
+    protected void registerItems() {
+        //RegistryObject<Item> EMBERTINE;
+        //RegistryObject<Item> SERPENTINE;
+        //RegistryObject<Item> AGATE;
+
+        //RegistryObject<Item> SULFUR_DUST;
+        //RegistryObject<Item> SALT_PILE;
+
+        //RegistryObject<Item> CRYSTAL_MELON;
+
+        //RegistryObject<Item> SPAWNER_FRAGMENT;
+    }
+
+    @Override
+    protected void registerTileEntities() {
+        //RegistryObject<TileEntityType<?>> ROPE;
+    }
+
+    @Override
+    protected void registerEntities() {
+        //RegistryObject<EntityType<?>> GOBLIN;
+        //RegistryObject<EntityType<?>> SPIDERLING;
+    }
+
+    @Override
+    protected void registerFeatures() {
+        //RegistryObject<Feature<?>> CEILING_ORE;
+        //RegistryObject<Feature<?>> EXPOSED_ORE;
+        //RegistryObject<Feature<?>> FLOORED_ORE;
+        //RegistryObject<Feature<?>> CAVE_FLOWER;
+
+        OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.codec));
+        //RegistryObject<Feature<?>> SLIME;
+        //RegistryObject<Feature<?>> CAVE_CARVING;
+        //RegistryObject<Feature<?>> GEODE;
+        //RegistryObject<Feature<?>> THIN_ICE;
+        //RegistryObject<Feature<?>> SPIDER_NEST;
+        //RegistryObject<Feature<?>> WALL_MUSHROOM;
+        //RegistryObject<Feature<?>> SULFUR;
+
+        //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
+    }
+
+    @Override
+    protected void registerStructures() {
+        //RegistryObject<Structure<?>> GOBLIN_FORT;
+    }
+
+    @Override
+    protected void registerEffects() {
+        //RegistryObject<Effect> DEAFENED;
+    }
+
+    @Override
+    protected void registerParticles() {
+        //RegistryObject<ParticleType<?>> SULFUR;
+    }
+
+    @Override
+    protected void registerStats() {
+    }
+}

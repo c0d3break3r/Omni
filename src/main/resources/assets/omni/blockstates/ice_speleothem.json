@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "size=small": {
+      "model": "omni:block/cavier_caves/ice_speleothem_small"
+    },
+    "size=basalt_small": {
+      "model": "omni:block/cavier_caves/ice_speleothem_small"
+    },
+    "size=medium": {
+      "model": "omni:block/cavier_caves/ice_speleothem_medium"
+    },
+    "size=large": {
+      "model": "omni:block/cavier_caves/ice_speleothem_large"
+    },
+    "size=ice_large": {
+      "model": "omni:block/cavier_caves/ice_speleothem_large"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "powered=false": { "model": "omni:block/deserted/red_rock_brick_pressure_plate" },
+        "powered=true": { "model": "omni:block/deserted/red_rock_brick_pressure_plate_down" }
+    }
+}

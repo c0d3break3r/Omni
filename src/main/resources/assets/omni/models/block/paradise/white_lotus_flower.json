@@ -1,0 +1,6 @@
+{
+  "parent": "omni:block/paradise/lotus_flower",
+  "textures": {
+    "lotus": "omni:block/paradise/white_lotus_flower"
+  }
+}

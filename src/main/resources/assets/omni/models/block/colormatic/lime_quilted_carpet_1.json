@@ -1,0 +1,6 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+    "wool": "omni:block/colormatic/lime_quilted_wool_1"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "omni:block/colormatic/green_glazed_terracotta_pillar_top",
+        "side": "omni:block/colormatic/green_glazed_terracotta_pillar"
+    }
+}
