@@ -3,20 +3,29 @@ package com.pugz.omni.core.module;
 import com.pugz.omni.common.block.cavier_caves.SpeleothemBlock;
 import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
-import com.pugz.omni.core.Omni;
 import com.pugz.omni.core.registry.OmniBlocks;
 import com.pugz.omni.core.registry.OmniFeatures;
+import com.pugz.omni.core.util.BiomeFeatures;
 import com.pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class CavierCavesModule extends AbstractModule {
     public static final CavierCavesModule instance = new CavierCavesModule();
 
     public CavierCavesModule() {
         super("Cavier Caves");
+    }
+
+    @Override
+    protected void onInitialize() {
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -134,5 +143,24 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerStats() {
+    }
+
+    public void onBiomeLoading(BiomeLoadingEvent event) {
+        Biome.Category category = event.getCategory();
+        BiomeGenerationSettingsBuilder gen = event.getGeneration();
+        ResourceLocation name = event.getName();
+
+        BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE);
+
+
+        if (category == Biome.Category.ICY) {
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE);
+        }
+        if (category == Biome.Category.NETHER) {
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK);
+        }
+        if (category == Biome.Category.THEEND) {
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.END_STONE);
+        }
     }
 }

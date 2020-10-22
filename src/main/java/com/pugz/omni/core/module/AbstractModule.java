@@ -17,7 +17,6 @@ public abstract class AbstractModule {
 
     public void initialize() {
         System.out.println("Initialized " + name + " for Omni");
-        onInitialize();
         registerBlocks();
         registerItems();
         registerTileEntities();
@@ -31,6 +30,7 @@ public abstract class AbstractModule {
         registerSounds();
         registerParticles();
         registerStats();
+        onInitialize();
     }
 
     protected void registerBlocks() {
@@ -70,44 +70,5 @@ public abstract class AbstractModule {
     }
 
     protected void registerStats() {
-    }
-
-    public static class BlockList {
-    }
-
-    public static class ItemList {
-    }
-
-    public static class TileEntityList {
-    }
-
-    public static class EntityList {
-    }
-
-    public static class BiomeList {
-    }
-
-    public static class SurfaceBuilderList {
-    }
-
-    public static class FeatureList {
-    }
-
-    public static class StructureList {
-    }
-
-    public static class EnchantmentList {
-    }
-
-    public static class EffectList {
-    }
-
-    public static class SoundList {
-    }
-
-    public static class ParticleList {
-    }
-
-    public static class StatList {
     }
 }

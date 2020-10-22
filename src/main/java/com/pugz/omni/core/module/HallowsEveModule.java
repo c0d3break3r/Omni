@@ -8,6 +8,11 @@ public class HallowsEveModule extends AbstractModule {
     }
 
     @Override
+    protected void onInitialize() {
+        registerHexes();
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> HALLOWED_DIRT;
 
@@ -50,10 +55,16 @@ public class HallowsEveModule extends AbstractModule {
 
         //RegistryObject<Block> CARVED_PUMPKIN;
         //RegistryObject<Block> OVERRIDE_CARVED_PUMPKIN;
+
+        //RegistryObject<Block> CORN_STALK;
+        //RegistryObject<Block> CORN_CRATE;
     }
 
     @Override
     protected void registerItems() {
+        //RegistryObject<Item> CORN;
+        //RegistryObject<Item> CORNBREAD;
+
         //RegistryObject<Item> GHOST_CLOTH;
         //RegistryObject<Item> GHOST_DRAPE;
 
@@ -61,6 +72,8 @@ public class HallowsEveModule extends AbstractModule {
         //RegistryObject<Item> PUMPKIN_SHIELD;
 
         //RegistryObject<Item> BOTTLED_SOUL_SMOKE;
+
+        //RegistryObject<Item> WITCHS_BREW;
     }
 
     @Override
@@ -96,11 +109,23 @@ public class HallowsEveModule extends AbstractModule {
         //RegistryObject<Feature<?>> GIANT_PUMPKIN;
         //RegistryObject<Feature<?>> SMOKY_SOULSAND;
         //RegistryObject<Feature<?>> GRAVESTONE;
+        //RegistryObject<Feature<?>> CORN_PATCH;
     }
 
     @Override
     protected void registerStructures() {
         //RegistryObject<Structure<?>> WITCH_TOWER;
+    }
+
+    private void registerHexes() {
+        //animal fear
+        //illusions
+        //hide status
+        //insomnia
+        //drop items
+        //fire trail
+        //no drops
+        //monster spawning
     }
 
     @Override
@@ -112,6 +137,7 @@ public class HallowsEveModule extends AbstractModule {
     protected void registerParticles() {
         //RegistryObject<ParticleType<?>> SOUL_SMOKE;
         //RegistryObject<ParticleType<?>> SOUL;
+        //RegistryObject<ParticleType<?>> WITCH_BREW;
     }
 
     @Override

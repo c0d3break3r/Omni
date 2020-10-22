@@ -9,6 +9,10 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void registerBlocks() {
+        //RegistryObject<Block> BEAVER_DAM;
+
+        //RegistryObject<Block> CARVED_OAK_PLANKS;
+        //RegistryObject<Block> CARVED_OAK_LOG;
     }
 
     @Override
@@ -29,6 +33,7 @@ public class ForestryModule extends AbstractModule {
         //RegistryObject<EntityType<?>> SONGBIRD;
         //RegistryObject<EntityType<?>> CROPLINGS;
         //RegistryObject<EntityType<?>> PUG;
+        //RegistryObject<EntityType<?>> BEAVER;
     }
 
     @Override
@@ -46,6 +51,7 @@ public class ForestryModule extends AbstractModule {
     @Override
     protected void registerFeatures() {
         //RegistryObject<Feature<?>> FALLEN_TREES;
+
         //RegistryObject<Feature<?>> TALL_OAK_TREE;
         //RegistryObject<Feature<?>> TALL_SPRUCE_TREE;
         //RegistryObject<Feature<?>> TALL_JUNGLE_TREE;

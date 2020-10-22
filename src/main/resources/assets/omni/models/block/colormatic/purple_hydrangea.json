@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "omni:block/colormatic/purple_hydrangea"
+  }
+}

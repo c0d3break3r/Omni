@@ -1,0 +1,6 @@
+{
+	"parent": "omni:item/spear",
+	"textures": {
+		"spear": "omni:item/paradise/lit_bamboo_spear"
+	}
+}

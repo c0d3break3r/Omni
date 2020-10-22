@@ -6,9 +6,12 @@ import com.pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import com.pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
 import com.pugz.omni.common.block.colormatic.QuiltedCarpetBlock;
 import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import com.pugz.omni.common.world.OmniBiomeMaker;
 import com.pugz.omni.core.Omni;
+import com.pugz.omni.core.registry.OmniBiomes;
 import com.pugz.omni.core.registry.OmniBlocks;
 import com.pugz.omni.core.registry.OmniEntities;
+import com.pugz.omni.core.util.BiomeFeatures;
 import com.pugz.omni.core.util.RegistryUtil;
 import com.pugz.omni.core.util.TradeUtils;
 import net.minecraft.block.*;
@@ -16,11 +19,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.village.WandererTradesEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ColormaticModule extends AbstractModule {
     public static final ColormaticModule instance = new ColormaticModule();
@@ -31,6 +39,7 @@ public class ColormaticModule extends AbstractModule {
 
     public void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -50,27 +59,25 @@ public class ColormaticModule extends AbstractModule {
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", QuiltedCarpetBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new Block(AbstractBlock.Properties.create(Material.WOOL, DyeColor.BLUE).hardnessAndResistance(0.8F).sound(SoundType.CLOTH)), ItemGroup.BUILDING_BLOCKS);
 
-        //ColormaticBlockList.RED_HYDRANGEA = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.BLUE_HYDRANGEA = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.YELLOW_HYDRANGEA = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.PURPLE_HYDRANGEA = RegistryUtil.createBlock(null, null, null);
+        OmniBlocks.RED_HYDRANGEA = RegistryUtil.createBlock("red_hydrangea", () -> new FlowerBlock(Effects.HASTE, 9, AbstractBlock.Properties.from(Blocks.DANDELION)), ItemGroup.DECORATIONS);
+        OmniBlocks.BLUE_HYDRANGEA = RegistryUtil.createBlock("yellow_hydrangea", () -> new FlowerBlock(Effects.HASTE, 9, AbstractBlock.Properties.from(Blocks.DANDELION)), ItemGroup.DECORATIONS);
+        OmniBlocks.YELLOW_HYDRANGEA = RegistryUtil.createBlock("blue_hydrangea", () -> new FlowerBlock(Effects.HASTE, 9, AbstractBlock.Properties.from(Blocks.DANDELION)), ItemGroup.DECORATIONS);
+        OmniBlocks.PURPLE_HYDRANGEA = RegistryUtil.createBlock("purple_hydrangea", () -> new FlowerBlock(Effects.HASTE, 9, AbstractBlock.Properties.from(Blocks.DANDELION)), ItemGroup.DECORATIONS);
 
-        //ColormaticBlockList.EUCALYPTUS_LOG = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.EUCALYPTUS_PLANKS = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.EUCALYPTUS_LOG = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.EUCALYPTUS_PLANKS = RegistryUtil.createBlock(null, null, null);
 
-        //ColormaticBlockList.FLOWER_STEM = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.DANDELION_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.DANDELION_FLUFF_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.TULIP_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.ROSE_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //ColormaticBlockList.FLOWER_PLANKS = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.FLOWER_STEM = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.DANDELION_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.DANDELION_FLUFF_BLOCK = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.TULIP_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.ROSE_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
+        //OmniBlocks.FLOWER_PLANKS = RegistryUtil.createBlock(null, null, null);
     }
 
     @Override
     protected void registerItems() {
-        //RegistryObject<Item> CONCRETE_DUSTS;
-
-        //RegistryObject<Item> DYES;
+        //RegistryObject<Item> DYES; ?
 
         //RegistryObject<Item> DANDELION_FLUFF;
     }
@@ -85,8 +92,9 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        //RegistryObject<Biome> FLOWER_FIELD;
+        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomeMaker.makeFlowerFieldBiome(), BiomeManager.BiomeType.WARM, 1, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
         //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
+        //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
         //RegistryObject<Biome> EUCALYPTUS_FOREST;
     }
 
@@ -118,23 +126,6 @@ public class ColormaticModule extends AbstractModule {
     protected void registerStats() {
     }
 
-    public static class ColormaticBlockList extends BlockList {
-        public static RegistryObject<Block> RED_HYDRANGEA;
-        public static RegistryObject<Block> BLUE_HYDRANGEA;
-        public static RegistryObject<Block> YELLOW_HYDRANGEA;
-        public static RegistryObject<Block> PURPLE_HYDRANGEA;
-
-        public static RegistryObject<Block> EUCALYPTUS_LOG;
-        public static RegistryObject<Block> EUCALYPTUS_PLANKS;
-
-        public static RegistryObject<Block> FLOWER_STEM;
-        public static RegistryObject<Block> DANDELION_PETAL_BLOCK;
-        public static RegistryObject<Block> DANDELION_FLUFF_BLOCK;
-        public static RegistryObject<Block> TULIP_PETAL_BLOCK;
-        public static RegistryObject<Block> ROSE_PETAL_BLOCK;
-        public static RegistryObject<Block> FLOWER_PLANKS;
-    }
-
     public void onWandererTrades(WandererTradesEvent event) {
         event.getGenericTrades().addAll(ImmutableSet.of(
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.RED_LOTUS_FLOWER.get()), 1, 1, 12, 1),
@@ -145,5 +136,33 @@ public class ColormaticModule extends AbstractModule {
 
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), 1, 8, 8, 2)
         ));
+    }
+
+    public void onBiomeLoading(BiomeLoadingEvent event) {
+        Biome.Category category = event.getCategory();
+        BiomeGenerationSettingsBuilder gen = event.getGeneration();
+        ResourceLocation name = event.getName();
+
+        if (category == Biome.Category.JUNGLE) {
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 4);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 4);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PINK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 4);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLACK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 1);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.WHITE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 1);
+        }
+
+        if (name.equals(new ResourceLocation("omni", "flower_field"))) {
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 16);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.YELLOW_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 16);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 16);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PURPLE_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 16);
+        }
+
+        if (name.equals(new ResourceLocation("minecraft", "flower_forest"))) {
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 4);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.YELLOW_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 4);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 4);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PURPLE_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 4);
+        }
     }
 }

@@ -1,11 +1,19 @@
 package com.pugz.omni.core.util;
 
 import com.pugz.omni.core.Omni;
+import com.pugz.omni.core.registry.OmniBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
@@ -22,6 +30,19 @@ public class RegistryUtil {
         RegistryObject<B> block = Omni.OverrideRegistries.BLOCKS.register(name, supplier);
         Omni.OverrideRegistries.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group)));
         return block;
+    }
+
+    public static <I extends Item> RegistryObject<I> createItem(String name, Supplier<? extends I> supplier) {
+        RegistryObject<I> item = Omni.Registries.ITEMS.register(name, supplier);
+        return item;
+    }
+
+    public static RegistryKey<Biome> createBiome(String name, Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
+        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Omni.MOD_ID, name));
+        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
+        BiomeDictionary.addTypes(key, types);
+        WorldGenRegistries.register(WorldGenRegistries.BIOME, new ResourceLocation(Omni.MOD_ID, name), biome);
+        return key;
     }
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {

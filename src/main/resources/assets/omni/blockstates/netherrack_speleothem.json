@@ -3,9 +3,6 @@
     "size=small": {
       "model": "omni:block/cavier_caves/netherrack_speleothem_small"
     },
-    "size=basalt_small": {
-      "model": "omni:block/cavier_caves/netherrack_speleothem_small"
-    },
     "size=medium": {
       "model": "omni:block/cavier_caves/netherrack_speleothem_medium"
     },

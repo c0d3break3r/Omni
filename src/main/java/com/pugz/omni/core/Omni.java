@@ -60,8 +60,6 @@ public class Omni {
 
         eventBus.addListener(EventPriority.LOWEST, this::commonSetup);
 
-        MinecraftForge.EVENT_BUS.addListener(BiomeFeatures::onBiomeLoading);
-
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
             eventBus.addListener(this::clientSetup);
         });

@@ -1,0 +1,80 @@
+{
+	"ambientocclusion": false,
+	"texture_size": [32, 32],
+	"elements": [
+		{
+			"from": [7, 0, 7],
+			"to": [9, 24, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 8, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 12], "texture": "#spear"},
+				"east": {"uv": [0, 0, 1, 12], "texture": "#spear"},
+				"south": {"uv": [0, 0, 1, 12], "texture": "#spear"},
+				"west": {"uv": [0, 0, 1, 12], "texture": "#spear"},
+				"up": {"uv": [2, 0, 3, 1], "texture": "#spear"},
+				"down": {"uv": [1, 0, 2, 1], "texture": "#spear"}
+			}
+		},
+		{
+			"from": [6.5, 24, 6.5],
+			"to": [9.5, 28, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15.5, 16, 16.5]},
+			"faces": {
+				"north": {"uv": [4.5, 0, 6, 2], "texture": "#spear"},
+				"east": {"uv": [4.5, 0, 6, 2], "texture": "#spear"},
+				"south": {"uv": [4.5, 0, 6, 2], "texture": "#spear"},
+				"west": {"uv": [4.5, 0, 6, 2], "texture": "#spear"},
+				"up": {"uv": [4.5, 2, 6, 3.5], "texture": "#spear"},
+				"down": {"uv": [4.5, 2, 6, 3.5], "texture": "#spear"}
+			}
+		},
+		{
+			"from": [2.7, 28, -6.25],
+			"to": [2.7, 32, -3.25],
+			"rotation": {"angle": 45, "axis": "y", "origin": [20.75, 20, -4.75]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 4], "texture": "#spear"},
+				"east": {"uv": [3, 0, 4.5, 2], "texture": "#spear"},
+				"south": {"uv": [0, 0, 0, 4], "texture": "#spear"},
+				"west": {"uv": [3, 0, 4.5, 2], "texture": "#spear"},
+				"up": {"uv": [0, 0, 0, 3], "texture": "#spear"},
+				"down": {"uv": [0, 0, 0, 3], "texture": "#spear"}
+			}
+		},
+		{
+			"from": [0.1, 28, 8.25],
+			"to": [0.1, 32, 11.25],
+			"rotation": {"angle": -45, "axis": "y", "origin": [6.15, 20, 18.4]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 4], "texture": "#spear"},
+				"east": {"uv": [3, 0, 4.5, 2], "texture": "#spear"},
+				"south": {"uv": [0, 0, 0, 4], "texture": "#spear"},
+				"west": {"uv": [3, 0, 4.5, 2], "texture": "#spear"},
+				"up": {"uv": [0, 0, 0, 3], "texture": "#spear"},
+				"down": {"uv": [0, 0, 0, 3], "texture": "#spear"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, -8, 0]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, -8, 0]
+		},
+		"firstperson_righthand": {
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"gui": {
+			"translation": [0, -3.5, 0],
+			"scale": [0.45, 0.45, 0.45]
+		},
+		"fixed": {
+			"translation": [0, -4, 0],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

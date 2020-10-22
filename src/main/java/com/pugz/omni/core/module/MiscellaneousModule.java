@@ -16,12 +16,6 @@ public class MiscellaneousModule extends AbstractModule {
         //RegistryObject<Block> GOLD_WOOL;
         //RegistryObject<Block> GOLD_CARPET;
 
-        //RegistryObject<Block> CARVED_OAK_PLANKS;
-        //RegistryObject<Block> CARVED_OAK_LOG;
-
-        //RegistryObject<Block> CORN;
-        //RegistryObject<Block> CORN_CRATE;
-
         //RegistryObject<Block> CHORMICE;
         //RegistryObject<Block> CHORMICE_BRICKS;
         //RegistryObject<Block> CHORMICE_BRICK_STAIRS;
@@ -40,8 +34,6 @@ public class MiscellaneousModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
-        //RegistryObject<Item> CORN;
-        //RegistryObject<Item> CORNBREAD;
         //RegistryObject<Item> FARMER_HAT;
 
         //RegistryObject<Item> CHORCOMB;
@@ -70,7 +62,6 @@ public class MiscellaneousModule extends AbstractModule {
     @Override
     protected void registerFeatures() {
         //RegistryObject<Feature<?>> CHORUS_NEST;
-        //RegistryObject<Feature<?>> CORN_PATCH;
     }
 
     @Override

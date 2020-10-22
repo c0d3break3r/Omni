@@ -1,11 +1,15 @@
 package com.pugz.omni.core.module;
 
 import com.pugz.omni.common.block.paradise.LotusFlowerBlock;
+import com.pugz.omni.common.item.LitSpearItem;
+import com.pugz.omni.common.item.SpearItem;
 import com.pugz.omni.core.registry.OmniBlocks;
+import com.pugz.omni.core.registry.OmniItems;
 import com.pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.potion.Effects;
 
@@ -57,7 +61,8 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<Item> COCONUT_MILK;
         //RegistryObject<Item> COCONUT_BOMB;
 
-        //RegistryObject<Item> BAMBOO_SPEAR;
+        OmniItems.BAMBOO_SPEAR = RegistryUtil.createItem("bamboo_spear", () -> new SpearItem(new Item.Properties().group(ItemGroup.COMBAT).maxDamage(240)));
+        OmniItems.LIT_BAMBOO_SPEAR = RegistryUtil.createItem("lit_bamboo_spear", () -> new LitSpearItem(new Item.Properties().group(ItemGroup.COMBAT).maxDamage(240)));
 
         //RegistryObject<Item> NEPTFIN;
 
