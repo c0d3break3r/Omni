@@ -2,6 +2,7 @@ package com.pugz.omni.core;
 
 import com.pugz.omni.core.module.*;
 import com.pugz.omni.core.registry.OmniBlocks;
+import com.pugz.omni.core.registry.OmniTileEntities;
 import com.pugz.omni.core.util.BiomeFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -81,7 +82,6 @@ public class Omni {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
-
         });
     }
 
@@ -89,6 +89,7 @@ public class Omni {
     private void clientSetup(FMLClientSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             OmniBlocks.registerRenders();
+            OmniTileEntities.registerRenders();
         });
     }
 

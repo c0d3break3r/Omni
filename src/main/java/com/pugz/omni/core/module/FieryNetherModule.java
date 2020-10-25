@@ -8,6 +8,10 @@ public class FieryNetherModule extends AbstractModule {
     }
 
     @Override
+    protected void onInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> MOLTEN_MAGMA;
         //RegistryObject<Block> PUMICE;

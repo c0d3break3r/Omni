@@ -8,6 +8,10 @@ public class MiscellaneousModule extends AbstractModule {
     }
 
     @Override
+    protected void onInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> PALISADE;
 

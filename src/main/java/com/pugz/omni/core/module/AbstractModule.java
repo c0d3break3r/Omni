@@ -11,12 +11,9 @@ public abstract class AbstractModule {
         return name;
     }
 
-    protected void onInitialize() {
-
-    }
+    protected abstract void onInitialize();
 
     public void initialize() {
-        System.out.println("Initialized " + name + " for Omni");
         registerBlocks();
         registerItems();
         registerTileEntities();
@@ -30,7 +27,9 @@ public abstract class AbstractModule {
         registerSounds();
         registerParticles();
         registerStats();
+
         onInitialize();
+        System.out.println("Initialized " + name + " for Omni");
     }
 
     protected void registerBlocks() {

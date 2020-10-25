@@ -8,7 +8,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 public class LotusFlowerBlock extends FlowerBlock {
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
 
     public LotusFlowerBlock(Effect effect, int duration) {
         super(effect, duration, AbstractBlock.Properties.from(Blocks.DANDELION));

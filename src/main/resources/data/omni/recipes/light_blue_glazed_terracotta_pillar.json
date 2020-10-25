@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "glazed_terracotta_pillars",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:light_blue_glazed_terracotta"
+    }
+  },
+  "result": {
+    "item": "omni:light_blue_glazed_terracotta_pillar",
+    "count": 2
+  }
+}

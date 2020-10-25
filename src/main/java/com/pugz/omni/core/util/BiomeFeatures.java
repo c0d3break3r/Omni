@@ -11,8 +11,8 @@ import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.placement.CaveEdgeConfig;
 import net.minecraft.world.gen.placement.ConfiguredPlacement;
-import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
@@ -28,6 +28,7 @@ public class BiomeFeatures {
     }
 
     public static void addSpeleothems(BiomeGenerationSettingsBuilder biome, SpeleothemFeatureConfig.Variant variant) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(variant)).withPlacement(new ConfiguredPlacement<>(Placement.field_242910_o, new DepthAverageConfig(0, 64))));
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(variant)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.005F))));
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(variant)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.LIQUID, 0.005F))));
     }
 }

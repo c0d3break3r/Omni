@@ -84,7 +84,7 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerEntities() {
-        OmniEntities.FALLING_CONCRETE_POWDER = Omni.Registries.ENTITIES.register("falling_concrete_powder", () -> OmniEntities.createFallingBlockEntity(FallingConcretePowderEntity::new));
+        OmniEntities.FALLING_CONCRETE_POWDER = RegistryUtil.createEntity("falling_concrete_powder", () -> OmniEntities.createFallingBlockEntity(FallingConcretePowderEntity::new));
 
         //RegistryObject<EntityType<?>> AEROMA;
         //RegistryObject<EntityType<?>> KOALA;

@@ -8,6 +8,10 @@ public class ForestryModule extends AbstractModule {
     }
 
     @Override
+    protected void onInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> BEAVER_DAM;
 

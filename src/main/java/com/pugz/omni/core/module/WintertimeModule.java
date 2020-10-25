@@ -8,6 +8,10 @@ public class WintertimeModule extends AbstractModule {
     }
 
     @Override
+    protected void onInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> ANTLER_BLOCK;
 
@@ -42,9 +46,6 @@ public class WintertimeModule extends AbstractModule {
 
     @Override
     protected void registerEnchantments() {
-        //RegistryObject<Enchantment> SUN_AFFINITY;
-        //RegistryObject<Enchantment> MOON_AFFINITY;
-
         //RegistryObject<Enchantment> ICY_TOUCH;
     }
 

@@ -1,5 +1,12 @@
 {
-  "_comment": "Colormatic",
+  "_comment": "Cavier Caves",
+
+  "block.omni.stone_speleothem": "Stone Speleothem",
+  "block.omni.ice_speleothem": "Icicle",
+  "block.omni.netherrack_speleothem": "Netherrack Speleothem",
+  "block.omni.end_stone_speleothem": "End Stone Speleothem",
+
+  "_comment1": "Colormatic",
 
   "block.omni.brown_quilted_carpet": "Brown Quilted Carpet",
   "block.omni.red_quilted_carpet": "Red Quilted Carpet",
@@ -95,7 +102,7 @@
 
   "biome.omni.flower_field": "FLower Field",
 
-  "_comment1": "Deserted",
+  "_comment2": "Deserted",
 
   "block.omni.red_rock": "Red Rock",
   "block.omni.red_rock_stairs": "Red Rock Stairs",
@@ -109,7 +116,7 @@
   "block.omni.red_rock_brick_button": "Red Rock Brick Button",
   "block.omni.red_rock_brick_pressure_plate": "Red Rock Brick Pressure Plate",
 
-  "_comment2": "Paradise",
+  "_comment3": "Paradise",
 
   "block.omni.red_lotus_flower": "Red Lotus Flower",
   "block.omni.orange_lotus_flower": "Orange Lotus Flower",

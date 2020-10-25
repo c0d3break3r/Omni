@@ -26,7 +26,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
             int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
             if (lowerLength == 0) return false;
 
-            lowerLength = MathHelper.clamp(random.nextInt(lowerLength - 1), 3, lowerLength);
+            lowerLength = MathHelper.clamp(random.nextInt(lowerLength), 3, lowerLength);
             int third = Math.round(lowerLength / 3.0F);
 
             int runs = 0;

@@ -1,11 +1,15 @@
 package com.pugz.omni.core.util;
 
+import com.google.common.collect.Sets;
 import com.pugz.omni.core.Omni;
-import com.pugz.omni.core.registry.OmniBiomes;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -33,8 +37,15 @@ public class RegistryUtil {
     }
 
     public static <I extends Item> RegistryObject<I> createItem(String name, Supplier<? extends I> supplier) {
-        RegistryObject<I> item = Omni.Registries.ITEMS.register(name, supplier);
-        return item;
+        return Omni.Registries.ITEMS.register(name, supplier);
+    }
+
+    public static <T extends TileEntity> RegistryObject<TileEntityType<T>> createTileEntity(String name, Supplier<? extends T> supplier, Supplier<Block[]> blocks) {
+        return Omni.Registries.TILE_ENTITIES.register(name, () -> new TileEntityType<>(supplier, Sets.newHashSet(blocks.get()), null));
+    }
+
+    public static <E extends Entity> RegistryObject<EntityType<E>> createEntity(String name, Supplier<EntityType<E>> supplier) {
+        return Omni.Registries.ENTITIES.register(name, supplier);
     }
 
     public static RegistryKey<Biome> createBiome(String name, Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {

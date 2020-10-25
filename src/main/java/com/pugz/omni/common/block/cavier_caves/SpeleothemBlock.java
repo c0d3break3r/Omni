@@ -72,9 +72,9 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         Size size = state.get(SIZE);
         if (held.getItem() instanceof PickaxeItem && size != Size.SMALL) {
             if (!worldIn.isRemote) {
-                if (size == Size.LARGE || size == Size.ICE_LARGE) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM), 3);
+                if (size == Size.LARGE || size == Size.ICE_LARGE) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM));
                 else if (size == Size.MEDIUM) {
-                    worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL), 3);
+                    worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL));
                 }
                 if (held.isDamageable()) held.damageItem(1, player, (living) -> {
                     living.sendBreakAnimation(handIn);
