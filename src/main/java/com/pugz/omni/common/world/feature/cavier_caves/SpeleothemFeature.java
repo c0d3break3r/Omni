@@ -21,9 +21,9 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
     @Override
     public boolean func_241855_a(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, SpeleothemFeatureConfig config) {
         //floor
-        if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.END_STONE && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
+        if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
             BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
-            int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
+            int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart, config.variant);
             if (lowerLength == 0) return false;
 
             lowerLength = MathHelper.clamp(random.nextInt(lowerLength), 3, lowerLength);
@@ -49,7 +49,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
         //ceiling
         else {
             BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
-            int upperLength = CaveGenUtils.getCaveHeight(world, upperStart);
+            int upperLength = CaveGenUtils.getCaveHeight(world, upperStart, config.variant);
             if (upperLength == 0 || CaveGenUtils.checkCavePos(world.getBlockState(upperStart.up(upperLength)).getBlock(), config.variant)) return false;
 
             upperStart.setY(upperStart.getY() + (upperLength - 1));
@@ -72,35 +72,6 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
                 placeFullSpeleothem(world, place, config, runs);
             }
             return true;
-        }
-    }
-
-    private void placeSpeleothem(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig config, int length) {
-        int fifth = Math.round(length / 5.0F);
-        BlockPos.Mutable pos$mutable = pos.toMutable();
-
-        for (int y = pos.getY(); y <= pos.getY() + length; ++y) {
-            if (y > pos.getY() + (fifth * 4)) {
-                placeFullSpeleothem(world, pos$mutable, config, 0);
-                continue;
-            }
-            else if (y > pos.getY() + (fifth * 3)) {
-                placeFullSpeleothem(world, pos$mutable, config, 1);
-                continue;
-            }
-            else if (y > pos.getY() + (fifth * 2)) {
-                placeFullSpeleothem(world, pos$mutable, config, 2);
-                continue;
-            }
-            else if (y > pos.getY() + fifth) {
-                placeFullSpeleothem(world, pos$mutable, config, 1);
-                continue;
-            }
-            else if (y > pos.getY()) {
-                placeFullSpeleothem(world, pos$mutable, config, 0);
-            }
-
-            pos$mutable.setPos(pos.getX(), y, pos.getZ());
         }
     }
 

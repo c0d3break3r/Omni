@@ -12,7 +12,6 @@ public class OmniBlocks {
     public static RegistryObject<Block> STONE_SPELEOTHEM;
     public static RegistryObject<Block> ICE_SPELEOTHEM;
     public static RegistryObject<Block> NETHERRACK_SPELEOTHEM;
-    public static RegistryObject<Block> END_STONE_SPELEOTHEM;
 
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
@@ -49,8 +48,11 @@ public class OmniBlocks {
     @OnlyIn(Dist.CLIENT)
     public static void registerRenders() {
         RenderTypeLookup.setRenderLayer(RED_LOTUS_FLOWER.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ORANGE_LOTUS_FLOWER.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(YELLOW_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BLUE_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(PINK_LOTUS_FLOWER.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(PURPLE_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
 

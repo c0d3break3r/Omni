@@ -1,5 +1,6 @@
 package com.pugz.omni.core.module;
 
+import com.google.common.collect.ImmutableSet;
 import com.pugz.omni.common.block.paradise.LotusFlowerBlock;
 import com.pugz.omni.common.entity.paradise.BambooSpearEntity;
 import com.pugz.omni.common.item.LitSpearItem;
@@ -7,6 +8,7 @@ import com.pugz.omni.common.item.SpearItem;
 import com.pugz.omni.core.registry.OmniBlocks;
 import com.pugz.omni.core.registry.OmniEntities;
 import com.pugz.omni.core.registry.OmniItems;
+import com.pugz.omni.core.util.BiomeFeatures;
 import com.pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
@@ -16,6 +18,11 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ParadiseModule extends AbstractModule {
@@ -27,6 +34,7 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -112,11 +120,26 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerFeatures() {
-        //RegistryObject<Feature<?>> JUNGLE_FLOWER;
         //RegistryObject<Feature<?>> WHITE_SAND_REPLACEMENT;
     }
 
     @Override
     protected void registerSounds() {
+    }
+
+    public void onBiomeLoading(BiomeLoadingEvent event) {
+        Biome.Category category = event.getCategory();
+        BiomeGenerationSettingsBuilder gen = event.getGeneration();
+
+        if (category == Biome.Category.JUNGLE) {
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.ORANGE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.YELLOW_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PINK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PURPLE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLACK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 1);
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.WHITE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 1);
+        }
     }
 }

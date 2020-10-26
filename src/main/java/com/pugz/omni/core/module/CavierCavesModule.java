@@ -79,7 +79,6 @@ public class CavierCavesModule extends AbstractModule {
         OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 4.5F)), ItemGroup.DECORATIONS);
         OmniBlocks.ICE_SPELEOTHEM = RegistryUtil.createBlock("ice_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.PACKED_ICE).slipperiness(0.98F).setRequiresTool().hardnessAndResistance(0.4F)), ItemGroup.DECORATIONS);
         OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(0.3F)), ItemGroup.DECORATIONS);
-        OmniBlocks.END_STONE_SPELEOTHEM = RegistryUtil.createBlock("end_stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.SAND).setRequiresTool().hardnessAndResistance(2.5F, 7.5F)), ItemGroup.DECORATIONS);
 
         //RegistryObject<Block> SPAWNER_STONE;
     }
@@ -160,9 +159,6 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK);
-        }
-        if (category == Biome.Category.THEEND) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.END_STONE);
         }
     }
 }

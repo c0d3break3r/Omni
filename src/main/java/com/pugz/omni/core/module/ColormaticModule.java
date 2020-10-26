@@ -139,17 +139,8 @@ public class ColormaticModule extends AbstractModule {
     }
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
-        Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         ResourceLocation name = event.getName();
-
-        if (category == Biome.Category.JUNGLE) {
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 4);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 4);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PINK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 4);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLACK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 1);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.WHITE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 1);
-        }
 
         if (name.equals(new ResourceLocation("omni", "flower_field"))) {
             BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_HYDRANGEA.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK), 16);

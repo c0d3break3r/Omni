@@ -29,8 +29,7 @@ public class SpeleothemFeatureConfig implements IFeatureConfig {
     public enum Variant implements IStringSerializable {
         STONE("stone", OmniBlocks.STONE_SPELEOTHEM.get().getDefaultState(), Blocks.STONE, Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE, Blocks.OBSIDIAN),
         ICE("ice", OmniBlocks.ICE_SPELEOTHEM.get().getDefaultState(), Blocks.STONE, Blocks.PACKED_ICE, Blocks.ICE),
-        NETHERRACK("netherrack", OmniBlocks.NETHERRACK_SPELEOTHEM.get().getDefaultState(), Blocks.NETHERRACK, Blocks.NETHER_BRICKS),
-        END_STONE("end_stone", OmniBlocks.END_STONE_SPELEOTHEM.get().getDefaultState(), Blocks.END_STONE);
+        NETHERRACK("netherrack", OmniBlocks.NETHERRACK_SPELEOTHEM.get().getDefaultState(), Blocks.NETHERRACK, Blocks.NETHER_BRICKS);
 
         public static final Codec<SpeleothemFeatureConfig.Variant> codec = IStringSerializable.createEnumCodec(SpeleothemFeatureConfig.Variant::values, SpeleothemFeatureConfig.Variant::byName);
         private final String name;

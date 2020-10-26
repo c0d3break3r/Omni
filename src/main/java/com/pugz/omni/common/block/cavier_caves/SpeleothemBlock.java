@@ -121,7 +121,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
             BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
             BlockState block = world.getBlockState(check);
 
-            if (block.getBlock() == Blocks.CAULDRON && rand.nextInt(40) == 0) {
+            if (block.getBlock() == Blocks.CAULDRON && rand.nextInt(40) == 0 && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
                 int level = block.get(CauldronBlock.LEVEL);
                 if (level < 3) world.setBlockState(check, block.with(CauldronBlock.LEVEL, level + 1));
             }
@@ -210,13 +210,13 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
             if (d0 >= 1.0D && !state.isIn(BlockTags.IMPERMEABLE)) {
                 double d1 = shape.getStart(Direction.Axis.Y);
                 if (d1 > 0.0D) {
-                    this.addDripParticle(world, pos, shape, (double)pos.getY() + d1 - 0.05D);
+                    this.addDripParticle(world, pos, state, shape, (double)pos.getY() + d1 - 0.05D);
                 } else {
                     BlockPos down = pos.down();
                     BlockState downState = world.getBlockState(down);
                     double d2 = downState.getCollisionShape(world, down).getEnd(Direction.Axis.Y);
                     if ((d2 < 1.0D || !downState.hasOpaqueCollisionShape(world, down)) && downState.getFluidState().isEmpty()) {
-                        this.addDripParticle(world, pos, shape, (double)pos.getY() - 0.05D);
+                        this.addDripParticle(world, pos, state, shape, (double)pos.getY() - 0.05D);
                     }
                 }
             }
@@ -224,8 +224,8 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void addDripParticle(World world, BlockPos pos, VoxelShape shape, double y) {
-        world.addParticle(ParticleTypes.DRIPPING_WATER, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getX() + shape.getStart(Direction.Axis.X), (double)pos.getX() + shape.getEnd(Direction.Axis.X)), y, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getZ() + shape.getStart(Direction.Axis.Z), (double)pos.getZ() + shape.getEnd(Direction.Axis.Z)), 0.0D, 0.0D, 0.0D);
+    private void addDripParticle(World world, BlockPos pos, BlockState state, VoxelShape shape, double y) {
+        if (state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) world.addParticle(ParticleTypes.DRIPPING_WATER, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getX() + shape.getStart(Direction.Axis.X), (double)pos.getX() + shape.getEnd(Direction.Axis.X)), y, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getZ() + shape.getStart(Direction.Axis.Z), (double)pos.getZ() + shape.getEnd(Direction.Axis.Z)), 0.0D, 0.0D, 0.0D);
     }
 
     @Override
