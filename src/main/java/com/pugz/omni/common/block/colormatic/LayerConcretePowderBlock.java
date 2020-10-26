@@ -3,6 +3,7 @@ package com.pugz.omni.common.block.colormatic;
 import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -52,6 +53,11 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
 
     public BlockState getSolidifiedState() {
         return solidifiedState;
+    }
+
+    @Override
+    public PushReaction getPushReaction(BlockState state) {
+        return state.get(LAYERS) == 1 ? PushReaction.DESTROY : PushReaction.NORMAL;
     }
 
     @SuppressWarnings("deprecation")

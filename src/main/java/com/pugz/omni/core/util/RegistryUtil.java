@@ -52,7 +52,7 @@ public class RegistryUtil {
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Omni.MOD_ID, name));
         BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
         BiomeDictionary.addTypes(key, types);
-        WorldGenRegistries.register(WorldGenRegistries.BIOME, new ResourceLocation(Omni.MOD_ID, name), biome);
+        Omni.Registries.BIOMES.register(name, () -> biome);
         return key;
     }
 
