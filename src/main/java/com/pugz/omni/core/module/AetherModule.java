@@ -19,12 +19,14 @@ public class AetherModule extends AbstractModule {
         // nimbus blocks
         // mystical wood
         // sky agate block and ore
+        // aurora crystals
     }
 
     @Override
     protected void registerItems() {
         // empyrean steel
         // sky agate
+        // aurora crystal
     }
 
     @Override
@@ -46,10 +48,15 @@ public class AetherModule extends AbstractModule {
 
     @Override
     protected void registerFeatures() {
+        // aurora crystal
+        // skyris trees
+        // clouds
+        // vesper
     }
 
     @Override
     protected void registerStructures() {
+        // palace
     }
 
     @Override

@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#",
-    "#"
+    "#  ",
+    "## ",
+    "###"
   ],
   "key": {
     "#": {
@@ -10,7 +11,7 @@
     }
   },
   "result": {
-    "item": "omni:red_rock_pillar",
-    "count": 2
+    "item": "omni:red_rock_brick_stairs",
+    "count": 4
   }
 }

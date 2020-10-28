@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "omni:red_rock_bricks"
+  },
+  "result": "omni:chiseled_red_rock_bricks",
+  "count": 1
+}
