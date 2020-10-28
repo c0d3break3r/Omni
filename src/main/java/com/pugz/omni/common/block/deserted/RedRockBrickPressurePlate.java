@@ -73,8 +73,13 @@ public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!worldIn.isRemote && !state.get(POWERED)) {
-            this.checkPressed(state, worldIn, pos);
+        if (!worldIn.isRemote) {
+            int i = this.getRedstoneStrength(state);
+            if (i == 0) {
+                this.updateState(worldIn, pos, state, i);
+            }
+
+            if (!state.get(POWERED)) this.checkPressed(state, worldIn, pos);
         }
     }
 

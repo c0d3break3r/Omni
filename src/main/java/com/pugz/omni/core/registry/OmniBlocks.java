@@ -1,11 +1,13 @@
 package com.pugz.omni.core.registry;
 
+import com.pugz.omni.common.block.colormatic.FlowersBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class OmniBlocks {
     //cavier caves
@@ -16,11 +18,6 @@ public class OmniBlocks {
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;
-
-    public static RegistryObject<Block> RED_HYDRANGEA;
-    public static RegistryObject<Block> YELLOW_HYDRANGEA;
-    public static RegistryObject<Block> BLUE_HYDRANGEA;
-    public static RegistryObject<Block> PURPLE_HYDRANGEA;
 
     //paradise
     public static RegistryObject<Block> RED_LOTUS_FLOWER;
@@ -56,9 +53,8 @@ public class OmniBlocks {
         RenderTypeLookup.setRenderLayer(BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
 
-        RenderTypeLookup.setRenderLayer(RED_HYDRANGEA.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(YELLOW_HYDRANGEA.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(BLUE_HYDRANGEA.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(PURPLE_HYDRANGEA.get(), RenderType.getCutout());
+        ForgeRegistries.BLOCKS.getValues().forEach((block) -> {
+            if (block instanceof FlowersBlock) RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
+        });
     }
 }

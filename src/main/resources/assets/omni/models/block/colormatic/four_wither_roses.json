@@ -1,0 +1,6 @@
+{
+  "parent": "omni:block/quadruple_cross",
+  "textures": {
+    "cross": "block/wither_rose"
+  }
+}

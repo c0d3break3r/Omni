@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "flowers=1": {
+      "model": "block/lily_of_the_valley"
+    },
+    "flowers=2": {
+      "model": "omni:block/colormatic/two_lillies_of_the_valley"
+    },
+    "flowers=3": {
+      "model": "omni:block/colormatic/three_lillies_of_the_valley"
+    },
+    "flowers=4": {
+      "model": "omni:block/colormatic/four_lillies_of_the_valley"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "omni:block/double_cross",
+  "textures": {
+    "cross": "block/red_mushroom"
+  }
+}

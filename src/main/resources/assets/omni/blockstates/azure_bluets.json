@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "flowers=1": {
+      "model": "block/azure_bluet"
+    },
+    "flowers=2": {
+      "model": "omni:block/colormatic/two_azure_bluets"
+    },
+    "flowers=3": {
+      "model": "omni:block/colormatic/three_azure_bluets"
+    },
+    "flowers=4": {
+      "model": "omni:block/colormatic/four_azure_bluets"
+    }
+  }
+}

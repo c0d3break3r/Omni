@@ -5,7 +5,6 @@
       "rolls": 1,
       "entries": [
         {
-		{
           "type": "minecraft:item",
           "name": "omni:light_gray_quilted_carpet"
         }
