@@ -4,7 +4,6 @@ import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import com.pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.Biome;
@@ -19,7 +18,10 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 public class BiomeFeatures {
@@ -39,20 +41,14 @@ public class BiomeFeatures {
     public static boolean hasFeature(BiomeGenerationSettingsBuilder gen, ResourceLocation name, GenerationStage.Decoration stage, @Nonnull Supplier<ConfiguredFeature<?, ?>> feature) {
         for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
             if (biome.getRegistryName().getPath().equals(name.getPath())) {
+                System.out.println(Arrays.toString(gen.getFeatures(stage).toArray()));
 
-                for (@Nonnull Supplier<ConfiguredFeature<?, ?>> configuredFeature : gen.getFeatures(stage)) {
-                    System.out.println(WorldGenRegistries.CONFIGURED_FEATURE.getKey(configuredFeature.get()) + " | " + WorldGenRegistries.CONFIGURED_FEATURE.getKey(feature.get()));
-
-                    System.out.println(RegistryKey.getKeyCreator(WorldGenRegistries.CONFIGURED_FEATURE.getRegistryKey()));
-
-                    if (WorldGenRegistries.CONFIGURED_FEATURE.getKey(configuredFeature.get()).getPath() == WorldGenRegistries.CONFIGURED_FEATURE.getKey(feature.get()).getPath()) {
-                        return true;
-                    }
+                for (Supplier<ConfiguredFeature<?, ?>> configuredFeature : gen.getFeatures(stage)) {
+                    System.out.println(WorldGenRegistries.CONFIGURED_FEATURE.getKey(configuredFeature.get()));
                 }
             }
         }
 
-        System.out.println("false");
         return false;
     }
 

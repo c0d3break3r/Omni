@@ -37,7 +37,7 @@ public class QuiltedCarpetBlock extends Block {
 
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
         if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
-        return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState)state.with((Property)FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
+        return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState)state.with((Property)FACING_TO_PROPERTY_MAP.get(direction), state.getBlock() == state2.getBlock()) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
     }
 
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
@@ -68,12 +68,6 @@ public class QuiltedCarpetBlock extends Block {
         }
     }
 
-    public boolean canConnect(BlockState state, BlockState state2) {
-        Block block = state.getBlock();
-        boolean isCarpet = block instanceof QuiltedCarpetBlock;
-        return !cannotAttach(block) && isCarpet && block == state2.getBlock();
-    }
-
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         IBlockReader world = context.getWorld();
         BlockPos pos = context.getPos();
@@ -86,7 +80,7 @@ public class QuiltedCarpetBlock extends Block {
         BlockState lvt_10_1_ = world.getBlockState(east);
         BlockState lvt_11_1_ = world.getBlockState(south);
         BlockState lvt_12_1_ = world.getBlockState(west);
-        return (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)super.getStateForPlacement(context).with(NORTH, canConnect(state, lvt_9_1_))).with(EAST, canConnect(state, lvt_10_1_))).with(SOUTH, canConnect(state, lvt_11_1_))).with(WEST, canConnect(state, lvt_12_1_)));
+        return (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)super.getStateForPlacement(context).with(NORTH, state.getBlock() == lvt_9_1_.getBlock())).with(EAST, state.getBlock() == lvt_10_1_.getBlock())).with(SOUTH, state.getBlock() == lvt_11_1_.getBlock())).with(WEST, state.getBlock() == lvt_12_1_.getBlock()));
     }
 
     @Override
