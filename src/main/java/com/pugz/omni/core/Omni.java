@@ -69,6 +69,9 @@ public class Omni {
     }
 
     private void registerModules() {
+        CoreModule.instance.initialize();
+
+        //AetherModule.instance.initialize();
         CavierCavesModule.instance.initialize();
         ColormaticModule.instance.initialize();
         DesertedModule.instance.initialize();

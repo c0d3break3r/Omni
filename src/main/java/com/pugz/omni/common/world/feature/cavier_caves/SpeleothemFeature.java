@@ -19,7 +19,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
     }
 
     @Override
-    public boolean func_241855_a(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, SpeleothemFeatureConfig config) {
+    public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, SpeleothemFeatureConfig config) {
         //floor
         if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
             BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);

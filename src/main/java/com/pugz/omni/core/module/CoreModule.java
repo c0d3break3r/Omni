@@ -8,6 +8,8 @@ import com.pugz.omni.core.registry.OmniTileEntities;
 import com.pugz.omni.core.util.RegistryUtil;
 
 public class CoreModule extends AbstractModule {
+    public static final CoreModule instance = new CoreModule();
+
     public CoreModule() {
         super("Core");
     }

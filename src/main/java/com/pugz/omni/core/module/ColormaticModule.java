@@ -20,6 +20,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
@@ -174,14 +175,19 @@ public class ColormaticModule extends AbstractModule {
         ResourceLocation name = event.getName();
         Random random = new Random();
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_DEFAULT)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_DEFAULT);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_DEFAULT)) {
+            System.out.println(gen.toString() + " has flower default");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_DEFAULT);
             BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 12);
             BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 12);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_FOREST)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_FOREST);
+        /*
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_FOREST)) {
+            System.out.println(gen.toString() + " has flower forest");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_FOREST);
             BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("alliums").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
@@ -194,8 +200,10 @@ public class ColormaticModule extends AbstractModule {
             BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_PLAIN)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_PLAIN);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN)) {
+            System.out.println(gen.toString() + " has flower plain");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN);
             BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("lily_of_the_valleys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
@@ -206,8 +214,10 @@ public class ColormaticModule extends AbstractModule {
             BiomeFeatures.addScatteredBlock(gen, getFlower("pink_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_PLAIN_DECORATED)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_PLAIN_DECORATED);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN_DECORATED)) {
+            System.out.println(gen.toString() + " has flower plain decorated");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN_DECORATED);
             BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("lily_of_the_valleys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
@@ -218,41 +228,49 @@ public class ColormaticModule extends AbstractModule {
             BiomeFeatures.addScatteredBlock(gen, getFlower("pink_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_SWAMP)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_SWAMP);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_SWAMP)) {
+            System.out.println(gen.toString() + " has flower swamp");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_SWAMP);
             BiomeFeatures.addScatteredBlock(gen, getFlower("blue_orchids").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 12);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_WARM)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_WARM);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_WARM)) {
+            System.out.println(gen.toString() + " has flower warm");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_WARM);
             BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
             BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_BROWN_MUSHROOM)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_BROWN_MUSHROOM);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_BROWN_MUSHROOM)) {
+            System.out.println(gen.toString() + " has brown mushrooms");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_BROWN_MUSHROOM);
             BiomeFeatures.addScatteredBlock(gen, getFlower("brown_mushrooms").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.STONE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.DIORITE), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_RED_MUSHROOM)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_RED_MUSHROOM);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_RED_MUSHROOM)) {
+            System.out.println(gen.toString() + " has red mushrooms");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_RED_MUSHROOM);
             BiomeFeatures.addScatteredBlock(gen, getFlower("red_mushrooms").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.STONE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.DIORITE), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_RED_MUSHROOM)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_RED_MUSHROOM);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("red_mushrooms").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.STONE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.DIORITE), 1, 16);
-        }
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.CRIMSON_FUNGI)) {
+            System.out.println(gen.toString() + " has crimson fungi");
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.CRIMSON_FUNGI)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.CRIMSON_FUNGI);
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.CRIMSON_FUNGI);
             BiomeFeatures.addScatteredBlock(gen, getFlower("crimson_fungi").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.CRIMSON_NYLIUM), 1, 16);
         }
 
-        if (BiomeFeatures.hasFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.WARPED_FUNGI)) {
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, Features.WARPED_FUNGI);
+        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.WARPED_FUNGI)) {
+            System.out.println(gen.toString() + " has warped fungi");
+
+            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.WARPED_FUNGI);
             BiomeFeatures.addScatteredBlock(gen, getFlower("warped_fungi").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.WARPED_NYLIUM), 1, 16);
         }
+        */
 
         if (name.equals(new ResourceLocation("omni", "flower_field"))) {
             BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);

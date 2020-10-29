@@ -29,10 +29,10 @@ public class OmniBiomeMaker {
         mobspawninfo$builder.isValidSpawnBiomeForPlayer();
 
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
-        biomegenerationsettings$builder.withStructure(StructureFeatures.field_244154_t).withStructure(StructureFeatures.field_244135_a);
+        biomegenerationsettings$builder.withStructure(StructureFeatures.VILLAGE_PLAINS).withStructure(StructureFeatures.PILLAGER_OUTPOST);
 
         DefaultBiomeFeatures.withStrongholdAndMineshaft(biomegenerationsettings$builder);
-        biomegenerationsettings$builder.withStructure(StructureFeatures.field_244159_y);
+        biomegenerationsettings$builder.withStructure(StructureFeatures.RUINED_PORTAL);
         DefaultBiomeFeatures.withCavesAndCanyons(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withLavaAndWaterLakes(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withMonsterRoom(biomegenerationsettings$builder);
