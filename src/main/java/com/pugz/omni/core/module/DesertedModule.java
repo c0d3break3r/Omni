@@ -15,6 +15,11 @@ public class DesertedModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Wandering the Deserted Desert...");
+    }
+
+    @Override
     protected void onInitialize() {
     }
 

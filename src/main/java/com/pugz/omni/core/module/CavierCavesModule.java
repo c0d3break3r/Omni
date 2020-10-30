@@ -26,6 +26,11 @@ public class CavierCavesModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Explored the Depths of the Cavier Caves!");
+    }
+
+    @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }

@@ -15,6 +15,11 @@ public class CoreModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Booted up the Core Module.");
+    }
+
+    @Override
     protected void onInitialize() {
 
     }

@@ -33,6 +33,11 @@ public class ParadiseModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Ah, yes. Vibing in Paradise...");
+    }
+
+    @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }

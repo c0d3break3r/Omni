@@ -8,6 +8,11 @@ public class HallowsEveModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("BOO! Happy Hallow's Eve!");
+    }
+
+    @Override
     protected void onInitialize() {
         registerHexes();
     }

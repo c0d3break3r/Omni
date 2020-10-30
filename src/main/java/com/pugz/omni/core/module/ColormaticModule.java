@@ -39,6 +39,11 @@ public class ColormaticModule extends AbstractModule {
     public static final ColormaticModule instance = new ColormaticModule();
     public static List<Supplier<Block>> stackables = new ArrayList<Supplier<Block>>();
 
+    @Override
+    protected void sendInitMessage() {
+        System.out.println("Discovered the end of the Colormatic Rainbow!");
+    }
+
     public ColormaticModule() {
         super("Colormatic");
     }
@@ -149,6 +154,9 @@ public class ColormaticModule extends AbstractModule {
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PINK_LOTUS_FLOWER.get()), 1, 1, 12, 1),
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLACK_LOTUS_FLOWER.get()), 1, 1, 12, 1),
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.WHITE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
+                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PURPLE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
+                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.ORANGE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
+                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.YELLOW_LOTUS_FLOWER.get()), 1, 1, 12, 1),
 
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), 1, 8, 8, 2)
         ));

@@ -8,6 +8,11 @@ public class FieryNetherModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Erupted out of the Fiery Nether");
+    }
+
+    @Override
     protected void onInitialize() {
     }
 

@@ -8,6 +8,11 @@ public class WintertimeModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Drinking hot chocolate by the fire during Wintertime!");
+    }
+
+    @Override
     protected void onInitialize() {
     }
 

@@ -8,6 +8,11 @@ public class ForestryModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Relaxing with all the Forestry.");
+    }
+
+    @Override
     protected void onInitialize() {
     }
 

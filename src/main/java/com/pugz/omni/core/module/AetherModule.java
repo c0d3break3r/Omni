@@ -10,6 +10,11 @@ public class AetherModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Reached the Dawn of the Aether!");
+    }
+
+    @Override
     protected void registerBlocks() {
         // vesper
         // skyris wood

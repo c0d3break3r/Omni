@@ -13,6 +13,8 @@ public abstract class AbstractModule {
 
     protected abstract void onInitialize();
 
+    protected abstract void sendInitMessage();
+
     public void initialize() {
         registerBlocks();
         registerItems();
@@ -29,7 +31,7 @@ public abstract class AbstractModule {
         registerStats();
 
         onInitialize();
-        System.out.println("Initialized " + name + " for Omni");
+        sendInitMessage();
     }
 
     protected void registerBlocks() {

@@ -8,6 +8,11 @@ public class MiscellaneousModule extends AbstractModule {
     }
 
     @Override
+    protected void sendInitMessage() {
+        System.out.println("Miscellaneous, random stuff initialized!");
+    }
+
+    @Override
     protected void onInitialize() {
     }
 
