@@ -29,6 +29,8 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class FallingConcretePowderEntity extends Entity {
     private BlockState fallTile = Blocks.SAND.getDefaultState();
@@ -41,8 +43,8 @@ public class FallingConcretePowderEntity extends Entity {
         super(type, world);
     }
 
-    public FallingConcretePowderEntity(World worldIn, double x, double y, double z, BlockState fallingBlockState) {
-        this(OmniEntities.FALLING_CONCRETE_POWDER.get(), worldIn);
+    public FallingConcretePowderEntity(World world, double x, double y, double z, BlockState fallingBlockState) {
+        this(OmniEntities.FALLING_CONCRETE_POWDER.get(), world);
         this.fallTile = fallingBlockState;
         this.preventEntitySpawning = true;
         this.setPosition(x, y + (double)((1.0F - this.getHeight()) / 2.0F), z);
@@ -51,6 +53,10 @@ public class FallingConcretePowderEntity extends Entity {
         this.prevPosY = y;
         this.prevPosZ = z;
         this.setOrigin(this.getPosition());
+    }
+
+    public FallingConcretePowderEntity(FMLPlayMessages.SpawnEntity packet, World world) {
+        super(OmniEntities.FALLING_CONCRETE_POWDER.get(), world);
     }
 
     /**
@@ -206,6 +212,7 @@ public class FallingConcretePowderEntity extends Entity {
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @SuppressWarnings("deprecated")
     protected void readAdditional(CompoundNBT compound) {
         this.fallTile = NBTUtil.readBlockState(compound.getCompound("BlockState"));
         this.fallTime = compound.getInt("Time");

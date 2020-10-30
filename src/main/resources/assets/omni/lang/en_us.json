@@ -95,11 +95,6 @@
   "block.omni.red_glazed_terracotta_pillar": "Red Glazed Terracotta Pillar",
   "block.omni.black_glazed_terracotta_pillar": "Black Glazed Terracotta Pillar",
 
-  "block.omni.red_hydrangea": "Red Hydrangea",
-  "block.omni.yellow_hydrangea": "Yellow Hydrangea",
-  "block.omni.blue_hydrangea": "Blue Hydrangea",
-  "block.omni.purple_hydrangea": "Purple Hydrangea",
-
   "block.omni.alliums": "Alliums",
   "block.omni.azure_bluets": "Azure Bluets",
   "block.omni.blue_orchids": "Blue Orchids",
@@ -118,7 +113,7 @@
   "block.omni.crimson_fungi": "Crimson Fungi",
   "block.omni.warped_fungi": "Warped Fungi",
 
-  "biome.omni.flower_field": "FLower Field",
+  "biome.omni.flower_field": "Flower Field",
 
   "_comment2": "Deserted",
 

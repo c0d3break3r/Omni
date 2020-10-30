@@ -58,7 +58,7 @@ public class FlowersBlock extends BushBlock {
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
-        return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : base instanceof FlowerBlock ? MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z) : MULTI_MUSHROOM_SHAPE;
+        return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : (base instanceof FlowerBlock || base instanceof FungusBlock) ? MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z) : MULTI_MUSHROOM_SHAPE;
     }
 
     @Override
@@ -78,8 +78,10 @@ public class FlowersBlock extends BushBlock {
     private void removeOneFlower(World world, BlockPos pos, BlockState state) {
         world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
         int i = state.get(FLOWERS);
-        if (i <= 2) {
+        if (i == 2) {
             world.setBlockState(pos, base.getDefaultState(), 3);
+        } else if (i == 1) {
+            world.destroyBlock(pos, true, (PlayerEntity)null);
         } else {
             world.setBlockState(pos, state.with(FLOWERS, i - 1), 3);
             world.playEvent(2001, pos, Block.getStateId(state));

@@ -213,6 +213,11 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         return shouldSolidify(world, pos, blockstate) ? this.solidifiedState.with(LAYERS, 8).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER) && fluidstate.getLevel() == 8) : super.getStateForPlacement(context);
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
+        return state.getBlock().getMaterialColor().colorValue;
+    }
+
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(LAYERS, WATERLOGGED);
     }

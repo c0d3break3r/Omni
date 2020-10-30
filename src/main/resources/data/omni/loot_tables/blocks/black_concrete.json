@@ -33,13 +33,13 @@
                   "conditions": [
                     {
                       "condition": "minecraft:block_state_property",
-                      "block": "omni:black_concrete_powder",
+                      "block": "omni:black_concrete",
                       "properties": {
                         "layers": "8"
                       }
                     }
                   ],
-                  "name": "omni:black_concrete_powder"
+                  "name": "omni:black_concrete"
                 }
               ]
             }

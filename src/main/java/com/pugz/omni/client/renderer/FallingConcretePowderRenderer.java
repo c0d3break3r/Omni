@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ForgeHooksClient;
 
 import java.util.Random;
 
@@ -36,22 +38,20 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
                 BlockPos blockpos = new BlockPos(entityIn.getPosX(), entityIn.getBoundingBox().maxY, entityIn.getPosZ());
                 matrixStackIn.translate(-0.5D, 0.0D, -0.5D);
                 BlockRendererDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
-                for (net.minecraft.client.renderer.RenderType type : net.minecraft.client.renderer.RenderType.getBlockRenderTypes()) {
+                for (RenderType type : RenderType.getBlockRenderTypes()) {
                     if (RenderTypeLookup.canRenderInLayer(blockstate, type)) {
-                        net.minecraftforge.client.ForgeHooksClient.setRenderLayer(type);
+                        ForgeHooksClient.setRenderLayer(type);
                         blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(blockstate), blockstate, blockpos, matrixStackIn, bufferIn.getBuffer(type), false, new Random(), blockstate.getPositionRandom(entityIn.getOrigin()), OverlayTexture.NO_OVERLAY);
                     }
                 }
-                net.minecraftforge.client.ForgeHooksClient.setRenderLayer(null);
+                ForgeHooksClient.setRenderLayer(null);
                 matrixStackIn.pop();
                 super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             }
         }
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     */
+    @SuppressWarnings("deprecated")
     public ResourceLocation getEntityTexture(FallingConcretePowderEntity entity) {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }

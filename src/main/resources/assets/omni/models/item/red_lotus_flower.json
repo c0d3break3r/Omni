@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "omni:block/paradise/red_lotus_flower"
+    "layer0": "omni:item/paradise/red_lotus_flower"
   }
 }

@@ -7,7 +7,6 @@ import com.pugz.omni.common.world.OmniBiomeMaker;
 import com.pugz.omni.core.registry.OmniBiomes;
 import com.pugz.omni.core.registry.OmniBlocks;
 import com.pugz.omni.core.registry.OmniEntities;
-import com.pugz.omni.core.util.BiomeFeatures;
 import com.pugz.omni.core.util.RegistryUtil;
 import com.pugz.omni.core.util.TradeUtils;
 import net.minecraft.block.*;
@@ -16,13 +15,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -37,8 +33,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class ColormaticModule extends AbstractModule {
@@ -148,16 +142,6 @@ public class ColormaticModule extends AbstractModule {
     protected void registerStats() {
     }
 
-    public static BlockState getFlower(String name) {
-        for (Supplier<Block> block : stackables) {
-            if (block.get().getRegistryName().getPath().equals(name)) {
-                return block.get().getDefaultState();
-            }
-        }
-
-        return null;
-    }
-
     public void onWandererTrades(WandererTradesEvent event) {
         event.getGenericTrades().addAll(ImmutableSet.of(
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.RED_LOTUS_FLOWER.get()), 1, 1, 12, 1),
@@ -173,116 +157,10 @@ public class ColormaticModule extends AbstractModule {
     public void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         ResourceLocation name = event.getName();
-        Random random = new Random();
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_DEFAULT)) {
-            System.out.println(gen.toString() + " has flower default");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_DEFAULT);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 12);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 12);
-        }
-
-        /*
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_FOREST)) {
-            System.out.println(gen.toString() + " has flower forest");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_FOREST);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("alliums").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("cornflowers").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("red_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("orange_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("white_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("pink_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("lily_of_the_valleys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN)) {
-            System.out.println(gen.toString() + " has flower plain");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("lily_of_the_valleys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("cornflowers").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("red_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("orange_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("white_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("pink_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN_DECORATED)) {
-            System.out.println(gen.toString() + " has flower plain decorated");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_PLAIN_DECORATED);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("lily_of_the_valleys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("cornflowers").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("red_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("orange_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("white_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("pink_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_SWAMP)) {
-            System.out.println(gen.toString() + " has flower swamp");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_SWAMP);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("blue_orchids").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 12);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_WARM)) {
-            System.out.println(gen.toString() + " has flower warm");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.FLOWER_WARM);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_BROWN_MUSHROOM)) {
-            System.out.println(gen.toString() + " has brown mushrooms");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_BROWN_MUSHROOM);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("brown_mushrooms").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.STONE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.DIORITE), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_RED_MUSHROOM)) {
-            System.out.println(gen.toString() + " has red mushrooms");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.PATCH_RED_MUSHROOM);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("red_mushrooms").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.STONE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.DIORITE), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.CRIMSON_FUNGI)) {
-            System.out.println(gen.toString() + " has crimson fungi");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.CRIMSON_FUNGI);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("crimson_fungi").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.CRIMSON_NYLIUM), 1, 16);
-        }
-
-        if (BiomeFeatures.hasFeature(gen, name, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.WARPED_FUNGI)) {
-            System.out.println(gen.toString() + " has warped fungi");
-
-            BiomeFeatures.removeFeature(gen, GenerationStage.Decoration.VEGETAL_DECORATION, () -> Features.WARPED_FUNGI);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("warped_fungi").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.WARPED_NYLIUM), 1, 16);
-        }
-        */
 
         if (name.equals(new ResourceLocation("omni", "flower_field"))) {
-            BiomeFeatures.addScatteredBlock(gen, getFlower("poppys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("dandelions").with(FlowersBlock.FLOWERS, random.nextInt(3) + 1), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("alliums").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("cornflowers").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("red_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("orange_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("white_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("pink_tulips").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("lily_of_the_valleys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
-            BiomeFeatures.addScatteredBlock(gen, getFlower("oxeye_daisys").with(FlowersBlock.FLOWERS, random.nextInt(3) + 2), ImmutableSet.of(Blocks.GRASS_BLOCK), 1, 16);
+            gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FOREST_FLOWER_VEGETATION_COMMON);
+            gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FLOWER_FOREST);
         }
     }
 
