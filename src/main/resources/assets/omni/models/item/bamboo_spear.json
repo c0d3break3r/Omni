@@ -1,6 +1,0 @@
-{
-	"parent": "omni:item/spear",
-	"textures": {
-		"spear": "omni:item/paradise/bamboo_spear"
-	}
-}

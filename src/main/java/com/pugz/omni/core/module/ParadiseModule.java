@@ -2,28 +2,16 @@ package com.pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
 import com.pugz.omni.common.block.paradise.LotusFlowerBlock;
-import com.pugz.omni.common.entity.paradise.BambooSpearEntity;
-import com.pugz.omni.common.item.LitSpearItem;
-import com.pugz.omni.common.item.SpearItem;
 import com.pugz.omni.core.registry.OmniBlocks;
-import com.pugz.omni.core.registry.OmniEntities;
-import com.pugz.omni.core.registry.OmniItems;
 import com.pugz.omni.core.util.BiomeFeatures;
 import com.pugz.omni.core.util.RegistryUtil;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.fml.RegistryObject;
 
 public class ParadiseModule extends AbstractModule {
     public static final ParadiseModule instance = new ParadiseModule();

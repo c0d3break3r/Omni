@@ -4,7 +4,6 @@
   "block.omni.stone_speleothem": "Stone Speleothem",
   "block.omni.ice_speleothem": "Icicle",
   "block.omni.netherrack_speleothem": "Netherrack Speleothem",
-  "block.omni.end_stone_speleothem": "End Stone Speleothem",
 
   "_comment1": "Colormatic",
 
@@ -140,7 +139,4 @@
   "block.omni.purple_lotus_flower": "Purple Lotus Flower",
   "block.omni.black_lotus_flower": "Black Lotus Flower",
   "block.omni.white_lotus_flower": "White Lotus Flower",
-
-  "item.omni.bamboo_spear": "Bamboo Spear",
-  "item.omni.lit_bamboo_spear": "Lit Bamboo Spear"
 }
