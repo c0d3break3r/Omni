@@ -28,6 +28,7 @@ import java.util.Random;
 public class FlowersBlock extends BushBlock {
     private static final VoxelShape MULTI_FLOWER_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
     private static final VoxelShape MULTI_MUSHROOM_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
+    private static final VoxelShape MULTI_FUNGUS_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D);
     public static final IntegerProperty FLOWERS = IntegerProperty.create("flowers", 1, 4);
     private final Block base;
 
@@ -58,7 +59,7 @@ public class FlowersBlock extends BushBlock {
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
-        return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : (base instanceof FlowerBlock || base instanceof FungusBlock) ? MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z) : MULTI_MUSHROOM_SHAPE;
+        return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : base instanceof FlowerBlock ? MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z) : base instanceof MushroomBlock ? MULTI_MUSHROOM_SHAPE : MULTI_FUNGUS_SHAPE;
     }
 
     @Override

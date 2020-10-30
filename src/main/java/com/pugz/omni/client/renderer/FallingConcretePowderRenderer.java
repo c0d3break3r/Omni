@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +20,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.model.ModelDataManager;
+import net.minecraftforge.client.model.data.EmptyModelData;
 
 import java.util.Random;
 
@@ -44,7 +47,6 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
                         blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(blockstate), blockstate, blockpos, matrixStackIn, bufferIn.getBuffer(type), false, new Random(), blockstate.getPositionRandom(entityIn.getOrigin()), OverlayTexture.NO_OVERLAY);
                     }
                 }
-                ForgeHooksClient.setRenderLayer(null);
                 matrixStackIn.pop();
                 super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             }
@@ -53,6 +55,6 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
 
     @SuppressWarnings("deprecated")
     public ResourceLocation getEntityTexture(FallingConcretePowderEntity entity) {
-        return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+        return new ResourceLocation("minecraft", "test");
     }
 }
