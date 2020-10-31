@@ -9,7 +9,7 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void sendInitMessage() {
-        System.out.println("Relaxing with all the Forestry.");
+        System.out.println("Relaxing within all the Forestry.");
     }
 
     @Override

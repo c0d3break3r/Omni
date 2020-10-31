@@ -1,7 +1,7 @@
 package com.pugz.omni.core.module;
 
 public abstract class AbstractModule {
-    private String name;
+    private final String name;
 
     public AbstractModule(String name) {
         this.name = name;
