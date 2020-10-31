@@ -35,7 +35,7 @@ public class Omni {
     public static final String MOD_ID = "omni";
 
     public Omni() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         Registries.BLOCKS.register(eventBus);
         OverrideRegistries.BLOCKS.register(eventBus);
