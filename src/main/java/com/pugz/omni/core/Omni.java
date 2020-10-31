@@ -58,13 +58,12 @@ public class Omni {
         Registries.PARTICLES.register(eventBus);
         Registries.STATS.register(eventBus);
 
-        eventBus.addListener(EventPriority.LOWEST, this::commonSetup);
+        registerModules();
+        eventBus.addListener(this::commonSetup);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
             eventBus.addListener(this::clientSetup);
         });
-
-        registerModules();
     }
 
     private void registerModules() {
@@ -82,7 +81,7 @@ public class Omni {
         WintertimeModule.instance.initialize();
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             OmniBlocks.registerCompostables();
             OmniBlocks.registerFlammables();
@@ -90,11 +89,11 @@ public class Omni {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void clientSetup(FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
+        OmniEntities.registerEntityRenders();
         DeferredWorkQueue.runLater(() -> {
             OmniBlocks.registerBlockRenders();
             OmniTileEntities.registerTileEntityRenders();
-            OmniEntities.registerEntityRenders();
         });
     }
 

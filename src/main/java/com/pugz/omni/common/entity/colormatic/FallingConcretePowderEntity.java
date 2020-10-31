@@ -10,7 +10,6 @@ import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
@@ -18,7 +17,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 public class FallingConcretePowderEntity extends FallingBlockEntity {
     private BlockState fallTile = Blocks.SAND.getDefaultState();
@@ -149,10 +147,5 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
     @Override
     public boolean onLivingFall(float distance, float damageMultiplier) {
         return false;
-    }
-
-    @Override
-    public IPacket<?> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }
