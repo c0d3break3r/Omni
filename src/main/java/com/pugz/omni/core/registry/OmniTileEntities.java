@@ -25,9 +25,9 @@ public class OmniTileEntities {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void registerRenders() {
-        ClientRegistry.bindTileEntityRenderer(CHEST.get(), ChestTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(TRAPPED_CHEST.get(), ChestTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(SIGN.get(), SignTileEntityRenderer::new);
+    public static void registerTileEntityRenders() {
+        ClientRegistry.bindTileEntityRenderer(OmniTileEntities.CHEST.get(), ChestTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OmniTileEntities.TRAPPED_CHEST.get(), ChestTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OmniTileEntities.SIGN.get(), SignTileEntityRenderer::new);
     }
 }

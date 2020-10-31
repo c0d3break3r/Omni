@@ -8,6 +8,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
+import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.ItemStack;
@@ -32,12 +33,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class FallingConcretePowderEntity extends Entity {
+public class FallingConcretePowderEntity extends FallingBlockEntity {
     private BlockState fallTile = Blocks.SAND.getDefaultState();
     public int fallTime;
     public boolean shouldDropItem = true;
     private boolean dontSetBlock;
-    protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
 
     public FallingConcretePowderEntity(EntityType<? extends FallingConcretePowderEntity> type, World world) {
         super(type, world);
@@ -53,41 +53,6 @@ public class FallingConcretePowderEntity extends Entity {
         this.prevPosY = y;
         this.prevPosZ = z;
         this.setOrigin(this.getPosition());
-    }
-
-    public FallingConcretePowderEntity(FMLPlayMessages.SpawnEntity packet, World world) {
-        super(OmniEntities.FALLING_CONCRETE_POWDER.get(), world);
-    }
-
-    /**
-     * Returns true if it's possible to attack this entity with an item.
-     */
-    public boolean canBeAttackedWithItem() {
-        return false;
-    }
-
-    public void setOrigin(BlockPos origin) {
-        this.dataManager.set(ORIGIN, origin);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public BlockPos getOrigin() {
-        return this.dataManager.get(ORIGIN);
-    }
-
-    protected boolean canTriggerWalking() {
-        return false;
-    }
-
-    protected void registerData() {
-        this.dataManager.register(ORIGIN, BlockPos.ZERO);
-    }
-
-    /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
-     */
-    public boolean canBeCollidedWith() {
-        return !this.removed;
     }
 
     /**
@@ -199,61 +164,8 @@ public class FallingConcretePowderEntity extends Entity {
         }
     }
 
+    @Override
     public boolean onLivingFall(float distance, float damageMultiplier) {
         return false;
-    }
-
-    protected void writeAdditional(CompoundNBT compound) {
-        if (this.fallTile.getBlock() instanceof LayerConcretePowderBlock) compound.put("BlockState", NBTUtil.writeBlockState(this.fallTile));
-        compound.putInt("Time", this.fallTime);
-        compound.putBoolean("DropItem", this.shouldDropItem);
-    }
-
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    @SuppressWarnings("deprecated")
-    protected void readAdditional(CompoundNBT compound) {
-        this.fallTile = NBTUtil.readBlockState(compound.getCompound("BlockState"));
-        this.fallTime = compound.getInt("Time");
-
-        if (compound.contains("DropItem", 99)) {
-            this.shouldDropItem = compound.getBoolean("DropItem");
-        }
-
-        if (this.fallTile.isAir()) {
-            this.fallTile = Blocks.SAND.getDefaultState();
-        }
-
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public World getWorldObj() {
-        return this.world;
-    }
-
-    /**
-     * Return whether this entity should be rendered as on fire.
-     */
-    @OnlyIn(Dist.CLIENT)
-    public boolean canRenderOnFire() {
-        return false;
-    }
-
-    public void fillCrashReport(CrashReportCategory category) {
-        super.fillCrashReport(category);
-        category.addDetail("Immitating BlockState", this.fallTile.toString());
-    }
-
-    public BlockState getBlockState() {
-        return this.fallTile;
-    }
-
-    public boolean ignoreItemEntityData() {
-        return true;
-    }
-
-    public IPacket<?> createSpawnPacket() {
-        return new SSpawnObjectPacket(this, Block.getStateId(this.getBlockState()));
     }
 }

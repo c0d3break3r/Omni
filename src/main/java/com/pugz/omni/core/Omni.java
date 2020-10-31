@@ -2,8 +2,8 @@ package com.pugz.omni.core;
 
 import com.pugz.omni.core.module.*;
 import com.pugz.omni.core.registry.OmniBlocks;
+import com.pugz.omni.core.registry.OmniEntities;
 import com.pugz.omni.core.registry.OmniTileEntities;
-import com.pugz.omni.core.util.BiomeFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
@@ -20,7 +20,6 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -85,14 +84,17 @@ public class Omni {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
+            OmniBlocks.registerCompostables();
+            OmniBlocks.registerFlammables();
         });
     }
 
     @OnlyIn(Dist.CLIENT)
     private void clientSetup(FMLClientSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
-            OmniBlocks.registerRenders();
-            OmniTileEntities.registerRenders();
+            OmniBlocks.registerBlockRenders();
+            OmniTileEntities.registerTileEntityRenders();
+            OmniEntities.registerEntityRenders();
         });
     }
 
