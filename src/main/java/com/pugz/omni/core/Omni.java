@@ -87,10 +87,10 @@ public class Omni {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+        OmniEntities.registerEntityRenders();
         DeferredWorkQueue.runLater(() -> {
             OmniBlocks.registerBlockRenders();
             OmniTileEntities.registerTileEntityRenders();
-            OmniEntities.registerEntityRenders();
         });
     }
 
