@@ -72,7 +72,9 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         return state.with(STATIC, true).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER));
     }
 
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult ray) {
         ItemStack held = player.getHeldItem(handIn);
         Size size = state.get(SIZE);
@@ -116,6 +118,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     /**
      * Performs a random tick on a block.
      */
+    @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         for (int y = pos.getY(); y >= 0; --y) {
             BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
@@ -143,6 +146,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockState down = worldIn.getBlockState(pos.down());
         BlockState up = worldIn.getBlockState(pos.up());
@@ -161,6 +165,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         return type == PathType.WATER && worldIn.getFluidState(pos).isTagged(FluidTags.WATER);
     }
 
+    @Nonnull
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
@@ -250,6 +255,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         public String name;
         private final int width;
 
+        @Nonnull
         @Override
         public String getString() {
             return name;
@@ -267,6 +273,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
         public String name;
 
+        @Nonnull
         @Override
         public String getString() {
             return name;

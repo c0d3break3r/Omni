@@ -5,8 +5,6 @@ import com.pugz.omni.core.module.ColormaticModule;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import org.apache.commons.lang3.StringUtils;
 
@@ -83,7 +81,6 @@ public class OmniBlocks {
         ComposterBlock.CHANCES.put(WHITE_LOTUS_FLOWER.get().asItem(), 0.65F);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void registerBlockRenders() {
         RenderTypeLookup.setRenderLayer(YELLOW_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ORANGE_LOTUS_FLOWER.get(), RenderType.getCutout());

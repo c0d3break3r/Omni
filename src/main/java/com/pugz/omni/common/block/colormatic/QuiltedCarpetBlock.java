@@ -1,7 +1,9 @@
 package com.pugz.omni.common.block.colormatic;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.DyeColor;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
 import net.minecraft.state.StateContainer;
@@ -16,6 +18,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class QuiltedCarpetBlock extends Block {
@@ -26,24 +29,31 @@ public class QuiltedCarpetBlock extends Block {
     public static final BooleanProperty WEST;
     protected static final Map<Direction, BooleanProperty> FACING_TO_PROPERTY_MAP;
 
-    public QuiltedCarpetBlock() {
-        super(AbstractBlock.Properties.from(Blocks.BLUE_CARPET));
+    public QuiltedCarpetBlock(DyeColor color) {
+        super(AbstractBlock.Properties.create(Material.CARPET, color).hardnessAndResistance(0.1F).sound(SoundType.CLOTH));
         setDefaultState(stateContainer.getBaseState().with(NORTH, false).with(SOUTH, false).with(EAST, false).with(WEST, false));
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecated")
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecated")
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
         if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
         return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState)state.with((Property)FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
     }
 
+    @SuppressWarnings("deprecated")
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         return !world.isAirBlock(pos.down());
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecated")
     public BlockState rotate(BlockState state, Rotation rotation) {
         switch(rotation) {
             case CLOCKWISE_180:
@@ -57,6 +67,8 @@ public class QuiltedCarpetBlock extends Block {
         }
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecated")
     public BlockState mirror(BlockState state, Mirror mirror) {
         switch(mirror) {
             case LEFT_RIGHT:

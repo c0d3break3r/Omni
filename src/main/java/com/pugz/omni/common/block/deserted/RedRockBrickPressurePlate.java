@@ -18,6 +18,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -37,6 +38,7 @@ public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
         return state.get(POWERED) ? 15 : 0;
     }
 
+    @Nonnull
     protected BlockState setRedstoneStrength(BlockState state, int strength) {
         return state.with(POWERED, strength > 0);
     }
@@ -104,6 +106,8 @@ public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
         world.getPendingBlockTicks().scheduleTick(pos, this, this.getPoweredDuration());
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecated")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (state.get(POWERED)) {
             return ActionResultType.CONSUME;

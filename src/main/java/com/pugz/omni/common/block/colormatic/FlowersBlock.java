@@ -22,6 +22,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -53,16 +54,20 @@ public class FlowersBlock extends BushBlock {
         base.animateTick(stateIn, worldIn, pos, rand);
     }
 
+    @SuppressWarnings("deprecated")
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         base.onEntityCollision(state, worldIn, pos, entityIn);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecated")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
         return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : base instanceof FlowerBlock ? MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z) : base instanceof MushroomBlock ? MULTI_MUSHROOM_SHAPE : MULTI_FUNGUS_SHAPE;
     }
 
     @Override
+    @SuppressWarnings("deprecated")
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         base.randomTick(base.getDefaultState(), worldIn, pos, random);
     }
@@ -72,6 +77,7 @@ public class FlowersBlock extends BushBlock {
         return new ItemStack(base);
     }
 
+    @Nonnull
     public AbstractBlock.OffsetType getOffsetType() {
         return base.getOffsetType();
     }
@@ -96,7 +102,9 @@ public class FlowersBlock extends BushBlock {
         this.removeOneFlower(worldIn, pos, state);
     }
 
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecated")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack held = player.getHeldItem(handIn);
 

@@ -4,6 +4,7 @@ import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -36,17 +37,18 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
+public class LayerConcretePowderBlock extends FallingBlock implements IWaterLoggable {
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS_1_8;
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{VoxelShapes.empty(), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
     private final BlockState solidifiedState;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public LayerConcretePowderBlock(Block solidifiedIn, DyeColor color) {
-        super(Properties.create(Material.SAND, color).hardnessAndResistance(0.5F).sound(SoundType.SAND));
+        super(AbstractBlock.Properties.create(Material.SAND, color).hardnessAndResistance(0.5F).sound(SoundType.SAND));
         this.setDefaultState(this.stateContainer.getBaseState().with(LAYERS, 8).with(LAYERS, 8).with(WATERLOGGED, false));
         solidifiedState = solidifiedIn.getDefaultState();
     }
@@ -55,17 +57,21 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         return solidifiedState;
     }
 
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public PushReaction getPushReaction(BlockState state) {
         return state.get(LAYERS) == 1 ? PushReaction.DESTROY : PushReaction.NORMAL;
     }
 
-    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) && state.get(LAYERS) < 7 ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
+    @SuppressWarnings("deprecation")
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         if (type == PathType.LAND) {
             return state.get(LAYERS) < 5;
@@ -73,22 +79,31 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         return false;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isTransparent(BlockState state) {
         return true;
     }
@@ -99,12 +114,17 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific face passed in.
      */
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, this.getFallDelay());
         return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : isTouchingLiquid(worldIn, currentPos) ? this.solidifiedState.with(LAYERS, stateIn.get(LAYERS)).with(WATERLOGGED, stateIn.get(WATERLOGGED)) : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack held = player.getHeldItem(handIn);
 
@@ -120,10 +140,8 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         return ActionResultType.FAIL;
     }
 
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-        worldIn.getPendingBlockTicks().scheduleTick(pos, this, this.getFallDelay());
-    }
-
+    @Override
+    @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
             FallingConcretePowderEntity fallingblockentity = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, worldIn.getBlockState(pos));
@@ -132,6 +150,7 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         }
     }
 
+    @Override
     protected int getFallDelay() {
         return 2;
     }
@@ -143,7 +162,8 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingConcretePowderEntity fallingBlock) {
+    @Override
+    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingBlockEntity fallingBlock) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
     }
 
@@ -199,6 +219,7 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
         return IWaterLoggable.super.canContainFluid(worldIn, pos, state, fluidIn) && state.get(LAYERS) < 8;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
         return state.get(LAYERS) == 1;
     }
@@ -214,6 +235,7 @@ public class LayerConcretePowderBlock extends Block implements IWaterLoggable {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
         return state.getBlock().getMaterialColor().colorValue;
     }

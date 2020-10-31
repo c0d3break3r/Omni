@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,6 +62,7 @@ public class SpeleothemFeatureConfig implements IFeatureConfig {
             return VALUES_MAP.get(nameIn);
         }
 
+        @Nonnull
         public String getString() {
             return this.name;
         }

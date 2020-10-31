@@ -18,6 +18,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class FallingConcretePowderEntity extends FallingBlockEntity {
     private BlockState fallTile = Blocks.SAND.getDefaultState();
 
@@ -46,7 +48,7 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
         } else {
             Block block = this.fallTile.getBlock();
             if (this.fallTime++ == 0) {
-                BlockPos blockpos = this.getPosition();
+                BlockPos blockpos = new BlockPos(this.getPositionVec());
                 if (this.world.getBlockState(blockpos).isIn(block)) {
                     this.world.removeBlock(blockpos, false);
                 } else if (!this.world.isRemote) {
@@ -61,7 +63,7 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
 
             this.move(MoverType.SELF, this.getMotion());
             if (!this.world.isRemote) {
-                BlockPos blockpos1 = this.getPosition();
+                BlockPos blockpos1 = new BlockPos(this.getPositionVec());
                 boolean flag = this.fallTile.getBlock() instanceof LayerConcretePowderBlock;
                 boolean flag1 = flag && this.world.getFluidState(blockpos1).isTagged(FluidTags.WATER);
                 double d0 = this.getMotion().lengthSquared();
@@ -147,5 +149,11 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
     @Override
     public boolean onLivingFall(float distance, float damageMultiplier) {
         return false;
+    }
+
+    @Nonnull
+    @Override
+    public BlockState getBlockState() {
+        return fallTile;
     }
 }

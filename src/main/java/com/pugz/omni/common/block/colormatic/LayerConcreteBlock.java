@@ -23,56 +23,64 @@ import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 public class LayerConcreteBlock extends Block implements IWaterLoggable {
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS_1_8;
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{VoxelShapes.empty(), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public LayerConcreteBlock(DyeColor color) {
-        super(Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
+        super(AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
         this.setDefaultState(this.stateContainer.getBaseState().with(LAYERS, 8).with(WATERLOGGED, false));
     }
 
-    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) && state.get(LAYERS) < 7 ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
+    @SuppressWarnings("deprecation")
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-        switch(type) {
-            case LAND:
-                return state.get(LAYERS) < 5;
-            case WATER:
-                return false;
-            case AIR:
-                return false;
-            default:
-                return false;
+        if (type == PathType.LAND) {
+            return state.get(LAYERS) < 5;
         }
+        return false;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
         return SHAPES[state.get(LAYERS)];
     }
 
     @OnlyIn(Dist.CLIENT)
+    @SuppressWarnings("deprecation")
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1.0F;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isTransparent(BlockState state) {
         return true;
     }

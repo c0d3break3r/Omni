@@ -19,7 +19,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -32,7 +31,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(Omni.MOD_ID)
-@SuppressWarnings("depracated")
 public class Omni {
     public static final String MOD_ID = "omni";
 
@@ -62,7 +60,7 @@ public class Omni {
         eventBus.addListener(this::commonSetup);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-            eventBus.addListener(this::clientSetup);
+            eventBus.addListener(EventPriority.LOWEST, this::clientSetup);
         });
     }
 
@@ -88,12 +86,11 @@ public class Omni {
         });
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void clientSetup(final FMLClientSetupEvent event) {
-        OmniEntities.registerEntityRenders();
         DeferredWorkQueue.runLater(() -> {
             OmniBlocks.registerBlockRenders();
             OmniTileEntities.registerTileEntityRenders();
+            OmniEntities.registerEntityRenders();
         });
     }
 

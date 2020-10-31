@@ -10,12 +10,15 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class RedRockBrickButton extends AbstractButtonBlock {
     public RedRockBrickButton() {
         super(false, AbstractBlock.Properties.from(Blocks.STONE_BUTTON));
     }
 
     @Override
+    @Nonnull
     protected SoundEvent getSoundEvent(boolean isOn) {
         return isOn ? SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON : SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF;
     }
