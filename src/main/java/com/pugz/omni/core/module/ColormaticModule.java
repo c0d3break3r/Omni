@@ -3,7 +3,6 @@ package com.pugz.omni.core.module;
 import com.google.common.collect.ImmutableSet;
 import com.pugz.omni.common.block.colormatic.*;
 import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
-import com.pugz.omni.common.world.OmniBiomeMaker;
 import com.pugz.omni.core.registry.OmniBiomes;
 import com.pugz.omni.core.registry.OmniBlocks;
 import com.pugz.omni.core.registry.OmniEntities;
@@ -116,7 +115,7 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomeMaker.makeFlowerFieldBiome(), BiomeManager.BiomeType.WARM, 1, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
+        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, 1, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
         //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
         //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
         //RegistryObject<Biome> EUCALYPTUS_FOREST;
