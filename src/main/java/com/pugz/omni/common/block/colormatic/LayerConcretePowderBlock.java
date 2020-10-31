@@ -49,7 +49,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     public LayerConcretePowderBlock(Block solidifiedIn, DyeColor color) {
         super(AbstractBlock.Properties.create(Material.SAND, color).hardnessAndResistance(0.5F).sound(SoundType.SAND));
-        this.setDefaultState(this.stateContainer.getBaseState().with(LAYERS, 8).with(LAYERS, 8).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(LAYERS, 8).with(WATERLOGGED, false));
         solidifiedState = solidifiedIn.getDefaultState();
     }
 
