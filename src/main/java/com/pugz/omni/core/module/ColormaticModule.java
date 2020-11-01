@@ -201,7 +201,6 @@ public class ColormaticModule extends AbstractModule {
             for (Supplier<AbstractStackableBlock> b : stackables) {
                 AbstractStackableBlock stackable = b.get();
                 if (stack.getItem() == block.asItem() && stackable.getBase() == block && !player.isSneaking()) {
-                    player.sendBreakAnimation(event.getHand());
                     if (!player.isCreative()) {
                         stack.shrink(1);
                     }

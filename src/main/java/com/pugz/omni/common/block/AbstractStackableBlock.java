@@ -76,7 +76,6 @@ public abstract class AbstractStackableBlock extends BushBlock implements IStack
         if (held.getItem() == getBase().asItem()) {
             int i = state.get(getCountProperty());
             if (i < 4) {
-                player.sendBreakAnimation(handIn);
                 if (!player.isCreative()) {
                     held.shrink(1);
                 }
