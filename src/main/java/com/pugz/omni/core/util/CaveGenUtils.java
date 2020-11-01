@@ -20,8 +20,8 @@ public class CaveGenUtils {
             Block down = world.getBlockState(pos$mutable.down()).getBlock();
 
             if ((block == Blocks.CAVE_AIR || block == Blocks.WATER)
-                    && (up != Blocks.AIR && variant != SpeleothemFeatureConfig.Variant.NETHERRACK)
-                    && checkCavePos(down, variant)
+                    && up != Blocks.AIR
+                    && isValidCavePos(down, variant)
                     && !world.canBlockSeeSky(pos$mutable)) break;
         }
 
@@ -42,7 +42,10 @@ public class CaveGenUtils {
             Block block = world.getBlockState(pos$mutable).getBlock();
             BlockState up = world.getBlockState(pos$mutable.up());
 
-            if (((up.getBlock() != Blocks.CAVE_AIR && variant != SpeleothemFeatureConfig.Variant.NETHERRACK) && block == Blocks.CAVE_AIR) || ((up.getBlock() != Blocks.WATER && up.getBlock() != Blocks.CAVE_AIR) && block == Blocks.WATER)) break;
+            if ((up.getBlock() != Blocks.CAVE_AIR
+                    && block == Blocks.CAVE_AIR) || ((up.getBlock() != Blocks.WATER
+                    && up.getBlock() != Blocks.CAVE_AIR)
+                    && block == Blocks.WATER)) break;
         }
 
         if (height <= 2 || height > 63) return 0;
@@ -50,7 +53,7 @@ public class CaveGenUtils {
         return height;
     }
 
-    public static boolean checkCavePos(Block block, SpeleothemFeatureConfig.Variant variant) {
+    public static boolean isValidCavePos(Block block, SpeleothemFeatureConfig.Variant variant) {
         for (Block b : variant.getSpawnableBlocks()) {
             if (b == block) return true;
         }

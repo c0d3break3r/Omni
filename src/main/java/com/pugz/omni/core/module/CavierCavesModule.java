@@ -154,16 +154,15 @@ public class CavierCavesModule extends AbstractModule {
     public void onBiomeLoading(BiomeLoadingEvent event) {
         Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
-        ResourceLocation name = event.getName();
 
-        BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE);
-
-
+        if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, 0.004F);
+        }
         if (category == Biome.Category.ICY) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, 0.006F);
         }
         if (category == Biome.Category.NETHER) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, 0.008F);
         }
     }
 }
