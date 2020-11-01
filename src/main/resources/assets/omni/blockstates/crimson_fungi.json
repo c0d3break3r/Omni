@@ -1,15 +1,15 @@
 {
   "variants": {
-    "flowers=1": {
+    "fungi=1": {
       "model": "block/crimson_fungus"
     },
-    "flowers=2": {
+    "fungi=2": {
       "model": "omni:block/colormatic/two_crimson_fungi"
     },
-    "flowers=3": {
+    "fungi=3": {
       "model": "omni:block/colormatic/three_crimson_fungi"
     },
-    "flowers=4": {
+    "fungi=4": {
       "model": "omni:block/colormatic/four_crimson_fungi"
     }
   }

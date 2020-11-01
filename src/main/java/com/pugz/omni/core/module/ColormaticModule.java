@@ -1,6 +1,7 @@
 package com.pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
+import com.pugz.omni.common.block.IStackable;
 import com.pugz.omni.common.block.colormatic.*;
 import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import com.pugz.omni.core.registry.OmniBiomes;
@@ -19,7 +20,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -72,16 +75,24 @@ public class ColormaticModule extends AbstractModule {
         }
 
         for (Block block : ForgeRegistries.BLOCKS.getValues()) {
-            if (block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof FungusBlock) {
-                String name;
+            String name;
 
-                if (block instanceof FungusBlock) {
-                    name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
-                }
-                else name = block.getRegistryName().getPath() + "s";
-
+            if (block instanceof FlowerBlock) {
+                name = block.getRegistryName().getPath() + "s";
                 final RegistryObject<Block> FLOWERS = RegistryUtil.createBlock(name, () -> new FlowersBlock(AbstractBlock.Properties.from(block), block), null);
                 stackables.add(FLOWERS);
+            } else if (block instanceof MushroomBlock) {
+                name = block.getRegistryName().getPath() + "s";
+                ConfiguredFeature<?, ?> configuredFeature = StringUtils.contains(name, "red") ? Features.RED_MUSHROOM_GIANT : Features.BROWN_MUSHROOM_GIANT;
+
+                final RegistryObject<Block> MUSHROOMS = RegistryUtil.createBlock(name, () -> new MushroomsBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
+                stackables.add(MUSHROOMS);
+            } else if (block instanceof FungusBlock) {
+                name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
+                ConfiguredFeature<HugeFungusConfig, ?> configuredFeature = StringUtils.contains(name, "crimson") ? Features.CRIMSON_FUNGI_PLANTED : Features.WARPED_FUNGI_PLANTED;
+
+                final RegistryObject<Block> FUNGI = RegistryUtil.createBlock(name, () -> new FungiBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
+                stackables.add(FUNGI);
             }
         }
 
@@ -184,19 +195,20 @@ public class ColormaticModule extends AbstractModule {
         Block block = world.getBlockState(pos).getBlock();
         PlayerEntity player = event.getPlayer();
 
-        if ((block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof FungusBlock) && stack.getItem() == block.asItem() && !player.isSneaking()) {
-            for (Supplier<Block> b : stackables) {
-                if (((FlowersBlock) b.get()).getBase() == block) {
+        for (Supplier<Block> b : stackables) {
+            if (block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof FungusBlock) {
+                IStackable stackable = ((IStackable) b.get());
+                if (stack.getItem() == block.asItem() && stackable.getBase() == block && !player.isSneaking()) {
                     player.sendBreakAnimation(event.getHand());
                     if (!player.isCreative()) {
                         stack.shrink(1);
                     }
 
-                    world.setBlockState(pos, b.get().getDefaultState(), 3);
+                    world.setBlockState(pos, stackable.getBlock().getDefaultState(), 3);
                     event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
                 }
+                event.setCanceled(true);
             }
-            event.setCanceled(true);
         }
     }
 }

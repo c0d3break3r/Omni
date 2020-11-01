@@ -29,7 +29,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:brown_mushrooms",
                       "properties": {
-                        "flowers": "1"
+                        "mushrooms": "1"
                       }
                     }
                   ],
@@ -48,7 +48,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:brown_mushrooms",
                       "properties": {
-                        "flowers": "2"
+                        "mushrooms": "2"
                       }
                     }
                   ],
@@ -67,7 +67,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:brown_mushrooms",
                       "properties": {
-                        "flowers": "3"
+                        "mushrooms": "3"
                       }
                     }
                   ],
@@ -86,7 +86,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:brown_mushrooms",
                       "properties": {
-                        "flowers": "4"
+                        "mushrooms": "4"
                       }
                     }
                   ],

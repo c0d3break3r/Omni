@@ -57,7 +57,7 @@ public class OmniBlocks {
         fire.setFireInfo(WHITE_LOTUS_FLOWER.get(), 60, 100);
 
         for (Supplier<Block> block : ColormaticModule.stackables) {
-            if (((FlowersBlock) block.get()).getBase() instanceof FlowerBlock) fire.setFireInfo(block.get(), 60, 100);
+            if (block.get() instanceof FlowersBlock) fire.setFireInfo(block.get(), 60, 100);
         }
 
         fire.setFireInfo(TRADERS_QUILTED_CARPET.get(), 60, 20);

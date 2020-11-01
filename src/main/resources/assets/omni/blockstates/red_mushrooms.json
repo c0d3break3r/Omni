@@ -1,15 +1,15 @@
 {
   "variants": {
-    "flowers=1": {
+    "mushrooms=1": {
       "model": "block/red_mushroom"
     },
-    "flowers=2": {
+    "mushrooms=2": {
       "model": "omni:block/colormatic/two_red_mushrooms"
     },
-    "flowers=3": {
+    "mushrooms=3": {
       "model": "omni:block/colormatic/three_red_mushrooms"
     },
-    "flowers=4": {
+    "mushrooms=4": {
       "model": "omni:block/colormatic/four_red_mushrooms"
     }
   }

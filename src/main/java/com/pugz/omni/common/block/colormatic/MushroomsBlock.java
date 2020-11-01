@@ -8,16 +8,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.BigMushroomFeatureConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,16 +30,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class FlowersBlock extends BushBlock implements IStackable {
-    private static final VoxelShape MULTI_FLOWER_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
-    public static final IntegerProperty FLOWERS = IntegerProperty.create("flowers", 1, 4);
+public class MushroomsBlock extends BushBlock implements IGrowable, IStackable {
+    private static final VoxelShape MULTI_MUSHROOM_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D);
+    public static final IntegerProperty MUSHROOMS = IntegerProperty.create("mushrooms", 1, 4);
     private final Block base;
+    private final Supplier<ConfiguredFeature<?, ?>> mushroomsFeature;
 
-    public FlowersBlock(AbstractBlock.Properties properties, Block base) {
+    public MushroomsBlock(Properties properties, Block base, Supplier<ConfiguredFeature<?, ?>> mushroomsFeature) {
         super(properties);
         this.base = base;
-        setDefaultState(this.stateContainer.getBaseState().with(FLOWERS, 2));
+        this.mushroomsFeature = mushroomsFeature;
+        setDefaultState(this.stateContainer.getBaseState().with(MUSHROOMS, 2));
     }
 
     @Override
@@ -66,8 +74,7 @@ public class FlowersBlock extends BushBlock implements IStackable {
     @Nonnull
     @SuppressWarnings("deprecated")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vector3d vector3d = state.getOffset(worldIn, pos);
-        return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+        return state.get(MUSHROOMS) == 2 ? base.getShape(state, worldIn, pos, context) : MULTI_MUSHROOM_SHAPE;
     }
 
     @Override
@@ -82,14 +89,14 @@ public class FlowersBlock extends BushBlock implements IStackable {
     }
 
     @Nonnull
-    public AbstractBlock.OffsetType getOffsetType() {
+    public OffsetType getOffsetType() {
         return base.getOffsetType();
     }
 
     @Override
     public void removeOne(World world, BlockPos pos, BlockState state) {
         world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
-        int i = state.get(FLOWERS);
+        int i = state.get(MUSHROOMS);
         switch (i) {
             case 1:
                 world.destroyBlock(pos, true, (PlayerEntity)null);
@@ -98,7 +105,7 @@ public class FlowersBlock extends BushBlock implements IStackable {
                 world.setBlockState(pos, base.getDefaultState(), 3);
                 break;
             default:
-                world.setBlockState(pos, state.with(FLOWERS, i - 1), 3);
+                world.setBlockState(pos, state.with(MUSHROOMS, i - 1), 3);
                 world.playEvent(2001, pos, Block.getStateId(state));
                 break;
         }
@@ -116,22 +123,35 @@ public class FlowersBlock extends BushBlock implements IStackable {
         ItemStack held = player.getHeldItem(handIn);
 
         if (held.getItem() == getBase().asItem()) {
-            int i = state.get(FLOWERS);
+            int i = state.get(MUSHROOMS);
             if (i < 4) {
                 player.sendBreakAnimation(handIn);
                 if (!player.isCreative()) {
                     held.shrink(1);
                 }
 
-                world.setBlockState(pos, state.with(FLOWERS, i + 1), 3);
+                world.setBlockState(pos, state.with(MUSHROOMS, i + 1), 3);
                 return ActionResultType.func_233537_a_(world.isRemote);
             }
         }
         return ActionResultType.FAIL;
     }
 
+    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+        Block block1 = worldIn.getBlockState(pos.down()).getBlock();
+        return block1 == Blocks.MYCELIUM;
+    }
+
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        return (double)rand.nextFloat() < 0.4D * state.get(MUSHROOMS);
+    }
+
+    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+        this.mushroomsFeature.get().generate(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos);
+    }
+
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(FLOWERS);
+        builder.add(MUSHROOMS);
     }
 }

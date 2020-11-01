@@ -29,7 +29,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:crimson_fungi",
                       "properties": {
-                        "flowers": "1"
+                        "fungi": "1"
                       }
                     }
                   ],
@@ -48,7 +48,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:crimson_fungi",
                       "properties": {
-                        "flowers": "2"
+                        "fungi": "2"
                       }
                     }
                   ],
@@ -67,7 +67,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:crimson_fungi",
                       "properties": {
-                        "flowers": "3"
+                        "fungi": "3"
                       }
                     }
                   ],
@@ -86,7 +86,7 @@
                       "condition": "minecraft:block_state_property",
                       "block": "omni:crimson_fungi",
                       "properties": {
-                        "flowers": "4"
+                        "fungi": "4"
                       }
                     }
                   ],
