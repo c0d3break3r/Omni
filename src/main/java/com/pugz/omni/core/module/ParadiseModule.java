@@ -121,10 +121,9 @@ public class ParadiseModule extends AbstractModule {
     }
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
-        Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
-        if (category == Biome.Category.JUNGLE) {
+        if (event.getCategory() == Biome.Category.JUNGLE) {
             BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, 16);
             BiomeFeatures.addScatteredBlock(gen, OmniBlocks.ORANGE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, 16);
             BiomeFeatures.addScatteredBlock(gen, OmniBlocks.YELLOW_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, 16);

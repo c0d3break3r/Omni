@@ -1,6 +1,5 @@
 package com.pugz.omni.core.module;
 
-import com.google.common.collect.ImmutableSet;
 import com.pugz.omni.common.block.deserted.RedRockBrickButton;
 import com.pugz.omni.common.block.deserted.RedRockBrickPressurePlate;
 import com.pugz.omni.core.registry.OmniBlocks;
