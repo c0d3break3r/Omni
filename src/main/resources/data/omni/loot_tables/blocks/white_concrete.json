@@ -5,45 +5,17 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:alternatives",
-              "conditions": [
-                {
-                  "condition": "minecraft:inverted",
-                  "term": {
-                    "condition": "minecraft:match_tool",
-                    "predicate": {
-                      "enchantments": [
-                        {
-                          "enchantment": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "children": [
-                {
-                  "type": "minecraft:item",
-                  "conditions": [
-                    {
-                      "condition": "minecraft:block_state_property",
-                      "block": "omni:white_concrete",
-                      "properties": {
-                        "layers": "8"
-                      }
-                    }
-                  ],
-                  "name": "omni:white_concrete"
-                }
-              ]
+              "condition": "minecraft:block_state_property",
+              "block": "omni:white_concrete",
+              "properties": {
+                "layers": "8"
+              }
             }
-          ]
+          ],
+          "name": "omni:white_concrete"
         }
       ]
     }
