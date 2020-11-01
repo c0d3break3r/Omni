@@ -5,45 +5,22 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:alternatives",
-              "conditions": [
-                {
-                  "condition": "minecraft:inverted",
-                  "term": {
-                    "condition": "minecraft:match_tool",
-                    "predicate": {
-                      "enchantments": [
-                        {
-                          "enchantment": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "children": [
-                {
-                  "type": "minecraft:item",
-                  "conditions": [
-                    {
-                      "condition": "minecraft:block_state_property",
-                      "block": "omni:orange_concrete_powder",
-                      "properties": {
-                        "layers": "8"
-                      }
-                    }
-                  ],
-                  "name": "omni:orange_concrete_powder"
-                }
-              ]
+              "condition": "minecraft:block_state_property",
+              "block": "omni:orange_concrete_powder",
+              "properties": {
+                "layers": "8"
+              }
             }
-          ]
+          ],
+          "name": "omni:orange_concrete_powder"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

@@ -1,0 +1,113 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:brown_mushroom"
+            },
+            {
+              "type": "minecraft:alternatives",
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:killed_by_player"
+                  }
+                }
+              ],
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "omni:brown_mushrooms",
+                      "properties": {
+                        "flowers": "1"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 1
+                    }
+                  ],
+                  "name": "minecraft:brown_mushroom"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "omni:brown_mushrooms",
+                      "properties": {
+                        "flowers": "2"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 2
+                    }
+                  ],
+                  "name": "minecraft:brown_mushroom"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "omni:brown_mushrooms",
+                      "properties": {
+                        "flowers": "3"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 3
+                    }
+                  ],
+                  "name": "minecraft:brown_mushroom"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "omni:brown_mushrooms",
+                      "properties": {
+                        "flowers": "4"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 4
+                    }
+                  ],
+                  "name": "minecraft:brown_mushroom"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

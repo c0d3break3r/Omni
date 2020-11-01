@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -137,7 +138,7 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerParticles() {
-        //RegistryObject<ParticleType<?>> FLOWER_PARTICLE;
+        //RegistryObject<ParticleType<?>> AEROMA_PARTICLE;
         //RegistryObject<ParticleType<?>> DYE_PARTICLE;
     }
 
@@ -168,6 +169,7 @@ public class ColormaticModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         ResourceLocation name = event.getName();
 
+        assert name != null;
         if (name.equals(new ResourceLocation("omni", "flower_field"))) {
             gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FOREST_FLOWER_VEGETATION_COMMON);
             gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FLOWER_FOREST);
@@ -175,21 +177,23 @@ public class ColormaticModule extends AbstractModule {
     }
 
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        World world = event.getWorld();
+
         ItemStack stack = event.getItemStack();
         BlockPos pos = event.getPos();
-        World world = event.getWorld();
         Block block = world.getBlockState(pos).getBlock();
         PlayerEntity player = event.getPlayer();
 
         if ((block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof FungusBlock) && stack.getItem() == block.asItem() && !player.isSneaking()) {
             for (Supplier<Block> b : stackables) {
-                if (((FlowersBlock)b.get()).getBase() == block) {
+                if (((FlowersBlock) b.get()).getBase() == block) {
+                    player.sendBreakAnimation(event.getHand());
                     if (!player.isCreative()) {
                         stack.shrink(1);
                     }
-                    player.sendBreakAnimation(event.getHand());
 
                     world.setBlockState(pos, b.get().getDefaultState(), 3);
+                    event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
                 }
             }
             event.setCanceled(true);

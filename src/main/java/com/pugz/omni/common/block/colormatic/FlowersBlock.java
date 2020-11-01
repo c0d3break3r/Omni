@@ -85,39 +85,41 @@ public class FlowersBlock extends BushBlock {
     private void removeOneFlower(World world, BlockPos pos, BlockState state) {
         world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
         int i = state.get(FLOWERS);
-        if (i == 2) {
-            world.setBlockState(pos, base.getDefaultState(), 3);
-        } else if (i == 1) {
-            world.destroyBlock(pos, true, (PlayerEntity)null);
-        } else {
-            world.setBlockState(pos, state.with(FLOWERS, i - 1), 3);
-            world.playEvent(2001, pos, Block.getStateId(state));
+        switch (i) {
+            case 1:
+                world.destroyBlock(pos, true, (PlayerEntity)null);
+                break;
+            case 2:
+                world.setBlockState(pos, base.getDefaultState(), 3);
+                break;
+            default:
+                world.setBlockState(pos, state.with(FLOWERS, i - 1), 3);
+                world.playEvent(2001, pos, Block.getStateId(state));
+                break;
         }
-
-        world.addEntity(new ItemEntity(world, pos.getX() + state.getOffset(world, pos).x, pos.getY() + state.getOffset(world, pos).y, pos.getZ() + state.getOffset(world, pos).z, new ItemStack(base)));
     }
 
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, state, te, stack);
-        this.removeOneFlower(worldIn, pos, state);
+    public void harvestBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
+        super.harvestBlock(world, player, pos, state, te, stack);
+        this.removeOneFlower(world, pos, state);
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecated")
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack held = player.getHeldItem(handIn);
 
         if (held.getItem() == getBase().asItem()) {
             int i = state.get(FLOWERS);
             if (i < 4) {
+                player.sendBreakAnimation(handIn);
                 if (!player.isCreative()) {
                     held.shrink(1);
                 }
-                player.sendBreakAnimation(handIn);
 
-                worldIn.setBlockState(pos, state.with(FLOWERS, i + 1), 3);
-                return ActionResultType.SUCCESS;
+                world.setBlockState(pos, state.with(FLOWERS, i + 1), 3);
+                return ActionResultType.func_233537_a_(world.isRemote);
             }
         }
         return ActionResultType.FAIL;
