@@ -12,9 +12,7 @@ import com.pugz.omni.core.util.TradeUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -110,6 +108,11 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
+        for (DyeColor color : DyeColor.values()) {
+            final RegistryObject<Item> OVERRIDE_CONCRETE = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete", () -> new BlockItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete")), new Item.Properties()), null);
+            final RegistryObject<Item> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete_powder", () -> new BlockItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete")), new Item.Properties()), null);
+        }
+
         //RegistryObject<Item> DYES; ?
 
         //RegistryObject<Item> DANDELION_FLUFF;

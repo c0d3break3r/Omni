@@ -39,6 +39,11 @@ public class RegistryUtil {
         return Omni.Registries.ITEMS.register(name, supplier);
     }
 
+    public static <I extends Item> RegistryObject<I> createOverrideItem(String name, Supplier<? extends I> supplier, @Nullable ItemGroup group) {
+        RegistryObject<I> item = Omni.OverrideRegistries.ITEMS.register(name, supplier);
+        return item;
+    }
+
     public static <T extends TileEntity> RegistryObject<TileEntityType<T>> createTileEntity(String name, Supplier<? extends T> supplier, Supplier<Block[]> blocks) {
         return Omni.Registries.TILE_ENTITIES.register(name, () -> new TileEntityType<>(supplier, Sets.newHashSet(blocks.get()), null));
     }
