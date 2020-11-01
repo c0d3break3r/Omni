@@ -121,7 +121,6 @@ public class DesertedModule extends AbstractModule {
 
         if (category == Biome.Category.MESA) {
             BiomeFeatures.addOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), 36, 0, 0, 100, 10, 80);
-            BiomeFeatures.addOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), 48, 63, 0, 37, 10, 80);
         }
     }
 }
