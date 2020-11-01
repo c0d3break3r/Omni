@@ -1,11 +1,18 @@
 package com.pugz.omni.core.module;
 
+import com.google.common.collect.ImmutableSet;
 import com.pugz.omni.common.block.deserted.RedRockBrickButton;
 import com.pugz.omni.common.block.deserted.RedRockBrickPressurePlate;
 import com.pugz.omni.core.registry.OmniBlocks;
+import com.pugz.omni.core.util.BiomeFeatures;
 import com.pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class DesertedModule extends AbstractModule {
     public static final DesertedModule instance = new DesertedModule();
@@ -21,6 +28,7 @@ public class DesertedModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -105,5 +113,15 @@ public class DesertedModule extends AbstractModule {
 
     @Override
     protected void registerStats() {
+    }
+
+    public void onBiomeLoading(BiomeLoadingEvent event) {
+        Biome.Category category = event.getCategory();
+        BiomeGenerationSettingsBuilder gen = event.getGeneration();
+
+        if (category == Biome.Category.MESA) {
+            BiomeFeatures.addOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), 36, 0, 0, 100, 10, 80);
+            BiomeFeatures.addOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), 48, 63, 0, 37, 10, 80);
+        }
     }
 }

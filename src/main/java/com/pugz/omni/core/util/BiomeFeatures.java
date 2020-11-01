@@ -8,19 +8,21 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.placement.CaveEdgeConfig;
 import net.minecraft.world.gen.placement.ConfiguredPlacement;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import java.util.Set;
 
 public class BiomeFeatures {
-    public static BlockClusterFeatureConfig scatteredBlockConfig(BlockState state, Set<Block> placers, int freq) {
-        return (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(state), SimpleBlockPlacer.PLACER)).tries(freq).whitelist(placers).func_227317_b_().build();
+    public static void addOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, int size, int bottom, int top, int maxHeight, int spread, int range) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> Feature.ORE.withConfiguration(new OreFeatureConfig(filler, state, size)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, maxHeight))).range(range).square().func_242731_b(spread));
     }
 
     public static void addScatteredBlock(BiomeGenerationSettingsBuilder biome, BlockState state, Set<Block> placers, int freq, int chance) {
-        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Feature.RANDOM_PATCH.withConfiguration(scatteredBlockConfig(state, placers, freq)).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(chance));
+        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(state), SimpleBlockPlacer.PLACER)).tries(freq).whitelist(placers).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(chance));
     }
 
     public static void addSpeleothems(BiomeGenerationSettingsBuilder biome, SpeleothemFeatureConfig.Variant variant, float probability) {
