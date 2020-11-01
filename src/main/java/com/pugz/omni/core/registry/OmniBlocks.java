@@ -1,5 +1,6 @@
 package com.pugz.omni.core.registry;
 
+import com.pugz.omni.common.block.AbstractStackableBlock;
 import com.pugz.omni.common.block.colormatic.FlowersBlock;
 import com.pugz.omni.core.module.ColormaticModule;
 import net.minecraft.block.*;
@@ -56,7 +57,7 @@ public class OmniBlocks {
         fire.setFireInfo(BLACK_LOTUS_FLOWER.get(), 60, 100);
         fire.setFireInfo(WHITE_LOTUS_FLOWER.get(), 60, 100);
 
-        for (Supplier<Block> block : ColormaticModule.stackables) {
+        for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
             if (block.get() instanceof FlowersBlock) fire.setFireInfo(block.get(), 60, 100);
         }
 
@@ -91,7 +92,7 @@ public class OmniBlocks {
         RenderTypeLookup.setRenderLayer(BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
 
-        for (Supplier<Block> block : ColormaticModule.stackables) {
+        for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
             RenderTypeLookup.setRenderLayer(block.get(), RenderType.getCutout());
         }
     }
