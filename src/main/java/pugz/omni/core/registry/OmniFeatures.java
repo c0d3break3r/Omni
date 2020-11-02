@@ -1,6 +1,6 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
-import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
 

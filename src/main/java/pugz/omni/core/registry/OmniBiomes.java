@@ -1,4 +1,4 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

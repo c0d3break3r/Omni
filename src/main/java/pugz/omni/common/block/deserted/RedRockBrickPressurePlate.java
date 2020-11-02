@@ -1,4 +1,4 @@
-package com.pugz.omni.common.block.deserted;
+package pugz.omni.common.block.deserted;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;

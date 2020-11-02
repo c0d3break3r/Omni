@@ -1,8 +1,8 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
-import com.pugz.omni.common.block.AbstractStackableBlock;
-import com.pugz.omni.common.block.colormatic.FlowersBlock;
-import com.pugz.omni.core.module.ColormaticModule;
+import pugz.omni.common.block.AbstractStackableBlock;
+import pugz.omni.common.block.colormatic.FlowersBlock;
+import pugz.omni.core.module.ColormaticModule;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;

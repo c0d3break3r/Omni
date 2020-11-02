@@ -1,11 +1,11 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
-import com.pugz.omni.common.tileentity.OmniBeehiveTileEntity;
-import com.pugz.omni.common.tileentity.OmniChestTileEntity;
-import com.pugz.omni.common.tileentity.OmniSignTileEntity;
-import com.pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
-import com.pugz.omni.core.registry.OmniTileEntities;
-import com.pugz.omni.core.util.RegistryUtil;
+import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
+import pugz.omni.common.tileentity.OmniChestTileEntity;
+import pugz.omni.common.tileentity.OmniSignTileEntity;
+import pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
+import pugz.omni.core.registry.OmniTileEntities;
+import pugz.omni.core.util.RegistryUtil;
 
 public class CoreModule extends AbstractModule {
     public static final CoreModule instance = new CoreModule();

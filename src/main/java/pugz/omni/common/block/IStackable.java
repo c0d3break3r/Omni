@@ -1,4 +1,4 @@
-package com.pugz.omni.common.block;
+package pugz.omni.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

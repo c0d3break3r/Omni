@@ -1,4 +1,4 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
 public class OmniItems {
 }

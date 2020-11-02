@@ -1,4 +1,4 @@
-package com.pugz.omni.common.block.colormatic;
+package pugz.omni.common.block.colormatic;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;

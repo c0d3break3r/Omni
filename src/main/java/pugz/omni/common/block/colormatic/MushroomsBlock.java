@@ -1,7 +1,7 @@
-package com.pugz.omni.common.block.colormatic;
+package pugz.omni.common.block.colormatic;
 
-import com.pugz.omni.common.block.AbstractStackableBlock;
-import com.pugz.omni.common.block.IStackable;
+import pugz.omni.common.block.AbstractStackableBlock;
+import pugz.omni.common.block.IStackable;
 import net.minecraft.block.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
@@ -9,10 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.BigMushroomFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.HugeFungusConfig;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;

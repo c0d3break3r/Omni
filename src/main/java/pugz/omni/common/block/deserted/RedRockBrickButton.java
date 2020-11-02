@@ -1,4 +1,4 @@
-package com.pugz.omni.common.block.deserted;
+package pugz.omni.common.block.deserted;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractButtonBlock;

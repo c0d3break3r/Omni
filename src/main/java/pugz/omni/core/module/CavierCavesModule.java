@@ -1,18 +1,16 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
-import com.pugz.omni.common.block.cavier_caves.SpeleothemBlock;
-import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
-import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
-import com.pugz.omni.core.registry.OmniBlocks;
-import com.pugz.omni.core.registry.OmniFeatures;
-import com.pugz.omni.core.util.BiomeFeatures;
-import com.pugz.omni.core.util.RegistryUtil;
+import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
+import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
+import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniFeatures;
+import pugz.omni.core.util.BiomeFeatures;
+import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;

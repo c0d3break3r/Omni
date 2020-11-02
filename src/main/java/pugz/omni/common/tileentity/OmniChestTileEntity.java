@@ -1,6 +1,6 @@
-package com.pugz.omni.common.tileentity;
+package pugz.omni.common.tileentity;
 
-import com.pugz.omni.core.registry.OmniTileEntities;
+import pugz.omni.core.registry.OmniTileEntities;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;

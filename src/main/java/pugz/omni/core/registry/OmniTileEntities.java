@@ -1,9 +1,9 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
-import com.pugz.omni.common.tileentity.OmniBeehiveTileEntity;
-import com.pugz.omni.common.tileentity.OmniChestTileEntity;
-import com.pugz.omni.common.tileentity.OmniSignTileEntity;
-import com.pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
+import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
+import pugz.omni.common.tileentity.OmniChestTileEntity;
+import pugz.omni.common.tileentity.OmniSignTileEntity;
+import pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;

@@ -1,4 +1,4 @@
-package com.pugz.omni.core.util;
+package pugz.omni.core.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;

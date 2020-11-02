@@ -1,14 +1,14 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
-import com.pugz.omni.common.block.AbstractStackableBlock;
-import com.pugz.omni.common.block.colormatic.*;
-import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
-import com.pugz.omni.core.registry.OmniBiomes;
-import com.pugz.omni.core.registry.OmniBlocks;
-import com.pugz.omni.core.registry.OmniEntities;
-import com.pugz.omni.core.util.RegistryUtil;
-import com.pugz.omni.core.util.TradeUtils;
+import pugz.omni.common.block.AbstractStackableBlock;
+import pugz.omni.common.block.colormatic.*;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.core.registry.OmniBiomes;
+import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniEntities;
+import pugz.omni.core.util.RegistryUtil;
+import pugz.omni.core.util.TradeUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;

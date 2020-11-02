@@ -1,7 +1,7 @@
-package com.pugz.omni.core.util;
+package pugz.omni.core.util;
 
-import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
-import com.pugz.omni.core.registry.OmniFeatures;
+import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.gen.GenerationStage;

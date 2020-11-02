@@ -1,7 +1,7 @@
-package com.pugz.omni.client.render;
+package pugz.omni.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -30,6 +30,9 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
     @SuppressWarnings("deprecation")
     @Override
     public void render(FallingConcretePowderEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixstack, IRenderTypeBuffer buffer, int p_225623_6_) {
+        if (entity.getLayers() <= 0 && entity.getLayers() > 8) {
+            return;
+        }
         BlockState blockstate = entity.getBlockState();
         if (blockstate.getRenderType() != BlockRenderType.MODEL) {
             return;

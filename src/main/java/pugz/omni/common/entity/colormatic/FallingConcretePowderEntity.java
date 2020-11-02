@@ -1,11 +1,10 @@
-package com.pugz.omni.common.entity.colormatic;
+package pugz.omni.common.entity.colormatic;
 
-import com.pugz.omni.common.block.colormatic.LayerConcreteBlock;
-import com.pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
+import pugz.omni.common.block.colormatic.LayerConcreteBlock;
+import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
 import com.pugz.omni.core.registry.OmniEntities;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.ItemStack;

@@ -1,4 +1,4 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
 public class HallowsEveModule extends AbstractModule {
     public static final HallowsEveModule instance = new HallowsEveModule();

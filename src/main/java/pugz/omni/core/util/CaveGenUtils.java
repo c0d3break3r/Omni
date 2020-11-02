@@ -1,6 +1,6 @@
-package com.pugz.omni.core.util;
+package pugz.omni.core.util;
 
-import com.pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;

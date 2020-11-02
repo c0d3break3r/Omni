@@ -1,15 +1,15 @@
-package com.pugz.omni.common.world.feature.cavier_caves;
+package pugz.omni.common.world.feature.cavier_caves;
 
 import com.mojang.serialization.Codec;
-import com.pugz.omni.common.block.cavier_caves.SpeleothemBlock;
-import com.pugz.omni.core.util.CaveGenUtils;
+import net.minecraft.world.gen.feature.Feature;
+import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
+import pugz.omni.core.util.CaveGenUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 
 import java.util.*;
 

@@ -1,10 +1,10 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
-import com.pugz.omni.common.block.paradise.LotusFlowerBlock;
-import com.pugz.omni.core.registry.OmniBlocks;
-import com.pugz.omni.core.util.BiomeFeatures;
-import com.pugz.omni.core.util.RegistryUtil;
+import pugz.omni.common.block.paradise.LotusFlowerBlock;
+import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.util.BiomeFeatures;
+import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.potion.Effects;

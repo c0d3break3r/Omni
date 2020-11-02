@@ -1,7 +1,7 @@
-package com.pugz.omni.common.block.colormatic;
+package pugz.omni.common.block.colormatic;
 
-import com.pugz.omni.common.block.AbstractStackableBlock;
-import com.pugz.omni.common.block.IStackable;
+import pugz.omni.common.block.AbstractStackableBlock;
+import pugz.omni.common.block.IStackable;
 import net.minecraft.block.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;

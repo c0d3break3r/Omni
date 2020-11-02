@@ -1,8 +1,8 @@
-package com.pugz.omni.common.world.feature.cavier_caves;
+package pugz.omni.common.world.feature.cavier_caves;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

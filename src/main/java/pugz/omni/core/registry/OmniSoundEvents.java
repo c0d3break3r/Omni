@@ -1,4 +1,4 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;

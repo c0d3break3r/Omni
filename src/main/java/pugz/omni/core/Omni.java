@@ -1,9 +1,9 @@
-package com.pugz.omni.core;
+package pugz.omni.core;
 
-import com.pugz.omni.core.module.*;
-import com.pugz.omni.core.registry.OmniBlocks;
-import com.pugz.omni.core.registry.OmniEntities;
-import com.pugz.omni.core.registry.OmniTileEntities;
+import pugz.omni.core.module.*;
+import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniEntities;
+import pugz.omni.core.registry.OmniTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;

@@ -1,7 +1,7 @@
-package com.pugz.omni.core.registry;
+package pugz.omni.core.registry;
 
-import com.pugz.omni.client.render.FallingConcretePowderRenderer;
-import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.client.render.FallingConcretePowderRenderer;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;

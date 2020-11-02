@@ -1,4 +1,4 @@
-package com.pugz.omni.common.block.paradise;
+package pugz.omni.common.block.paradise;
 
 import net.minecraft.block.*;
 import net.minecraft.potion.Effect;

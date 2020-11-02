@@ -1,4 +1,4 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
 public class WintertimeModule extends AbstractModule {
     public static final WintertimeModule instance = new WintertimeModule();

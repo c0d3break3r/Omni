@@ -1,4 +1,4 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
 public class AetherModule extends AbstractModule {
     public AetherModule() {

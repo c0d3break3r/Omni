@@ -1,6 +1,6 @@
-package com.pugz.omni.common.block.colormatic;
+package pugz.omni.common.block.colormatic;
 
-import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;

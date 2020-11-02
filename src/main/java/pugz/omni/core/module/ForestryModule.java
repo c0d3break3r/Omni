@@ -1,12 +1,11 @@
-package com.pugz.omni.core.module;
+package pugz.omni.core.module;
 
-import com.pugz.omni.core.registry.OmniSoundEvents;
-import com.pugz.omni.core.util.RegistryUtil;
+import pugz.omni.core.registry.OmniSoundEvents;
+import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-import org.apache.commons.lang3.StringUtils;
 
 public class ForestryModule extends AbstractModule {
     public static final ForestryModule instance = new ForestryModule();

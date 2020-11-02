@@ -1,7 +1,7 @@
-package com.pugz.omni.core.util;
+package pugz.omni.core.util;
 
 import com.google.common.collect.Sets;
-import com.pugz.omni.core.Omni;
+import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

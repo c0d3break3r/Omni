@@ -1,6 +1,6 @@
-package com.pugz.omni.common.block.cavier_caves;
+package pugz.omni.common.block.cavier_caves;
 
-import com.pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.FallingBlockEntity;

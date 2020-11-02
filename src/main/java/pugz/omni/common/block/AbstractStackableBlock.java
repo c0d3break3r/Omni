@@ -1,6 +1,6 @@
-package com.pugz.omni.common.block;
+package pugz.omni.common.block;
 
-import com.pugz.omni.common.block.IStackable;
+import pugz.omni.common.block.IStackable;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
