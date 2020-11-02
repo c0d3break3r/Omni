@@ -4,7 +4,6 @@ import com.pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -141,12 +140,11 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
-            FallingConcretePowderEntity fallingblockentity = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, worldIn.getBlockState(pos));
-            fallingblockentity.shouldDropItem = false;
-            worldIn.addEntity(fallingblockentity);
+            FallingConcretePowderEntity falling = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
+            falling.shouldDropItem = state.get(LAYERS) == 8;
+            worldIn.addEntity(falling);
         }
     }
 
@@ -162,8 +160,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
-    @Override
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingBlockEntity fallingBlock) {
+    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
     }
 
