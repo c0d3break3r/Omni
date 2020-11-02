@@ -129,7 +129,11 @@
   "block.omni.red_rock_brick_button": "Red Rock Brick Button",
   "block.omni.red_rock_brick_pressure_plate": "Red Rock Brick Pressure Plate",
 
-  "_comment3": "Paradise",
+  "_comment3": "Forestry",
+
+  "subtitles.ambient.forest": "Woodland noise",
+
+  "_comment4": "Paradise",
 
   "block.omni.red_lotus_flower": "Red Lotus Flower",
   "block.omni.orange_lotus_flower": "Orange Lotus Flower",

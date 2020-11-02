@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
@@ -62,5 +63,9 @@ public class RegistryUtil {
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {
         return Omni.Registries.FEATURES.register(name, supplier);
+    }
+
+    public static RegistryObject<SoundEvent> createSoundEvent(String name) {
+        return Omni.Registries.SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(Omni.MOD_ID, name)));
     }
 }

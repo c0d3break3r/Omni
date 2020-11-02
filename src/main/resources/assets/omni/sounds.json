@@ -1,0 +1,8 @@
+{
+  "ambient.forest": {
+    "sounds": [
+      "omni:ambient/forest/forest1"
+    ],
+    "subtitle": "subtitles.ambient.forest"
+  }
+}

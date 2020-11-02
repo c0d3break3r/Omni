@@ -1,5 +1,12 @@
 package com.pugz.omni.core.module;
 
+import com.pugz.omni.core.registry.OmniSoundEvents;
+import com.pugz.omni.core.util.RegistryUtil;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeAmbience;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+
 public class ForestryModule extends AbstractModule {
     public static final ForestryModule instance = new ForestryModule();
 
@@ -14,6 +21,7 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -69,5 +77,14 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void registerSounds() {
+        OmniSoundEvents.AMBIENT_FOREST = RegistryUtil.createSoundEvent("ambient.forest");
+    }
+
+    public void onBiomeLoading(BiomeLoadingEvent event) {
+        BiomeAmbience effects = event.getEffects();
+
+        if (event.getCategory() == Biome.Category.FOREST) {
+            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).setMoodSound(effects.getMoodSound().get()).build());
+        }
     }
 }
