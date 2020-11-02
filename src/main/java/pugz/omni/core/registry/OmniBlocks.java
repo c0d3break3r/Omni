@@ -41,6 +41,7 @@ public class OmniBlocks {
     public static RegistryObject<Block> RED_ROCK_BRICK_SLAB;
     public static RegistryObject<Block> RED_ROCK_BRICK_WALL;
     public static RegistryObject<Block> CHISELED_RED_ROCK_BRICKS;
+    public static RegistryObject<Block> CRACKED_RED_ROCK_BRICKS;
     public static RegistryObject<Block> RED_ROCK_PILLAR;
     public static RegistryObject<Block> RED_ROCK_BRICK_BUTTON;
     public static RegistryObject<Block> RED_ROCK_BRICK_PRESSURE_PLATE;
