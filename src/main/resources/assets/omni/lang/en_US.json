@@ -132,6 +132,11 @@
   "_comment3": "Forestry",
 
   "subtitles.ambient.forest": "Woodland noise",
+  "subtitles.ambient.jungle": "Exotic noise",
+  "subtitles.ambient.bamboo_jungle": "Exotic bamboo noise",
+  "subtitles.ambient.plains": "Morning vibe",
+  "subtitles.ambient.desert": "Desert wind",
+  "subtitles.ambient.swamp": "Murky noise",
 
   "_comment4": "Paradise",
 

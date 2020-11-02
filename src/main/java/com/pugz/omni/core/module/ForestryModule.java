@@ -6,6 +6,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import org.apache.commons.lang3.StringUtils;
 
 public class ForestryModule extends AbstractModule {
     public static final ForestryModule instance = new ForestryModule();
@@ -78,6 +79,11 @@ public class ForestryModule extends AbstractModule {
     @Override
     protected void registerSounds() {
         OmniSoundEvents.AMBIENT_FOREST = RegistryUtil.createSoundEvent("ambient.forest");
+        OmniSoundEvents.AMBIENT_JUNGLE = RegistryUtil.createSoundEvent("ambient.jungle");
+        OmniSoundEvents.AMBIENT_BAMBOO_JUNGLE = RegistryUtil.createSoundEvent("ambient.bamboo_jungle");
+        OmniSoundEvents.AMBIENT_PLAINS = RegistryUtil.createSoundEvent("ambient.plains");
+        OmniSoundEvents.AMBIENT_DESERT = RegistryUtil.createSoundEvent("ambient.desert");
+        OmniSoundEvents.AMBIENT_SWAMP = RegistryUtil.createSoundEvent("ambient.swamp");
     }
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
@@ -85,6 +91,17 @@ public class ForestryModule extends AbstractModule {
 
         if (event.getCategory() == Biome.Category.FOREST) {
             event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).setMoodSound(effects.getMoodSound().get()).build());
+        } else if (event.getCategory() == Biome.Category.JUNGLE) {
+            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).setMoodSound(effects.getMoodSound().get()).build());
+            if (StringUtils.contains(event.getName().toString(), "bamboo")) {
+                event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_BAMBOO_JUNGLE.get()).setMoodSound(effects.getMoodSound().get()).build());
+            }
+        } else if (event.getCategory() == Biome.Category.PLAINS) {
+            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).setMoodSound(effects.getMoodSound().get()).build());
+        } else if (event.getCategory() == Biome.Category.DESERT || event.getCategory() == Biome.Category.MESA) {
+            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_DESERT.get()).setMoodSound(effects.getMoodSound().get()).build());
+        } else if (event.getCategory() == Biome.Category.SWAMP) {
+            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).setMoodSound(effects.getMoodSound().get()).build());
         }
     }
 }
