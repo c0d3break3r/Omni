@@ -9,7 +9,7 @@ logoFile="logo.png"
 displayName="Omni"
 authors="Pugz"
 credits=""
-description='''A load of content covering all aspects of vanilla Minecraft.'''
+description='''Omni means '/of all things'/'''
 
 [[dependencies.omni]]
 modId="forge"

@@ -2,7 +2,7 @@ package pugz.omni.common.entity.colormatic;
 
 import pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
-import com.pugz.omni.core.registry.OmniEntities;
+import pugz.omni.core.registry.OmniEntities;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.fluid.Fluids;
