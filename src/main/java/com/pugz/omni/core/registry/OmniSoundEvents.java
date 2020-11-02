@@ -7,8 +7,6 @@ public class OmniSoundEvents {
     //forestry
     public static RegistryObject<SoundEvent> AMBIENT_FOREST;
     public static RegistryObject<SoundEvent> AMBIENT_JUNGLE;
-    public static RegistryObject<SoundEvent> AMBIENT_BAMBOO_JUNGLE;
     public static RegistryObject<SoundEvent> AMBIENT_PLAINS;
-    public static RegistryObject<SoundEvent> AMBIENT_DESERT;
     public static RegistryObject<SoundEvent> AMBIENT_SWAMP;
 }

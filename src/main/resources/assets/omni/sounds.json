@@ -4,36 +4,21 @@
       "omni:ambient/forest/forest1",
       "omni:ambient/forest/forest2",
       "omni:ambient/forest/forest3",
-      "omni:ambient/forest/forest4",
-      "omni:ambient/forest/forest5"
+      "omni:ambient/forest/forest4"
     ],
     "subtitle": "subtitles.ambient.forest"
   },
   "ambient.jungle": {
     "sounds": [
-      "omni:ambient/jungle/jungle1",
-      "omni:ambient/jungle/jungle2"
+      "omni:ambient/jungle/jungle1"
     ],
     "subtitle": "subtitles.ambient.jungle"
-  },
-  "ambient.bamboo_jungle": {
-    "sounds": [
-      "omni:ambient/jungle/bamboo/bamboo1",
-      "omni:ambient/jungle/bamboo/bamboo2"
-    ],
-    "subtitle": "subtitles.ambient.bamboo_jungle"
   },
   "ambient.plains": {
     "sounds": [
       "omni:ambient/plains/plains1"
     ],
     "subtitle": "subtitles.ambient.plains"
-  },
-  "ambient.desert": {
-    "sounds": [
-      "omni:ambient/desert/desert1"
-    ],
-    "subtitle": "subtitles.ambient.desert"
   },
   "ambient.swamp": {
     "sounds": [
