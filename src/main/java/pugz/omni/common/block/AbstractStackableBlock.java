@@ -1,6 +1,5 @@
 package pugz.omni.common.block;
 
-import pugz.omni.common.block.IStackable;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -69,7 +68,7 @@ public abstract class AbstractStackableBlock extends BushBlock implements IStack
 
     @Nonnull
     @Override
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack held = player.getHeldItem(handIn);
 
@@ -88,7 +87,7 @@ public abstract class AbstractStackableBlock extends BushBlock implements IStack
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return state.get(getCountProperty()) == 2 ? getBase().getShape(state, worldIn, pos, context) : getStackedShape();
     }
@@ -100,7 +99,7 @@ public abstract class AbstractStackableBlock extends BushBlock implements IStack
     }
 
     @Override
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         return getBase().isValidPosition(state, worldIn, pos);
     }
@@ -110,13 +109,13 @@ public abstract class AbstractStackableBlock extends BushBlock implements IStack
         getBase().animateTick(stateIn, worldIn, pos, rand);
     }
 
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         getBase().onEntityCollision(state, worldIn, pos, entityIn);
     }
 
     @Override
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         getBase().randomTick(getBase().getDefaultState(), worldIn, pos, random);
     }

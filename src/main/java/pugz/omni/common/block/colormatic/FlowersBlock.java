@@ -44,7 +44,7 @@ public class FlowersBlock extends AbstractStackableBlock implements IStackable {
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
         return state.get(FLOWERS) == 2 ? base.getShape(state, worldIn, pos, context) : MULTI_FLOWER_SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);

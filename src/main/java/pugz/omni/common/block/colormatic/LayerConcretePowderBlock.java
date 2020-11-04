@@ -115,7 +115,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
      */
     @Nonnull
     @Override
-    @SuppressWarnings("deprecation")
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, this.getFallDelay());
         return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : isTouchingLiquid(worldIn, currentPos) ? this.solidifiedState.with(LAYERS, stateIn.get(LAYERS)).with(WATERLOGGED, stateIn.get(WATERLOGGED)) : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);

@@ -15,7 +15,7 @@ public class GlazedTerracottaPillarBlock extends RotatedPillarBlock {
 
     @Nonnull
     @Override
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public PushReaction getPushReaction(BlockState state) {
         return PushReaction.PUSH_ONLY;
     }

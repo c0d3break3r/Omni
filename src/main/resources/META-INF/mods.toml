@@ -4,12 +4,12 @@ license="https://github.com/c0d3break3r/Omni/blob/main/LICENSE"
 
 [[mods]]
 modId="omni"
-version="${file.jarVersion}"
+version="${version}"
 logoFile="logo.png"
 displayName="Omni"
 authors="Pugz"
 credits=""
-description='''Omni means '/of all things'/'''
+description='''Omni means of all things'''
 
 [[dependencies.omni]]
 modId="forge"
@@ -21,6 +21,6 @@ side="BOTH"
 [[dependencies.omni]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.16.3]"
+versionRange="[1.16.3,]"
 ordering="NONE"
 side="BOTH"

@@ -56,7 +56,7 @@ public class FungiBlock extends AbstractStackableBlock implements IGrowable, ISt
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return state.get(FUNGI) == 2 ? base.getShape(state, worldIn, pos, context) : MULTI_FUNGUS_SHAPE;
     }

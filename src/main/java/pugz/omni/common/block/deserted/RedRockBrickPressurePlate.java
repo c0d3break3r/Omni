@@ -107,7 +107,7 @@ public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (state.get(POWERED)) {
             return ActionResultType.CONSUME;

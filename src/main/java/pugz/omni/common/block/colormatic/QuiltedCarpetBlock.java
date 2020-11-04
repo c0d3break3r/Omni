@@ -35,25 +35,25 @@ public class QuiltedCarpetBlock extends Block {
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
         if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
         return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState)state.with((Property)FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
     }
 
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         return !world.isAirBlock(pos.down());
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public BlockState rotate(BlockState state, Rotation rotation) {
         switch(rotation) {
             case CLOCKWISE_180:
@@ -68,7 +68,7 @@ public class QuiltedCarpetBlock extends Block {
     }
 
     @Nonnull
-    @SuppressWarnings("deprecated")
+    @SuppressWarnings("deprecation")
     public BlockState mirror(BlockState state, Mirror mirror) {
         switch(mirror) {
             case LEFT_RIGHT:
