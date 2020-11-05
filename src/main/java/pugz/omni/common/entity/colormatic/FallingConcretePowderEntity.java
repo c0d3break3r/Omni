@@ -1,7 +1,5 @@
 package pugz.omni.common.entity.colormatic;
 
-import net.minecraft.nbt.INBT;
-import net.minecraft.tileentity.TileEntity;
 import pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
 import pugz.omni.core.registry.OmniEntities;
@@ -18,14 +16,11 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
@@ -145,7 +140,7 @@ public class FallingConcretePowderEntity extends Entity {
 
                             else if (!(blockstate.getBlock() instanceof LayerConcretePowderBlock)) {
                                 if (this.world.setBlockState(blockpos1, this.fallState, 3)) {
-                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState, this);
+                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState);
                                 }
                             }
 
@@ -162,26 +157,19 @@ public class FallingConcretePowderEntity extends Entity {
         }
     }
 
-    public void setFallState(BlockState state) {
-        this.fallState = state;
-    }
-
     public void setData(BlockPos pos, int layers) {
         this.dataManager.set(ORIGIN, pos);
         this.dataManager.set(LAYERS, layers);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public BlockPos getOrigin() {
         return this.dataManager.get(ORIGIN);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getLayers() {
         return this.dataManager.get(LAYERS);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public World getWorldObj() {
         return this.world;
     }
@@ -192,7 +180,6 @@ public class FallingConcretePowderEntity extends Entity {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public boolean canRenderOnFire() {
         return false;
     }

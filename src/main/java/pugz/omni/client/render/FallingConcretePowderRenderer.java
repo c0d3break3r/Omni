@@ -1,8 +1,6 @@
 package pugz.omni.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -23,7 +21,6 @@ import net.minecraftforge.client.ForgeHooksClient;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcretePowderEntity> {
     public FallingConcretePowderRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn);

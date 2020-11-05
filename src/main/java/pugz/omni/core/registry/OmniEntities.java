@@ -4,8 +4,6 @@ import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
@@ -23,7 +21,6 @@ public class OmniEntities {
                 .build("falling_concrete_powder");
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void registerEntityRenders() {
         RenderingRegistry.registerEntityRenderingHandler(FALLING_CONCRETE_POWDER.get(), FallingConcretePowderRenderer::new);
     }

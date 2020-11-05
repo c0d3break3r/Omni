@@ -143,7 +143,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
             FallingConcretePowderEntity entity = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
-            entity.setFallState(state);
             entity.shouldDropItem = state.get(LAYERS) == 8;
             worldIn.addEntity(entity);
         }
@@ -164,9 +163,8 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, FallingConcretePowderEntity entity) {
+    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
-        entity.remove();
     }
 
     private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
@@ -199,7 +197,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.getFluidState().isTagged(FluidTags.WATER);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (rand.nextInt(16) == 0) {
             BlockPos blockpos = pos.down();
@@ -243,7 +240,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return shouldSolidify(world, pos, blockstate) ? this.solidifiedState.with(LAYERS, 8) : super.getStateForPlacement(context);
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
     public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
         return state.getBlock().getMaterialColor().colorValue;

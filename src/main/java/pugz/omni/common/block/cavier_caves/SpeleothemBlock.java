@@ -34,8 +34,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -161,7 +159,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         worldIn.destroyBlock(pos, false);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
         return state.getMaterialColor(reader, pos).colorValue;
     }
@@ -177,7 +174,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         trySpawnEntity(world, hit.getPos());
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getBlock() == Blocks.CAULDRON) {
             for(int i = 0; i < rand.nextInt(1) + 1; ++i) {
@@ -186,7 +182,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void addDripParticle(World world, BlockPos pos, BlockState state) {
         if (state.getFluidState().isEmpty() && !(world.rand.nextFloat() < 0.3F)) {
             VoxelShape shape = state.getCollisionShape(world, pos);
@@ -207,7 +202,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void addDripParticle(World world, BlockPos pos, BlockState state, VoxelShape shape, double y) {
         IParticleData type;
         if (state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) type = ParticleTypes.DRIPPING_WATER;
@@ -237,24 +231,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         public VoxelShape shape;
         public String name;
         private final int width;
-
-        @Nonnull
-        @Override
-        public String getString() {
-            return name;
-        }
-    }
-
-    public enum Half implements IStringSerializable {
-        LOWER("lower"),
-        UPPER("upper"),
-        FULL("full");
-
-        Half(String nameIn) {
-            name = nameIn;
-        }
-
-        public String name;
 
         @Nonnull
         @Override

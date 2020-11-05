@@ -23,8 +23,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -104,7 +102,6 @@ public abstract class AbstractStackableBlock extends BushBlock implements IStack
         return getBase().isValidPosition(state, worldIn, pos);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         getBase().animateTick(stateIn, worldIn, pos, rand);
     }
