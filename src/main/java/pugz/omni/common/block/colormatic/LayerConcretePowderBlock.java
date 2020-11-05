@@ -1,5 +1,6 @@
 package pugz.omni.common.block.colormatic;
 
+import net.minecraft.entity.item.FallingBlockEntity;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -141,10 +142,13 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
-            FallingConcretePowderEntity falling = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
-            falling.shouldDropItem = state.get(LAYERS) == 8;
-            worldIn.addEntity(falling);
+            FallingConcretePowderEntity entity = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
+            entity.setFallState(state);
+            entity.shouldDropItem = state.get(LAYERS) == 8;
+            worldIn.addEntity(entity);
         }
+
+        super.tick(state, worldIn, pos, rand);
     }
 
     @Override
@@ -152,6 +156,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return 2;
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean canFallThrough(BlockState state) {
         if (state.getBlock() instanceof LayerConcretePowderBlock || (state.getBlock() instanceof LayerConcreteBlock)) return false;
 
@@ -159,8 +164,9 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
+    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, FallingConcretePowderEntity entity) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
+        entity.remove();
     }
 
     private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
@@ -204,11 +210,19 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
                 worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, stateIn), d0, d1, d2, 0.0D, 0.0D, 0.0D);
             }
         }
-
     }
 
     public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-        return IWaterLoggable.super.receiveFluid(worldIn, pos, state, fluidStateIn) && state.get(LAYERS) < 8;
+        if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
+            if (!worldIn.isRemote()) {
+                worldIn.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
+                worldIn.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
@@ -225,9 +239,8 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         IBlockReader world = context.getWorld();
         BlockPos pos = context.getPos();
         BlockState blockstate = world.getBlockState(pos);
-        FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
 
-        return shouldSolidify(world, pos, blockstate) ? this.solidifiedState.with(LAYERS, 8).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER) && fluidstate.getLevel() == 8) : super.getStateForPlacement(context);
+        return shouldSolidify(world, pos, blockstate) ? this.solidifiedState.with(LAYERS, 8) : super.getStateForPlacement(context);
     }
 
     @OnlyIn(Dist.CLIENT)

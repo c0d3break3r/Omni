@@ -1,10 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraft.block.*;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
-import pugz.omni.core.event.FireTickEvent;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;

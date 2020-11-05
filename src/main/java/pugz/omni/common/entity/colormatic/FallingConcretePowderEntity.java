@@ -1,5 +1,7 @@
 package pugz.omni.common.entity.colormatic;
 
+import net.minecraft.nbt.INBT;
+import net.minecraft.tileentity.TileEntity;
 import pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
 import pugz.omni.core.registry.OmniEntities;
@@ -30,7 +32,6 @@ import javax.annotation.Nonnull;
 
 public class FallingConcretePowderEntity extends Entity {
     public int fallTime;
-    private BlockPos prevPos;
     private int layers;
     public boolean shouldDropItem;
     protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
@@ -40,7 +41,6 @@ public class FallingConcretePowderEntity extends Entity {
 
     public FallingConcretePowderEntity(World worldIn) {
         super(OmniEntities.FALLING_CONCRETE_POWDER.get(), worldIn);
-        prevPos = BlockPos.ZERO;
         this.layers = 1;
         size = new EntitySize(0.98f, 0.1225f * layers, true);
     }
@@ -55,27 +55,27 @@ public class FallingConcretePowderEntity extends Entity {
         this.prevPosZ = z;
         this.layers = layers;
         this.setData(getPosition(), layers);
-        prevPos = getPosition();
         fallState = state;
         size = new EntitySize(0.98f, 0.1225f * layers, true);
     }
 
+    @Nonnull
     @Override
     public EntitySize getSize(Pose poseIn) {
         return size;
     }
 
-
     /**
      * Called to update the entity's position/logic.
      */
+    @SuppressWarnings("deprecation")
     public void tick() {
-        if (!(this.fallState.getBlock() instanceof LayerConcretePowderBlock)) {
+        if (fallState.isAir()) {
             this.remove();
         } else {
             Block block = this.fallState.getBlock();
             if (this.fallTime++ == 0) {
-                BlockPos blockpos = new BlockPos(this.getPositionVec());
+                BlockPos blockpos = this.getPosition();
                 if (this.world.getBlockState(blockpos).isIn(block)) {
                     this.world.removeBlock(blockpos, false);
                 } else if (!this.world.isRemote) {
@@ -90,19 +90,9 @@ public class FallingConcretePowderEntity extends Entity {
 
             this.move(MoverType.SELF, this.getMotion());
             if (!this.world.isRemote) {
-                BlockPos blockpos1 = new BlockPos(this.getPositionVec());
-                boolean flag = this.fallState.getBlock() instanceof LayerConcretePowderBlock;
-                boolean flag1 = flag && this.world.getFluidState(blockpos1).isTagged(FluidTags.WATER);
-                double d0 = this.getMotion().lengthSquared();
-                if (flag && d0 > 1.0D) {
-                    BlockRayTraceResult blockraytraceresult = this.world.rayTraceBlocks(new RayTraceContext(new Vector3d(this.prevPosX, this.prevPosY, this.prevPosZ), this.getPositionVec(), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.SOURCE_ONLY, this));
-                    if (blockraytraceresult.getType() != RayTraceResult.Type.MISS && this.world.getFluidState(blockraytraceresult.getPos()).isTagged(FluidTags.WATER)) {
-                        blockpos1 = blockraytraceresult.getPos();
-                        flag1 = true;
-                    }
-                }
+                BlockPos blockpos1 = this.getPosition();
 
-                if (!this.onGround && !flag1) {
+                if (!this.onGround) {
                     if (!this.world.isRemote && (this.fallTime > 100 && (blockpos1.getY() < 1 || blockpos1.getY() > 256) || this.fallTime > 600)) {
                         if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
                             this.entityDropItem(block);
@@ -116,7 +106,7 @@ public class FallingConcretePowderEntity extends Entity {
                     if (!blockstate.isIn(Blocks.MOVING_PISTON)) {
                         this.remove();
                         boolean flag2 = blockstate.isReplaceable(new DirectionalPlaceContext(this.world, blockpos1, Direction.DOWN, ItemStack.EMPTY, Direction.UP));
-                        boolean flag3 = LayerConcretePowderBlock.canFallThrough(this.world.getBlockState(blockpos1.down())) && (!flag || !flag1);
+                        boolean flag3 = FallingBlock.canFallThrough(this.world.getBlockState(blockpos1.down()));
                         boolean flag4 = this.fallState.isValidPosition(this.world, blockpos1) && !flag3;
                         if ((flag2 || (blockstate.getBlock() instanceof LayerConcretePowderBlock || blockstate.getBlock() instanceof LayerConcreteBlock)) && flag4) {
                             if (this.fallState.hasProperty(BlockStateProperties.WATERLOGGED) && this.world.getFluidState(blockpos1).getFluid() == Fluids.WATER) {
@@ -155,7 +145,7 @@ public class FallingConcretePowderEntity extends Entity {
 
                             else if (!(blockstate.getBlock() instanceof LayerConcretePowderBlock)) {
                                 if (this.world.setBlockState(blockpos1, this.fallState, 3)) {
-                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState);
+                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState, this);
                                 }
                             }
 
@@ -168,9 +158,12 @@ public class FallingConcretePowderEntity extends Entity {
                     }
                 }
             }
-
             this.setMotion(this.getMotion().scale(0.98D));
         }
+    }
+
+    public void setFallState(BlockState state) {
+        this.fallState = state;
     }
 
     public void setData(BlockPos pos, int layers) {
