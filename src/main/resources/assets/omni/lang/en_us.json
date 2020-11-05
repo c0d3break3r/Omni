@@ -5,6 +5,13 @@
   "block.omni.ice_speleothem": "Icicle",
   "block.omni.netherrack_speleothem": "Netherrack Speleothem",
 
+  "block.omni.malachite_block": "Malachite Block",
+  "block.omni.budding_malachite": "Budding Malachite",
+  "block.omni.malachite_cluster": "Malachite Cluster",
+  "block.omni.large_malachite_bud": "Large Malachite Bud",
+  "block.omni.medium_malachite_bud": "Medium Malachite Bud",
+  "block.omni.small_malachite_bud": "Small Malachite Bud",
+
   "_comment1": "Colormatic",
 
   "block.omni.brown_quilted_carpet": "Brown Quilted Carpet",

@@ -17,6 +17,13 @@ public class OmniBlocks {
     public static RegistryObject<Block> ICE_SPELEOTHEM;
     public static RegistryObject<Block> NETHERRACK_SPELEOTHEM;
 
+    public static RegistryObject<Block> MALACHITE_BLOCK;
+    public static RegistryObject<Block> BUDDING_MALACHITE;
+    public static RegistryObject<Block> MALACHITE_CLUSTER;
+    public static RegistryObject<Block> LARGE_MALACHITE_BUD;
+    public static RegistryObject<Block> MEDIUM_MALACHITE_BUD;
+    public static RegistryObject<Block> SMALL_MALACHITE_BUD;
+
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;
@@ -92,6 +99,11 @@ public class OmniBlocks {
         RenderTypeLookup.setRenderLayer(BLUE_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
+
+        RenderTypeLookup.setRenderLayer(MALACHITE_CLUSTER.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(LARGE_MALACHITE_BUD.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MEDIUM_MALACHITE_BUD.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(SMALL_MALACHITE_BUD.get(), RenderType.getCutout());
 
         for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
             RenderTypeLookup.setRenderLayer(block.get(), RenderType.getCutout());

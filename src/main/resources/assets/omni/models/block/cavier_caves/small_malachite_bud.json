@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "omni:block/cavier_caves/small_malachite_bud"
+  }
+}

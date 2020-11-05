@@ -1,5 +1,7 @@
 package pugz.omni.core.module;
 
+import net.minecraft.block.Block;
+import pugz.omni.common.block.cavier_caves.MalachiteBudBlock;
 import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
@@ -84,6 +86,13 @@ public class CavierCavesModule extends AbstractModule {
         OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(0.3F)), ItemGroup.DECORATIONS);
 
         //RegistryObject<Block> SPAWNER_STONE;
+
+        OmniBlocks.MALACHITE_BLOCK = RegistryUtil.createBlock("malachite_block", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4.5F, 10.0F)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.BUDDING_MALACHITE = RegistryUtil.createBlock("budding_malachite", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4.5F, 10.0F)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.MALACHITE_CLUSTER = RegistryUtil.createBlock("malachite_cluster", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4.5F, 9.5F)), ItemGroup.DECORATIONS);
+        OmniBlocks.LARGE_MALACHITE_BUD = RegistryUtil.createBlock("large_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4.0F, 9.0F)), ItemGroup.DECORATIONS);
+        OmniBlocks.MEDIUM_MALACHITE_BUD = RegistryUtil.createBlock("medium_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.5F, 8.5F)), ItemGroup.DECORATIONS);
+        OmniBlocks.SMALL_MALACHITE_BUD = RegistryUtil.createBlock("small_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 8.0F)), ItemGroup.DECORATIONS);
     }
 
     @Override

@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "omni:block/cavier_caves/malachite_cluster",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "omni:block/cavier_caves/malachite_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "omni:block/cavier_caves/malachite_cluster",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "omni:block/cavier_caves/malachite_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "omni:block/cavier_caves/malachite_cluster"
+    },
+    "facing=west": {
+      "model": "omni:block/cavier_caves/malachite_cluster",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
