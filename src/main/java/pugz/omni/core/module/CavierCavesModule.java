@@ -57,9 +57,6 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Block> CAVE_SHELF_MUSHROOM;
         //RegistryObject<Block> SHELF_GLOWSHROOM;
 
-        //RegistryObject<Block> MALACHITE_CRYSTAL;
-        //RegistryObject<Block> MALACHITE_CRYSTAL_BLOCK;
-
         //RegistryObject<Block> WEB_BLOCK;
         //RegistryObject<Block> SPIDER_SAC;
 
