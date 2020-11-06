@@ -52,6 +52,8 @@ public class OmniBlocks {
     public static RegistryObject<Block> RED_ROCK_PILLAR;
     public static RegistryObject<Block> RED_ROCK_BRICK_BUTTON;
     public static RegistryObject<Block> RED_ROCK_BRICK_PRESSURE_PLATE;
+    public static RegistryObject<Block> RED_ROCK_VERTICAL_SLAB;
+    public static RegistryObject<Block> RED_ROCK_BRICK_VERICAL_SLAB;
 
     public static void registerFlammables() {
         FireBlock fire = (FireBlock) Blocks.FIRE;
