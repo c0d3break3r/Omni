@@ -3,5 +3,5 @@
     "type=bottom": { "model": "omni:block/deserted/red_rock_brick_slab" },
     "type=top": { "model": "omni:block/deserted/red_rock_brick_slab_top" },
     "type=double": { "model": "omni:block/deserted/red_rock_bricks" }
-}
+  }
 }

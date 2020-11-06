@@ -119,6 +119,8 @@
   "block.omni.crimson_fungi": "Crimson Fungi",
   "block.omni.warped_fungi": "Warped Fungi",
 
+  "entity.omni.falling_concrete_powder": "Falling Concrete Powder",
+
   "biome.omni.flower_field": "Flower Field",
 
   "_comment2": "Deserted",
@@ -136,6 +138,8 @@
   "block.omni.red_rock_pillar": "Red Rock Pillar",
   "block.omni.red_rock_brick_button": "Red Rock Brick Button",
   "block.omni.red_rock_brick_pressure_plate": "Red Rock Brick Pressure Plate",
+  "block.omni.red_rock_vertical_slab": "Red Rock Vertical Slab",
+  "block.omni.red_rock_brick_vertical_slab": "Red Rock Brick Vertical Slab",
   "block.omni.red_rock_pavement": "Red Rock Pavement",
 
   "_comment3": "Forestry",

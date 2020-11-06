@@ -1,7 +1,6 @@
 package pugz.omni.common.block.colormatic;
 
 import net.minecraft.entity.item.FallingBlockEntity;
-import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
@@ -34,8 +33,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -140,17 +138,16 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
-            FallingConcretePowderEntity entity = new FallingConcretePowderEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
-            entity.shouldDropItem = state.get(LAYERS) == 8;
-            worldIn.addEntity(entity);
-        }
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+        super.tick(state, world, pos, rand);
 
-        super.tick(state, worldIn, pos, rand);
+        if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
+            FallingBlockEntity entity = new FallingConcretePowderEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
+            entity.shouldDropItem = state.get(LAYERS) == 8;
+            world.addEntity(entity);
+        }
     }
 
-    @Override
     protected int getFallDelay() {
         return 2;
     }
@@ -163,8 +160,16 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
+    @Override
+    protected void onStartFalling(FallingBlockEntity entity) {
+        if (!(entity instanceof FallingConcretePowderEntity)) entity.shouldDropItem = false;
+    }
+
+    @Override
+    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingBlockEntity entity) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
+
+        if (!(entity instanceof FallingConcretePowderEntity)) worldIn.removeBlock(entity.getPosition(), false);
     }
 
     private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
@@ -195,18 +200,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     private static boolean causesSolidify(BlockState state) {
         return state.getFluidState().isTagged(FluidTags.WATER);
-    }
-
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if (rand.nextInt(16) == 0) {
-            BlockPos blockpos = pos.down();
-            if (worldIn.isAirBlock(blockpos) || canFallThrough(worldIn.getBlockState(blockpos))) {
-                double d0 = (double)pos.getX() + rand.nextDouble();
-                double d1 = (double)pos.getY() - 0.05D;
-                double d2 = (double)pos.getZ() + rand.nextDouble();
-                worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, stateIn), d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            }
-        }
     }
 
     public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
@@ -240,9 +233,16 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return shouldSolidify(world, pos, blockstate) ? this.solidifiedState.with(LAYERS, 8) : super.getStateForPlacement(context);
     }
 
-    @Override
-    public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
-        return state.getBlock().getMaterialColor().colorValue;
+    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+        if (rand.nextInt(16) == 0) {
+            BlockPos blockpos = pos.down();
+            if (world.isAirBlock(blockpos) || canFallThrough(world.getBlockState(blockpos))) {
+                double d0 = (double)pos.getX() + rand.nextDouble();
+                double d1 = (double)pos.getY() - 0.05D;
+                double d2 = (double)pos.getZ() + rand.nextDouble();
+                world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            }
+        }
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
