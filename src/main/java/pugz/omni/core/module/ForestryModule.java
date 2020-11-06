@@ -88,16 +88,16 @@ public class ForestryModule extends AbstractModule {
     public void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeAmbience effects = event.getEffects();
         BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
-                .withFoliageColor(effects.getFoliageColor().get())
-                .withGrassColor(effects.getGrassColor().get())
                 .withGrassColorModifier(effects.getGrassColorModifier())
                 .setWaterColor(effects.getWaterColor())
                 .setWaterFogColor(effects.getWaterFogColor())
                 .setFogColor(effects.getFogColor())
-                .withSkyColor(effects.getSkyColor())
-                .setMoodSound(effects.getMoodSound().get())
-                .setAdditionsSound(effects.getAdditionsSound().get())
-                .setParticle(effects.getParticle().get());
+                .withSkyColor(effects.getSkyColor());
+        if (effects.getFoliageColor().isPresent()) ambience = ambience.withFoliageColor(effects.getFoliageColor().get());
+        if (effects.getGrassColor().isPresent()) ambience = ambience.withGrassColor(effects.getGrassColor().get());
+        if (effects.getMoodSound().isPresent()) ambience = ambience.setMoodSound(effects.getMoodSound().get());
+        if (effects.getAdditionsSound().isPresent()) ambience = ambience.setAdditionsSound(effects.getAdditionsSound().get());
+        if (effects.getParticle().isPresent()) ambience = ambience.setParticle(effects.getParticle().get());
 
         if (event.getCategory() == Biome.Category.FOREST) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());

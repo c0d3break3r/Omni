@@ -19,8 +19,12 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ForgeHooks;
+import pugz.omni.core.registry.OmniBlocks;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class MalachiteBudBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -37,6 +41,10 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
             return 14;
         }));
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(WATERLOGGED, false));
+    }
+
+    public boolean ticksRandomly(BlockState state) {
+        return state.getBlock() != OmniBlocks.MALACHITE_CLUSTER.get();
     }
 
     @Nonnull
@@ -105,6 +113,27 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
     @SuppressWarnings("deprecation")
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return type == PathType.WATER && worldIn.getFluidState(pos).isTagged(FluidTags.WATER);
+    }
+
+    @SuppressWarnings("deprecation")
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        if (!worldIn.isAreaLoaded(pos, 1)) return;
+        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(50) == 0) && worldIn.getBlockState(pos.offset(state.get(FACING).getOpposite())).getBlock() == OmniBlocks.BUDDING_MALACHITE.get()) {
+            switch (state.getBlock().getRegistryName().getPath()) {
+                case "small_malachite_bud":
+                    worldIn.setBlockState(pos, OmniBlocks.MEDIUM_MALACHITE_BUD.get().getDefaultState().with(FACING, state.get(FACING)).with(WATERLOGGED, state.get(WATERLOGGED)), 3);
+                    break;
+                case "medium_malachite_bud":
+                    worldIn.setBlockState(pos, OmniBlocks.LARGE_MALACHITE_BUD.get().getDefaultState().with(FACING, state.get(FACING)).with(WATERLOGGED, state.get(WATERLOGGED)), 3);
+                    break;
+                case "large_malachite_bud":
+                    worldIn.setBlockState(pos, OmniBlocks.MALACHITE_CLUSTER.get().getDefaultState().with(FACING, state.get(FACING)).with(WATERLOGGED, state.get(WATERLOGGED)), 3);
+                    break;
+                default:
+                    return;
+            }
+            ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+        }
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
