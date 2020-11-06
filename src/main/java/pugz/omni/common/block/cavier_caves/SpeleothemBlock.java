@@ -1,6 +1,8 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.particles.IParticleData;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.IWorld;
 import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -41,11 +43,18 @@ import java.util.Random;
 
 public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     public static final EnumProperty<Size> SIZE = EnumProperty.create("size", Size.class);
+    public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
+    public static final BooleanProperty STATIC = BooleanProperty.create("static");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public SpeleothemBlock(Properties properties) {
         super(properties);
-        setDefaultState(stateContainer.getBaseState().with(SIZE, Size.LARGE).with(WATERLOGGED, false));
+        setDefaultState(stateContainer.getBaseState().with(SIZE, Size.LARGE).with(PART, Part.FULL).with(STATIC, true).with(WATERLOGGED, false));
+    }
+
+    public Vector3d getOffset(IBlockReader access, BlockPos pos) {
+        long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
+        return new Vector3d(((double)((float)(i & 15L) / 15.0F) - 0.5D) * 0.1D, 0.0D, ((double)((float)(i >> 8 & 15L) / 15.0F) - 0.5D) * 0.1D);
     }
 
     @Nullable
@@ -54,11 +63,22 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         Item held = context.getItem().getItem();
         FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
         BlockState state = getDefaultState();
+        Direction face = context.getFace();
 
-        if (held == OmniBlocks.ICE_SPELEOTHEM.get().asItem()) state = state.with(SIZE, Size.ICE_LARGE);
-        else if (held == OmniBlocks.ICE_SPELEOTHEM.get().asItem()) state = state.with(SIZE, Size.ICE_LARGE);
+        if (face == Direction.UP || face == Direction.DOWN) {
+            if (face == Direction.UP) {
+                state = state.with(PART, Part.LOWER);
+            } else {
+                state = state.with(PART, Part.UPPER);
+            }
 
-        return state.with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER));
+            if (held == OmniBlocks.ICE_SPELEOTHEM.get().asItem()) state = state.with(SIZE, Size.ICE_LARGE);
+            else state = state.with(SIZE, Size.LARGE);
+
+            return state.with(STATIC, true).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER));
+        }
+
+        return null;
     }
 
     @Nonnull
@@ -71,8 +91,8 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         if (!worldIn.isRemote && held.getItem() instanceof PickaxeItem) {
             FluidState fluidstate = worldIn.getFluidState(pos);
 
-            if (size == Size.LARGE || size == Size.ICE_LARGE) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 0);
-            else if (size == Size.MEDIUM) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 0);
+            if (size == Size.LARGE || size == Size.ICE_LARGE) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
+            else if (size == Size.MEDIUM) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
             else if (size == Size.SMALL) worldIn.removeBlock(pos, false);
 
             if (held.isDamageable()) held.damageItem(1, player, (living) -> {
@@ -89,16 +109,17 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (!this.isValidPosition(state, world, pos) && (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0)) {
-            trySpawnEntity(world, pos);
-        }
+        if (!state.get(STATIC)) trySpawnEntity(world, pos);
     }
 
     private void trySpawnEntity(World world, BlockPos pos) {
-        FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
-        this.onStartFalling(fallingblockentity);
-        fallingblockentity.setHurtEntities(true);
-        world.addEntity(fallingblockentity);
+        if (world.isAirBlock(pos.down())) {
+            FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+            this.onStartFalling(fallingblockentity);
+            fallingblockentity.setHurtEntities(true);
+            world.addEntity(fallingblockentity);
+            world.getPendingBlockTicks().scheduleTick(pos.up(), this, 1);
+        }
     }
 
     /**
@@ -119,6 +140,51 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
     public boolean ticksRandomly(BlockState state) {
         return true;
+    }
+
+    @Nonnull
+    @Override
+    public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+        BlockState down = world.getBlockState(currentPos.down());
+        BlockState up = world.getBlockState(currentPos.up());
+        Part part = state.get(PART);
+
+        if (!state.isValidPosition(world, currentPos) && !state.get(STATIC)) {
+            world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+        }
+
+        if ((down.getBlock() instanceof SpeleothemBlock || down.isSolid()) && (up.getBlock() instanceof SpeleothemBlock || up.isSolid())) return state.with(PART, Part.FULL);
+
+        if (part == Part.FULL) {
+            if (!down.isSolid() && up.isSolid()) {
+                if (world.isAirBlock(currentPos.down())) {
+                    world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
+                    return state.with(PART, Part.UPPER).with(STATIC, false);
+                }
+                else return state.with(PART, Part.UPPER).with(STATIC, true);
+            } else if (!up.isSolid() && down.isSolid()) {
+                if (world.isAirBlock(currentPos.down())) {
+                    world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
+                    return state.with(PART, Part.UPPER).with(STATIC, false);
+                }
+                else return state.with(PART, Part.LOWER).with(STATIC, true);
+            } else if (!down.isSolid() && !up.isSolid()) {
+                world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
+                return state.with(STATIC, false);
+            }
+        } else if (part == Part.UPPER) {
+            if (!up.isSolid()) {
+                world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+                return state.with(STATIC, false);
+            }
+        } else {
+            if (!down.isSolid()) {
+                world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+                return state.with(STATIC, false);
+            }
+        }
+
+        return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
     }
 
     @Override
@@ -146,7 +212,8 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return state.get(SIZE).shape;
+        Vector3d offset = state.getOffset(worldIn, pos);
+        return state.get(SIZE).shape.withOffset(offset.getX(), offset.getY(), offset.getZ());
     }
 
     @Override
@@ -212,7 +279,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(SIZE, WATERLOGGED);
+        builder.add(SIZE, PART, STATIC, WATERLOGGED);
     }
 
     public enum Size implements IStringSerializable {
@@ -231,6 +298,24 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         public VoxelShape shape;
         public String name;
         private final int width;
+
+        @Nonnull
+        @Override
+        public String getString() {
+            return name;
+        }
+    }
+
+    public enum Part implements IStringSerializable {
+        LOWER("lower"),
+        UPPER("upper"),
+        FULL("full");
+
+        Part(String nameIn) {
+            name = nameIn;
+        }
+
+        public String name;
 
         @Nonnull
         @Override

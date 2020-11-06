@@ -81,7 +81,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
 
     public static void placeSpeleothem(ISeedReader world, BlockPos pos, SpeleothemBlock.Size size, SpeleothemFeatureConfig config) {
         Block block = world.getBlockState(pos).getBlock();
-        if (block == Blocks.CAVE_AIR || block == Blocks.WATER) world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
+        if (block == Blocks.CAVE_AIR || block == Blocks.WATER) world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.STATIC, true).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
     }
 
     public static void placeFullSpeleothem(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig config, int i) {
