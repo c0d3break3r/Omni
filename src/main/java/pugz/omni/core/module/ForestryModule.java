@@ -87,15 +87,26 @@ public class ForestryModule extends AbstractModule {
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeAmbience effects = event.getEffects();
+        BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
+                .withFoliageColor(effects.getFoliageColor().get())
+                .withGrassColor(effects.getGrassColor().get())
+                .withGrassColorModifier(effects.getGrassColorModifier())
+                .setWaterColor(effects.getWaterColor())
+                .setWaterFogColor(effects.getWaterFogColor())
+                .setFogColor(effects.getFogColor())
+                .withSkyColor(effects.getSkyColor())
+                .setMoodSound(effects.getMoodSound().get())
+                .setAdditionsSound(effects.getAdditionsSound().get())
+                .setParticle(effects.getParticle().get());
 
         if (event.getCategory() == Biome.Category.FOREST) {
-            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).setMoodSound(effects.getMoodSound().get()).build());
+            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());
         } else if (event.getCategory() == Biome.Category.JUNGLE) {
-            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).setMoodSound(effects.getMoodSound().get()).build());
+            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).build());
         } else if (event.getCategory() == Biome.Category.PLAINS) {
-            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).setMoodSound(effects.getMoodSound().get()).build());
+            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
         } else if (event.getCategory() == Biome.Category.SWAMP) {
-            event.setEffects((new BiomeAmbience.Builder()).setWaterColor(effects.getWaterColor()).setWaterFogColor(effects.getWaterFogColor()).setFogColor(effects.getFogColor()).withSkyColor(effects.getSkyColor()).setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).setMoodSound(effects.getMoodSound().get()).build());
+            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
         }
     }
 }
