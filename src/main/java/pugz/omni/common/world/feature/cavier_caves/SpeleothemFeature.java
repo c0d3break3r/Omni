@@ -44,7 +44,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
                     ++runs;
                 }
                 BlockPos place = new BlockPos(lowerStart.getX(), y, lowerStart.getZ());
-                placeFullSpeleothem(world, place, config, runs);
+                placeFullSpeleothem(world, place, config, runs, false);
             }
             return true;
         }
@@ -73,26 +73,26 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
                     ++runs;
                 }
                 BlockPos place = new BlockPos(upperStart.getX(), y, upperStart.getZ());
-                placeFullSpeleothem(world, place, config, runs);
+                placeFullSpeleothem(world, place, config, runs, true);
             }
             return true;
         }
     }
 
-    public static void placeSpeleothem(ISeedReader world, BlockPos pos, SpeleothemBlock.Size size, SpeleothemFeatureConfig config) {
+    public static void placeSpeleothem(ISeedReader world, BlockPos pos, SpeleothemBlock.Size size, SpeleothemFeatureConfig config, boolean part) {
         Block block = world.getBlockState(pos).getBlock();
-        if (block == Blocks.CAVE_AIR || block == Blocks.WATER) world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.STATIC, true).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
+        if (block == Blocks.CAVE_AIR || block == Blocks.WATER) world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.PART, part ? SpeleothemBlock.Part.UPPER : SpeleothemBlock.Part.LOWER).with(SpeleothemBlock.STATIC, true).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
     }
 
-    public static void placeFullSpeleothem(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig config, int i) {
+    public static void placeFullSpeleothem(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig config, int i, boolean part) {
         switch (i) {
             case 0:
-                if (config.variant == SpeleothemFeatureConfig.Variant.ICE) placeSpeleothem(world, pos, SpeleothemBlock.Size.ICE_LARGE, config);
-                else placeSpeleothem(world, pos, SpeleothemBlock.Size.LARGE, config);
+                if (config.variant == SpeleothemFeatureConfig.Variant.ICE) placeSpeleothem(world, pos, SpeleothemBlock.Size.ICE_LARGE, config, part);
+                else placeSpeleothem(world, pos, SpeleothemBlock.Size.LARGE, config, part);
             case 1:
-                placeSpeleothem(world, pos, SpeleothemBlock.Size.MEDIUM, config);
+                placeSpeleothem(world, pos, SpeleothemBlock.Size.MEDIUM, config, part);
             case 2:
-                placeSpeleothem(world, pos, SpeleothemBlock.Size.SMALL, config);
+                placeSpeleothem(world, pos, SpeleothemBlock.Size.SMALL, config, part);
         }
     }
 }
