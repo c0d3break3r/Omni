@@ -13,11 +13,5 @@
   "result": {
     "item": "omni:red_rock_brick_vertical_slab",
     "count": 3
-  },
-  "conditions": [
-    {
-      "type": "quark:flag",
-      "flag": "vertical_slabs"
-    }
-  ]
+  }
 }

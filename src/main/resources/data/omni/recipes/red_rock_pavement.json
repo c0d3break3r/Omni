@@ -13,20 +13,5 @@
   "result": {
     "item": "omni:red_rock_pavement",
     "count": 9
-  },
-  "conditions": [
-    {
-      "type": "forge:and",
-      "values": [
-        {
-          "type": "quark:flag",
-          "flag": "stone_pavement"
-        },
-        {
-          "type": "quark:flag",
-          "flag": "red_rock"
-        }
-      ]
-    }
-  ]
+  }
 }
