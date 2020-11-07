@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "omni:red_rock_brick_vertical_slab"
+  },
+  "result": "omni:red_rock_brick_slab",
+  "count": 1
+}

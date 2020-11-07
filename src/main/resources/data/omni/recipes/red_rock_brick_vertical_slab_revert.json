@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "omni:red_rock_brick_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:red_rock_brick_slab",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "quark:flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}
