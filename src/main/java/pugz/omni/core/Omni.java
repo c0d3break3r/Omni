@@ -1,9 +1,6 @@
 package pugz.omni.core;
 
 import pugz.omni.core.module.*;
-import pugz.omni.core.registry.OmniBlocks;
-import pugz.omni.core.registry.OmniEntities;
-import pugz.omni.core.registry.OmniTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
@@ -21,7 +18,6 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -109,12 +105,10 @@ public class Omni {
         WintertimeModule.instance.initializePost();
     }
 
-    @SuppressWarnings("deprecation")
     private void commonSetup(final FMLCommonSetupEvent event) {
         registerModulePost();
     }
 
-    @SuppressWarnings("deprecation")
     private void clientSetup(final FMLClientSetupEvent event) {
         registerModuleClient();
     }

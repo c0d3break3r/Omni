@@ -1,5 +1,6 @@
 package pugz.omni.common.block.cavier_caves;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
@@ -112,8 +113,10 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         if (!state.get(STATIC)) trySpawnEntity(world, pos);
     }
 
+
+
     private void trySpawnEntity(World world, BlockPos pos) {
-        if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getMaterial().isLiquid()) {
+        if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
             FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
             this.onStartFalling(fallingblockentity);
             fallingblockentity.setHurtEntities(true);
@@ -157,13 +160,13 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
         if (part == Part.FULL) {
             if (!down.isSolid() && up.isSolid()) {
-                if (world.isAirBlock(currentPos.down())) {
+                if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
                     world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
                     return state.with(PART, Part.UPPER).with(STATIC, false);
                 }
                 else return state.with(PART, Part.UPPER).with(STATIC, true);
             } else if (!up.isSolid() && down.isSolid()) {
-                if (world.isAirBlock(currentPos.down())) {
+                if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
                     world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
                     return state.with(PART, Part.UPPER).with(STATIC, false);
                 }
@@ -219,6 +222,12 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     protected int getFallDelay() {
         return 4;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static boolean canFallThrough(BlockState state) {
+        Material material = state.getMaterial();
+        return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
     @Override
