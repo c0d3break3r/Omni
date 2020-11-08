@@ -39,11 +39,11 @@ public abstract class AbstractModule {
     }
 
     public void initializeClient() {
-
+        onClientInitialize();
     }
 
     public void initializePost() {
-
+        onPostInitialize();
     }
 
     protected void registerBlocks() {

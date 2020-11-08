@@ -54,7 +54,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
     public Vector3d getOffset(IBlockReader access, BlockPos pos) {
         long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
-        return new Vector3d(((double)((float)(i & 15L) / 15.0F) - 0.5D) * 0.1D, 0.0D, ((double)((float)(i >> 8 & 15L) / 15.0F) - 0.5D) * 0.1D);
+        return new Vector3d(((double)((float)(i & 15L) / 15.0F) - 0.5D) * 0.25D, 0.0D, ((double)((float)(i >> 8 & 15L) / 15.0F) - 0.5D) * 0.25D);
     }
 
     @Nullable
@@ -113,7 +113,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     private void trySpawnEntity(World world, BlockPos pos) {
-        if (world.isAirBlock(pos.down())) {
+        if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getMaterial().isLiquid()) {
             FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
             this.onStartFalling(fallingblockentity);
             fallingblockentity.setHurtEntities(true);

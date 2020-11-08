@@ -161,11 +161,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     @Override
-    protected void onStartFalling(FallingBlockEntity entity) {
-        if (!(entity instanceof FallingConcretePowderEntity)) entity.shouldDropItem = false;
-    }
-
-    @Override
     public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingBlockEntity entity) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
 
@@ -217,11 +212,6 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return IWaterLoggable.super.canContainFluid(worldIn, pos, state, fluidIn) && state.get(LAYERS) < 8;
-    }
-
-    @SuppressWarnings("deprecation")
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-        return state.get(LAYERS) == 1;
     }
 
     @Nullable

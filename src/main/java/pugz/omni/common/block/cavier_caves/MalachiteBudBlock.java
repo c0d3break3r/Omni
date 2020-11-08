@@ -115,27 +115,6 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
         return type == PathType.WATER && worldIn.getFluidState(pos).isTagged(FluidTags.WATER);
     }
 
-    @SuppressWarnings("deprecation")
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-        if (!worldIn.isAreaLoaded(pos, 1)) return;
-        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(50) == 0) && worldIn.getBlockState(pos.offset(state.get(FACING).getOpposite())).getBlock() == OmniBlocks.BUDDING_MALACHITE.get()) {
-            switch (state.getBlock().getRegistryName().getPath()) {
-                case "small_malachite_bud":
-                    worldIn.setBlockState(pos, OmniBlocks.MEDIUM_MALACHITE_BUD.get().getDefaultState().with(FACING, state.get(FACING)).with(WATERLOGGED, state.get(WATERLOGGED)), 3);
-                    break;
-                case "medium_malachite_bud":
-                    worldIn.setBlockState(pos, OmniBlocks.LARGE_MALACHITE_BUD.get().getDefaultState().with(FACING, state.get(FACING)).with(WATERLOGGED, state.get(WATERLOGGED)), 3);
-                    break;
-                case "large_malachite_bud":
-                    worldIn.setBlockState(pos, OmniBlocks.MALACHITE_CLUSTER.get().getDefaultState().with(FACING, state.get(FACING)).with(WATERLOGGED, state.get(WATERLOGGED)), 3);
-                    break;
-                default:
-                    return;
-            }
-            ForgeHooks.onCropsGrowPost(worldIn, pos, state);
-        }
-    }
-
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING, WATERLOGGED);
     }
