@@ -20,16 +20,6 @@ public class OmniBlocks {
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;
 
-    //paradise
-    public static RegistryObject<Block> RED_LOTUS_FLOWER;
-    public static RegistryObject<Block> YELLOW_LOTUS_FLOWER;
-    public static RegistryObject<Block> ORANGE_LOTUS_FLOWER;
-    public static RegistryObject<Block> BLUE_LOTUS_FLOWER;
-    public static RegistryObject<Block> PINK_LOTUS_FLOWER;
-    public static RegistryObject<Block> PURPLE_LOTUS_FLOWER;
-    public static RegistryObject<Block> BLACK_LOTUS_FLOWER;
-    public static RegistryObject<Block> WHITE_LOTUS_FLOWER;
-
     //deserted
     public static RegistryObject<Block> RED_ROCK;
     public static RegistryObject<Block> RED_ROCK_STAIRS;
@@ -47,4 +37,17 @@ public class OmniBlocks {
     public static RegistryObject<Block> RED_ROCK_VERTICAL_SLAB;
     public static RegistryObject<Block> RED_ROCK_BRICK_VERICAL_SLAB;
     public static RegistryObject<Block> RED_ROCK_PAVEMENT;
+
+    //fiery nether
+    public static RegistryObject<Block> COBBLED_BASALT;
+
+    //paradise
+    public static RegistryObject<Block> RED_LOTUS_FLOWER;
+    public static RegistryObject<Block> YELLOW_LOTUS_FLOWER;
+    public static RegistryObject<Block> ORANGE_LOTUS_FLOWER;
+    public static RegistryObject<Block> BLUE_LOTUS_FLOWER;
+    public static RegistryObject<Block> PINK_LOTUS_FLOWER;
+    public static RegistryObject<Block> PURPLE_LOTUS_FLOWER;
+    public static RegistryObject<Block> BLACK_LOTUS_FLOWER;
+    public static RegistryObject<Block> WHITE_LOTUS_FLOWER;
 }

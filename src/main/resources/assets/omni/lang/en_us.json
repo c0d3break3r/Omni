@@ -128,12 +128,10 @@
   "block.omni.red_rock": "Red Rock",
   "block.omni.red_rock_stairs": "Red Rock Stairs",
   "block.omni.red_rock_slab": "Red Rock Slab",
-  "block.omni.red_rock_vertical_slab": "Red Rock Vertical Slab",
   "block.omni.red_rock_wall": "Red Rock Wall",
   "block.omni.red_rock_bricks": "Red Rock Bricks",
   "block.omni.red_rock_brick_stairs": "Red Rock Brick Stairs",
   "block.omni.red_rock_brick_slab": "Red Rock Brick Slab",
-  "block.omni.red_rock_brick_vertical_slab": "Red Rock Brick Vertical Slab",
   "block.omni.red_rock_brick_wall": "Red Rock Brick Wall",
   "block.omni.chiseled_red_rock_bricks": "Chiseled Red Rock Bricks",
   "block.omni.cracked_red_rock_bricks": "Cracked Red Rock Bricks",
@@ -144,14 +142,18 @@
   "block.omni.red_rock_brick_vertical_slab": "Red Rock Brick Vertical Slab",
   "block.omni.red_rock_pavement": "Red Rock Pavement",
 
-  "_comment3": "Forestry",
+  "_comment3": "Fiery Nether",
+
+  "block.omni.cobbled_basalt": "Cobbled Basalt",
+
+  "_comment4": "Forestry",
 
   "subtitles.ambient.forest": "Woodland noise",
   "subtitles.ambient.jungle": "Exotic noise",
   "subtitles.ambient.plains": "Country vibe",
   "subtitles.ambient.swamp": "Murky noise",
 
-  "_comment4": "Paradise",
+  "_comment5": "Paradise",
 
   "block.omni.red_lotus_flower": "Red Lotus Flower",
   "block.omni.orange_lotus_flower": "Orange Lotus Flower",
