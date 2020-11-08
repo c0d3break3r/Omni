@@ -56,7 +56,7 @@ public class Omni {
         Registries.PARTICLES.register(eventBus);
         Registries.STATS.register(eventBus);
 
-        registerModules();
+        registerModuleInit();
         eventBus.addListener(this::commonSetup);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
@@ -64,7 +64,7 @@ public class Omni {
         });
     }
 
-    private void registerModules() {
+    private void registerModuleInit() {
         CoreModule.instance.initialize();
 
         //AetherModule.instance.initialize();
@@ -79,19 +79,44 @@ public class Omni {
         WintertimeModule.instance.initialize();
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        DeferredWorkQueue.runLater(() -> {
-            OmniBlocks.registerCompostables();
-            OmniBlocks.registerFlammables();
-        });
+    private void registerModuleClient() {
+        CoreModule.instance.initializeClient();
+
+        //AetherModule.instance.initializeClient();
+        CavierCavesModule.instance.initializeClient();
+        ColormaticModule.instance.initializeClient();
+        DesertedModule.instance.initializeClient();
+        FieryNetherModule.instance.initializeClient();
+        ForestryModule.instance.initializeClient();
+        HallowsEveModule.instance.initializeClient();
+        MiscellaneousModule.instance.initializeClient();
+        ParadiseModule.instance.initializeClient();
+        WintertimeModule.instance.initializeClient();
     }
 
+    private void registerModulePost() {
+        CoreModule.instance.initializePost();
+
+        //AetherModule.instance.initializePost();
+        CavierCavesModule.instance.initializePost();
+        ColormaticModule.instance.initializePost();
+        DesertedModule.instance.initializePost();
+        FieryNetherModule.instance.initializePost();
+        ForestryModule.instance.initializePost();
+        HallowsEveModule.instance.initializePost();
+        MiscellaneousModule.instance.initializePost();
+        ParadiseModule.instance.initializePost();
+        WintertimeModule.instance.initializePost();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        registerModulePost();
+    }
+
+    @SuppressWarnings("deprecation")
     private void clientSetup(final FMLClientSetupEvent event) {
-        OmniEntities.registerEntityRenders();
-        DeferredWorkQueue.runLater(() -> {
-            OmniBlocks.registerBlockRenders();
-            OmniTileEntities.registerTileEntityRenders();
-        });
+        registerModuleClient();
     }
 
     public static class Registries {

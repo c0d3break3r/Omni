@@ -13,6 +13,10 @@ public abstract class AbstractModule {
 
     protected abstract void onInitialize();
 
+    protected abstract void onClientInitialize();
+
+    protected abstract void onPostInitialize();
+
     protected abstract void sendInitMessage();
 
     public void initialize() {
@@ -32,6 +36,14 @@ public abstract class AbstractModule {
 
         onInitialize();
         sendInitMessage();
+    }
+
+    public void initializeClient() {
+
+    }
+
+    public void initializePost() {
+
     }
 
     protected void registerBlocks() {

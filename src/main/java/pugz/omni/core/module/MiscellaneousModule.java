@@ -17,6 +17,14 @@ public class MiscellaneousModule extends AbstractModule {
     }
 
     @Override
+    protected void onClientInitialize() {
+    }
+
+    @Override
+    protected void onPostInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> PALISADE;
 

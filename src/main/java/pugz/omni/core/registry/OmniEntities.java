@@ -22,6 +22,5 @@ public class OmniEntities {
     }
 
     public static void registerEntityRenders() {
-        RenderingRegistry.registerEntityRenderingHandler(FALLING_CONCRETE_POWDER.get(), FallingConcretePowderRenderer::new);
     }
 }

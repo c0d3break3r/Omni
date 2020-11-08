@@ -10,6 +10,14 @@ public class AetherModule extends AbstractModule {
     }
 
     @Override
+    protected void onClientInitialize() {
+    }
+
+    @Override
+    protected void onPostInitialize() {
+    }
+
+    @Override
     protected void sendInitMessage() {
         System.out.println("Reached the Dawn of the Aether!");
     }

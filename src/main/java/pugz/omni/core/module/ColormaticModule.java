@@ -1,9 +1,12 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
 import pugz.omni.common.block.colormatic.*;
-import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
@@ -55,6 +58,33 @@ public class ColormaticModule extends AbstractModule {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
+    }
+
+    @Override
+    protected void onClientInitialize() {
+        for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
+            RenderTypeLookup.setRenderLayer(block.get(), RenderType.getCutout());
+        }
+
+        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.FALLING_CONCRETE_POWDER.get(), FallingConcretePowderRenderer::new);
+    }
+
+    @Override
+    protected void onPostInitialize() {
+        FireBlock fire = (FireBlock) Blocks.FIRE;
+
+        fire.setFireInfo(OmniBlocks.TRADERS_QUILTED_CARPET.get(), 60, 20);
+        fire.setFireInfo(OmniBlocks.TRADERS_QUILTED_WOOL.get(), 30, 60);
+
+        for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
+            if (block.get() instanceof FlowersBlock) fire.setFireInfo(block.get(), 60, 100);
+        }
+
+        for (Supplier<Block> block : ColormaticModule.quilteds) {
+            if (StringUtils.contains(block.get().getRegistryName().getPath(), "wool")) {
+                fire.setFireInfo(block.get(), 30, 60);
+            } else fire.setFireInfo(block.get(), 60, 20);
+        }
     }
 
     @Override

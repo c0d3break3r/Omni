@@ -25,6 +25,14 @@ public class ForestryModule extends AbstractModule {
     }
 
     @Override
+    protected void onClientInitialize() {
+    }
+
+    @Override
+    protected void onPostInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> BEAVER_DAM;
 

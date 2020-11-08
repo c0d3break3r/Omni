@@ -18,6 +18,14 @@ public class HallowsEveModule extends AbstractModule {
     }
 
     @Override
+    protected void onClientInitialize() {
+    }
+
+    @Override
+    protected void onPostInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         //RegistryObject<Block> HALLOWED_DIRT;
 

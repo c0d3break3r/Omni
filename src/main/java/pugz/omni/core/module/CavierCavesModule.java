@@ -1,6 +1,8 @@
 package pugz.omni.core.module;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import pugz.omni.common.block.cavier_caves.MalachiteBudBlock;
 import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
@@ -33,6 +35,18 @@ public class CavierCavesModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
+    }
+
+    @Override
+    protected void onClientInitialize() {
+        RenderTypeLookup.setRenderLayer(OmniBlocks.MALACHITE_CLUSTER.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(OmniBlocks.LARGE_MALACHITE_BUD.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(OmniBlocks.MEDIUM_MALACHITE_BUD.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(OmniBlocks.SMALL_MALACHITE_BUD.get(), RenderType.getCutout());
+    }
+
+    @Override
+    protected void onPostInitialize() {
     }
 
     @Override

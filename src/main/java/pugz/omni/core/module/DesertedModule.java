@@ -33,6 +33,14 @@ public class DesertedModule extends AbstractModule {
     }
 
     @Override
+    protected void onClientInitialize() {
+    }
+
+    @Override
+    protected void onPostInitialize() {
+    }
+
+    @Override
     protected void registerBlocks() {
         OmniBlocks.RED_ROCK = RegistryUtil.createBlock("red_rock", () -> new Block(AbstractBlock.Properties.from(Blocks.SANDSTONE)), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.RED_ROCK_STAIRS = RegistryUtil.createBlock("red_rock_stairs", () -> new StairsBlock(() -> OmniBlocks.RED_ROCK.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.COBBLESTONE)), ItemGroup.BUILDING_BLOCKS);
