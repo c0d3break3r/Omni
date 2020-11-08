@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "flowers=1": {
+      "model": "environmental:block/bluebell"
+    },
+    "flowers=2": {
+      "model": "omni:block/colormatic/two_bluebells"
+    },
+    "flowers=3": {
+      "model": "omni:block/colormatic/three_bluebells"
+    },
+    "flowers=4": {
+      "model": "omni:block/colormatic/four_bluebells"
+    }
+  }
+}

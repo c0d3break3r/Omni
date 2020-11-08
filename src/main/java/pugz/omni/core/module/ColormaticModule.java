@@ -104,19 +104,18 @@ public class ColormaticModule extends AbstractModule {
         }
 
         for (Block block : ForgeRegistries.BLOCKS.getValues()) {
-            String name;
-
             if (block instanceof FlowerBlock) {
-                name = block.getRegistryName().getPath() + "s";
+                String name = block.getRegistryName().getPath() + "s";
+                if (StringUtils.endsWith(name, "ss")) name = StringUtils.removeEnd(name, "ss") + "ses";
                 final RegistryObject<AbstractStackableBlock> FLOWERS = RegistryUtil.createBlock(name, () -> new FlowersBlock(AbstractBlock.Properties.from(block), block), null);
                 stackables.add(FLOWERS);
             } else if (block instanceof MushroomBlock) {
-                name = block.getRegistryName().getPath() + "s";
+                String name = block.getRegistryName().getPath() + "s";
                 ConfiguredFeature<?, ?> configuredFeature = StringUtils.contains(name, "red") ? Features.HUGE_RED_MUSHROOM : Features.HUGE_BROWN_MUSHROOM;
                 final RegistryObject<AbstractStackableBlock> MUSHROOMS = RegistryUtil.createBlock(name, () -> new MushroomsBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
                 stackables.add(MUSHROOMS);
             } else if (block instanceof FungusBlock) {
-                name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
+                String name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
                 ConfiguredFeature<HugeFungusConfig, ?> configuredFeature = StringUtils.contains(name, "crimson") ? Features.CRIMSON_FUNGI_PLANTED : Features.WARPED_FUNGI_PLANTED;
                 final RegistryObject<AbstractStackableBlock> FUNGI = RegistryUtil.createBlock(name, () -> new FungiBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
                 stackables.add(FUNGI);

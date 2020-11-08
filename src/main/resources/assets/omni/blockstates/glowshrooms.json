@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "mushrooms=1": {
+      "model": "quark:block/glowshroom"
+    },
+    "mushrooms=2": {
+      "model": "omni:block/colormatic/two_glowshrooms"
+    },
+    "mushrooms=3": {
+      "model": "omni:block/colormatic/three_glowshrooms"
+    },
+    "mushrooms=4": {
+      "model": "omni:block/colormatic/four_glowshrooms"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "flowers=1": {
+      "model": "environmental:block/purple_hibiscus"
+    },
+    "flowers=2": {
+      "model": "omni:block/colormatic/two_purple_hibiscuses"
+    },
+    "flowers=3": {
+      "model": "omni:block/colormatic/three_purple_hibiscuses"
+    },
+    "flowers=4": {
+      "model": "omni:block/colormatic/four_purple_hibiscuses"
+    }
+  }
+}

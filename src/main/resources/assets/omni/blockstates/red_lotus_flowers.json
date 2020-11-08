@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "flowers=1": {
+      "model": "environmental:block/red_lotus_flower"
+    },
+    "flowers=2": {
+      "model": "omni:block/colormatic/two_red_lotus_flowers"
+    },
+    "flowers=3": {
+      "model": "omni:block/colormatic/three_red_lotus_flowers"
+    },
+    "flowers=4": {
+      "model": "omni:block/colormatic/four_red_lotus_flowers"
+    }
+  }
+}
