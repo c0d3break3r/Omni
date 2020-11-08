@@ -3,8 +3,7 @@
     "sounds": [
       "omni:ambient/forest/forest1",
       "omni:ambient/forest/forest2",
-      "omni:ambient/forest/forest3",
-      "omni:ambient/forest/forest4"
+      "omni:ambient/forest/forest3"
     ],
     "subtitle": "subtitles.ambient.forest"
   },
