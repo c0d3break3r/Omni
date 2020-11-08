@@ -4,6 +4,7 @@ import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -142,8 +143,8 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         super.tick(state, world, pos, rand);
 
         if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
-            FallingBlockEntity entity = new FallingConcretePowderEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
-            entity.shouldDropItem = state.get(LAYERS) == 8;
+            FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, state.get(LAYERS), state);
+            entity.shouldDropItem = false;
             world.addEntity(entity);
         }
     }
@@ -162,6 +163,8 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     @Override
     public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingBlockEntity entity) {
+        System.out.println("end");
+
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
 
         if (!(entity instanceof FallingConcretePowderEntity)) worldIn.removeBlock(entity.getPosition(), false);

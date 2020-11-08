@@ -78,7 +78,6 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
                 if (this.world.getBlockState(blockpos).isIn(block)) {
                     this.world.removeBlock(blockpos, false);
                 } else if (!this.world.isRemote) {
-                    //this.remove();
                     return;
                 }
             }
@@ -103,7 +102,7 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
 
                 if (!this.onGround && !flag1) {
                     if (!this.world.isRemote && (this.fallTime > 100 && (blockpos1.getY() < 1 || blockpos1.getY() > 256) || this.fallTime > 600)) {
-                        if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                        if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
                             this.entityDropItem(block);
                         }
 
@@ -150,7 +149,7 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
                                 }
                             } else if (!(hitState.getBlock() instanceof LayerConcretePowderBlock)) {
                                 if (this.world.setBlockState(blockpos1, this.fallState, 3)) {
-                                    ((FallingBlock) block).onEndFalling(this.world, blockpos1, this.fallState, hitState, this);
+                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState, hitState, this);
                                 }
                             } else if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
                                 this.entityDropItem(block);

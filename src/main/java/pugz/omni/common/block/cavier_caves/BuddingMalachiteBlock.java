@@ -29,7 +29,7 @@ public class BuddingMalachiteBlock extends Block {
         BlockState placeState = worldIn.getBlockState(place);
 
         if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(5) == 1)) {
-            if (worldIn.isAirBlock(place)) {
+            if (worldIn.isAirBlock(place) || worldIn.getBlockState(place).getMaterial().isLiquid()) {
                 worldIn.setBlockState(place, OmniBlocks.SMALL_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
             } else {
                 switch (placeState.getBlock().getRegistryName().getPath()) {
