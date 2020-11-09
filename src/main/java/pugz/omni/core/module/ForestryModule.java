@@ -1,6 +1,10 @@
 package pugz.omni.core.module;
 
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniSoundEvents;
+import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
@@ -65,20 +69,14 @@ public class ForestryModule extends AbstractModule {
         //RegistryObject<Biome> ERODED_TAIGA_FOREST;
         //RegistryObject<Biome> ERODED_JUNGLE;
 
-        //RegistryObject<Biome> TALL_FOREST;
-        //RegistryObject<Biome> TALL_TAIGA_FOREST;
-        //RegistryObject<Biome> TALL_DARK_FOREST;
-        //RegistryObject<Biome> TALL_JUNGLE;
+        //OmniBiomes.TALL_FOREST = RegistryUtil.createBiome("tall_forest", OmniBiomes.createTallForestBiome(), BiomeManager.BiomeType.WARM, 6, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.RARE, BiomeDictionary.Type.DENSE);
+        //OmniBiomes.TALL_TAIGA = RegistryUtil.createBiome("tall_taiga", OmniBiomes.createTallTaigaBiome(false), BiomeManager.BiomeType.COOL, 6, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.RARE, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.COLD);
+        //OmniBiomes.TALL_SNOWY_TAIGA = RegistryUtil.createBiome("tall_snowy_taiga", OmniBiomes.createTallTaigaBiome(true), BiomeManager.BiomeType.ICY, 6, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.RARE, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);
     }
 
     @Override
     protected void registerFeatures() {
         //RegistryObject<Feature<?>> FALLEN_TREES;
-
-        //RegistryObject<Feature<?>> TALL_OAK_TREE;
-        //RegistryObject<Feature<?>> TALL_SPRUCE_TREE;
-        //RegistryObject<Feature<?>> TALL_JUNGLE_TREE;
-        //RegistryObject<Feature<?>> TALL_DARK_OAK_TREE;
     }
 
     @Override

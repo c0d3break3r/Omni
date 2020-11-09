@@ -9,10 +9,16 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import pugz.omni.core.util.BiomeFeatures;
 
 public class OmniBiomes {
     //colormatic
     public static RegistryKey<Biome> FLOWER_FIELD;
+
+    //forestry
+    //public static RegistryKey<Biome> TALL_FOREST;
+    //public static RegistryKey<Biome> TALL_TAIGA;
+    //public static RegistryKey<Biome> TALL_SNOWY_TAIGA;
 
     //paradise
     public static RegistryKey<Biome> TROPICAL_PLAINS;
@@ -21,19 +27,15 @@ public class OmniBiomes {
         MobSpawnInfo.Builder mobspawninfo$builder = getStandardMobSpawnBuilder().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 4, 2, 3));
         DefaultBiomeFeatures.withSpawnsWithHorseAndDonkey(mobspawninfo$builder);
         mobspawninfo$builder.isValidSpawnBiomeForPlayer();
-
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
         biomegenerationsettings$builder.withStructure(StructureFeatures.VILLAGE_PLAINS).withStructure(StructureFeatures.PILLAGER_OUTPOST);
-
         DefaultBiomeFeatures.withStrongholdAndMineshaft(biomegenerationsettings$builder);
         biomegenerationsettings$builder.withStructure(StructureFeatures.RUINED_PORTAL);
         DefaultBiomeFeatures.withCavesAndCanyons(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withLavaAndWaterLakes(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withMonsterRoom(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withNoiseTallGrass(biomegenerationsettings$builder);
-
         biomegenerationsettings$builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
-
         DefaultBiomeFeatures.withCommonOverworldBlocks(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withOverworldOres(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withDisks(biomegenerationsettings$builder);
