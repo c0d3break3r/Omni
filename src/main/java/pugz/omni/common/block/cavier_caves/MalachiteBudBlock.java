@@ -29,17 +29,19 @@ import java.util.Random;
 public class MalachiteBudBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    protected static final VoxelShape AABB_UP = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
-    protected static final VoxelShape AABB_DOWN = Block.makeCuboidShape(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
-    protected static final VoxelShape AABB_NORTH = Block.makeCuboidShape(4.0D, 4.0D, 8.0D, 12.0D, 12.0D, 16.0D);
-    protected static final VoxelShape AABB_WEST = Block.makeCuboidShape(8.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
-    protected static final VoxelShape AABB_SOUTH = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 8.0D);
-    protected static final VoxelShape AABB_EAST = Block.makeCuboidShape(0.0D, 4.0D, 4.0D, 8.0D, 12.0D, 12.0D);
+    protected static final VoxelShape[] UP_SHAPES = new VoxelShape[] {Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 3.0D, 11.0D), Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D), Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 5.0D, 12.0D), Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D)};
+    protected static final VoxelShape[] DOWN_SHAPES = new VoxelShape[] {Block.makeCuboidShape(5.0D, 3.0D, 5.0D, 11.0D, 0.0D, 11.0D), Block.makeCuboidShape(4.0D, 4.0D, 4.0D, 12.0D, 0.0D, 12.0D), Block.makeCuboidShape(4.0D, 5.0D, 4.0D, 12.0D, 0.0D, 12.0D), Block.makeCuboidShape(4.0D, 7.0D, 4.0D, 12.0D, 0.0D, 12.0D)};
+    protected static final VoxelShape[] NORTH_SHAPES = new VoxelShape[] {Block.makeCuboidShape(5.0D, 5.0D, 13.0D, 11.0D, 11.0D, 16.0D), Block.makeCuboidShape(4.0D, 4.0D, 12.0D, 12.0D, 12.0D, 16.0D), Block.makeCuboidShape(4.0D, 4.0D, 11.0D, 12.0D, 12.0D, 16.0D), Block.makeCuboidShape(4.0D, 4.0D, 9.0D, 12.0D, 12.0D, 16.0D)};
+    protected static final VoxelShape[] SOUTH_SHAPES = new VoxelShape[] {Block.makeCuboidShape(5.0D, 5.0D, 0.0D, 11.0D, 11.0D, 3.0D), Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 4.0D), Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 5.0D), Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 7.0D)};
+    protected static final VoxelShape[] WEST_SHAPES = new VoxelShape[] {Block.makeCuboidShape(13.0D, 5.0D, 5.0D, 16.0D, 11.0D, 11.0D), Block.makeCuboidShape(12.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D), Block.makeCuboidShape(11.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D), Block.makeCuboidShape(9.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D)};
+    protected static final VoxelShape[] EAST_SHAPES = new VoxelShape[] {Block.makeCuboidShape(0.0D, 5.0D, 5.0D, 3.0D, 11.0D, 11.0D), Block.makeCuboidShape(0.0D, 4.0D, 4.0D, 4.0D, 12.0D, 12.0D), Block.makeCuboidShape(0.0D, 4.0D, 4.0D, 5.0D, 12.0D, 12.0D), Block.makeCuboidShape(0.0D, 4.0D, 4.0D, 7.0D, 12.0D, 12.0D)};
+    private final int age;
 
-    public MalachiteBudBlock(AbstractBlock.Properties properties) {
+    public MalachiteBudBlock(AbstractBlock.Properties properties, int age) {
         super(properties.setLightLevel((state) -> {
             return 14;
         }));
+        this.age = age;
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(WATERLOGGED, false));
     }
 
@@ -64,17 +66,17 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch(state.get(FACING)) {
             case UP:
-                return AABB_UP;
+                return UP_SHAPES[age];
             case DOWN:
-                return AABB_DOWN;
+                return DOWN_SHAPES[age];
             case EAST:
-                return AABB_EAST;
+                return EAST_SHAPES[age];
             case WEST:
-                return AABB_WEST;
+                return WEST_SHAPES[age];
             case NORTH:
-                return AABB_NORTH;
+                return NORTH_SHAPES[age];
             default:
-                return AABB_SOUTH;
+                return SOUTH_SHAPES[age];
         }
     }
 

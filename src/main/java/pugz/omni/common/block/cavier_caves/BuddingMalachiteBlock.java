@@ -2,6 +2,7 @@ package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -9,6 +10,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import pugz.omni.core.registry.OmniBlocks;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BuddingMalachiteBlock extends Block {
@@ -18,6 +20,13 @@ public class BuddingMalachiteBlock extends Block {
 
     public boolean ticksRandomly(BlockState state) {
         return true;
+    }
+
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public PushReaction getPushReaction(BlockState state) {
+        return PushReaction.DESTROY;
     }
 
     @SuppressWarnings("deprecation")
