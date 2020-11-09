@@ -14,6 +14,9 @@ public class OmniBiomes {
     //colormatic
     public static RegistryKey<Biome> FLOWER_FIELD;
 
+    //paradise
+    public static RegistryKey<Biome> TROPICAL_PLAINS;
+
     public static Biome createFlowerFieldBiome() {
         MobSpawnInfo.Builder mobspawninfo$builder = getStandardMobSpawnBuilder().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 4, 2, 3));
         DefaultBiomeFeatures.withSpawnsWithHorseAndDonkey(mobspawninfo$builder);

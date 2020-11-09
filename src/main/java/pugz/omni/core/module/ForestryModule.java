@@ -1,13 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraft.loot.*;
-import net.minecraft.loot.conditions.RandomChance;
-import net.minecraft.loot.functions.SetCount;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.LootTableLoadEvent;
-import pugz.omni.common.item.forestry.EnchantedGoldenCarrotItem;
-import pugz.omni.core.Omni;
-import pugz.omni.core.registry.OmniItems;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
@@ -29,7 +21,6 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
@@ -58,8 +49,6 @@ public class ForestryModule extends AbstractModule {
 
         //RegistryObject<Item> HONEY_CHESTPLATE;
         //RegistryObject<Item> ROYAL_JELLY;
-
-        OmniItems.ENCHANTED_GOLDEN_CARROT = RegistryUtil.createItem("enchanted_golden_carrot", EnchantedGoldenCarrotItem::new);
     }
 
     @Override
@@ -122,16 +111,6 @@ public class ForestryModule extends AbstractModule {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
         } else if (event.getCategory() == Biome.Category.SWAMP) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
-        }
-    }
-
-    public void onLootTableLoad(LootTableLoadEvent event) {
-        LootTable table = event.getTable();
-        ResourceLocation name = event.getName();
-
-        if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
-            LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(0.03F)).build();
-            table.addPool(pool);
         }
     }
 }
