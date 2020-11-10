@@ -163,7 +163,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                     } else if (var34 >= var22) {
                         world.setBlockState(var43, Blocks.DIORITE.getDefaultState(), 3);
                     } else if (var34 >= var24) {
-                        world.setBlockState(var43, Blocks.ANDESITE.getDefaultState(), 3);
+                        world.setBlockState(var43, Blocks.GRANITE.getDefaultState(), 3);
                     }
                 }
             }
