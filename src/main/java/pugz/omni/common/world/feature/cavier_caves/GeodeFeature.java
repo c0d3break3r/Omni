@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
@@ -86,6 +87,8 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
             List<BlockPos> var40 = Lists.newArrayList();
             Iterator var41 = BlockPos.getAllInBox(pos.add(minGenOffset, minGenOffset, minGenOffset), pos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
 
+            if (world.getBlockState(pos.down()).getFluidState().isTagged(FluidTags.WATER) && world.getBiome(pos).getCategory() == Biome.Category.OCEAN) return false;
+
             while(true) {
                 while(true) {
                     double var34;
@@ -103,16 +106,15 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                                     Direction[] var47 = directions;
                                     int var35 = var47.length;
 
-                                    for(int var48 = 0; var48 < var35; ++var48) {
-                                        Direction var37 = var47[var48];
+                                    for (Direction var37 : var47) {
                                         if (crystalBudState.hasProperty(BlockStateProperties.FACING)) {
-                                            crystalBudState = (BlockState)crystalBudState.with(BlockStateProperties.FACING, var37);
+                                            crystalBudState = (BlockState) crystalBudState.with(BlockStateProperties.FACING, var37);
                                         }
 
                                         BlockPos var50 = var46.offset(var37);
                                         BlockState var52 = world.getBlockState(var50);
                                         if (crystalBudState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                                            crystalBudState = (BlockState)crystalBudState.with(BlockStateProperties.WATERLOGGED, var52.getFluidState().isTagged(FluidTags.WATER));
+                                            crystalBudState = (BlockState) crystalBudState.with(BlockStateProperties.WATERLOGGED, var52.getFluidState().isTagged(FluidTags.WATER));
                                         }
 
                                         if (BuddingMalachiteBlock.g(var52)) {
