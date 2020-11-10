@@ -1,15 +1,18 @@
 package pugz.omni.core.registry;
 
-import pugz.omni.client.render.FallingConcretePowderRenderer;
+import net.minecraft.entity.LivingEntity;
+import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class OmniEntities {
     //colormatic
     public static RegistryObject<EntityType<FallingConcretePowderEntity>> FALLING_CONCRETE_POWDER;
+
+    //paradise
+    public static RegistryObject<EntityType<SeahorseEntity>> SEAHORSE;
 
     public static EntityType<FallingConcretePowderEntity> createFallingBlockEntity() {
         return EntityType.Builder.<FallingConcretePowderEntity>create(EntityClassification.MISC)
@@ -21,6 +24,12 @@ public class OmniEntities {
                 .build("falling_concrete_powder");
     }
 
-    public static void registerEntityRenders() {
+    public static <E extends LivingEntity> EntityType<E> createLivingEntity(String name, EntityClassification classification, int width, int height) {
+        return EntityType.Builder.<E>create(classification)
+                .size(width, height)
+                .setTrackingRange(64)
+                .setShouldReceiveVelocityUpdates(true)
+                .setUpdateInterval(3)
+                .build(name);
     }
 }

@@ -2,6 +2,7 @@ package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
@@ -57,5 +58,10 @@ public class BuddingMalachiteBlock extends Block {
             }
             ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static boolean g(BlockState var0) {
+        return var0.isAir() || var0.isIn(Blocks.AIR);
     }
 }

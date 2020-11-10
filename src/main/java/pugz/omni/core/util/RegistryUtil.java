@@ -1,6 +1,8 @@
 package pugz.omni.core.util;
 
 import com.google.common.collect.Sets;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.LivingEntity;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

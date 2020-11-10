@@ -5,12 +5,23 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.item.Item;
 import net.minecraft.world.biome.BiomeMaker;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.world.MobSpawnInfoBuilder;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
+import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniEntities;
+import pugz.omni.core.registry.OmniItems;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.Blocks;
@@ -20,6 +31,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+
+import java.util.List;
 
 public class ParadiseModule extends AbstractModule {
     public static final ParadiseModule instance = new ParadiseModule();
@@ -48,6 +61,8 @@ public class ParadiseModule extends AbstractModule {
         RenderTypeLookup.setRenderLayer(OmniBlocks.BLUE_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
+
+        //RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
     }
 
     @Override
@@ -71,6 +86,8 @@ public class ParadiseModule extends AbstractModule {
         ComposterBlock.CHANCES.put(OmniBlocks.BLUE_LOTUS_FLOWER.get().asItem(), 0.65F);
         ComposterBlock.CHANCES.put(OmniBlocks.BLACK_LOTUS_FLOWER.get().asItem(), 0.65F);
         ComposterBlock.CHANCES.put(OmniBlocks.WHITE_LOTUS_FLOWER.get().asItem(), 0.65F);
+
+        //GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
     }
 
     @Override
@@ -128,6 +145,8 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<Item> KIWI;
 
         //RegistryObject<Item> SHELLS;
+
+        OmniItems.SEAHORSE_SPAWN_EGG = RegistryUtil.createItem("seahorse_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.SEAHORSE.get(), 3966437, 14827318, new Item.Properties().group(ItemGroup.MISC)));
     }
 
     @Override
@@ -135,7 +154,7 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<EntityType<?>> KELPIE;
         //RegistryObject<EntityType<?>> KIWI;
         //RegistryObject<EntityType<?>> TIKI;
-        //RegistryObject<EntityType<?>> SEAHORSE;
+        //OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity("seahorse", EntityClassification.CREATURE, 1, 1));
         //RegistryObject<EntityType<?>> GOLIATH;
         //RegistryObject<EntityType<?>> HERMIT_CRAB;
         //RegistryObject<EntityType<?>> SEAGULL;
@@ -165,6 +184,12 @@ public class ParadiseModule extends AbstractModule {
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
+        MobSpawnInfoBuilder spawns = event.getSpawns();
+
+        if (event.getCategory() == Biome.Category.OCEAN) {
+            List<MobSpawnInfo.Spawners> mobSpawns = spawns.getSpawner(EntityClassification.CREATURE);
+            //mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 6, 2, 6));
+        }
 
         if (event.getCategory() == Biome.Category.JUNGLE) {
             BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, 8);

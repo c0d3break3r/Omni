@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.block.cavier_caves.MalachiteBudBlock;
 import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
+import pugz.omni.common.world.feature.cavier_caves.GeodeFeature;
+import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
@@ -150,6 +152,8 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Feature<?>> SULFUR;
 
         //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
+
+        OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.b));
     }
 
     @Override
@@ -177,6 +181,7 @@ public class CavierCavesModule extends AbstractModule {
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, 0.004F);
+            BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, 0.006F);
