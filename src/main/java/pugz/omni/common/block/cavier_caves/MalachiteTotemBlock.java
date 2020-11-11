@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 
 public class MalachiteTotemBlock extends Block {
     private static final VoxelShape PART_BASE = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 3.0D, 15.0D);
-    private static final VoxelShape PART_TOTEM = Block.makeCuboidShape(6.0D, 4.0D, 6.0D, 10.0D, 16.0D, 10.0D);
+    private static final VoxelShape PART_TOTEM = Block.makeCuboidShape(6.0D, 3.0D, 6.0D, 10.0D, 16.0D, 10.0D);
     private static final VoxelShape SHAPE = VoxelShapes.or(PART_BASE, PART_TOTEM);
 
     public MalachiteTotemBlock() {
