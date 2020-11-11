@@ -141,7 +141,7 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                                 } else this.shouldDropItem = true;
                             } else if (!(hitState.getBlock() instanceof LayerConcretePowderBlock)) {
                                 if (this.world.setBlockState(blockpos1, this.fallState, 3)) {
-                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState, hitState, this);
+                                    ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState);
                                 }
                             } else if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS) && this.layers == 8) {
                                 this.entityDropItem(block);

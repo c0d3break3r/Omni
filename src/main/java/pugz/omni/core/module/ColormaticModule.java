@@ -3,13 +3,10 @@ package pugz.omni.core.module;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.entity.FallingBlockRenderer;
-import net.minecraft.entity.EntityClassification;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
 import pugz.omni.common.block.colormatic.*;
-import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
@@ -222,7 +219,6 @@ public class ColormaticModule extends AbstractModule {
 
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         World world = event.getWorld();
-
         ItemStack stack = event.getItemStack();
         BlockPos pos = event.getPos();
         Block block = world.getBlockState(pos).getBlock();

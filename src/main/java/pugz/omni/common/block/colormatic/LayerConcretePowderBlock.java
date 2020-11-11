@@ -158,7 +158,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.isAir() || state.isIn(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingConcretePowderEntity entity) {
+    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
         if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
     }
 
