@@ -17,6 +17,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.common.entity.paradise.SeahorseEntity1;
 import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
@@ -62,7 +63,7 @@ public class ParadiseModule extends AbstractModule {
         RenderTypeLookup.setRenderLayer(OmniBlocks.BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
 
-        //RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
     }
 
     @Override
@@ -87,7 +88,7 @@ public class ParadiseModule extends AbstractModule {
         ComposterBlock.CHANCES.put(OmniBlocks.BLACK_LOTUS_FLOWER.get().asItem(), 0.65F);
         ComposterBlock.CHANCES.put(OmniBlocks.WHITE_LOTUS_FLOWER.get().asItem(), 0.65F);
 
-        //GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
     }
 
     @Override
@@ -154,7 +155,7 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<EntityType<?>> KELPIE;
         //RegistryObject<EntityType<?>> KIWI;
         //RegistryObject<EntityType<?>> TIKI;
-        //OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity("seahorse", EntityClassification.CREATURE, 1, 1));
+        OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",1, 1));
         //RegistryObject<EntityType<?>> GOLIATH;
         //RegistryObject<EntityType<?>> HERMIT_CRAB;
         //RegistryObject<EntityType<?>> SEAGULL;
@@ -188,7 +189,7 @@ public class ParadiseModule extends AbstractModule {
 
         if (event.getCategory() == Biome.Category.OCEAN) {
             List<MobSpawnInfo.Spawners> mobSpawns = spawns.getSpawner(EntityClassification.CREATURE);
-            //mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 6, 2, 6));
+            mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 6, 2, 6));
         }
 
         if (event.getCategory() == Biome.Category.JUNGLE) {

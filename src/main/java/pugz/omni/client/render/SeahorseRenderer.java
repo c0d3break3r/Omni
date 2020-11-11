@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.util.ResourceLocation;
 import pugz.omni.client.model.SeahorseModel;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.common.entity.paradise.SeahorseEntity1;
 import pugz.omni.core.Omni;
 
 import javax.annotation.Nonnull;
@@ -28,25 +29,18 @@ public class SeahorseRenderer extends MobRenderer<SeahorseEntity, EntityModel<Se
     @Nonnull
     @Override
     public ResourceLocation getEntityTexture(SeahorseEntity seahorseEntity) {
-        switch (seahorseEntity.getVariantType()) {
-            case FIRE:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_fire.png");
-            case BRAIN:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_brain.png");
-            case BUBBLE:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_bubble.png");
-            case TUBE:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_tube.png");
-            default:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_horn.png");
-        }
-    }
-
-    @Override
-    protected void preRenderCallback(SeahorseEntity pugEntity, MatrixStack matrixStack, float partialTickTime) {
-        matrixStack.scale(1.0F, 1.0F, 1.0F);
-        if (pugEntity.isChild()) {
-            matrixStack.scale(0.5F, 0.5F, 0.5F);
-        }
+        //switch (seahorseEntity.getVariantType()) {
+        //    case FIRE:
+       //         return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_fire.png");
+        //    case BRAIN:
+        //        return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_brain.png");
+        //    case BUBBLE:
+        //        return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_bubble.png");
+        //    case TUBE:
+        //        return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_tube.png");
+        //    default:
+        //        return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_horn.png");
+        //}
+        return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_horn.png");
     }
 }

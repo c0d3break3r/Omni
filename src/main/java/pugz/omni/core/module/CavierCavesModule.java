@@ -216,11 +216,11 @@ public class CavierCavesModule extends AbstractModule {
 
         if (world.getRandom().nextBoolean()) {
             if (target instanceof PlayerEntity && living instanceof PhantomEntity) {
-                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, OmniBlocks.MALACHITE_TOTEM.get())) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 6, OmniBlocks.MALACHITE_TOTEM.get())) {
                     ((MobEntity) living).setAttackTarget((LivingEntity) null);
                 }
             } else if (target instanceof VillagerEntity && living.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
-                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, OmniBlocks.MALACHITE_TOTEM.get())) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 6, OmniBlocks.MALACHITE_TOTEM.get())) {
                     ((MobEntity) living).setAttackTarget((LivingEntity) null);
                 }
             }

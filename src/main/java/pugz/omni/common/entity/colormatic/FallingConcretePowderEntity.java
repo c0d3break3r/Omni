@@ -38,8 +38,8 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
     private BlockState fallState;
     private EntitySize size;
 
-    public FallingConcretePowderEntity(World worldIn) {
-        super(OmniEntities.FALLING_CONCRETE_POWDER.get(), worldIn);
+    public FallingConcretePowderEntity(EntityType<FallingConcretePowderEntity> entity, World worldIn) {
+        super(entity, worldIn);
         this.layers = 1;
         size = new EntitySize(0.98f, 0.1225f * layers, true);
     }

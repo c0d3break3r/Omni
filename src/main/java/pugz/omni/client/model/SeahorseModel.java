@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.common.entity.paradise.SeahorseEntity1;
 
 public class SeahorseModel<S extends SeahorseEntity> extends EntityModel<S> {
 	private final ModelRenderer body;
