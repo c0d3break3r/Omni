@@ -17,7 +17,6 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
-import pugz.omni.common.entity.paradise.SeahorseEntity1;
 import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
@@ -155,7 +154,7 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<EntityType<?>> KELPIE;
         //RegistryObject<EntityType<?>> KIWI;
         //RegistryObject<EntityType<?>> TIKI;
-        OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",1, 1));
+        OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.4F, 0.8F));
         //RegistryObject<EntityType<?>> GOLIATH;
         //RegistryObject<EntityType<?>> HERMIT_CRAB;
         //RegistryObject<EntityType<?>> SEAGULL;
@@ -188,7 +187,7 @@ public class ParadiseModule extends AbstractModule {
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
         if (event.getCategory() == Biome.Category.OCEAN) {
-            List<MobSpawnInfo.Spawners> mobSpawns = spawns.getSpawner(EntityClassification.CREATURE);
+            List<MobSpawnInfo.Spawners> mobSpawns = spawns.getSpawner(EntityClassification.WATER_AMBIENT);
             mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 6, 2, 6));
         }
 

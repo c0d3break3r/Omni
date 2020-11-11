@@ -3,10 +3,13 @@ package pugz.omni.core.module;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
+import net.minecraft.entity.EntityClassification;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
 import pugz.omni.common.block.colormatic.*;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
@@ -151,7 +154,6 @@ public class ColormaticModule extends AbstractModule {
     @Override
     protected void registerEntities() {
         OmniEntities.FALLING_CONCRETE_POWDER = RegistryUtil.createEntity("falling_concrete_powder", OmniEntities::createFallingBlockEntity);
-
         //RegistryObject<EntityType<?>> AEROMA;
         //RegistryObject<EntityType<?>> KOALA;
     }

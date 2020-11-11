@@ -1,9 +1,7 @@
 package pugz.omni.common.entity.colormatic;
 
 import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.nbt.INBT;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tileentity.TileEntity;
 import pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
 import pugz.omni.core.registry.OmniEntities;
@@ -29,7 +27,7 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 
-public class FallingConcretePowderEntity extends FallingBlockEntity {
+public class FallingConcretePowderEntity extends Entity {
     public int fallTime;
     private int layers;
     public boolean shouldDropItem;
@@ -169,8 +167,32 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
         this.dataManager.set(LAYERS, layers);
     }
 
+    public BlockPos getOrigin() {
+        return this.dataManager.get(ORIGIN);
+    }
+
     public int getLayers() {
         return this.dataManager.get(LAYERS);
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return this.isAlive();
+    }
+
+    @Override
+    public boolean canRenderOnFire() {
+        return false;
+    }
+
+    @Override
+    protected boolean canTriggerWalking() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeAttackedWithItem() {
+        return false;
     }
 
     @Override
@@ -199,5 +221,11 @@ public class FallingConcretePowderEntity extends FallingBlockEntity {
     @Nonnull
     public BlockState getBlockState() {
         return fallState;
+    }
+
+    @Nonnull
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return new SSpawnObjectPacket(this, Block.getStateId(this.getBlockState()));
     }
 }

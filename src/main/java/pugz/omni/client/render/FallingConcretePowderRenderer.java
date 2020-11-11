@@ -27,13 +27,12 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
         this.shadowSize = 0.5F;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
+    @SuppressWarnings("deprecation")
     public void render(FallingConcretePowderEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixstack, IRenderTypeBuffer buffer, int p_225623_6_) {
         if (entity.getLayers() <= 0 && entity.getLayers() > 8) return;
-
         BlockState blockstate = entity.getBlockState();
-        World world = entity.getWorldObj();
+        World world = entity.getEntityWorld();
 
         if (blockstate.getRenderType() != BlockRenderType.MODEL) {
             matrixstack.push();
@@ -53,8 +52,8 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
     }
 
     @Nonnull
-    @SuppressWarnings("deprecation")
     @Override
+    @SuppressWarnings("deprecation")
     public ResourceLocation getEntityTexture(@Nonnull FallingConcretePowderEntity entity) {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }
