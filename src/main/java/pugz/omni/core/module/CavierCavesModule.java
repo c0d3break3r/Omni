@@ -5,20 +5,18 @@ import net.minecraft.block.SoundType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.PhantomEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
+import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.block.cavier_caves.MalachiteBudBlock;
+import pugz.omni.common.block.cavier_caves.MalachiteTotemBlock;
 import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeature;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
@@ -26,6 +24,7 @@ import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
+import pugz.omni.core.registry.OmniItems;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
@@ -37,8 +36,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-
-import java.util.Iterator;
 
 public class CavierCavesModule extends AbstractModule {
     public static final CavierCavesModule instance = new CavierCavesModule();
@@ -125,6 +122,8 @@ public class CavierCavesModule extends AbstractModule {
         OmniBlocks.LARGE_MALACHITE_BUD = RegistryUtil.createBlock("large_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4.0F, 9.0F), 2), ItemGroup.DECORATIONS);
         OmniBlocks.MEDIUM_MALACHITE_BUD = RegistryUtil.createBlock("medium_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.5F, 8.5F), 1), ItemGroup.DECORATIONS);
         OmniBlocks.SMALL_MALACHITE_BUD = RegistryUtil.createBlock("small_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 8.0F), 0), ItemGroup.DECORATIONS);
+        OmniBlocks.CARVED_MALACHITE = RegistryUtil.createBlock("carved_malachite", () -> new HorizontalFacingBlock(AbstractBlock.Properties.from(OmniBlocks.MALACHITE_BLOCK.get())), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.MALACHITE_TOTEM = RegistryUtil.createBlock("malachite_totem", MalachiteTotemBlock::new, ItemGroup.DECORATIONS);
     }
 
     @Override
@@ -139,6 +138,8 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Item> CRYSTAL_MELON;
 
         //RegistryObject<Item> SPAWNER_FRAGMENT;
+
+        OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
     }
 
     @Override
@@ -215,11 +216,11 @@ public class CavierCavesModule extends AbstractModule {
 
         if (world.getRandom().nextBoolean()) {
             if (target instanceof PlayerEntity && living instanceof PhantomEntity) {
-                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, 10, 10, OmniBlocks.MALACHITE_BLOCK.get(), OmniBlocks.BUDDING_MALACHITE.get())) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, OmniBlocks.MALACHITE_TOTEM.get())) {
                     ((MobEntity) living).setAttackTarget((LivingEntity) null);
                 }
             } else if (target instanceof VillagerEntity && living.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
-                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, 10, 10, OmniBlocks.MALACHITE_BLOCK.get(), OmniBlocks.BUDDING_MALACHITE.get())) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, OmniBlocks.MALACHITE_TOTEM.get())) {
                     ((MobEntity) living).setAttackTarget((LivingEntity) null);
                 }
             }

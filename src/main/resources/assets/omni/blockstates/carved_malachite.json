@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "omni:block/cavier_caves/carved_malachite",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "omni:block/cavier_caves/carved_malachite",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "omni:block/cavier_caves/carved_malachite"
+    },
+    "facing=west": {
+      "model": "omni:block/cavier_caves/carved_malachite",
+      "y": 90
+    }
+  }
+}

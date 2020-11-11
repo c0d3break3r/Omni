@@ -17,4 +17,17 @@ public class BaseGenUtils {
             }
         } return false;
     }
+
+    public static boolean isBlockWithinRange(World world, BlockPos pos, int range, Block... blocks) {
+        for (double x = pos.getX() - range; x <= pos.getX() + range; x++) {
+            for (double y = pos.getY() - range; y <= pos.getY() + range; y++) {
+                for (double z = pos.getZ() - range; z <= pos.getZ() + range; z++) {
+
+                    for (Block block : blocks) {
+                        if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == block) return true;
+                    }
+                }
+            }
+        } return false;
+    }
 }

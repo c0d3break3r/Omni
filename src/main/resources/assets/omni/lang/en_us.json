@@ -11,6 +11,10 @@
   "block.omni.large_malachite_bud": "Large Malachite Bud",
   "block.omni.medium_malachite_bud": "Medium Malachite Bud",
   "block.omni.small_malachite_bud": "Small Malachite Bud",
+  "block.omni.carved_malachite": "Carved Malachite",
+  "block.omni.malachite_totem": "Malachite Totem",
+
+  "item.omni.malachite_shard": "Malachite Shard",
 
   "_comment1": "Colormatic",
 
