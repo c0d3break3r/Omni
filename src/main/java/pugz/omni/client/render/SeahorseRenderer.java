@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.entity.monster.PhantomEntity;
 import net.minecraft.util.ResourceLocation;
 import pugz.omni.client.model.SeahorseModel;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
@@ -26,18 +25,7 @@ public class SeahorseRenderer extends MobRenderer<SeahorseEntity, EntityModel<Se
     @Nonnull
     @Override
     public ResourceLocation getEntityTexture(SeahorseEntity seahorse) {
-        switch (seahorse.getVariantType()) {
-            case FIRE:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_fire.png");
-            case BRAIN:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_brain.png");
-            case BUBBLE:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_bubble.png");
-            case TUBE:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_tube.png");
-            default:
-                return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_horn.png");
-        }
+        return new ResourceLocation(Omni.MOD_ID, "textures/entity/seahorse/seahorse_" + seahorse.getVariantType().getName() + ".png");
     }
 
     protected void preRenderCallback(SeahorseEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
