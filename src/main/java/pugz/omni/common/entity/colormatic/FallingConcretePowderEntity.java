@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 public class FallingConcretePowderEntity extends Entity implements IEntityAdditionalSpawnData {
     public int fallTime;
     private int layers;
-    public boolean shouldDropItem;
+    public boolean shouldDropItem = true;
     protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
     private static final DataParameter<Integer> LAYERS = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.VARINT);
     private BlockState fallState;
@@ -104,6 +104,8 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                         boolean flag3 = FallingBlock.canFallThrough(this.world.getBlockState(blockpos1.down()));
                         boolean flag4 = this.fallState.isValidPosition(this.world, blockpos1) && !flag3;
                         if ((flag2 || (hitState.getBlock() instanceof LayerConcretePowderBlock || hitState.getBlock() instanceof LayerConcreteBlock)) && flag4) {
+                            this.shouldDropItem = false;
+
                             if (this.fallState.hasProperty(BlockStateProperties.WATERLOGGED) && this.world.getFluidState(blockpos1).getFluid() == Fluids.WATER) {
                                 this.fallState = this.fallState.with(BlockStateProperties.WATERLOGGED, true);
                             }
@@ -123,25 +125,28 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                                             world.setBlockState(blockpos1.up(), this.fallState.with(LayerConcretePowderBlock.LAYERS, totalLayers - 8), 3);
                                         }
                                     }
-                                }
+                                } else this.shouldDropItem = true;
                             } else if (hitState.getBlock() instanceof LayerConcreteBlock) {
-                                if (((LayerConcretePowderBlock)block).getSolidifiedState().getBlock().getMaterialColor() == hitState.getBlock().getMaterialColor() && hitState.get(LayerConcreteBlock.WATERLOGGED) && hitState.get(LayerConcreteBlock.LAYERS) < 7) {
-                                    int totalLayers = hitState.get(LayerConcreteBlock.LAYERS) + this.fallState.get(LayerConcretePowderBlock.LAYERS);
+                                if (((LayerConcretePowderBlock)block).getSolidifiedState().getBlock().getMaterialColor() == hitState.getBlock().getMaterialColor()) {
+                                    if (hitState.get(LayerConcreteBlock.WATERLOGGED) && hitState.get(LayerConcreteBlock.LAYERS) < 7) {
+                                        int totalLayers = hitState.get(LayerConcreteBlock.LAYERS) + this.fallState.get(LayerConcretePowderBlock.LAYERS);
 
-                                    if (totalLayers <= 8) world.setBlockState(blockpos1, hitState.with(LayerConcreteBlock.LAYERS, totalLayers).with(LayerConcreteBlock.WATERLOGGED, totalLayers < 8), 3);
-                                    else {
-                                        world.setBlockState(blockpos1, hitState.with(LayerConcreteBlock.LAYERS, 8).with(LayerConcreteBlock.WATERLOGGED, false), 3);
-                                        world.setBlockState(blockpos1.up(), this.fallState.with(LayerConcretePowderBlock.LAYERS, totalLayers - 8).with(LayerConcretePowderBlock.WATERLOGGED, false), 3);
+                                        if (totalLayers <= 8)
+                                            world.setBlockState(blockpos1, hitState.with(LayerConcreteBlock.LAYERS, totalLayers).with(LayerConcreteBlock.WATERLOGGED, totalLayers < 8), 3);
+                                        else {
+                                            world.setBlockState(blockpos1, hitState.with(LayerConcreteBlock.LAYERS, 8).with(LayerConcreteBlock.WATERLOGGED, false), 3);
+                                            world.setBlockState(blockpos1.up(), this.fallState.with(LayerConcretePowderBlock.LAYERS, totalLayers - 8).with(LayerConcretePowderBlock.WATERLOGGED, false), 3);
+                                        }
                                     }
-                                }
+                                } else this.shouldDropItem = true;
                             } else if (!(hitState.getBlock() instanceof LayerConcretePowderBlock)) {
                                 if (this.world.setBlockState(blockpos1, this.fallState, 3)) {
                                     ((LayerConcretePowderBlock) block).onEndFalling(this.world, blockpos1, this.fallState, hitState, this);
                                 }
-                            } else if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                            } else if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS) && this.layers == 8) {
                                 this.entityDropItem(block);
                             }
-                        } else if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                        } else if (this.shouldDropItem && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS) && this.layers == 8) {
                             this.entityDropItem(block);
                         }
                     }
