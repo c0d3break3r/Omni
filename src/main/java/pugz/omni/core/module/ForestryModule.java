@@ -1,5 +1,8 @@
 package pugz.omni.core.module;
 
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
@@ -65,7 +68,7 @@ public class ForestryModule extends AbstractModule {
         //RegistryObject<Biome> ERODED_TAIGA_FOREST;
         //RegistryObject<Biome> ERODED_JUNGLE;
 
-        //RegistryObject<Biome> TALL_FOREST;
+        //OmniBiomes.TALL_FOREST = RegistryUtil.createBiome("tall_forest", OmniBiomes.createTallForestBiome(0.1F, 0.4F), BiomeManager.BiomeType.COOL, 6, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.RARE);
         //RegistryObject<Biome> TALL_TAIGA_FOREST;
         //RegistryObject<Biome> TALL_DARK_FOREST;
         //RegistryObject<Biome> TALL_JUNGLE;

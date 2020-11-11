@@ -1,6 +1,10 @@
 package pugz.omni.core.util;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Blocks;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;
@@ -14,6 +18,10 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import java.util.Set;
 
 public class BiomeFeatures {
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> OAK_BEES_0002 = Feature.TREE.withConfiguration(new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1)).setIgnoreVines().setDecorators(ImmutableList.of(Features.Placements.BEES_0002_PLACEMENT)).build());
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> FANCY_OAK_BEES_0002 = Feature.TREE.withConfiguration(Features.FANCY_OAK.getConfig().func_236685_a_(ImmutableList.of(Features.Placements.BEES_0002_PLACEMENT)));
+    public static final ConfiguredFeature<?, ?> OAK_TALL = Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(FANCY_OAK_BEES_0002.withChance(0.5F)), OAK_BEES_0002)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1)));
+
     private static final GeodeFeatureConfig geodeFeatureConfig = new GeodeFeatureConfig(0.35D, 0.083D, true, 4, 7, 3, 5, 1, 3, -16, 16, 0.05D);
 
     public static void addOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, int size, int bottom, int top, int maxHeight, int spread, int range) {
