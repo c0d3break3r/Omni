@@ -34,7 +34,7 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
         BlockState blockstate = entity.getBlockState();
         World world = entity.getEntityWorld();
 
-        if (blockstate.getRenderType() != BlockRenderType.MODEL) {
+        if (blockstate.getRenderType() == BlockRenderType.MODEL) {
             matrixstack.push();
             BlockPos blockpos = new BlockPos(entity.getPosX(), entity.getBoundingBox().maxY, entity.getPosZ());
             matrixstack.translate(-0.5D, 0.0D, -0.5D);

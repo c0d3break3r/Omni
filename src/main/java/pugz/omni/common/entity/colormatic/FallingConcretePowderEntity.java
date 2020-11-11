@@ -1,7 +1,9 @@
 package pugz.omni.common.entity.colormatic;
 
-import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.FluidTags;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.fml.network.NetworkHooks;
 import pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
 import pugz.omni.core.registry.OmniEntities;
@@ -16,7 +18,6 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.*;
@@ -27,7 +28,7 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 
-public class FallingConcretePowderEntity extends Entity {
+public class FallingConcretePowderEntity extends Entity implements IEntityAdditionalSpawnData {
     public int fallTime;
     private int layers;
     public boolean shouldDropItem;
@@ -223,9 +224,20 @@ public class FallingConcretePowderEntity extends Entity {
         return fallState;
     }
 
+
     @Nonnull
     @Override
     public IPacket<?> createSpawnPacket() {
-        return new SSpawnObjectPacket(this, Block.getStateId(this.getBlockState()));
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public void writeSpawnData(PacketBuffer buffer) {
+        buffer.writeInt(Block.getStateId(this.getBlockState()));
+    }
+
+    @Override
+    public void readSpawnData(PacketBuffer additionalData) {
+        this.fallState = Block.getStateById(additionalData.readInt());
     }
 }
