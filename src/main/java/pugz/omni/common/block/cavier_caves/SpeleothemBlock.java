@@ -53,11 +53,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         setDefaultState(stateContainer.getBaseState().with(SIZE, Size.LARGE).with(PART, Part.FULL).with(STATIC, true).with(WATERLOGGED, false));
     }
 
-    public Vector3d getOffset(IBlockReader access, BlockPos pos) {
-        long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
-        return new Vector3d(((double)((float)(i & 15L) / 15.0F) - 0.5D) * 0.25D, 0.0D, ((double)((float)(i >> 8 & 15L) / 15.0F) - 0.5D) * 0.25D);
-    }
-
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {

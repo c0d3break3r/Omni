@@ -4,6 +4,19 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.monster.PhantomEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.block.cavier_caves.MalachiteBudBlock;
 import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
@@ -13,6 +26,7 @@ import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
+import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
@@ -23,6 +37,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+
+import java.util.Iterator;
 
 public class CavierCavesModule extends AbstractModule {
     public static final CavierCavesModule instance = new CavierCavesModule();
@@ -39,6 +55,7 @@ public class CavierCavesModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
+        MinecraftForge.EVENT_BUS.addListener(this::onLivingSetAttackTarget);
     }
 
     @Override
@@ -188,6 +205,24 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, 0.008F);
+        }
+    }
+
+    public void onLivingSetAttackTarget(LivingSetAttackTargetEvent event) {
+        World world = event.getEntity().getEntityWorld();
+        LivingEntity target = event.getTarget();
+        LivingEntity living = event.getEntityLiving();
+
+        if (world.getRandom().nextBoolean()) {
+            if (target instanceof PlayerEntity && living instanceof PhantomEntity) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, 10, 10, OmniBlocks.MALACHITE_BLOCK.get(), OmniBlocks.BUDDING_MALACHITE.get())) {
+                    ((MobEntity) living).setAttackTarget((LivingEntity) null);
+                }
+            } else if (target instanceof VillagerEntity && living.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 10, 10, 10, OmniBlocks.MALACHITE_BLOCK.get(), OmniBlocks.BUDDING_MALACHITE.get())) {
+                    ((MobEntity) living).setAttackTarget((LivingEntity) null);
+                }
+            }
         }
     }
 }

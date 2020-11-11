@@ -147,10 +147,10 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
 
                     if (var28 && var36 >= var26 && var34 < var18) {
                         if (world.getBlockState(var43).isSolid()) {
-                            world.setBlockState(var43, Blocks.AIR.getDefaultState(), 2);
+                            world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
                         }
                     } else if (var34 >= var18) {
-                        world.setBlockState(var43, Blocks.AIR.getDefaultState(), 2);
+                        world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
                     } else if (var34 >= var20) {
                         boolean var49 = (double)rand.nextFloat() < config.alternateLayer0Chance;
                         if (var49) {
