@@ -4,10 +4,7 @@ import net.minecraft.block.AbstractCoralPlantBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CoralFanBlock;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -16,6 +13,8 @@ import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.monster.PhantomEntity;
 import net.minecraft.entity.passive.WaterMobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -47,7 +46,8 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SeahorseEntity extends WaterMobEntity {
+public class SeahorseEntity extends WaterMobEntity implements IMob {
+    private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> CORAL_TYPE = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> CORAL_TYPE_FLAGS = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.BYTE);
     private int remainingCooldownBeforeLocatingNewCoral = 0;
@@ -69,6 +69,7 @@ public class SeahorseEntity extends WaterMobEntity {
 
     protected void registerData() {
         super.registerData();
+        this.dataManager.register(SIZE, 0);
         this.dataManager.register(CORAL_TYPE, 0);
         this.dataManager.register(CORAL_TYPE_FLAGS, (byte)0);
     }
@@ -119,6 +120,29 @@ public class SeahorseEntity extends WaterMobEntity {
         return 6;
     }
 
+    public void setSeahorseSize(int sizeIn) {
+        this.dataManager.set(SIZE, MathHelper.clamp(sizeIn, 0, 64));
+    }
+
+    private void updateSeahorseSize() {
+        this.recalculateSize();
+    }
+
+    public int getSeahorseSize() {
+        return this.dataManager.get(SIZE);
+    }
+
+    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+        return sizeIn.height * 0.35F;
+    }
+
+    public void notifyDataManagerChange(DataParameter<?> key) {
+        if (SIZE.equals(key)) {
+            this.updateSeahorseSize();
+        }
+        super.notifyDataManagerChange(key);
+    }
+
     @Nullable
     public BlockPos getCoralPos() {
         return this.savedCoralPos;
@@ -138,6 +162,7 @@ public class SeahorseEntity extends WaterMobEntity {
             compound.put("CoralPos", NBTUtil.writeBlockPos(this.getCoralPos()));
         }
         compound.putString("Type", this.getVariantType().getName());
+        compound.putInt("Size", this.getSeahorseSize());
     }
 
     public void readAdditional(CompoundNBT compound) {
@@ -146,6 +171,7 @@ public class SeahorseEntity extends WaterMobEntity {
         if (compound.contains("CoralPos")) {
             this.savedCoralPos = NBTUtil.readBlockPos(compound.getCompound("CoralPos"));
         }
+        this.setSeahorseSize(compound.getInt("Size"));
         super.readAdditional(compound);
     }
 
@@ -153,7 +179,16 @@ public class SeahorseEntity extends WaterMobEntity {
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         SeahorseEntity.CoralType seahorseentity$coraltype = SeahorseEntity.CoralType.getTypeByIndex(worldIn.getRandom().nextInt(CoralType.values().length));
         this.setVariantType(seahorseentity$coraltype);
+        this.setSeahorseSize(worldIn.getRandom().nextInt(5));
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    @Nonnull
+    public EntitySize getSize(Pose poseIn) {
+        int i = this.getSeahorseSize();
+        EntitySize entitysize = super.getSize(poseIn);
+        float f = (entitysize.width + 0.2F * (float)i) / entitysize.width;
+        return entitysize.scale(f);
     }
 
     private boolean isTooFar(BlockPos pos) {
@@ -270,7 +305,6 @@ public class SeahorseEntity extends WaterMobEntity {
                     if (SeahorseEntity.this.isTooFar(SeahorseEntity.this.savedCoralPos)) {
                         SeahorseEntity.this.savedCoralPos = null;
                     } else {
-                        System.out.println(SeahorseEntity.this.savedCoralPos.getX() + " " + SeahorseEntity.this.savedCoralPos.getY() + " " + SeahorseEntity.this.savedCoralPos.getZ());
                         SeahorseEntity.this.startMovingTo(SeahorseEntity.this.savedCoralPos);
                     }
                 }
