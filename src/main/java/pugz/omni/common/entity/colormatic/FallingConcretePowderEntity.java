@@ -35,18 +35,16 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
     protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
     private static final DataParameter<Integer> LAYERS = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.VARINT);
     private BlockState fallState;
-    private EntitySize size;
 
     public FallingConcretePowderEntity(EntityType<FallingConcretePowderEntity> entity, World worldIn) {
         super(entity, worldIn);
         this.layers = 1;
-        size = new EntitySize(0.98f, 0.1225f * layers, true);
     }
 
     public FallingConcretePowderEntity(World worldIn, double x, double y, double z, int layers, BlockState state) {
         super(OmniEntities.FALLING_CONCRETE_POWDER.get(), worldIn);
         this.preventEntitySpawning = true;
-        this.setPosition(x, y + (1.0F - this.getHeight()) / 2.0F, z);
+        this.setPosition(x, y, z);
         this.setMotion(Vector3d.ZERO);
         this.prevPosX = x;
         this.prevPosY = y;
@@ -54,18 +52,8 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
         this.layers = layers;
         this.setData(getPosition(), layers);
         fallState = state;
-        size = new EntitySize(0.98f, 0.1225f * layers, true);
     }
 
-    @Nonnull
-    @Override
-    public EntitySize getSize(Pose poseIn) {
-        return size;
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
     @SuppressWarnings("deprecation")
     public void tick() {
         if (this.fallState.isAir() || !(fallState.getBlock() instanceof LayerConcretePowderBlock)) {
@@ -208,7 +196,6 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
         this.fallTime = compound.getInt("Time");
         if (compound.contains("Layers", Constants.NBT.TAG_INT)) {
             this.layers = compound.getInt("Layers");
-            size = new EntitySize(0.98f, 0.1225f * layers, true);
         }
     }
 
@@ -223,7 +210,6 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
     public BlockState getBlockState() {
         return fallState;
     }
-
 
     @Nonnull
     @Override
