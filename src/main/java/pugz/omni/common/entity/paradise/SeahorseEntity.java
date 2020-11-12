@@ -1,6 +1,5 @@
 package pugz.omni.common.entity.paradise;
 
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.AbstractCoralPlantBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,9 +12,11 @@ import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
@@ -39,6 +40,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.ForgeEventFactory;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniItems;
 
@@ -48,7 +50,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SeahorseEntity extends AnimalEntity implements IMob {
+public class SeahorseEntity extends TameableEntity implements IMob {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> CORAL_TYPE = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> CORAL_TYPE_FLAGS = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.BYTE);
@@ -56,7 +58,6 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
     private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private int remainingCooldownBeforeLocatingNewCoral = 0;
     private BlockPos savedCoralPos = null;
-    protected float jumpPower;
 
     public SeahorseEntity(EntityType<? extends SeahorseEntity> type, World worldIn) {
         super(type, worldIn);
@@ -84,12 +85,13 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.addGoal(2, new FollowParentGoal(this, 0.8D));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, PlayerEntity.class, 6.0F, 1.0D, 1.1D));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 25));
-        this.goalSelector.addGoal(4, new GrowCoralGoal());
-        this.goalSelector.addGoal(6, new FindCoralGoal());
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, PlayerEntity.class, 6.0F, 0.8D, 0.8D));
+        this.goalSelector.addGoal(5, new GrowCoralGoal());
+        this.goalSelector.addGoal(6, new FindCoralGoal());
     }
 
     @Nonnull
@@ -124,11 +126,6 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
         return new ItemStack(OmniItems.SEAHORSE_SPAWN_EGG.get());
     }
 
-    @Override
-    public int getMaxSpawnedInChunk() {
-        return 6;
-    }
-
     public boolean canBreatheUnderwater() {
         return true;
     }
@@ -142,18 +139,12 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
         return worldIn.checkNoEntityCollision(this);
     }
 
-    /**
-     * Get number of ticks, at least during which the living entity will be silent.
-     */
     public int getTalkInterval() {
         return 120;
     }
 
-    /**
-     * Get the experience points the entity currently has.
-     */
     protected int getExperiencePoints(PlayerEntity player) {
-        return 1 + this.world.rand.nextInt(3);
+        return 1 + this.world.rand.nextInt(2);
     }
 
     protected void updateAir(int p_209207_1_) {
@@ -166,7 +157,6 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
         } else {
             this.setAir(300);
         }
-
     }
 
     public void baseTick() {
@@ -355,7 +345,7 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
         SeahorseEntity.CoralType seahorseentity$coraltype = SeahorseEntity.CoralType.getTypeByIndex(worldIn.getRandom().nextInt(CoralType.values().length));
         this.setVariantType(seahorseentity$coraltype);
         this.setSeahorseSize(worldIn.getRandom().nextInt(4));
-        if (worldIn.getRandom().nextInt(10) == 0) this.setSeahorseSize(7);
+        if (worldIn.getRandom().nextInt(25) == 0) this.setSeahorseSize(6);
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -365,8 +355,8 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
     public EntitySize getSize(Pose poseIn) {
         int i = this.getSeahorseSize();
         EntitySize entitysize = super.getSize(poseIn);
-        float f = (entitysize.width + 0.2F * (float)i) / entitysize.width;
-        return entitysize.scale(f);
+        float f = 1.0F + 0.3F * (float)i;
+        return i > 3 ? entitysize.scale(f) : entitysize;
     }
 
     protected float getModifiedMaxHealth() {
@@ -425,22 +415,41 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
         return this.savedCoralPos != null;
     }
 
-    public boolean setTamedBy(PlayerEntity player) {
-        this.setOwnerUniqueId(player.getUniqueID());
-        this.setSeahorseTamed(true);
-        if (player instanceof ServerPlayerEntity) {
-            CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+    public void setTamed(boolean tamed) {
+        super.setTamed(tamed);
+        if (tamed) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+            this.setHealth(8.0F);
+        } else {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
         }
-        this.world.setEntityState(this, (byte)7);
-        return true;
     }
 
     @Nonnull
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        if (!this.isChild() && this.getSeahorseSize() > 6) {
-            this.mountTo(player);
-            return ActionResultType.func_233537_a_(this.world.isRemote);
-        } else return ActionResultType.PASS;
+        ItemStack held = player.getHeldItem(hand);
+        Item item = held.getItem();
+        if (!this.isChild()) {
+            if ((item == Items.KELP || item == Items.SEAGRASS) && !this.isTamed()) {
+                if (!player.abilities.isCreativeMode) {
+                    held.shrink(1);
+                }
+                if (this.rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+                    this.setTamedBy(player);
+                    this.navigator.clearPath();
+                    this.setAttackTarget((LivingEntity)null);
+                    this.func_233687_w_(true);
+                    this.world.setEntityState(this, (byte)7);
+                } else {
+                    this.world.setEntityState(this, (byte)6);
+                }
+                return ActionResultType.SUCCESS;
+            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player) {
+                this.mountTo(player);
+                return ActionResultType.func_233537_a_(this.world.isRemote);
+            }
+        }
+        return ActionResultType.PASS;
     }
 
     protected void mountTo(PlayerEntity player) {
@@ -451,47 +460,40 @@ public class SeahorseEntity extends AnimalEntity implements IMob {
         }
     }
 
+    @Override
+    public double getMountedYOffset() {
+        return 1.3D;
+    }
+
+    @Override
+    public boolean canRiderInteract() {
+        return false;
+    }
+
     public void travel(Vector3d travelVector) {
         if (this.isAlive()) {
             if (this.isBeingRidden() && this.canBeSteered()) {
                 LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
                 this.rotationYaw = livingentity.rotationYaw;
+                this.rotationYawHead = livingentity.rotationYawHead;
                 this.prevRotationYaw = this.rotationYaw;
-                this.rotationPitch = livingentity.rotationPitch * 0.5F;
+                this.prevRotationYawHead = this.rotationYawHead;
                 this.setRotation(this.rotationYaw, this.rotationPitch);
+                this.setHeadRotation(this.rotationYawHead, (int)this.rotationPitch);
                 this.renderYawOffset = this.rotationYaw;
-                float f = livingentity.moveStrafing * 0.5F;
-                float f1 = livingentity.moveForward;
-                if (f1 <= 0.0F) {
-                    f1 *= 0.25F;
-                }
-
-                if (this.onGround) {
-                    f = 0.0F;
-                    f1 = 0.0F;
-                }
-
-                else {
-                    Vector3d vector3d = this.getMotion();
-                    this.setMotion(vector3d.x, livingentity.getMotion().y, vector3d.z);
-                    this.isAirBorne = true;
-                    net.minecraftforge.common.ForgeHooks.onLivingJump(this);
-                    float f2 = MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F));
-                    float f3 = MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F));
-                    this.setMotion(this.getMotion().add((double)(-0.4F * f2), 0.0D, (double)(0.4F * f3)));
-                }
-
-                this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
                 if (this.canPassengerSteer()) {
+                    float f = -MathHelper.sin(livingentity.rotationPitch * ((float)Math.PI / 135F)) * 2.5F;
+                    if (livingentity instanceof PlayerEntity) {
+                        if (((PlayerEntity)livingentity).jumpMovementFactor > 0.02F) f *= 2.5F;
+                    }
                     this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    super.travel(new Vector3d((double)f, livingentity.moveVertical, (double)f1));
+                    super.travel(new Vector3d((double)livingentity.moveStrafing, f, (double)livingentity.moveForward));
                 } else if (livingentity instanceof PlayerEntity) {
                     this.setMotion(Vector3d.ZERO);
                 }
 
                 this.func_233629_a_(this, false);
             } else {
-                this.jumpMovementFactor = 0.02F;
                 super.travel(travelVector);
             }
         }

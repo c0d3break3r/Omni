@@ -154,7 +154,7 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<EntityType<?>> KELPIE;
         //RegistryObject<EntityType<?>> KIWI;
         //RegistryObject<EntityType<?>> TIKI;
-        OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.4F, 0.8F));
+        OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.3F, 0.85F));
         //RegistryObject<EntityType<?>> GOLIATH;
         //RegistryObject<EntityType<?>> HERMIT_CRAB;
         //RegistryObject<EntityType<?>> SEAGULL;
@@ -188,7 +188,7 @@ public class ParadiseModule extends AbstractModule {
 
         if (event.getCategory() == Biome.Category.OCEAN) {
             List<MobSpawnInfo.Spawners> mobSpawns = spawns.getSpawner(EntityClassification.WATER_AMBIENT);
-            mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 6, 2, 6));
+            mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 5, 2, 6));
         }
 
         if (event.getCategory() == Biome.Category.JUNGLE) {

@@ -68,7 +68,7 @@ public class ForestryModule extends AbstractModule {
         //RegistryObject<Biome> ERODED_TAIGA_FOREST;
         //RegistryObject<Biome> ERODED_JUNGLE;
 
-        //OmniBiomes.TALL_FOREST = RegistryUtil.createBiome("tall_forest", OmniBiomes.createTallForestBiome(0.1F, 0.4F), BiomeManager.BiomeType.COOL, 6, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.RARE);
+        //OmniBiomes.TALL_FOREST = RegistryUtil.createBiome("tall_forest", OmniBiomes.createTallForestBiome(), BiomeManager.BiomeType.COOL, 6, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.DENSE, BiomeDictionary.Type.RARE);
         //RegistryObject<Biome> TALL_TAIGA_FOREST;
         //RegistryObject<Biome> TALL_DARK_FOREST;
         //RegistryObject<Biome> TALL_JUNGLE;
