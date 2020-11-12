@@ -35,10 +35,12 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
     protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
     private static final DataParameter<Integer> LAYERS = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.VARINT);
     private BlockState fallState;
+    private EntitySize size;
 
     public FallingConcretePowderEntity(EntityType<FallingConcretePowderEntity> entity, World worldIn) {
         super(entity, worldIn);
         this.layers = 1;
+        size = new EntitySize(0.98f, 0.1225f * layers, true);
     }
 
     public FallingConcretePowderEntity(World worldIn, double x, double y, double z, int layers, BlockState state) {
@@ -52,6 +54,13 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
         this.layers = layers;
         this.setData(getPosition(), layers);
         fallState = state;
+        size = new EntitySize(0.98f, 0.1225f * layers, true);
+    }
+
+    @Nonnull
+    @Override
+    public EntitySize getSize(Pose poseIn) {
+        return size;
     }
 
     @SuppressWarnings("deprecation")

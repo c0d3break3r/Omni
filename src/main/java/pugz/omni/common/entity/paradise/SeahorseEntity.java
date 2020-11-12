@@ -11,7 +11,6 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -145,6 +144,11 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     protected int getExperiencePoints(PlayerEntity player) {
         return 1 + this.world.rand.nextInt(2);
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 1;
     }
 
     protected void updateAir(int p_209207_1_) {
@@ -356,7 +360,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         int i = this.getSeahorseSize();
         EntitySize entitysize = super.getSize(poseIn);
         float f = 1.0F + 0.3F * (float)i;
-        return i > 3 ? entitysize.scale(f) : entitysize;
+        return entitysize.scale(f);
     }
 
     protected float getModifiedMaxHealth() {
@@ -505,6 +509,11 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Override
     public boolean canBreed() {
+        return false;
+    }
+
+    @Override
+    public boolean isChild() {
         return false;
     }
 

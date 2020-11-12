@@ -186,9 +186,13 @@ public class ParadiseModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
-        if (event.getCategory() == Biome.Category.OCEAN) {
-            List<MobSpawnInfo.Spawners> mobSpawns = spawns.getSpawner(EntityClassification.WATER_AMBIENT);
-            mobSpawns.add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 5, 2, 6));
+        if (event.getName().toString().equals("minecraft:warm_ocean") || event.getName().toString().equals("minecraft:deep_warm_ocean")) {
+            MobSpawnInfo.Builder prevInfo = spawns;
+            MobSpawnInfo info = prevInfo.withCreatureSpawnProbability(0.1F).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1)).copy();
+            event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).clear();
+            info.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
+                spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
+            });
         }
 
         if (event.getCategory() == Biome.Category.JUNGLE) {

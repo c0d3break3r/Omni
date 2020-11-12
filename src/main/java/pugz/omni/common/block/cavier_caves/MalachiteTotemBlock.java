@@ -19,7 +19,7 @@ public class MalachiteTotemBlock extends Block {
 
     public MalachiteTotemBlock() {
         super(AbstractBlock.Properties.from(OmniBlocks.MALACHITE_BLOCK.get()).setLightLevel((state) -> {
-            return 12;
+            return 10;
         }));
     }
 
