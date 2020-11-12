@@ -1,5 +1,7 @@
 package pugz.omni.core;
 
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import pugz.omni.core.module.*;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -58,6 +60,9 @@ public class Omni {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             eventBus.addListener(EventPriority.LOWEST, this::clientSetup);
         });
+
+        ModLoadingContext modLoadingContext = ModLoadingContext.get();
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, CoreModule.Configuration.CLIENT_SPEC);
     }
 
     private void registerModuleInit() {
