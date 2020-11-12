@@ -66,10 +66,13 @@ public class CoreModule extends AbstractModule {
         //colormatic
         public ForgeConfigSpec.ConfigValue<Boolean> CONNECTABLE_QUILTED_CARPETS;
         public ForgeConfigSpec.ConfigValue<Integer> TRADERS_WOOL_TRADE_PRICE;
-        public  ForgeConfigSpec.ConfigValue<Integer> FLOWER_FIELD_SPAWN_WEIGHT;
+        public ForgeConfigSpec.ConfigValue<Integer> FLOWER_FIELD_SPAWN_WEIGHT;
 
         //deserted
         public ForgeConfigSpec.ConfigValue<Integer> RED_ROCK_GEN_SIZE;
+
+        //forestry
+        public ForgeConfigSpec.ConfigValue<Boolean> AMBIENT_SOUNDS;
 
         //paradise
         public ForgeConfigSpec.ConfigValue<Float> SEAHORSE_SPAWN_CHANCE;
@@ -85,7 +88,7 @@ public class CoreModule extends AbstractModule {
         public Configuration(ForgeConfigSpec.Builder builder) {
             builder.comment("Omni Configuration");
 
-            builder.push("Cavier Caves");
+            builder.push(CavierCavesModule.instance.getName());
             MALACHITE_GEODE_SPAWN_CHANCE = builder.define("malachite_geode_spawn_chance", 48);
             GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
@@ -98,17 +101,21 @@ public class CoreModule extends AbstractModule {
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);
             builder.pop();
 
-            builder.push("Colormatic");
+            builder.push(ColormaticModule.instance.getName());
             CONNECTABLE_QUILTED_CARPETS = builder.define("connectable_quilted_carpets", true);
             TRADERS_WOOL_TRADE_PRICE = builder.define("traders_wool_trade_price", 1);
             FLOWER_FIELD_SPAWN_WEIGHT = builder.define("flower_field_spawn_weight", 1);
             builder.pop();
 
-            builder.push("Deserted");
+            builder.push(DesertedModule.instance.getName());
             RED_ROCK_GEN_SIZE = builder.define("red_rock_gen_size", 36);
             builder.pop();
 
-            builder.push("Paradise");
+            builder.push(ForestryModule.instance.getName());
+            AMBIENT_SOUNDS = builder.define("red_rock_gen_size", true);
+            builder.pop();
+
+            builder.push(ParadiseModule.instance.getName());
             SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.05F);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
@@ -117,7 +124,7 @@ public class CoreModule extends AbstractModule {
             LOTUS_FLOWER_TRADE_PRICE = builder.define("lotus_flower_trade_price", 1);
             builder.pop();
 
-            builder.push("Miscellaneous");
+            builder.push(MiscellaneousModule.instance.getName());
             ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03F);
             builder.pop();
         }

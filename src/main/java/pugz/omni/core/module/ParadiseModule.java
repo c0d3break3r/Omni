@@ -13,7 +13,6 @@ import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -37,7 +36,6 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import pugz.omni.core.util.TradeUtils;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class ParadiseModule extends AbstractModule {
     public static final ParadiseModule instance = new ParadiseModule();

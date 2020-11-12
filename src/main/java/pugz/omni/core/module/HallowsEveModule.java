@@ -1,7 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-
 public class HallowsEveModule extends AbstractModule {
     public static final HallowsEveModule instance = new HallowsEveModule();
 

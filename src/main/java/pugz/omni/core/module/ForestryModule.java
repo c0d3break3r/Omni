@@ -94,27 +94,31 @@ public class ForestryModule extends AbstractModule {
     }
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
-        BiomeAmbience effects = event.getEffects();
-        BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
-                .withGrassColorModifier(effects.getGrassColorModifier())
-                .setWaterColor(effects.getWaterColor())
-                .setWaterFogColor(effects.getWaterFogColor())
-                .setFogColor(effects.getFogColor())
-                .withSkyColor(effects.getSkyColor());
-        if (effects.getFoliageColor().isPresent()) ambience = ambience.withFoliageColor(effects.getFoliageColor().get());
-        if (effects.getGrassColor().isPresent()) ambience = ambience.withGrassColor(effects.getGrassColor().get());
-        if (effects.getMoodSound().isPresent()) ambience = ambience.setMoodSound(effects.getMoodSound().get());
-        if (effects.getAdditionsSound().isPresent()) ambience = ambience.setAdditionsSound(effects.getAdditionsSound().get());
-        if (effects.getParticle().isPresent()) ambience = ambience.setParticle(effects.getParticle().get());
+        if (CoreModule.Configuration.CLIENT.AMBIENT_SOUNDS.get()) {
+            BiomeAmbience effects = event.getEffects();
+            BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
+                    .withGrassColorModifier(effects.getGrassColorModifier())
+                    .setWaterColor(effects.getWaterColor())
+                    .setWaterFogColor(effects.getWaterFogColor())
+                    .setFogColor(effects.getFogColor())
+                    .withSkyColor(effects.getSkyColor());
+            if (effects.getFoliageColor().isPresent())
+                ambience = ambience.withFoliageColor(effects.getFoliageColor().get());
+            if (effects.getGrassColor().isPresent()) ambience = ambience.withGrassColor(effects.getGrassColor().get());
+            if (effects.getMoodSound().isPresent()) ambience = ambience.setMoodSound(effects.getMoodSound().get());
+            if (effects.getAdditionsSound().isPresent())
+                ambience = ambience.setAdditionsSound(effects.getAdditionsSound().get());
+            if (effects.getParticle().isPresent()) ambience = ambience.setParticle(effects.getParticle().get());
 
-        if (event.getCategory() == Biome.Category.FOREST) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());
-        } else if (event.getCategory() == Biome.Category.JUNGLE) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).build());
-        } else if (event.getCategory() == Biome.Category.PLAINS) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
-        } else if (event.getCategory() == Biome.Category.SWAMP) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
+            if (event.getCategory() == Biome.Category.FOREST) {
+                event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());
+            } else if (event.getCategory() == Biome.Category.JUNGLE) {
+                event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).build());
+            } else if (event.getCategory() == Biome.Category.PLAINS) {
+                event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
+            } else if (event.getCategory() == Biome.Category.SWAMP) {
+                event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
+            }
         }
     }
 }
