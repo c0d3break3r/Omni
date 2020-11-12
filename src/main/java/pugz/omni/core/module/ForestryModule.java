@@ -2,6 +2,7 @@ package pugz.omni.core.module;
 
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.ForgeConfigSpec;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;

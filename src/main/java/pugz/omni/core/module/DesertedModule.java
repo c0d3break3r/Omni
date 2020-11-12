@@ -1,5 +1,6 @@
 package pugz.omni.core.module;
 
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModList;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.deserted.RedRockBrickButton;

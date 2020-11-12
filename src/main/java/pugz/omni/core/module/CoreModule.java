@@ -51,12 +51,75 @@ public class CoreModule extends AbstractModule {
     }
 
     public static class Configuration {
-        public final ForgeConfigSpec.ConfigValue<Float> SEAHORSE_SPAWN_CHANCE;
+        //cavier caves
+        public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_GEODE_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_OUTER_BLOCK;
+        public ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_INNER_BLOCK;
+        public ForgeConfigSpec.ConfigValue<Integer> BUDDING_MALACHITE_GROWTH_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_TOTEM_RANGE;
+        public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_TOTEM_LIGHT_LEVEL;
+        public ForgeConfigSpec.ConfigValue<Float> SPELEOTHEMS_SPAWN_PROBABILITY;
+        public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FALL;
+        public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FALL_BY_PROJECTILES;
+        public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FILL_CAULDRONS;
+
+        //colormatic
+        public ForgeConfigSpec.ConfigValue<Boolean> CONNECTABLE_QUILTED_CARPETS;
+        public ForgeConfigSpec.ConfigValue<Integer> TRADERS_WOOL_TRADE_PRICE;
+        public  ForgeConfigSpec.ConfigValue<Integer> FLOWER_FIELD_SPAWN_WEIGHT;
+
+        //deserted
+        public ForgeConfigSpec.ConfigValue<Integer> RED_ROCK_GEN_SIZE;
+
+        //paradise
+        public ForgeConfigSpec.ConfigValue<Float> SEAHORSE_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Boolean> RIDEABLE_SEAHORSES;
+        public ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
+        public ForgeConfigSpec.ConfigValue<Integer> TROPICAL_PLAINS_SPAWN_WEIGHT;
+        public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_TRADE_PRICE;
+
+        //miscellaneous
+        public static ForgeConfigSpec.ConfigValue<Float> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
 
         public Configuration(ForgeConfigSpec.Builder builder) {
             builder.comment("Omni Configuration");
 
+            builder.push("Cavier Caves");
+            MALACHITE_GEODE_SPAWN_CHANCE = builder.define("malachite_geode_spawn_chance", 48);
+            GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
+            GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
+            BUDDING_MALACHITE_GROWTH_CHANCE = builder.define("budding_malachite_growth_chance", 5);
+            MALACHITE_TOTEM_RANGE = builder.define("malachite_totem_range", 12);
+            MALACHITE_TOTEM_LIGHT_LEVEL = builder.defineInRange("malachite_totem_light_level", 10, 0, 16);
+            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_chance", 0.004F);
+            SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
+            SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
+            SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);
+            builder.pop();
+
+            builder.push("Colormatic");
+            CONNECTABLE_QUILTED_CARPETS = builder.define("connectable_quilted_carpets", true);
+            TRADERS_WOOL_TRADE_PRICE = builder.define("traders_wool_trade_price", 1);
+            FLOWER_FIELD_SPAWN_WEIGHT = builder.define("flower_field_spawn_weight", 1);
+            builder.pop();
+
+            builder.push("Deserted");
+            RED_ROCK_GEN_SIZE = builder.define("red_rock_gen_size", 36);
+            builder.pop();
+
+            builder.push("Paradise");
             SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.05F);
+            RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
+            SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
+            TROPICAL_PLAINS_SPAWN_WEIGHT = builder.define("tropical_plains_spawn_weight", 2);
+            LOTUS_FLOWER_SPAWN_CHANCE = builder.define("lotus_flower_spawn_chance", 8);
+            LOTUS_FLOWER_TRADE_PRICE = builder.define("lotus_flower_trade_price", 1);
+            builder.pop();
+
+            builder.push("Miscellaneous");
+            ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03F);
+            builder.pop();
         }
 
         public static final ForgeConfigSpec CLIENT_SPEC;

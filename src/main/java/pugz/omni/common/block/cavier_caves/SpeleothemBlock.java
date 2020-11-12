@@ -4,6 +4,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
+import pugz.omni.core.module.CavierCavesModule;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -108,15 +110,15 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         if (!state.get(STATIC)) trySpawnEntity(world, pos);
     }
 
-
-
     private void trySpawnEntity(World world, BlockPos pos) {
-        if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
-            FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
-            this.onStartFalling(fallingblockentity);
-            fallingblockentity.setHurtEntities(true);
-            world.addEntity(fallingblockentity);
-            world.getPendingBlockTicks().scheduleTick(pos.up(), this, 1);
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get()) {
+            if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
+                FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+                this.onStartFalling(fallingblockentity);
+                fallingblockentity.setHurtEntities(true);
+                world.addEntity(fallingblockentity);
+                world.getPendingBlockTicks().scheduleTick(pos.up(), this, 1);
+            }
         }
     }
 
@@ -137,48 +139,49 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     public boolean ticksRandomly(BlockState state) {
-        return true;
+        return CoreModule.Configuration.CLIENT.SPELEOTHEMS_FILL_CAULDRONS.get();
     }
 
     @Nonnull
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-        BlockState down = world.getBlockState(currentPos.down());
-        BlockState up = world.getBlockState(currentPos.up());
-        Part part = state.get(PART);
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get()) {
+            BlockState down = world.getBlockState(currentPos.down());
+            BlockState up = world.getBlockState(currentPos.up());
+            Part part = state.get(PART);
 
-        if (!state.isValidPosition(world, currentPos) && !state.get(STATIC)) {
-            world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
-        }
-
-        if ((down.getBlock() instanceof SpeleothemBlock || down.isSolid()) && (up.getBlock() instanceof SpeleothemBlock || up.isSolid())) return state.with(PART, Part.FULL);
-
-        if (part == Part.FULL) {
-            if (!down.isSolid() && up.isSolid()) {
-                if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
-                    world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
-                    return state.with(PART, Part.UPPER).with(STATIC, false);
-                }
-                else return state.with(PART, Part.UPPER).with(STATIC, true);
-            } else if (!up.isSolid() && down.isSolid()) {
-                if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
-                    world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
-                    return state.with(PART, Part.UPPER).with(STATIC, false);
-                }
-                else return state.with(PART, Part.LOWER).with(STATIC, true);
-            } else if (!down.isSolid() && !up.isSolid()) {
-                world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
-                return state.with(STATIC, false);
-            }
-        } else if (part == Part.UPPER) {
-            if (!up.isSolid()) {
+            if (!state.isValidPosition(world, currentPos) && !state.get(STATIC)) {
                 world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
-                return state.with(STATIC, false);
             }
-        } else {
-            if (!down.isSolid()) {
-                world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
-                return state.with(STATIC, false);
+
+            if ((down.getBlock() instanceof SpeleothemBlock || down.isSolid()) && (up.getBlock() instanceof SpeleothemBlock || up.isSolid()))
+                return state.with(PART, Part.FULL);
+
+            if (part == Part.FULL) {
+                if (!down.isSolid() && up.isSolid()) {
+                    if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
+                        world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
+                        return state.with(PART, Part.UPPER).with(STATIC, false);
+                    } else return state.with(PART, Part.UPPER).with(STATIC, true);
+                } else if (!up.isSolid() && down.isSolid()) {
+                    if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
+                        world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
+                        return state.with(PART, Part.UPPER).with(STATIC, false);
+                    } else return state.with(PART, Part.LOWER).with(STATIC, true);
+                } else if (!down.isSolid() && !up.isSolid()) {
+                    world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
+                    return state.with(STATIC, false);
+                }
+            } else if (part == Part.UPPER) {
+                if (!up.isSolid()) {
+                    world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+                    return state.with(STATIC, false);
+                }
+            } else {
+                if (!down.isSolid()) {
+                    world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+                    return state.with(STATIC, false);
+                }
             }
         }
 
@@ -242,7 +245,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        trySpawnEntity(world, hit.getPos());
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get()) trySpawnEntity(world, hit.getPos());
     }
 
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {

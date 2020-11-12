@@ -4,6 +4,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
+import net.minecraftforge.common.ForgeConfigSpec;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.RegistryUtil;
 

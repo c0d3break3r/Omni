@@ -9,6 +9,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
+import pugz.omni.core.module.CavierCavesModule;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import javax.annotation.Nonnull;
@@ -38,7 +40,7 @@ public class BuddingMalachiteBlock extends Block {
         BlockPos place = pos.offset(direction);
         BlockState placeState = worldIn.getBlockState(place);
 
-        if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(5) == 1)) {
+        if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(CoreModule.Configuration.CLIENT.BUDDING_MALACHITE_GROWTH_CHANCE.get()) == 1)) {
             if (worldIn.isAirBlock(place) || worldIn.getBlockState(place).getMaterial().isLiquid()) {
                 worldIn.setBlockState(place, OmniBlocks.SMALL_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
             } else {

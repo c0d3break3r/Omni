@@ -12,6 +12,7 @@ import net.minecraft.entity.monster.PhantomEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
@@ -198,14 +199,14 @@ public class CavierCavesModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, 0.004F);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get());
             BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, 0.006F);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get() * 1.5F);
         }
         if (category == Biome.Category.NETHER) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, 0.008F);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get() * 2.0F);
         }
     }
 
@@ -216,11 +217,11 @@ public class CavierCavesModule extends AbstractModule {
 
         if (world.getRandom().nextBoolean()) {
             if (target instanceof PlayerEntity && living instanceof PhantomEntity) {
-                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 6, OmniBlocks.MALACHITE_TOTEM.get())) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), Math.round(CoreModule.Configuration.CLIENT.MALACHITE_TOTEM_RANGE.get() / 2.0F), OmniBlocks.MALACHITE_TOTEM.get())) {
                     ((MobEntity) living).setAttackTarget((LivingEntity) null);
                 }
             } else if (target instanceof VillagerEntity && living.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
-                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), 6, OmniBlocks.MALACHITE_TOTEM.get())) {
+                if (BaseGenUtils.isBlockWithinRange(world, target.getPosition(), Math.round(CoreModule.Configuration.CLIENT.MALACHITE_TOTEM_RANGE.get() / 2.0F), OmniBlocks.MALACHITE_TOTEM.get())) {
                     ((MobEntity) living).setAttackTarget((LivingEntity) null);
                 }
             }

@@ -17,6 +17,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import pugz.omni.core.module.ColormaticModule;
+import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -43,8 +45,10 @@ public class QuiltedCarpetBlock extends Block {
     @Nonnull
     @SuppressWarnings("deprecation")
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
-        if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
-        return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState)state.with((Property)FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
+        if (CoreModule.Configuration.CLIENT.CONNECTABLE_QUILTED_CARPETS.get()) {
+            if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
+            return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState) state.with((Property) FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
+        } else return super.updatePostPlacement(state, direction, state2, world, pos, pos2);
     }
 
     @SuppressWarnings("deprecation")
@@ -86,18 +90,20 @@ public class QuiltedCarpetBlock extends Block {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IBlockReader world = context.getWorld();
-        BlockPos pos = context.getPos();
-        BlockState state = world.getBlockState(pos);
-        BlockPos north = pos.north();
-        BlockPos east = pos.east();
-        BlockPos south = pos.south();
-        BlockPos west = pos.west();
-        BlockState lvt_9_1_ = world.getBlockState(north);
-        BlockState lvt_10_1_ = world.getBlockState(east);
-        BlockState lvt_11_1_ = world.getBlockState(south);
-        BlockState lvt_12_1_ = world.getBlockState(west);
-        return (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)super.getStateForPlacement(context).with(NORTH, canConnect(state, lvt_9_1_))).with(EAST, canConnect(state, lvt_10_1_))).with(SOUTH, canConnect(state, lvt_11_1_))).with(WEST, canConnect(state, lvt_12_1_)));
+        if (CoreModule.Configuration.CLIENT.CONNECTABLE_QUILTED_CARPETS.get()) {
+            IBlockReader world = context.getWorld();
+            BlockPos pos = context.getPos();
+            BlockState state = world.getBlockState(pos);
+            BlockPos north = pos.north();
+            BlockPos east = pos.east();
+            BlockPos south = pos.south();
+            BlockPos west = pos.west();
+            BlockState lvt_9_1_ = world.getBlockState(north);
+            BlockState lvt_10_1_ = world.getBlockState(east);
+            BlockState lvt_11_1_ = world.getBlockState(south);
+            BlockState lvt_12_1_ = world.getBlockState(west);
+            return (BlockState) ((BlockState) ((BlockState) ((BlockState) ((BlockState) super.getStateForPlacement(context).with(NORTH, canConnect(state, lvt_9_1_))).with(EAST, canConnect(state, lvt_10_1_))).with(SOUTH, canConnect(state, lvt_11_1_))).with(WEST, canConnect(state, lvt_12_1_)));
+        } else return super.getStateForPlacement(context);
     }
 
     @Override

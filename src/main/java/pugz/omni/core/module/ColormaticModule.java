@@ -157,7 +157,7 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, 1, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
+        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.CLIENT.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
         //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
         //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
         //RegistryObject<Biome> EUCALYPTUS_FOREST;
@@ -193,16 +193,7 @@ public class ColormaticModule extends AbstractModule {
 
     public void onWandererTrades(WandererTradesEvent event) {
         event.getGenericTrades().addAll(ImmutableSet.of(
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.RED_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLUE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PINK_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLACK_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.WHITE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PURPLE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.ORANGE_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.YELLOW_LOTUS_FLOWER.get()), 1, 1, 12, 1),
-
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), 1, 8, 8, 2)
+                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), CoreModule.Configuration.CLIENT.TRADERS_WOOL_TRADE_PRICE.get(), 8, 8, 2)
         ));
     }
 

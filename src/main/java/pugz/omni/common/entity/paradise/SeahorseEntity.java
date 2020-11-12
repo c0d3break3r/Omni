@@ -40,6 +40,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniItems;
 
@@ -441,14 +442,13 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (this.rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
                     this.setTamedBy(player);
                     this.navigator.clearPath();
-                    this.setAttackTarget((LivingEntity)null);
                     this.func_233687_w_(true);
                     this.world.setEntityState(this, (byte)7);
                 } else {
                     this.world.setEntityState(this, (byte)6);
                 }
                 return ActionResultType.SUCCESS;
-            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player) {
+            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
                 this.mountTo(player);
                 return ActionResultType.func_233537_a_(this.world.isRemote);
             }

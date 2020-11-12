@@ -6,6 +6,7 @@ import net.minecraft.loot.LootTables;
 import net.minecraft.loot.TableLootEntry;
 import net.minecraft.loot.conditions.RandomChance;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import pugz.omni.common.item.forestry.EnchantedGoldenCarrotItem;
@@ -125,7 +126,7 @@ public class MiscellaneousModule extends AbstractModule {
         ResourceLocation name = event.getName();
 
         if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
-            LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(0.03F)).build();
+            LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(CoreModule.Configuration.CLIENT.ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE.get())).build();
             table.addPool(pool);
         }
     }

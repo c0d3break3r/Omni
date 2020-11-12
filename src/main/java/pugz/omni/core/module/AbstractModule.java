@@ -1,10 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraftforge.common.ForgeConfig;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.config.ModConfig;
-import org.apache.commons.lang3.tuple.Pair;
-
 public abstract class AbstractModule {
     private final String name;
 

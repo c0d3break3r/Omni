@@ -8,6 +8,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import pugz.omni.core.module.CavierCavesModule;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import javax.annotation.Nonnull;
@@ -19,7 +21,7 @@ public class MalachiteTotemBlock extends Block {
 
     public MalachiteTotemBlock() {
         super(AbstractBlock.Properties.from(OmniBlocks.MALACHITE_BLOCK.get()).setLightLevel((state) -> {
-            return 10;
+            return CoreModule.Configuration.CLIENT.MALACHITE_TOTEM_LIGHT_LEVEL.get();
         }));
     }
 

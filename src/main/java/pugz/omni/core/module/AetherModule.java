@@ -1,5 +1,7 @@
 package pugz.omni.core.module;
 
+import net.minecraftforge.common.ForgeConfigSpec;
+
 public class AetherModule extends AbstractModule {
     public AetherModule() {
         super("Aether");

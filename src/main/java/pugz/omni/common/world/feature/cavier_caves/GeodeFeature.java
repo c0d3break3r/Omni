@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3i;
@@ -16,9 +17,12 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.world.noise.NormalNoise;
 import pugz.omni.common.world.noise.WorldGenRandom;
+import pugz.omni.core.module.CavierCavesModule;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.Iterator;
@@ -163,9 +167,9 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                             var40.add(var43.toImmutable());
                         }
                     } else if (var34 >= var22) {
-                        world.setBlockState(var43, Blocks.DIORITE.getDefaultState(), 3);
+                        world.setBlockState(var43, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(CoreModule.Configuration.CLIENT.GEODE_SHELL_INNER_BLOCK.get())).getDefaultState(), 3);
                     } else if (var34 >= var24) {
-                        world.setBlockState(var43, Blocks.GRANITE.getDefaultState(), 3);
+                        world.setBlockState(var43, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(CoreModule.Configuration.CLIENT.GEODE_SHELL_OUTER_BLOCK.get())).getDefaultState(), 3);
                     }
                 }
             }
