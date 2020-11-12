@@ -34,6 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorldReader;
@@ -210,7 +211,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         return SeahorseEntity.CoralType.getTypeByIndex(this.dataManager.get(CORAL_TYPE));
     }
 
-    private void setVariantType(SeahorseEntity.CoralType typeIn) {
+    protected void setVariantType(SeahorseEntity.CoralType typeIn) {
         this.dataManager.set(CORAL_TYPE, typeIn.getIndex());
     }
 
@@ -347,10 +348,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Nullable
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        SeahorseEntity.CoralType seahorseentity$coraltype = SeahorseEntity.CoralType.getTypeByIndex(worldIn.getRandom().nextInt(CoralType.values().length));
+        SeahorseEntity.CoralType seahorseentity$coraltype = SeahorseEntity.CoralType.getTypeByIndex(worldIn.getRandom().nextInt(CoralType.values().length - 1));
         this.setVariantType(seahorseentity$coraltype);
         this.setSeahorseSize(worldIn.getRandom().nextInt(4));
-        if (worldIn.getRandom().nextInt(25) == 0) this.setSeahorseSize(6);
+        if (worldIn.getRandom().nextInt(CoreModule.Configuration.CLIENT.LARGE_SEAHORSE_SPAWN_CHANCE.get()) == 0) this.setSeahorseSize(this.rand.nextInt(1) + 6);
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -515,6 +516,14 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     @Override
     public boolean isChild() {
         return false;
+    }
+
+    public void setCustomName(@Nullable ITextComponent name) {
+        super.setCustomName(name);
+        if (name != null && this.getVariantType() != CoralType.MYSTERY) {
+            super.setCustomName(name);
+            this.setVariantType(CoralType.MYSTERY);
+        }
     }
 
     static class MoveHelperController extends MovementController {
@@ -696,16 +705,17 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                         SeahorseEntity.this.savedCoralPos = null;
                     } else {
                         if (flag) {
-                            boolean flag2 = SeahorseEntity.this.rand.nextInt(25) == 0;
+                            boolean flag2 = SeahorseEntity.this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_CORAL_GROWTH_RATE.get()) == 0;
                             if (flag2) {
+                                System.out.println("Attempting to grow coral");
                                 BlockPos coralPos = new BlockPos(this.nextTarget.x, this.nextTarget.y, this.nextTarget.z);
                                 Direction direction = Direction.byIndex(SeahorseEntity.this.rand.nextInt(Direction.values().length));
                                 BlockPos place = coralPos.offset(direction);
 
                                 if ((SeahorseEntity.this.world.isAirBlock(place) || SeahorseEntity.this.world.getBlockState(place).getMaterial().isLiquid()) && direction != Direction.DOWN) {
-                                    if (direction == Direction.UP) {
+                                    if (direction == Direction.UP && getVariantType().getCoral() != null) {
                                         SeahorseEntity.this.world.setBlockState(place, getVariantType().getCoral().with(AbstractCoralPlantBlock.WATERLOGGED, SeahorseEntity.this.world.getFluidState(place).isTagged(FluidTags.WATER)), 3);
-                                    } else {
+                                    } else if (getVariantType().getFan() != null) {
                                         SeahorseEntity.this.world.setBlockState(place, getVariantType().getFan().with(CoralFanBlock.WATERLOGGED, SeahorseEntity.this.world.getFluidState(place).isTagged(FluidTags.WATER)), 3);
                                     }
                                 }
@@ -771,7 +781,8 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         FIRE(1, "fire", Blocks.FIRE_CORAL.getDefaultState(), Blocks.FIRE_CORAL_FAN.getDefaultState()),
         TUBE(2, "tube", Blocks.TUBE_CORAL.getDefaultState(), Blocks.TUBE_CORAL_FAN.getDefaultState()),
         BRAIN(3, "brain", Blocks.BRAIN_CORAL.getDefaultState(), Blocks.BRAIN_CORAL_FAN.getDefaultState()),
-        HORN(4, "horn", Blocks.HORN_CORAL.getDefaultState(), Blocks.HORN_CORAL_FAN.getDefaultState());
+        HORN(4, "horn", Blocks.HORN_CORAL.getDefaultState(), Blocks.HORN_CORAL_FAN.getDefaultState()),
+        MYSTERY(5, "mystery", null, null);
 
         private static final SeahorseEntity.CoralType[] field_221088_c = Arrays.stream(values()).sorted(Comparator.comparingInt(SeahorseEntity.CoralType::getIndex)).toArray(SeahorseEntity.CoralType[]::new);
         private static final Map<String, SeahorseEntity.CoralType> TYPES_BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(SeahorseEntity.CoralType::getName, (p_221081_0_) -> {
@@ -782,7 +793,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         private final BlockState coral;
         private final BlockState fan;
 
-        CoralType(int index, String name, BlockState coral, BlockState fan) {
+        CoralType(int index, String name, @Nullable BlockState coral, @Nullable BlockState fan) {
             this.index = index;
             this.name = name;
             this.coral = coral;
