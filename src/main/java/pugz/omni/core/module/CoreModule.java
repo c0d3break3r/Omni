@@ -80,6 +80,7 @@ public class CoreModule extends AbstractModule {
         public ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
         public ForgeConfigSpec.ConfigValue<Integer> SEAHORSE_CORAL_GROWTH_RATE;
         public ForgeConfigSpec.ConfigValue<Integer> LARGE_SEAHORSE_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Float> SEAHORSE_CORAL_GROWTH_DISTANCE;
         public ForgeConfigSpec.ConfigValue<Integer> TROPICAL_PLAINS_SPAWN_WEIGHT;
         public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_SPAWN_CHANCE;
         public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_TRADE_PRICE;
@@ -123,6 +124,7 @@ public class CoreModule extends AbstractModule {
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
             LARGE_SEAHORSE_SPAWN_CHANCE = builder.define("large_seahorse_spawn_chance", 25);
             SEAHORSE_CORAL_GROWTH_RATE = builder.define("seahorse_coral_growth_rate", 1);
+            SEAHORSE_CORAL_GROWTH_DISTANCE = builder.define("seahorse_coral_growth_distance", 4.0F);
             TROPICAL_PLAINS_SPAWN_WEIGHT = builder.define("tropical_plains_spawn_weight", 2);
             LOTUS_FLOWER_SPAWN_CHANCE = builder.define("lotus_flower_spawn_chance", 8);
             LOTUS_FLOWER_TRADE_PRICE = builder.define("lotus_flower_trade_price", 1);

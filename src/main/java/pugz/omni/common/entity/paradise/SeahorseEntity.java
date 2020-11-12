@@ -699,15 +699,15 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                         this.nextTarget = vector3d;
                     }
 
-                    boolean flag = SeahorseEntity.this.getPositionVec().distanceTo(this.nextTarget) <= 0.1D;
+                    boolean flag = SeahorseEntity.this.getPositionVec().distanceTo(this.nextTarget) <= CoreModule.Configuration.CLIENT.SEAHORSE_CORAL_GROWTH_DISTANCE.get();
                     boolean flag1 = true;
                     if (!flag && this.ticks > 600) {
                         SeahorseEntity.this.savedCoralPos = null;
                     } else {
                         if (flag) {
+                            System.out.println("grow coral 4");
                             boolean flag2 = SeahorseEntity.this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_CORAL_GROWTH_RATE.get()) == 0;
                             if (flag2) {
-                                System.out.println("Attempting to grow coral");
                                 BlockPos coralPos = new BlockPos(this.nextTarget.x, this.nextTarget.y, this.nextTarget.z);
                                 Direction direction = Direction.byIndex(SeahorseEntity.this.rand.nextInt(Direction.values().length));
                                 BlockPos place = coralPos.offset(direction);
