@@ -9,6 +9,7 @@ import pugz.omni.common.entity.paradise.SeahorseEntity;
 
 public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 	private final ModelRenderer body;
+	private final ModelRenderer body_r1;
 	private final ModelRenderer tail;
 	private final ModelRenderer leftFin;
 	private final ModelRenderer rightFin;
@@ -20,9 +21,14 @@ public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 
 		body = new ModelRenderer(this);
 		body.setRotationPoint(0.0F, 24.0F, 0.0F);
-		setRotationAngle(body, 0.2618F, 0.0F, 0.0F);
-		body.setTextureOffset(0, 8).addBox(-1.0F, -9.8637F, 1.0353F, 2.0F, 6.0F, 3.0F, 0.0F, false);
-		body.setTextureOffset(0, 14).addBox(0.0F, -14.5F, 3.25F, 0.0F, 11.0F, 3.0F, 0.0F, false);
+		setRotationAngle(body, 0.0F, 0.0F, 0.0F);
+		body.setTextureOffset(0, 8).addBox(-1.0F, -9.9F, 1.F, 2.0F, 6.0F, 3.0F, 0.0F, false);
+
+		body_r1 = new ModelRenderer(this);
+		body_r1.setRotationPoint(0.0F, 0.0F, 0.0F);
+		body.addChild(body_r1);
+		setRotationAngle(body_r1, 0.0873F, 0.0F, 0.0F);
+		body_r1.setTextureOffset(0, 14).addBox(0.0F, -13.75F, 3.5F, 0.0F, 11.0F, 3.0F, 0.0F, false);
 
 		tail = new ModelRenderer(this);
 		tail.setRotationPoint(0.0F, -4.0F, 4.0F);
@@ -38,13 +44,14 @@ public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 		rightFin = new ModelRenderer(this);
 		rightFin.setRotationPoint(-1.0F, -8.0F, 2.5F);
 		body.addChild(rightFin);
-		setRotationAngle(rightFin, 0.0F, 0.0F, 0.3927F);
+		setRotationAngle(rightFin, 0.0F, 0.0F, 0.4F);
 		rightFin.setTextureOffset(5, 6).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 2.0F, 0.0F, true);
 
 		head = new ModelRenderer(this);
-		head.setRotationPoint(0.0F, 14.0F, 1.0F);
-		head.setTextureOffset(0, 0).addBox(-2.0F, -4.0F, -4.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
-		head.setTextureOffset(12, 4).addBox(-0.5F, -2.5F, -8.0F, 1.0F, 2.0F, 4.0F, 0.0F, false);
+		head.setRotationPoint(0.0F, -10.0F, 3.5F);
+		body.addChild(head);
+		head.setTextureOffset(0, 0).addBox(-2.0F, -3.75F, -4.0F, 4.0F, 4.0F, 4.0F, 0.0F, false);
+		head.setTextureOffset(12, 4).addBox(-0.5F, -2.25F, -8.0F, 1.0F, 2.0F, 4.0F, 0.0F, false);
 	}
 
 	@Override
@@ -52,15 +59,17 @@ public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 		float f = ((float)(seahorse.getEntityId() * 3) + ageInTicks) * 0.13F;
 		this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
 		this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-		this.leftFin.rotateAngleZ = MathHelper.cos(f) * 16.0F * ((float)Math.PI / 240F);
+		this.leftFin.rotateAngleZ = MathHelper.cos(f) * 16.0F * ((float)Math.PI / 180F);
 		this.rightFin.rotateAngleZ = -this.leftFin.rotateAngleZ;
-		this.tail.rotateAngleX = -(5.0F + MathHelper.cos(f * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
+		if (seahorse.isMoving()) {
+			this.body.rotateAngleX = (10.0F + MathHelper.cos(f * 2.0F) * 5.0F) * ((float) Math.PI / 180F);
+		}
+		this.tail.rotateAngleX = -(10.0F + MathHelper.cos(f * 2.0F) * 5.0F) * ((float)Math.PI / 180F);
 	}
 
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
 		body.render(matrixStack, buffer, packedLight, packedOverlay);
-		head.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

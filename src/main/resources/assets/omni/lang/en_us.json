@@ -16,6 +16,13 @@
 
   "item.omni.malachite_shard": "Malachite Shard",
 
+  "subtitles.block.crystal.break": "",
+  "subtitles.block.crystal.place": "",
+  "subtitles.block.crystal.step": "",
+  "subtitles.block.crystal.shimmer": "",
+  "subtitles.block.crystal_bud.break": "",
+  "subtitles.block.crystal_bud.place": "",
+
   "_comment1": "Colormatic",
 
   "block.omni.brown_quilted_carpet": "Brown Quilted Carpet",

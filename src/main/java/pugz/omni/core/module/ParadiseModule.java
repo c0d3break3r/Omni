@@ -206,7 +206,7 @@ public class ParadiseModule extends AbstractModule {
         Arrays.asList(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_BIOMES.get().split(",")).forEach((spawnBiomeName) -> {
             if (event.getName().toString().equals(spawnBiomeName)) {
                 MobSpawnInfo.Builder prevInfo = spawns;
-                MobSpawnInfo info = prevInfo.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1)).copy();
+                MobSpawnInfo info = prevInfo.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1)).copy();
                 event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).clear();
                 info.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
                     spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);

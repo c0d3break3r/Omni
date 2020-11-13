@@ -58,7 +58,7 @@ public class CoreModule extends AbstractModule {
         public ForgeConfigSpec.ConfigValue<Integer> BUDDING_MALACHITE_GROWTH_CHANCE;
         public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_TOTEM_RANGE;
         public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_TOTEM_LIGHT_LEVEL;
-        public ForgeConfigSpec.ConfigValue<Float> SPELEOTHEMS_SPAWN_PROBABILITY;
+        public ForgeConfigSpec.ConfigValue<Double> SPELEOTHEMS_SPAWN_PROBABILITY;
         public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FALL;
         public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FALL_BY_PROJECTILES;
         public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FILL_CAULDRONS;
@@ -75,12 +75,12 @@ public class CoreModule extends AbstractModule {
         public ForgeConfigSpec.ConfigValue<Boolean> AMBIENT_SOUNDS;
 
         //paradise
-        public ForgeConfigSpec.ConfigValue<Float> SEAHORSE_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Double> SEAHORSE_SPAWN_CHANCE;
         public ForgeConfigSpec.ConfigValue<Boolean> RIDEABLE_SEAHORSES;
         public ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
         public ForgeConfigSpec.ConfigValue<Integer> SEAHORSE_CORAL_GROWTH_RATE;
         public ForgeConfigSpec.ConfigValue<Integer> LARGE_SEAHORSE_SPAWN_CHANCE;
-        public ForgeConfigSpec.ConfigValue<Float> SEAHORSE_CORAL_GROWTH_DISTANCE;
+        public ForgeConfigSpec.ConfigValue<Integer> SEAHORSE_CORAL_GROWTH_DISTANCE;
         public ForgeConfigSpec.ConfigValue<Integer> TROPICAL_PLAINS_SPAWN_WEIGHT;
         public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_SPAWN_CHANCE;
         public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_TRADE_PRICE;
@@ -98,7 +98,7 @@ public class CoreModule extends AbstractModule {
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.define("budding_malachite_growth_chance", 5);
             MALACHITE_TOTEM_RANGE = builder.define("malachite_totem_range", 12);
             MALACHITE_TOTEM_LIGHT_LEVEL = builder.defineInRange("malachite_totem_light_level", 10, 0, 16);
-            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", (float)0.004F);
+            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.004D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);
@@ -119,12 +119,12 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(ParadiseModule.instance.getName());
-            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.05F);
+            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.05D);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
             LARGE_SEAHORSE_SPAWN_CHANCE = builder.define("large_seahorse_spawn_chance", 25);
-            SEAHORSE_CORAL_GROWTH_RATE = builder.define("seahorse_coral_growth_rate", 1);
-            SEAHORSE_CORAL_GROWTH_DISTANCE = builder.define("seahorse_coral_growth_distance", 4.0F);
+            SEAHORSE_CORAL_GROWTH_RATE = builder.define("seahorse_coral_growth_rate", 25);
+            SEAHORSE_CORAL_GROWTH_DISTANCE = builder.define("seahorse_coral_growth_distance", 4);
             TROPICAL_PLAINS_SPAWN_WEIGHT = builder.define("tropical_plains_spawn_weight", 2);
             LOTUS_FLOWER_SPAWN_CHANCE = builder.define("lotus_flower_spawn_chance", 8);
             LOTUS_FLOWER_TRADE_PRICE = builder.define("lotus_flower_trade_price", 1);
