@@ -1,6 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -11,10 +10,8 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.PhantomEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import net.minecraftforge.fml.RegistryObject;
 import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeature;

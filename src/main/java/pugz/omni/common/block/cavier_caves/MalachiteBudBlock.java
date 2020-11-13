@@ -46,8 +46,8 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
 
     public MalachiteBudBlock(AbstractBlock.Properties properties, int age) {
         super(properties.setLightLevel((state) -> {
-            return 14;
-        }));
+            return 12 + age;
+        }).sound(SoundType.SNOW));
         this.age = age;
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(WATERLOGGED, false));
     }

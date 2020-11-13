@@ -497,12 +497,11 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (this.canPassengerSteer()) {
                     this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     this.moveRelative(0.1F, travelVector);
-                    this.move(MoverType.SELF, this.getMotion());
+                    this.move(MoverType.PLAYER, this.getMotion());
                     this.setMotion(this.getMotion().scale(0.9D));
                 } else if (livingentity instanceof PlayerEntity) {
                     this.setMotion(Vector3d.ZERO);
                 }
-
                 this.func_233629_a_(this, false);
             } else {
                 super.travel(travelVector);

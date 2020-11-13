@@ -9,7 +9,6 @@ import pugz.omni.common.entity.paradise.SeahorseEntity;
 
 public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 	private final ModelRenderer body;
-	private final ModelRenderer body_r1;
 	private final ModelRenderer tail;
 	private final ModelRenderer leftFin;
 	private final ModelRenderer rightFin;
@@ -24,7 +23,7 @@ public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 		setRotationAngle(body, 0.0F, 0.0F, 0.0F);
 		body.setTextureOffset(0, 8).addBox(-1.0F, -9.9F, 1.F, 2.0F, 6.0F, 3.0F, 0.0F, false);
 
-		body_r1 = new ModelRenderer(this);
+		ModelRenderer body_r1 = new ModelRenderer(this);
 		body_r1.setRotationPoint(0.0F, 0.0F, 0.0F);
 		body.addChild(body_r1);
 		setRotationAngle(body_r1, 0.0873F, 0.0F, 0.0F);
@@ -61,6 +60,7 @@ public class SeahorseModel<E extends SeahorseEntity> extends EntityModel<E> {
 		this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
 		this.leftFin.rotateAngleZ = MathHelper.cos(f) * 16.0F * ((float)Math.PI / 180F);
 		this.rightFin.rotateAngleZ = -this.leftFin.rotateAngleZ;
+		this.body.rotateAngleX = 10.0F * ((float)Math.PI / 180F);
 		if (seahorse.isMoving()) {
 			this.body.rotateAngleX = (10.0F + MathHelper.cos(f * 2.0F) * 5.0F) * ((float) Math.PI / 180F);
 		}
