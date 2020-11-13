@@ -76,6 +76,7 @@ public class CoreModule extends AbstractModule {
 
         //paradise
         public ForgeConfigSpec.ConfigValue<Double> SEAHORSE_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Integer> SEAHORSE_TAME_CHANCE;
         public ForgeConfigSpec.ConfigValue<Boolean> RIDEABLE_SEAHORSES;
         public ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
         public ForgeConfigSpec.ConfigValue<Integer> SEAHORSE_CORAL_GROWTH_RATE;
@@ -86,7 +87,7 @@ public class CoreModule extends AbstractModule {
         public ForgeConfigSpec.ConfigValue<Integer> LOTUS_FLOWER_TRADE_PRICE;
 
         //miscellaneous
-        public static ForgeConfigSpec.ConfigValue<Float> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
+        public ForgeConfigSpec.ConfigValue<Float> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
 
         public Configuration(ForgeConfigSpec.Builder builder) {
             builder.comment("Omni Configuration");
@@ -120,6 +121,7 @@ public class CoreModule extends AbstractModule {
 
             builder.push(ParadiseModule.instance.getName());
             SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.05D);
+            SEAHORSE_TAME_CHANCE = builder.define("seahorse_tame_chance", 5);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
             LARGE_SEAHORSE_SPAWN_CHANCE = builder.define("large_seahorse_spawn_chance", 25);

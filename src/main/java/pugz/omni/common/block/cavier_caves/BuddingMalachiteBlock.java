@@ -37,6 +37,7 @@ public class BuddingMalachiteBlock extends Block {
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         worldIn.playSound(player, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     @Override
@@ -95,7 +96,7 @@ public class BuddingMalachiteBlock extends Block {
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean g(BlockState var0) {
-        return var0.isAir() || var0.isIn(Blocks.AIR);
+    public static boolean isStateAir(BlockState state) {
+        return state.isAir() || state.isIn(Blocks.AIR);
     }
 }

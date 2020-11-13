@@ -59,6 +59,7 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         worldIn.playSound(player, pos, OmniSoundEvents.CRYSTAL_BUD_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     @Override

@@ -448,7 +448,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (!player.abilities.isCreativeMode) {
                     held.shrink(1);
                 }
-                if (this.rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+                if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
                     this.setTamedBy(player);
                     this.navigator.clearPath();
                     this.func_233687_w_(true);

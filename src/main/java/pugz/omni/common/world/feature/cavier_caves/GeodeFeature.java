@@ -121,7 +121,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                                             crystalBudState = (BlockState) crystalBudState.with(BlockStateProperties.WATERLOGGED, var52.getFluidState().isTagged(FluidTags.WATER));
                                         }
 
-                                        if (BuddingMalachiteBlock.g(var52)) {
+                                        if (BuddingMalachiteBlock.isStateAir(var52)) {
                                             world.setBlockState(var50, crystalBudState, 2);
                                             break;
                                         }
