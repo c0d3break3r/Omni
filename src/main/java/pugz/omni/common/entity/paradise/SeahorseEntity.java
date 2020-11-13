@@ -475,7 +475,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Override
     public double getMountedYOffset() {
-        return 1.3D;
+        return 1.25D;
     }
 
     @Override

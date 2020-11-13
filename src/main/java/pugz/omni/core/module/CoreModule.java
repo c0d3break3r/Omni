@@ -106,7 +106,7 @@ public class CoreModule extends AbstractModule {
 
             builder.push(ColormaticModule.instance.getName());
             CONNECTABLE_QUILTED_CARPETS = builder.define("connectable_quilted_carpets", true);
-            TRADERS_WOOL_TRADE_PRICE = builder.define("traders_wool_trade_price", 1);
+            TRADERS_WOOL_TRADE_PRICE = builder.defineInRange("traders_wool_trade_price", 1, 0, 64);
             FLOWER_FIELD_SPAWN_WEIGHT = builder.define("flower_field_spawn_weight", 1);
             builder.pop();
 
@@ -127,7 +127,7 @@ public class CoreModule extends AbstractModule {
             SEAHORSE_CORAL_GROWTH_DISTANCE = builder.define("seahorse_coral_growth_distance", 4);
             TROPICAL_PLAINS_SPAWN_WEIGHT = builder.define("tropical_plains_spawn_weight", 2);
             LOTUS_FLOWER_SPAWN_CHANCE = builder.define("lotus_flower_spawn_chance", 8);
-            LOTUS_FLOWER_TRADE_PRICE = builder.define("lotus_flower_trade_price", 1);
+            LOTUS_FLOWER_TRADE_PRICE = builder.defineInRange("lotus_flower_trade_price", 1, 0, 64);
             builder.pop();
 
             builder.push(MiscellaneousModule.instance.getName());
