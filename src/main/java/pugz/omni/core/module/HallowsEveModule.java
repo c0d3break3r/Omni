@@ -66,9 +66,6 @@ public class HallowsEveModule extends AbstractModule {
         //RegistryObject<Block> WROUGHT_IRON_BLOCK;
         //RegistryObject<Block> WROUGHT_IRON_BARS;
 
-        //RegistryObject<Block> CARVED_PUMPKIN;
-        //RegistryObject<Block> OVERRIDE_CARVED_PUMPKIN;
-
         //RegistryObject<Block> CORN_STALK;
         //RegistryObject<Block> CORN_CRATE;
     }

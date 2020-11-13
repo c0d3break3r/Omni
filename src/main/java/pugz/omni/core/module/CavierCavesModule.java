@@ -66,15 +66,7 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerBlocks() {
-        //RegistryObject<Block> SALT_ORE;
-        //RegistryObject<Block> SALT_CRYSTAL;
-        //RegistryObject<Block> SALT_BLOCK;
-
         //RegistryObject<Block> SULFUR_BLOCK;
-
-        //RegistryObject<Block> EMBERTINE_ORE;
-        //RegistryObject<Block> EMBERTINE_BLOCK;
-        //RegistryObject<Block> EMBERTINE_BRICKS;
 
         //RegistryObject<Block> PETRIFIED_PLANKS;
 
@@ -93,25 +85,15 @@ public class CavierCavesModule extends AbstractModule {
 
         //RegistryObject<Block> SLIME;
 
-        //RegistryObject<Block> ROPE;
-
         //RegistryObject<Block> THIN_ICE;
         //RegistryObject<Block> PERMAFROST;
 
         //RegistryObject<Block> STONE_SIGN;
         //RegistryObject<Block> BLACKSTONE_SIGN;
 
-        //RegistryObject<Block> GOBLIN_TRAP;
-
-        //RegistryObject<Block> FOSSIL_ORE;
-
-        //RegistryObject<Block> STICKY_RAIL;
-
         OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 4.5F)), ItemGroup.DECORATIONS);
         OmniBlocks.ICE_SPELEOTHEM = RegistryUtil.createBlock("ice_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.PACKED_ICE).slipperiness(0.98F).hardnessAndResistance(0.4F).sound(SoundType.GLASS)), ItemGroup.DECORATIONS);
         OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(0.3F)), ItemGroup.DECORATIONS);
-
-        //RegistryObject<Block> SPAWNER_STONE;
 
         OmniBlocks.MALACHITE_BLOCK = RegistryUtil.createBlock("malachite_block", MalachiteBlock::new, ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.BUDDING_MALACHITE = RegistryUtil.createBlock("budding_malachite", BuddingMalachiteBlock::new, ItemGroup.BUILDING_BLOCKS);
@@ -125,28 +107,15 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
-        //RegistryObject<Item> EMBERTINE;
-        //RegistryObject<Item> SERPENTINE;
-        //RegistryObject<Item> AGATE;
-
         //RegistryObject<Item> SULFUR_DUST;
-        //RegistryObject<Item> SALT_PILE;
 
         //RegistryObject<Item> CRYSTAL_MELON;
-
-        //RegistryObject<Item> SPAWNER_FRAGMENT;
 
         OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
     }
 
     @Override
-    protected void registerTileEntities() {
-        //RegistryObject<TileEntityType<?>> ROPE;
-    }
-
-    @Override
     protected void registerEntities() {
-        //RegistryObject<EntityType<?>> GOBLIN;
         //RegistryObject<EntityType<?>> SPIDERLING;
     }
 
@@ -168,11 +137,6 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
 
         OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.b));
-    }
-
-    @Override
-    protected void registerStructures() {
-        //RegistryObject<Structure<?>> GOBLIN_FORT;
     }
 
     @Override

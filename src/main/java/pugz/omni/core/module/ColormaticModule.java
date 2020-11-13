@@ -125,9 +125,6 @@ public class ColormaticModule extends AbstractModule {
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);
         OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new Block(AbstractBlock.Properties.create(Material.WOOL, DyeColor.BLUE).hardnessAndResistance(0.8F).sound(SoundType.CLOTH)), ItemGroup.BUILDING_BLOCKS);
 
-        //OmniBlocks.EUCALYPTUS_LOG = RegistryUtil.createBlock(null, null, null);
-        //OmniBlocks.EUCALYPTUS_PLANKS = RegistryUtil.createBlock(null, null, null);
-
         //OmniBlocks.FLOWER_STEM = RegistryUtil.createBlock(null, null, null);
         //OmniBlocks.DANDELION_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
         //OmniBlocks.DANDELION_FLUFF_BLOCK = RegistryUtil.createBlock(null, null, null);
@@ -152,7 +149,6 @@ public class ColormaticModule extends AbstractModule {
     protected void registerEntities() {
         OmniEntities.FALLING_CONCRETE_POWDER = RegistryUtil.createEntity("falling_concrete_powder", OmniEntities::createFallingBlockEntity);
         //RegistryObject<EntityType<?>> AEROMA;
-        //RegistryObject<EntityType<?>> KOALA;
     }
 
     @Override
@@ -160,7 +156,6 @@ public class ColormaticModule extends AbstractModule {
         OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.CLIENT.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
         //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
         //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
-        //RegistryObject<Biome> EUCALYPTUS_FOREST;
     }
 
     @Override
@@ -168,8 +163,6 @@ public class ColormaticModule extends AbstractModule {
         //RegistryObject<Feature<?>> GIANT_DANDELION;
         //RegistryObject<Feature<?>> GIANT_TULIP;
         //RegistryObject<Feature<?>> GIANT_ROSE;
-        //RegistryObject<Feature<?>> EUCALYPTUS_TREE;
-        //RegistryObject<Feature<?>> RAINBOW_EUCALYPTUS_TREE;
     }
 
     @Override

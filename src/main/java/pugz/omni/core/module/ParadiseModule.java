@@ -140,10 +140,6 @@ public class ParadiseModule extends AbstractModule {
 
         //RegistryObject<Item> NEPTFIN;
 
-        //RegistryObject<Item> RED_PARROT_FEATHER;
-        //RegistryObject<Item> GREEN_PARROT_FEATHER;
-        //RegistryObject<Item> BLUE_PARROT_FEATHER;
-
         //RegistryObject<Item> TIKI_MASK;
 
         //RegistryObject<Item> KIWI;
@@ -155,7 +151,6 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerEntities() {
-        //RegistryObject<EntityType<?>> KELPIE;
         //RegistryObject<EntityType<?>> KIWI;
         //RegistryObject<EntityType<?>> TIKI;
         OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.3F, 0.85F));
@@ -205,8 +200,7 @@ public class ParadiseModule extends AbstractModule {
 
         Arrays.asList(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_BIOMES.get().split(",")).forEach((spawnBiomeName) -> {
             if (event.getName().toString().equals(spawnBiomeName)) {
-                MobSpawnInfo.Builder prevInfo = spawns;
-                MobSpawnInfo info = prevInfo.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1)).copy();
+                MobSpawnInfo info = spawns.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 10, 1, 1)).copy();
                 event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).clear();
                 info.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
                     spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
