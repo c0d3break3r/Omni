@@ -35,7 +35,7 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
     protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
     private static final DataParameter<Integer> LAYERS = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.VARINT);
     private BlockState fallState;
-    private EntitySize size;
+    private final EntitySize size;
 
     public FallingConcretePowderEntity(EntityType<FallingConcretePowderEntity> entity, World worldIn) {
         super(entity, worldIn);
@@ -113,13 +113,12 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                         boolean flag3 = FallingBlock.canFallThrough(this.world.getBlockState(blockpos1.down()));
                         boolean flag4 = this.fallState.isValidPosition(this.world, blockpos1) && !flag3;
                         if ((flag2 || (hitState.getBlock() instanceof LayerConcretePowderBlock || hitState.getBlock() instanceof LayerConcreteBlock)) && flag4) {
-                            this.shouldDropItem = false;
-
                             if (this.fallState.hasProperty(BlockStateProperties.WATERLOGGED) && this.world.getFluidState(blockpos1).getFluid() == Fluids.WATER) {
                                 this.fallState = this.fallState.with(BlockStateProperties.WATERLOGGED, true);
                             }
 
                             if (hitState.getBlock() instanceof LayerConcretePowderBlock) {
+                                this.shouldDropItem = false;
                                 if (block.getMaterialColor() == hitState.getBlock().getMaterialColor()) {
                                     if (hitState.get(LayerConcretePowderBlock.LAYERS) == 8)
                                         world.setBlockState(blockpos1.up(), this.fallState, 3);
@@ -136,6 +135,7 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                                     }
                                 } else this.shouldDropItem = true;
                             } else if (hitState.getBlock() instanceof LayerConcreteBlock) {
+                                this.shouldDropItem = false;
                                 if (((LayerConcretePowderBlock)block).getSolidifiedState().getBlock().getMaterialColor() == hitState.getBlock().getMaterialColor()) {
                                     if (hitState.get(LayerConcreteBlock.WATERLOGGED) && hitState.get(LayerConcreteBlock.LAYERS) < 7) {
                                         int totalLayers = hitState.get(LayerConcreteBlock.LAYERS) + this.fallState.get(LayerConcretePowderBlock.LAYERS);
