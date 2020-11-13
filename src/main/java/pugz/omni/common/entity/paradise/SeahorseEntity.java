@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,6 +38,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
+import pugz.omni.core.Omni;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniItems;
@@ -79,6 +81,13 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         this.dataManager.register(CORAL_TYPE_FLAGS, (byte)0);
         this.dataManager.register(STATUS, (byte)0);
         this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
+    }
+
+    @Nonnull
+    public ResourceLocation getLootTable() {
+        if (this.getVariantType() != CoralType.MYSTERY) {
+            return new ResourceLocation(Omni.MOD_ID, "entities/seahorse/" + this.getVariantType().getName());
+        } else return new ResourceLocation(Omni.MOD_ID, "entities/seahorse");
     }
 
     @Override
@@ -437,6 +446,19 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         } else {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
         }
+    }
+
+    public void livingTick() {
+        if (!this.isInWater()) {
+            if (this.getControllingPassenger() != null) this.getControllingPassenger().dismount();
+            if (this.onGround && this.collidedVertically) {
+                this.setMotion(this.getMotion().add((double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F), (double) 0.4F, (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+                this.onGround = false;
+                this.isAirBorne = true;
+            }
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
+        }
+        super.livingTick();
     }
 
     @Nonnull
