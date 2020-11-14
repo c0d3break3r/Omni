@@ -1,5 +1,7 @@
 package pugz.omni.core;
 
+import net.minecraft.world.Dimension;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import pugz.omni.core.module.*;

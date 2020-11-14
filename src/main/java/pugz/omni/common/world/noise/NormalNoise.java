@@ -33,10 +33,10 @@ public class NormalNoise {
             }
         }
 
-        this.a = 0.16666666666666666D / a(var5 - var4);
+        this.a = 0.16666666666666666D / fade(var5 - var4);
     }
 
-    private static double a(int var0) {
+    private static double fade(int var0) {
         return 0.1D * (1.0D + 1.0D / (double)(var0 + 1));
     }
 

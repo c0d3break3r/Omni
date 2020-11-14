@@ -55,30 +55,30 @@ public class ImprovedNoise {
         return this.a(var17, var18, var19, var20, var22 - var32, var24, var26, var28, var30);
     }
 
-    private static double a(int var0, double var1, double var3, double var5) {
+    private static double grad(int var0, double var1, double var3, double var5) {
         int var7 = var0 & 15;
         return SimplexNoise.a(SimplexNoise.a[var7], var1, var3, var5);
     }
 
-    private int a(int var1) {
+    private int fade(int var1) {
         return this.d[var1 & 255] & 255;
     }
 
     public double a(int var1, int var2, int var3, double var4, double var6, double var8, double var10, double var12, double var14) {
-        int var16 = this.a(var1) + var2;
-        int var17 = this.a(var16) + var3;
-        int var18 = this.a(var16 + 1) + var3;
-        int var19 = this.a(var1 + 1) + var2;
-        int var20 = this.a(var19) + var3;
-        int var21 = this.a(var19 + 1) + var3;
-        double var22 = a(this.a(var17), var4, var6, var8);
-        double var24 = a(this.a(var20), var4 - 1.0D, var6, var8);
-        double var26 = a(this.a(var18), var4, var6 - 1.0D, var8);
-        double var28 = a(this.a(var21), var4 - 1.0D, var6 - 1.0D, var8);
-        double var30 = a(this.a(var17 + 1), var4, var6, var8 - 1.0D);
-        double var32 = a(this.a(var20 + 1), var4 - 1.0D, var6, var8 - 1.0D);
-        double var34 = a(this.a(var18 + 1), var4, var6 - 1.0D, var8 - 1.0D);
-        double var36 = a(this.a(var21 + 1), var4 - 1.0D, var6 - 1.0D, var8 - 1.0D);
+        int var16 = this.fade(var1) + var2;
+        int var17 = this.fade(var16) + var3;
+        int var18 = this.fade(var16 + 1) + var3;
+        int var19 = this.fade(var1 + 1) + var2;
+        int var20 = this.fade(var19) + var3;
+        int var21 = this.fade(var19 + 1) + var3;
+        double var22 = grad(this.fade(var17), var4, var6, var8);
+        double var24 = grad(this.fade(var20), var4 - 1.0D, var6, var8);
+        double var26 = grad(this.fade(var18), var4, var6 - 1.0D, var8);
+        double var28 = grad(this.fade(var21), var4 - 1.0D, var6 - 1.0D, var8);
+        double var30 = grad(this.fade(var17 + 1), var4, var6, var8 - 1.0D);
+        double var32 = grad(this.fade(var20 + 1), var4 - 1.0D, var6, var8 - 1.0D);
+        double var34 = grad(this.fade(var18 + 1), var4, var6 - 1.0D, var8 - 1.0D);
+        double var36 = grad(this.fade(var21 + 1), var4 - 1.0D, var6 - 1.0D, var8 - 1.0D);
         return MathHelper.lerp3(var10, var12, var14, var22, var24, var26, var28, var30, var32, var34, var36);
     }
 }

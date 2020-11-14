@@ -3,6 +3,8 @@ package pugz.omni.core.util;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.World;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -65,6 +67,12 @@ public class RegistryUtil {
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {
         return Omni.Registries.FEATURES.register(name, supplier);
+    }
+
+    public static void createDimension(String name) {
+        RegistryKey.getOrCreateKey(Registry.DIMENSION_KEY, new ResourceLocation(Omni.MOD_ID, name));
+        RegistryKey.getOrCreateKey(Registry.DIMENSION_TYPE_KEY, new ResourceLocation(Omni.MOD_ID, name));
+        RegistryKey.getOrCreateKey(Registry.NOISE_SETTINGS_KEY, new ResourceLocation(Omni.MOD_ID, name));
     }
 
     public static RegistryObject<SoundEvent> createSoundEvent(String name) {

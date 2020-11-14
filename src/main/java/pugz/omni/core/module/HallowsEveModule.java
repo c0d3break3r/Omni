@@ -1,5 +1,12 @@
 package pugz.omni.core.module;
 
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import pugz.omni.core.Omni;
+import pugz.omni.core.registry.OmniDimensions;
+import pugz.omni.core.util.RegistryUtil;
+
 public class HallowsEveModule extends AbstractModule {
     public static final HallowsEveModule instance = new HallowsEveModule();
 
@@ -125,6 +132,11 @@ public class HallowsEveModule extends AbstractModule {
     @Override
     protected void registerStructures() {
         //RegistryObject<Structure<?>> WITCH_TOWER;
+    }
+
+    @Override
+    protected void registerDimensions() {
+        RegistryUtil.createDimension("the_hallow");
     }
 
     private void registerHexes() {

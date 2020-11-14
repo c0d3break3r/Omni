@@ -450,13 +450,12 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     public void livingTick() {
         if (!this.isInWater()) {
-            if (this.getControllingPassenger() != null) this.getControllingPassenger().dismount();
             if (this.onGround && this.collidedVertically) {
                 this.setMotion(this.getMotion().add((double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F), (double) 0.4F, (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
                 this.onGround = false;
                 this.isAirBorne = true;
+                this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
             }
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
         }
         super.livingTick();
     }
@@ -497,7 +496,9 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Override
     public double getMountedYOffset() {
-        return 1.25D;
+        int i = this.getSeahorseSize();
+        float f = 1.0F + 0.3F * (float)i;
+        return 0.5F * f;
     }
 
     @Override
@@ -520,9 +521,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                     float f = livingentity.moveStrafing * 0.75F;
                     float f1 = livingentity.moveForward;
                     this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    if (livingentity.isSprinting()) {
-                        this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y, (double)f1));
-                    } else this.moveRelative(0.1F, new Vector3d((double)f, travelVector.y, (double)f1));
+                    this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y, (double)f1));
                     this.move(MoverType.PLAYER, this.getMotion());
                     this.setMotion(this.getMotion().scale(0.9D));
                 } else if (livingentity instanceof PlayerEntity) {
@@ -551,7 +550,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     public void setCustomName(@Nullable ITextComponent name) {
         super.setCustomName(name);
-        if (name != null && this.getVariantType() != CoralType.MYSTERY) {
+        if (name.getString().toLowerCase().equals(CoralType.MYSTERY.name) && this.getVariantType() != CoralType.MYSTERY) {
             super.setCustomName(name);
             this.setVariantType(CoralType.MYSTERY);
         }

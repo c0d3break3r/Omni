@@ -28,6 +28,7 @@ public abstract class AbstractModule {
         registerSurfaceBuilders();
         registerFeatures();
         registerStructures();
+        registerDimensions();
         registerEnchantments();
         registerEffects();
         registerSounds();
@@ -68,6 +69,9 @@ public abstract class AbstractModule {
     }
 
     protected void registerStructures() {
+    }
+
+    protected void registerDimensions() {
     }
 
     protected void registerEnchantments() {
