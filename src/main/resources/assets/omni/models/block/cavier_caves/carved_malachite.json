@@ -1,6 +1,12 @@
 {
-  "parent": "block/template_glazed_terracotta",
+  "parent": "block/cube_column_horizontal",
   "textures": {
-    "pattern": "omni:block/cavier_caves/carved_malachite"
+    "down": "omni:block/cavier_caves/carved_malachite_0",
+    "up": "omni:block/cavier_caves/carved_malachite_0",
+    "north": "omni:block/cavier_caves/carved_malachite_1",
+    "south": "omni:block/cavier_caves/carved_malachite_1",
+    "east": "omni:block/cavier_caves/carved_malachite_2",
+    "west": "omni:block/cavier_caves/carved_malachite_2",
+    "particle": "omni:block/cavier_caves/carved_malachite_0"
   }
 }

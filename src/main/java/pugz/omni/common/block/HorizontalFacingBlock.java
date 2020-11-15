@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.Direction;
 
 public class HorizontalFacingBlock extends HorizontalBlock {
     public HorizontalFacingBlock(AbstractBlock.Properties properties) {
@@ -17,6 +18,8 @@ public class HorizontalFacingBlock extends HorizontalBlock {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+        if (context.getFace() != Direction.UP && context.getFace() != Direction.DOWN) {
+            return this.getDefaultState().with(HORIZONTAL_FACING, context.getFace().getOpposite());
+        } else return getDefaultState();
     }
 }
