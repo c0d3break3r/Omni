@@ -1,10 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import pugz.omni.core.Omni;
-import pugz.omni.core.registry.OmniDimensions;
 import pugz.omni.core.util.RegistryUtil;
 
 public class HallowsEveModule extends AbstractModule {
