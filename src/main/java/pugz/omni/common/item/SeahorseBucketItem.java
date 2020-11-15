@@ -1,12 +1,12 @@
 package pugz.omni.common.item;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -14,15 +14,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.core.registry.OmniEntities;
 
 import java.util.function.Supplier;
 
-public class EntityBucketItem extends BucketItem {
-    private final Supplier<EntityType<? extends Entity>> entity;
+public class SeahorseBucketItem extends BucketItem {
+    private final Supplier<EntityType<SeahorseEntity>> seahorse = OmniEntities.SEAHORSE;
 
-    public EntityBucketItem(Supplier<EntityType<? extends Entity>> entity, Supplier<? extends Fluid> supplier, Item.Properties builder) {
-        super(supplier, builder);
-        this.entity = entity;
+    public SeahorseBucketItem() {
+        super(() -> Fluids.WATER, new Item.Properties().group(ItemGroup.MISC));
     }
 
     public void onLiquidPlaced(World world, ItemStack stack, BlockPos pos) {
@@ -36,6 +37,6 @@ public class EntityBucketItem extends BucketItem {
     }
 
     protected void placeEntity(ServerWorld world, ItemStack stack, BlockPos pos) {
-        this.entity.get().spawn(world, stack, null, pos, SpawnReason.BUCKET, true, false);
+        this.seahorse.get().spawn(world, stack, null, pos, SpawnReason.BUCKET, true, false);
     }
 }

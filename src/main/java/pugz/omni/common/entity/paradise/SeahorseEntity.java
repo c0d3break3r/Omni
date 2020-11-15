@@ -12,10 +12,8 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
@@ -72,7 +70,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 8.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.8D);
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 8.0F).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.8F);
     }
 
     protected void registerData() {
@@ -381,7 +379,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     public EntitySize getSize(Pose poseIn) {
         int i = this.getSeahorseSize();
         EntitySize entitysize = super.getSize(poseIn);
-        float f = 1.0F + 0.3F * (float)i;
+        float f = 1.0F + 0.3F * (float) i;
         return entitysize.scale(f);
     }
 
@@ -524,7 +522,9 @@ public class SeahorseEntity extends TameableEntity implements IMob {
             if (this.isBeingRidden() && this.canBeSteered() && this.isInWater()) {
                 LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
                 this.rotationYaw = livingentity.rotationYaw;
-                this.rotationYawHead = livingentity.rotationYawHead;
+                if (this.isInWater()) {
+                    this.rotationYawHead = livingentity.rotationYawHead;
+                }
                 this.prevRotationYaw = this.rotationYaw;
                 this.prevRotationYawHead = this.rotationYawHead;
                 this.setRotation(this.rotationYaw, this.rotationPitch);
@@ -533,10 +533,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (this.canPassengerSteer()) {
                     float f = livingentity.moveStrafing * 0.75F;
                     float f1 = livingentity.moveForward;
-                    this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.75F);
+                    this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
                     this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y, (double)f1));
                     this.move(MoverType.PLAYER, this.getMotion());
-                    this.setMotion(this.getMotion().scale(0.75D));
+                    this.setMotion(this.getMotion().scale(this.getAttributeValue(Attributes.MOVEMENT_SPEED)));
                 } else if (livingentity instanceof PlayerEntity) {
                     this.setMotion(Vector3d.ZERO);
                 }
