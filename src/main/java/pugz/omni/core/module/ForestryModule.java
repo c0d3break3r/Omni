@@ -1,5 +1,11 @@
 package pugz.omni.core.module;
 
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
+import net.minecraftforge.fml.RegistryObject;
+import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
@@ -35,7 +41,12 @@ public class ForestryModule extends AbstractModule {
     @Override
     protected void registerBlocks() {
         //RegistryObject<Block> CARVED_OAK_PLANKS;
-        //RegistryObject<Block> CARVED_OAK_LOG;
+        OmniBlocks.CARVED_OAK_WOOD = RegistryUtil.createBlock("carved_oak_wood", () -> new Block(AbstractBlock.Properties.from(Blocks.OAK_LOG)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_SPRUCE_WOOD = RegistryUtil.createBlock("carved_spruce_wood", () -> new Block(AbstractBlock.Properties.from(Blocks.SPRUCE_LOG)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_BIRCH_WOOD = RegistryUtil.createBlock("carved_birch_wood", () -> new Block(AbstractBlock.Properties.from(Blocks.BIRCH_LOG)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_JUNGLE_WOOD = RegistryUtil.createBlock("carved_jungle_wood", () -> new Block(AbstractBlock.Properties.from(Blocks.JUNGLE_LOG)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_DARK_OAK_WOOD = RegistryUtil.createBlock("carved_dark_oak_wood", () -> new Block(AbstractBlock.Properties.from(Blocks.DARK_OAK_LOG)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_ACACIA_WOOD = RegistryUtil.createBlock("carved_acacia_wood", () -> new Block(AbstractBlock.Properties.from(Blocks.ACACIA_LOG)), ItemGroup.BUILDING_BLOCKS);
 
         //CHARRED_LOG
     }

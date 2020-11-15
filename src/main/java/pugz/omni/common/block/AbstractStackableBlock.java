@@ -27,7 +27,7 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public abstract class AbstractStackableBlock extends BushBlock implements IStackable {
+public abstract class AbstractStackableBlock extends BushBlock {
     public AbstractStackableBlock(AbstractBlock.Properties properties) {
         super(properties);
         setDefaultState(this.stateContainer.getBaseState().with(getCountProperty(), 2));

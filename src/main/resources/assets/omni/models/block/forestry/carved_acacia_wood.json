@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "omni:block/forestry/carved_acacia_wood"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:dark_oak_wood"
+    }
+  },
+  "result": {
+    "item": "omni:carved_dark_oak_wood",
+    "count": 3
+  }
+}

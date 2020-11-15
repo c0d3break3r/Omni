@@ -1,7 +1,6 @@
 package pugz.omni.common.block.colormatic;
 
 import pugz.omni.common.block.AbstractStackableBlock;
-import pugz.omni.common.block.IStackable;
 import net.minecraft.block.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
@@ -19,7 +18,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class FungiBlock extends AbstractStackableBlock implements IGrowable, IStackable {
+public class FungiBlock extends AbstractStackableBlock implements IGrowable {
     private static final VoxelShape MULTI_FUNGUS_SHAPE = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 9.0D, 13.0D);
     public static final IntegerProperty FUNGI = IntegerProperty.create("fungi", 1, 4);
     private final Block base;

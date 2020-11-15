@@ -2,10 +2,14 @@ package pugz.omni.common.entity.colormatic;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.common.block.colormatic.LayerConcreteBlock;
 import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
+import pugz.omni.core.Omni;
+import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
@@ -118,8 +122,8 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                             }
 
                             if (hitState.getBlock() instanceof LayerConcretePowderBlock) {
-                                this.shouldDropItem = false;
                                 if (block.getMaterialColor() == hitState.getBlock().getMaterialColor()) {
+                                    this.shouldDropItem = false;
                                     if (hitState.get(LayerConcretePowderBlock.LAYERS) == 8)
                                         world.setBlockState(blockpos1.up(), this.fallState, 3);
 
@@ -135,8 +139,8 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
                                     }
                                 } else this.shouldDropItem = true;
                             } else if (hitState.getBlock() instanceof LayerConcreteBlock) {
-                                this.shouldDropItem = false;
                                 if (((LayerConcretePowderBlock)block).getSolidifiedState().getBlock().getMaterialColor() == hitState.getBlock().getMaterialColor()) {
+                                    this.shouldDropItem = false;
                                     if (hitState.get(LayerConcreteBlock.WATERLOGGED) && hitState.get(LayerConcreteBlock.LAYERS) < 7) {
                                         int totalLayers = hitState.get(LayerConcreteBlock.LAYERS) + this.fallState.get(LayerConcretePowderBlock.LAYERS);
 
@@ -206,7 +210,8 @@ public class FallingConcretePowderEntity extends Entity implements IEntityAdditi
 
     @Override
     protected void readAdditional(CompoundNBT compound) {
-        this.fallState = NBTUtil.readBlockState(compound.getCompound("BlockState"));
+        if (NBTUtil.readBlockState(compound.getCompound("BlockState")).getBlock() instanceof LayerConcretePowderBlock) this.fallState = NBTUtil.readBlockState(compound.getCompound("BlockState"));
+        else this.fallState = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Omni.MOD_ID, "red_concrete_powder")).getDefaultState();
         this.fallTime = compound.getInt("Time");
         if (compound.contains("Layers", Constants.NBT.TAG_INT)) {
             this.layers = compound.getInt("Layers");

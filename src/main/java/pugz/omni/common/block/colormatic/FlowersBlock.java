@@ -1,7 +1,6 @@
 package pugz.omni.common.block.colormatic;
 
 import pugz.omni.common.block.AbstractStackableBlock;
-import pugz.omni.common.block.IStackable;
 import net.minecraft.block.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
@@ -13,7 +12,7 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nonnull;
 
-public class FlowersBlock extends AbstractStackableBlock implements IStackable {
+public class FlowersBlock extends AbstractStackableBlock {
     private static final VoxelShape MULTI_FLOWER_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
     public static final IntegerProperty FLOWERS = IntegerProperty.create("flowers", 1, 4);
     private final Block base;

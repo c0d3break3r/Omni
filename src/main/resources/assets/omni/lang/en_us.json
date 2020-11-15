@@ -185,6 +185,13 @@
 
   "_comment4": "Forestry",
 
+  "block.omni.carved_oak_wood": "Carved Oak Wood",
+  "block.omni.carved_spruce_wood": "Carved Spruce Wood",
+  "block.omni.carved_birch_wood": "Carved Birch Wood",
+  "block.omni.carved_jungle_wood": "Carved Jungle Wood",
+  "block.omni.carved_dark_oak_wood": "Carved Dark Oak Wood",
+  "block.omni.carved_acacia_wood": "Carved Acacia Wood",
+
   "item.omni.enchanted_golden_carrot": "Enchanted Golden Carrot",
 
   "biome.omni.tall_forest": "Tall Forest",

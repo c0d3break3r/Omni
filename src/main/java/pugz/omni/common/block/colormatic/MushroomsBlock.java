@@ -1,7 +1,6 @@
 package pugz.omni.common.block.colormatic;
 
 import pugz.omni.common.block.AbstractStackableBlock;
-import pugz.omni.common.block.IStackable;
 import net.minecraft.block.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.Property;
@@ -15,7 +14,7 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class MushroomsBlock extends AbstractStackableBlock implements IGrowable, IStackable {
+public class MushroomsBlock extends AbstractStackableBlock implements IGrowable {
     private static final VoxelShape MULTI_MUSHROOM_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 6.0D, 12.0D);
     public static final IntegerProperty MUSHROOMS = IntegerProperty.create("mushrooms", 1, 4);
     private final Block base;
