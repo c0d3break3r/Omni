@@ -1,6 +1,7 @@
 package pugz.omni.core.util;
 
 import com.google.common.collect.Sets;
+import net.minecraft.enchantment.Enchantment;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -63,6 +64,10 @@ public class RegistryUtil {
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {
         return Omni.Registries.FEATURES.register(name, supplier);
+    }
+
+    public static <E extends Enchantment> RegistryObject<E> createEnchantment(String name, Supplier<? extends E> supplier) {
+        return Omni.Registries.ENCHANTMENTS.register(name, supplier);
     }
 
     public static RegistryObject<SoundEvent> createSoundEvent(String name) {

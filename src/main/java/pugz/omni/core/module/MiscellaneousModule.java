@@ -108,7 +108,7 @@ public class MiscellaneousModule extends AbstractModule {
         //RegistryObject<Enchantment> SHEPHERDS_TOUCH;
         //RegistryObject<Enchantment> BUTCHERING;
         //RegistryObject<Enchantment> WISDOM;
-        //RegistryObject<Enchantment> SLASHING_EDGE;
+        //SLASHING
     }
 
     @Override
