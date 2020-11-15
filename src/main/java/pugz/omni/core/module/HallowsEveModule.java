@@ -131,7 +131,6 @@ public class HallowsEveModule extends AbstractModule {
 
     @Override
     protected void registerDimensions() {
-        RegistryUtil.createDimension("the_hallow");
     }
 
     private void registerHexes() {

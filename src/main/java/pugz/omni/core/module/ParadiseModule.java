@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeMaker;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.common.item.EntityBucketItem;
 import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
@@ -147,6 +149,7 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<Item> SHELLS;
 
         OmniItems.SEAHORSE_SPAWN_EGG = RegistryUtil.createItem("seahorse_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.SEAHORSE.get(), 3966437, 14827318, new Item.Properties().group(ItemGroup.MISC)));
+        OmniItems.SEAHORSE_BUCKET = RegistryUtil.createItem("seahorse_bucket", () -> new EntityBucketItem(() -> OmniEntities.SEAHORSE.get(), () -> Fluids.WATER, new Item.Properties().group(ItemGroup.MISC)));
     }
 
     @Override

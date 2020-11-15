@@ -1,5 +1,6 @@
 package pugz.omni.common.entity.paradise;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -10,6 +11,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -463,9 +465,8 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     @Nonnull
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
         ItemStack held = player.getHeldItem(hand);
-        Item item = held.getItem();
         if (!this.isChild()) {
-            if ((item == Items.KELP || item == Items.SEAGRASS) && !this.isTamed()) {
+            if ((held.getItem() == Items.KELP || held.getItem() == Items.SEAGRASS) && !this.isTamed()) {
                 if (!player.abilities.isCreativeMode) {
                     held.shrink(1);
                 }
@@ -477,6 +478,18 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 } else {
                     this.world.setEntityState(this, (byte)6);
                 }
+                return ActionResultType.SUCCESS;
+            } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
+                this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+                held.shrink(1);
+                ItemStack bucket = new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
+                if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
+                if (!this.world.isRemote) CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
+
+                if (held.isEmpty()) player.setHeldItem(hand, bucket);
+                else if (!player.inventory.addItemStackToInventory(bucket)) player.dropItem(bucket, false);
+
+                this.remove();
                 return ActionResultType.SUCCESS;
             } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
                 this.mountTo(player);

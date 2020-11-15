@@ -12,4 +12,5 @@ public class OmniItems {
 
     //paradise
     public static RegistryObject<Item> SEAHORSE_SPAWN_EGG;
+    public static RegistryObject<Item> SEAHORSE_BUCKET;
 }
