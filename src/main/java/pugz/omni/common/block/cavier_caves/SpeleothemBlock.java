@@ -4,7 +4,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
-import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
@@ -238,8 +237,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-        BlockState state = worldIn.getBlockState(pos);
-        entityIn.onLivingFall(fallDistance, 4.0F + 1 / (state.get(SIZE).width * 0.5F));
+        super.onFallenUpon(worldIn, pos, entityIn, fallDistance * 1.5F);
     }
 
     @Override
