@@ -508,7 +508,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     @Override
     public double getMountedYOffset() {
         int i = this.getSeahorseSize();
-        float f = 1.0F + 0.3F * (float)i;
+        float f = 0.85F + 0.3F * (float)i;
         return 0.5F * f;
     }
 
@@ -533,10 +533,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (this.canPassengerSteer()) {
                     float f = livingentity.moveStrafing * 0.75F;
                     float f1 = livingentity.moveForward;
-                    this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2F);
                     this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y, (double)f1));
                     this.move(MoverType.PLAYER, this.getMotion());
-                    this.setMotion(this.getMotion().scale(this.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                    this.setMotion(this.getMotion().scale(this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.2F));
                 } else if (livingentity instanceof PlayerEntity) {
                     this.setMotion(Vector3d.ZERO);
                 }
