@@ -32,10 +32,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 import pugz.omni.core.Omni;
@@ -110,6 +109,14 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         return this.world.isBlockPresent(pos) && this.world.getBlockState(pos).getBlock().isIn(BlockTags.CORAL_BLOCKS);
     }
 
+    public static boolean canSeahorseSpawn(EntityType<? extends SeahorseEntity> seahorse, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+        for (String spawnBiomeName : CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_BIOMES.get().split(",")) {
+            if (worldIn.getBiome(pos).getRegistryName().toString().equals(spawnBiomeName) && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER)) {
+                return true;
+            }
+        } return false;
+    }
+
     @Nonnull
     @Override
     protected SoundEvent getSwimSound() {
@@ -159,7 +166,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Override
     public int getMaxSpawnedInChunk() {
-        return 1;
+        return 6;
     }
 
     protected void updateAir(int p_209207_1_) {

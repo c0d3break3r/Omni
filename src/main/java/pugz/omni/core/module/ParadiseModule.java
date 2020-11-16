@@ -6,12 +6,15 @@ import net.minecraft.block.FireBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
@@ -94,6 +97,7 @@ public class ParadiseModule extends AbstractModule {
         ComposterBlock.CHANCES.put(OmniBlocks.WHITE_LOTUS_FLOWER.get().asItem(), 0.65F);
 
         GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
+        EntitySpawnPlacementRegistry.register(OmniEntities.SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSeahorseSpawn);
     }
 
     @Override
@@ -201,14 +205,10 @@ public class ParadiseModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
-        Arrays.asList(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_BIOMES.get().split(",")).forEach((spawnBiomeName) -> {
-            if (event.getName().toString().equals(spawnBiomeName)) {
-                MobSpawnInfo info = spawns.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 10, 1, 1)).copy();
-                event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).clear();
-                info.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
-                    spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
-                });
-            }
+        MobSpawnInfo info = spawns.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 30, 2, 5)).copy();
+        event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).clear();
+        info.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
+            spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
         });
 
         if (event.getCategory() == Biome.Category.JUNGLE) {
