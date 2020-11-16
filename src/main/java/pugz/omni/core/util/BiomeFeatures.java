@@ -2,7 +2,6 @@ package pugz.omni.core.util;
 
 import net.minecraft.world.gen.placement.*;
 import pugz.omni.common.world.feature.cavier_caves.*;
-import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;

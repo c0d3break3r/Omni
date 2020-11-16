@@ -57,7 +57,6 @@ public class OmniBiomes {
         DefaultBiomeFeatures.withCommonOverworldBlocks(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withOverworldOres(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withDisks(biomegenerationsettings$builder);
-        //biomegenerationsettings$builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BiomeFeatures.OAK_TALL);
         DefaultBiomeFeatures.withDefaultFlowers(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withForestGrass(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withNormalMushroomGeneration(biomegenerationsettings$builder);

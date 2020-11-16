@@ -56,8 +56,6 @@ public class CoreModule extends AbstractModule {
         public ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_OUTER_BLOCK;
         public ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_INNER_BLOCK;
         public ForgeConfigSpec.ConfigValue<Integer> BUDDING_MALACHITE_GROWTH_CHANCE;
-        public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_TOTEM_RANGE;
-        public ForgeConfigSpec.ConfigValue<Integer> MALACHITE_TOTEM_LIGHT_LEVEL;
         public ForgeConfigSpec.ConfigValue<Double> SPELEOTHEMS_SPAWN_PROBABILITY;
         public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FALL;
         public ForgeConfigSpec.ConfigValue<Boolean> SPELEOTHEMS_FALL_BY_PROJECTILES;
@@ -89,6 +87,9 @@ public class CoreModule extends AbstractModule {
         //miscellaneous
         public ForgeConfigSpec.ConfigValue<Float> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
 
+        //wintertime
+        //public ForgeConfigSpec.ConfigValue<Boolean> POLAR_BEAR_JOCKEYS;
+
         public Configuration(ForgeConfigSpec.Builder builder) {
             builder.comment("Omni Configuration");
 
@@ -97,8 +98,6 @@ public class CoreModule extends AbstractModule {
             GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.define("budding_malachite_growth_chance", 5);
-            MALACHITE_TOTEM_RANGE = builder.define("malachite_totem_range", 12);
-            MALACHITE_TOTEM_LIGHT_LEVEL = builder.defineInRange("malachite_totem_light_level", 10, 0, 16);
             SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.004D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
@@ -134,6 +133,10 @@ public class CoreModule extends AbstractModule {
 
             builder.push(MiscellaneousModule.instance.getName());
             ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03F);
+            builder.pop();
+
+            builder.push(WintertimeModule.instance.getName());
+            //POLAR_BEAR_JOCKEYS = builder.define("polar_bear_jockeys", true);
             builder.pop();
         }
 
