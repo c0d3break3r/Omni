@@ -200,5 +200,12 @@
 
   "entity.omni.seahorse": "Seahorse",
 
-  "biome.omni.tropical_plains": "Tropical Plains"
+  "biome.omni.tropical_plains": "Tropical Plains",
+
+  "coral_type.omni.horn": "Horn Seahorse",
+  "coral_type.omni.bubble": "Bubble Seahorse",
+  "coral_type.omni.fire": "Fire Seahorse",
+  "coral_type.omni.tube": "Tube Seahorse",
+  "coral_type.omni.brain": "Brain Seahorse",
+  "coral_type.omni.mystery": "Mystery"
 }

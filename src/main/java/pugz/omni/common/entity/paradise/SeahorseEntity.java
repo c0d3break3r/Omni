@@ -12,6 +12,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -227,7 +228,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         return SeahorseEntity.CoralType.getTypeByIndex(this.dataManager.get(CORAL_TYPE));
     }
 
-    protected void setVariantType(SeahorseEntity.CoralType typeIn) {
+    public void setVariantType(SeahorseEntity.CoralType typeIn) {
         this.dataManager.set(CORAL_TYPE, typeIn.getIndex());
     }
 
@@ -467,6 +468,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         super.livingTick();
     }
 
+    public static String getCoralTypeName(int index) {
+        return CoralType.getTypeByIndex(index).getName();
+    }
+
     @Nonnull
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
         ItemStack held = player.getHeldItem(hand);
@@ -489,6 +494,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 held.shrink(1);
                 ItemStack bucket = new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
                 if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
+                CompoundNBT compoundnbt = bucket.getOrCreateTag();
+                compoundnbt.putInt("SeahorseVariantTag", this.getVariantType().getIndex());
+                compoundnbt.putInt("SeahorseSizeTag", this.getSeahorseSize());
+
                 if (!this.world.isRemote) CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
 
                 if (held.isEmpty()) player.setHeldItem(hand, bucket);
