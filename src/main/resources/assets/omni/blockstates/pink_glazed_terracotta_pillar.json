@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "axis=y": { "model": "omni:block/colormatic/pink_glazed_terracotta_pillar" },
-        "axis=z": { "model": "omni:block/colormatic/pink_glazed_terracotta_pillar", "x": 90 },
-        "axis=x": { "model": "omni:block/colormatic/pink_glazed_terracotta_pillar", "x": 90, "y": 90 }
-    }
-}

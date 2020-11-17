@@ -51,6 +51,8 @@ public class ForestryModule extends AbstractModule {
         OmniBlocks.CARVED_ACACIA_WOOD = RegistryUtil.createBlock("carved_acacia_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
 
         //CHARRED_LOG
+
+        //REDWOOD
     }
 
     @Override

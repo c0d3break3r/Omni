@@ -13,7 +13,7 @@ public class OmniSpawnEggItem extends SpawnEggItem {
     private final Supplier<EntityType<?>> entityType;
 
     public OmniSpawnEggItem(Supplier<EntityType<?>> entityType, int primaryColor, int secondaryColor, Properties properties) {
-        super(null, primaryColor, secondaryColor, properties);
+        super(entityType.get(), primaryColor, secondaryColor, properties);
         this.entityType = entityType;
         DispenserBlock.registerDispenseBehavior(this, new SpawnEggDispenseBehavior());
     }
