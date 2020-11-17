@@ -9,7 +9,6 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
-import pugz.omni.core.util.BiomeFeatures;
 
 public class OmniBiomes {
     //colormatic

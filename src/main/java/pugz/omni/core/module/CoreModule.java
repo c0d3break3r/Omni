@@ -119,7 +119,7 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(ParadiseModule.instance.getName());
-            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.8D);
+            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.75D);
             SEAHORSE_TAME_CHANCE = builder.define("seahorse_tame_chance", 5);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");

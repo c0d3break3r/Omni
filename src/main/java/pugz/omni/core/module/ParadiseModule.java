@@ -8,8 +8,6 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeMaker;
@@ -39,8 +37,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import pugz.omni.core.util.TradeUtils;
-
-import java.util.Arrays;
 
 public class ParadiseModule extends AbstractModule {
     public static final ParadiseModule instance = new ParadiseModule();
@@ -205,9 +201,8 @@ public class ParadiseModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
-        MobSpawnInfo info = spawns.withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 30, 2, 5)).copy();
-        event.getSpawns().getSpawner(EntityClassification.WATER_AMBIENT).clear();
-        info.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
+        MobSpawnInfo seahorse = new MobSpawnInfo.Builder().withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4)).copy();
+        seahorse.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
             spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
         });
 
