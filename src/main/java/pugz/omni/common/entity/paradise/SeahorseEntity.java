@@ -308,8 +308,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity ageableEntity) {
-        SeahorseEntity seahorseEntity = OmniEntities.SEAHORSE.get().create(world);
-        return seahorseEntity;
+        return OmniEntities.SEAHORSE.get().create(world);
     }
 
     public boolean canBeSteered() {
@@ -412,37 +411,8 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
     }
 
-    private boolean isTooFar(BlockPos pos) {
-        return this.isWithinDistance(pos, 32);
-    }
-
     private boolean isWithinDistance(BlockPos pos, int distance) {
         return !pos.withinDistance(this.getPosition(), (double) distance);
-    }
-
-    private void startMovingTo(BlockPos pos) {
-        Vector3d vector3d = Vector3d.copyCenteredHorizontally(pos);
-        int i = 0;
-        BlockPos blockpos = this.getPosition();
-        int j = (int)vector3d.y - blockpos.getY();
-        if (j > 2) {
-            i = 4;
-        } else if (j < -2) {
-            i = -4;
-        }
-        int k = 6;
-        int l = 8;
-        int i1 = blockpos.manhattanDistance(pos);
-        if (i1 < 15) {
-            k = i1 / 2;
-            l = i1 / 2;
-        }
-
-        Vector3d vector3d1 = RandomPositionGenerator.func_226344_b_(this, k, l, i, vector3d, (double)((float)Math.PI / 10F));
-        if (vector3d1 != null) {
-            this.navigator.setRangeMultiplier(0.5F);
-            this.navigator.tryMoveToXYZ(vector3d1.x, vector3d1.y, vector3d1.z, 1.0D);
-        }
     }
 
     public boolean hasCoral() {
@@ -471,49 +441,51 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         super.livingTick();
     }
 
+    protected ItemStack getBucket() {
+        return new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
+    }
+
     public static String getCoralTypeName(int index) {
         return CoralType.getTypeByIndex(index).getName();
     }
 
     @Nonnull
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        if (!this.world.isRemote) {
-            ItemStack held = player.getHeldItem(hand);
-            if (!this.isChild()) {
-                if ((held.getItem() == Items.KELP || held.getItem() == Items.SEAGRASS) && !this.isTamed()) {
-                    if (!player.abilities.isCreativeMode) {
-                        held.shrink(1);
-                    }
-                    if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
-                        this.setTamedBy(player);
-                        this.navigator.clearPath();
-                        this.func_233687_w_(true);
-                        this.world.setEntityState(this, (byte) 7);
-                    } else {
-                        this.world.setEntityState(this, (byte) 6);
-                    }
-                    return ActionResultType.SUCCESS;
-                } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
-                    this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+        ItemStack held = player.getHeldItem(hand);
+        if (!this.isChild()) {
+            if ((held.getItem() == Items.KELP) && !this.isTamed()) {
+                if (!player.abilities.isCreativeMode) {
                     held.shrink(1);
-                    ItemStack bucket = new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
-                    if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
-                    CompoundNBT compoundnbt = bucket.getOrCreateTag();
-                    compoundnbt.putInt("SeahorseVariantTag", this.getVariantType().getIndex());
-                    compoundnbt.putInt("SeahorseSizeTag", this.getSeahorseSize());
-
-                    if (!this.world.isRemote)
-                        CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
-
-                    if (held.isEmpty()) player.setHeldItem(hand, bucket);
-                    else if (!player.inventory.addItemStackToInventory(bucket)) player.dropItem(bucket, false);
-
-                    this.remove();
-                    return ActionResultType.SUCCESS;
-                } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
-                    this.mountTo(player);
-                    return ActionResultType.func_233537_a_(this.world.isRemote);
                 }
+                if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+                    this.setTamedBy(player);
+                    this.navigator.clearPath();
+                    this.func_233687_w_(true);
+                    this.world.setEntityState(this, (byte) 7);
+                } else {
+                    this.world.setEntityState(this, (byte) 6);
+                }
+                return ActionResultType.SUCCESS;
+            } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
+                this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+                held.shrink(1);
+                ItemStack bucket = this.getBucket();
+                if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
+                CompoundNBT compoundnbt = bucket.getOrCreateTag();
+                compoundnbt.putInt("SeahorseVariantTag", this.getVariantType().getIndex());
+                compoundnbt.putInt("SeahorseSizeTag", this.getSeahorseSize());
+
+                if (!this.world.isRemote)
+                    CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
+
+                if (held.isEmpty()) player.setHeldItem(hand, bucket);
+                else if (!player.inventory.addItemStackToInventory(bucket)) player.dropItem(bucket, false);
+
+                this.remove();
+                return ActionResultType.SUCCESS;
+            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
+                this.mountTo(player);
+                return ActionResultType.func_233537_a_(this.world.isRemote);
             }
         }
         return ActionResultType.PASS;

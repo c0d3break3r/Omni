@@ -49,7 +49,7 @@ public class SeahorseBucketItem extends BucketItem {
 
         if (entity instanceof SeahorseEntity) {
             SeahorseEntity seahorse = (SeahorseEntity)entity;
-            CompoundNBT nbt = new ItemStack(this).getTag();
+            CompoundNBT nbt = stack.getTag();
 
             int coralType = world.getRandom().nextInt(SeahorseEntity.CoralType.values().length);
             int size = world.getRandom().nextInt(8);
