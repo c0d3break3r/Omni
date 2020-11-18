@@ -69,29 +69,31 @@ public class BuddingMalachiteBlock extends Block {
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         if (!worldIn.isAreaLoaded(pos, 1)) return;
 
-        Direction direction = Direction.byIndex(random.nextInt(Direction.values().length));
-        BlockPos place = pos.offset(direction);
-        BlockState placeState = worldIn.getBlockState(place);
+        if (!worldIn.isRemote) {
+            Direction direction = Direction.byIndex(random.nextInt(Direction.values().length));
+            BlockPos place = pos.offset(direction);
+            BlockState placeState = worldIn.getBlockState(place);
 
-        if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(CoreModule.Configuration.CLIENT.BUDDING_MALACHITE_GROWTH_CHANCE.get()) == 1)) {
-            if (worldIn.isAirBlock(place) || worldIn.getBlockState(place).getMaterial().isLiquid()) {
-                worldIn.setBlockState(place, OmniBlocks.SMALL_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
-            } else {
-                switch (placeState.getBlock().getRegistryName().getPath()) {
-                    case "small_malachite_bud":
-                        worldIn.setBlockState(place, OmniBlocks.MEDIUM_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
-                        break;
-                    case "medium_malachite_bud":
-                        worldIn.setBlockState(place, OmniBlocks.LARGE_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED,worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
-                        break;
-                    case "large_malachite_bud":
-                        worldIn.setBlockState(place, OmniBlocks.MALACHITE_CLUSTER.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
-                        break;
-                    default:
-                        return;
+            if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(CoreModule.Configuration.CLIENT.BUDDING_MALACHITE_GROWTH_CHANCE.get()) == 1)) {
+                if (worldIn.isAirBlock(place) || worldIn.getBlockState(place).getMaterial().isLiquid()) {
+                    worldIn.setBlockState(place, OmniBlocks.SMALL_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
+                } else {
+                    switch (placeState.getBlock().getRegistryName().getPath()) {
+                        case "small_malachite_bud":
+                            worldIn.setBlockState(place, OmniBlocks.MEDIUM_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
+                            break;
+                        case "medium_malachite_bud":
+                            worldIn.setBlockState(place, OmniBlocks.LARGE_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
+                            break;
+                        case "large_malachite_bud":
+                            worldIn.setBlockState(place, OmniBlocks.MALACHITE_CLUSTER.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
+                            break;
+                        default:
+                            return;
+                    }
                 }
+                ForgeHooks.onCropsGrowPost(worldIn, pos, state);
             }
-            ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }
     }
 

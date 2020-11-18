@@ -51,13 +51,16 @@ public class MushroomsBlock extends AbstractStackableBlock implements IGrowable 
     }
 
     public boolean grow(ServerWorld world, BlockPos pos, BlockState state, Random rand) {
-        world.removeBlock(pos, false);
-        if (mushroomsFeature.get().generate(world, world.getChunkProvider().getChunkGenerator(), rand, pos)) {
-            return true;
-        } else {
-            world.setBlockState(pos, state, 3);
-            return false;
+        if (!world.isRemote) {
+            world.removeBlock(pos, false);
+            if (mushroomsFeature.get().generate(world, world.getChunkProvider().getChunkGenerator(), rand, pos)) {
+                return true;
+            } else {
+                world.setBlockState(pos, state, 3);
+                return false;
+            }
         }
+        return false;
     }
 
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {

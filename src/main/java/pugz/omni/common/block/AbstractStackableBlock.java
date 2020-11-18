@@ -43,18 +43,20 @@ public abstract class AbstractStackableBlock extends BushBlock {
 
     public void removeOne(World world, BlockPos pos, BlockState state) {
         world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
-        int i = state.get(getCountProperty());
-        switch (i) {
-            case 1:
-                world.destroyBlock(pos, true, (PlayerEntity)null);
-                break;
-            case 2:
-                world.setBlockState(pos, getBase().getDefaultState(), 3);
-                break;
-            default:
-                world.setBlockState(pos, state.with(getCountProperty(), i - 1), 3);
-                world.playEvent(2001, pos, Block.getStateId(state));
-                break;
+        if (!world.isRemote) {
+            int i = state.get(getCountProperty());
+            switch (i) {
+                case 1:
+                    world.destroyBlock(pos, true, (PlayerEntity) null);
+                    break;
+                case 2:
+                    world.setBlockState(pos, getBase().getDefaultState(), 3);
+                    break;
+                default:
+                    world.setBlockState(pos, state.with(getCountProperty(), i - 1), 3);
+                    world.playEvent(2001, pos, Block.getStateId(state));
+                    break;
+            }
         }
     }
 
@@ -68,17 +70,19 @@ public abstract class AbstractStackableBlock extends BushBlock {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        ItemStack held = player.getHeldItem(handIn);
+        if (!world.isRemote) {
+            ItemStack held = player.getHeldItem(handIn);
 
-        if (held.getItem() == getBase().asItem()) {
-            int i = state.get(getCountProperty());
-            if (i < 4) {
-                if (!player.isCreative()) {
-                    held.shrink(1);
+            if (held.getItem() == getBase().asItem()) {
+                int i = state.get(getCountProperty());
+                if (i < 4) {
+                    if (!player.isCreative()) {
+                        held.shrink(1);
+                    }
+
+                    world.setBlockState(pos, state.with(getCountProperty(), i + 1), 3);
+                    return ActionResultType.SUCCESS;
                 }
-
-                world.setBlockState(pos, state.with(getCountProperty(), i + 1), 3);
-                return ActionResultType.func_233537_a_(world.isRemote);
             }
         }
         return ActionResultType.PASS;

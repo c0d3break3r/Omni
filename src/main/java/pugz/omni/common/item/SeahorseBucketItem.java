@@ -37,9 +37,7 @@ public class SeahorseBucketItem extends BucketItem {
     }
 
     public void onLiquidPlaced(World world, ItemStack stack, BlockPos pos) {
-        if (!world.isRemote) {
-            this.placeEntity((ServerWorld) world, stack, pos);
-        }
+        if (!world.isRemote) this.placeEntity((ServerWorld) world, stack, pos);
     }
 
     protected void playEmptySound(PlayerEntity player, IWorld worldIn, BlockPos pos) {

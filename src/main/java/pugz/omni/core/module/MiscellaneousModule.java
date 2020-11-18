@@ -171,7 +171,7 @@ public class MiscellaneousModule extends AbstractModule {
 
     private void transmutateZombieHorse(World world, ZombieEntity zombie, HorseEntity horse) {
         if (horse.hasCustomName() || horse.isTame()) return;
-        if (world instanceof ServerWorld) {
+        if (!world.isRemote) {
             zombie.remove();
             horse.remove();
 

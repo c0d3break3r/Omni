@@ -82,21 +82,25 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult ray) {
-        ItemStack held = player.getHeldItem(handIn);
-        Size size = state.get(SIZE);
+        if (!worldIn.isRemote) {
+            ItemStack held = player.getHeldItem(handIn);
+            Size size = state.get(SIZE);
 
-        if (!worldIn.isRemote && held.getItem() instanceof PickaxeItem) {
-            FluidState fluidstate = worldIn.getFluidState(pos);
+            if (held.getItem() instanceof PickaxeItem) {
+                FluidState fluidstate = worldIn.getFluidState(pos);
 
-            if (size == Size.LARGE || size == Size.ICE_LARGE) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
-            else if (size == Size.MEDIUM) worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
-            else if (size == Size.SMALL) worldIn.removeBlock(pos, false);
+                if (size == Size.LARGE || size == Size.ICE_LARGE)
+                    worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
+                else if (size == Size.MEDIUM)
+                    worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
+                else if (size == Size.SMALL) worldIn.removeBlock(pos, false);
 
-            if (held.isDamageable()) held.damageItem(1, player, (living) -> {
-                living.sendBreakAnimation(handIn);
-            });
+                if (held.isDamageable()) held.damageItem(1, player, (living) -> {
+                    living.sendBreakAnimation(handIn);
+                });
 
-            return ActionResultType.SUCCESS;
+                return ActionResultType.SUCCESS;
+            }
         }
         return ActionResultType.FAIL;
     }
@@ -110,7 +114,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     private void trySpawnEntity(World world, BlockPos pos) {
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get()) {
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get() && !world.isRemote) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
                 FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
                 this.onStartFalling(fallingblockentity);
@@ -121,9 +125,6 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         }
     }
 
-    /**
-     * Performs a random tick on a block.
-     */
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
@@ -229,7 +230,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
     @Override
     public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState, FallingBlockEntity fallingBlock) {
-        worldIn.destroyBlock(pos, false);
+        if (!worldIn.isRemote) worldIn.destroyBlock(pos, false);
     }
 
     public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
@@ -243,12 +244,12 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get()) trySpawnEntity(world, hit.getPos());
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote) trySpawnEntity(world, hit.getPos());
     }
 
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-        if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getBlock() == Blocks.CAULDRON) {
-            for(int i = 0; i < rand.nextInt(1) + 1; ++i) {
+        if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getBlock() == Blocks.CAULDRON && !world.isRemote) {
+            for (int i = 0; i < rand.nextInt(1) + 1; ++i) {
                 this.addDripParticle(world, pos, state);
             }
         }
@@ -275,10 +276,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     private void addDripParticle(World world, BlockPos pos, BlockState state, VoxelShape shape, double y) {
-        IParticleData type;
-        if (state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) type = ParticleTypes.DRIPPING_WATER;
-        else type = ParticleTypes.DRIPPING_LAVA;
-
+        IParticleData type = state.getBlock() == OmniBlocks.NETHERRACK_SPELEOTHEM.get() ? ParticleTypes.DRIPPING_LAVA : ParticleTypes.DRIPPING_WATER;
         world.addParticle(type, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getX() + shape.getStart(Direction.Axis.X), (double)pos.getX() + shape.getEnd(Direction.Axis.X)), y, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getZ() + shape.getStart(Direction.Axis.Z), (double)pos.getZ() + shape.getEnd(Direction.Axis.Z)), 0.0D, 0.0D, 0.0D);
     }
 

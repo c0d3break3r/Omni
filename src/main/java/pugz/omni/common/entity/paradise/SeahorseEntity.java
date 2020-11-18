@@ -171,7 +171,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     protected void updateAir(int p_209207_1_) {
-        if (this.isAlive() && !this.isInWaterOrBubbleColumn()) {
+        if (this.isAlive() && !this.isInWaterOrBubbleColumn() && !world.isRemote) {
             this.setAir(p_209207_1_ - 1);
             if (this.getAir() == -20) {
                 this.setAir(0);
@@ -320,7 +320,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         int i = this.calculateFallDamage(distance, damageMultiplier);
         if (i <= 0) {
             return false;
-        } else {
+        } else if (!this.world.isRemote) {
             this.attackEntityFrom(DamageSource.FALL, (float)i);
             if (this.isBeingRidden()) {
                 for(Entity entity : this.getRecursivePassengers()) {
@@ -330,6 +330,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
             this.playFallSound();
             return true;
         }
+        else return false;
     }
 
     protected int calculateFallDamage(float distance, float damageMultiplier) {
@@ -338,11 +339,13 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     protected void spawnSeahorseParticles(boolean p_110216_1_) {
         IParticleData iparticledata = p_110216_1_ ? ParticleTypes.HEART : ParticleTypes.SMOKE;
-        for(int i = 0; i < 7; ++i) {
-            double d0 = this.rand.nextGaussian() * 0.02D;
-            double d1 = this.rand.nextGaussian() * 0.02D;
-            double d2 = this.rand.nextGaussian() * 0.02D;
-            this.world.addParticle(iparticledata, this.getPosXRandom(1.0D), this.getPosYRandom() + 0.5D, this.getPosZRandom(1.0D), d0, d1, d2);
+        if (!this.world.isRemote) {
+            for (int i = 0; i < 7; ++i) {
+                double d0 = this.rand.nextGaussian() * 0.02D;
+                double d1 = this.rand.nextGaussian() * 0.02D;
+                double d2 = this.rand.nextGaussian() * 0.02D;
+                this.world.addParticle(iparticledata, this.getPosXRandom(1.0D), this.getPosYRandom() + 0.5D, this.getPosZRandom(1.0D), d0, d1, d2);
+            }
         }
     }
 
@@ -474,40 +477,43 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Nonnull
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        ItemStack held = player.getHeldItem(hand);
-        if (!this.isChild()) {
-            if ((held.getItem() == Items.KELP || held.getItem() == Items.SEAGRASS) && !this.isTamed()) {
-                if (!player.abilities.isCreativeMode) {
+        if (!this.world.isRemote) {
+            ItemStack held = player.getHeldItem(hand);
+            if (!this.isChild()) {
+                if ((held.getItem() == Items.KELP || held.getItem() == Items.SEAGRASS) && !this.isTamed()) {
+                    if (!player.abilities.isCreativeMode) {
+                        held.shrink(1);
+                    }
+                    if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+                        this.setTamedBy(player);
+                        this.navigator.clearPath();
+                        this.func_233687_w_(true);
+                        this.world.setEntityState(this, (byte) 7);
+                    } else {
+                        this.world.setEntityState(this, (byte) 6);
+                    }
+                    return ActionResultType.SUCCESS;
+                } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
+                    this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
                     held.shrink(1);
+                    ItemStack bucket = new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
+                    if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
+                    CompoundNBT compoundnbt = bucket.getOrCreateTag();
+                    compoundnbt.putInt("SeahorseVariantTag", this.getVariantType().getIndex());
+                    compoundnbt.putInt("SeahorseSizeTag", this.getSeahorseSize());
+
+                    if (!this.world.isRemote)
+                        CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
+
+                    if (held.isEmpty()) player.setHeldItem(hand, bucket);
+                    else if (!player.inventory.addItemStackToInventory(bucket)) player.dropItem(bucket, false);
+
+                    this.remove();
+                    return ActionResultType.SUCCESS;
+                } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
+                    this.mountTo(player);
+                    return ActionResultType.func_233537_a_(this.world.isRemote);
                 }
-                if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
-                    this.setTamedBy(player);
-                    this.navigator.clearPath();
-                    this.func_233687_w_(true);
-                    this.world.setEntityState(this, (byte)7);
-                } else {
-                    this.world.setEntityState(this, (byte)6);
-                }
-                return ActionResultType.SUCCESS;
-            } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
-                this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
-                held.shrink(1);
-                ItemStack bucket = new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
-                if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
-                CompoundNBT compoundnbt = bucket.getOrCreateTag();
-                compoundnbt.putInt("SeahorseVariantTag", this.getVariantType().getIndex());
-                compoundnbt.putInt("SeahorseSizeTag", this.getSeahorseSize());
-
-                if (!this.world.isRemote) CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, bucket);
-
-                if (held.isEmpty()) player.setHeldItem(hand, bucket);
-                else if (!player.inventory.addItemStackToInventory(bucket)) player.dropItem(bucket, false);
-
-                this.remove();
-                return ActionResultType.SUCCESS;
-            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
-                this.mountTo(player);
-                return ActionResultType.func_233537_a_(this.world.isRemote);
             }
         }
         return ActionResultType.PASS;
@@ -534,7 +540,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     public void travel(Vector3d travelVector) {
-        if (this.isAlive()) {
+        if (this.isServerWorld() && this.isAlive()) {
             if (this.isBeingRidden() && this.canBeSteered() && this.isInWater()) {
                 LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
                 this.rotationYaw = livingentity.rotationYaw;
@@ -549,10 +555,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (this.canPassengerSteer()) {
                     float f = livingentity.moveStrafing * 0.75F;
                     float f1 = livingentity.moveForward;
-                    this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.8F);
+                    this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.9F);
                     this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y, (double)f1));
                     this.move(MoverType.PLAYER, this.getMotion());
-                    this.setMotion(this.getMotion().scale(0.8D));
+                    this.setMotion(this.getMotion().scale(0.9D));
                 } else if (livingentity instanceof PlayerEntity) {
                     this.setMotion(Vector3d.ZERO);
                 }

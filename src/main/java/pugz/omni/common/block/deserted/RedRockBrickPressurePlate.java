@@ -68,9 +68,11 @@ public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
         return 0;
     }
 
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        worldIn.setBlockState(pos, state.with(POWERED, false), 3);
-        this.updateNeighbors(worldIn, pos);
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+        if (!world.isRemote) {
+            world.setBlockState(pos, state.with(POWERED, false), 3);
+            this.updateNeighbors(world, pos);
+        }
     }
 
     @Override
@@ -85,25 +87,28 @@ public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
         }
     }
 
-    private void checkPressed(BlockState state, World worldIn, BlockPos pos) {
-        List<? extends Entity> list = worldIn.getEntitiesWithinAABB(AbstractArrowEntity.class, state.getShape(worldIn, pos).getBoundingBox().offset(pos));
-        boolean flag = !list.isEmpty();
-        boolean flag1 = state.get(POWERED);
-        if (flag != flag1) {
-            worldIn.setBlockState(pos, state.with(POWERED, flag), 3);
-            this.updateNeighbors(worldIn, pos);
-        }
+    private void checkPressed(BlockState state, World world, BlockPos pos) {
+        if (!world.isRemote) {
+            List<? extends Entity> list = world.getEntitiesWithinAABB(AbstractArrowEntity.class, state.getShape(world, pos).getBoundingBox().offset(pos));
+            boolean flag = !list.isEmpty();
+            boolean flag1 = state.get(POWERED);
+            if (flag != flag1) {
+                world.setBlockState(pos, state.with(POWERED, flag), 3);
+                this.updateNeighbors(world, pos);
+            }
 
-        if (flag) {
-            worldIn.getPendingBlockTicks().scheduleTick(new BlockPos(pos), this, this.getPoweredDuration());
+            if (flag) {
+                world.getPendingBlockTicks().scheduleTick(new BlockPos(pos), this, this.getPoweredDuration());
+            }
         }
-
     }
 
     public void powerBlock(BlockState state, World world, BlockPos pos) {
-        world.setBlockState(pos, state.with(POWERED, true), 3);
-        this.updateNeighbors(world, pos);
-        world.getPendingBlockTicks().scheduleTick(pos, this, this.getPoweredDuration());
+        if (!world.isRemote) {
+            world.setBlockState(pos, state.with(POWERED, true), 3);
+            this.updateNeighbors(world, pos);
+            world.getPendingBlockTicks().scheduleTick(pos, this, this.getPoweredDuration());
+        }
     }
 
     @Nonnull

@@ -87,7 +87,7 @@ public class WintertimeModule extends AbstractModule {
 
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         World world = event.getWorld();
-        if (world instanceof ServerWorld) {
+        if (!world.isRemote) {
             ServerWorld serverWorld = (ServerWorld)world;
             Entity entity = event.getEntity();
             if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(CoreModule.Configuration.CLIENT.POLAR_BEAR_JOCKEY_CHANCE.get()) == 0) {

@@ -121,25 +121,26 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        ItemStack held = player.getHeldItem(handIn);
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (!world.isRemote) {
+            ItemStack held = player.getHeldItem(handIn);
 
-        if (held.getItem() instanceof ShovelItem && hit.getFace() == Direction.UP) {
-            held.damageItem(1, player, e -> e.sendBreakAnimation(handIn));
+            if (held.getItem() instanceof ShovelItem && hit.getFace() == Direction.UP) {
+                held.damageItem(1, player, e -> e.sendBreakAnimation(handIn));
 
-            if (state.get(LAYERS) > 1) worldIn.setBlockState(pos, state.with(LAYERS, state.get(LAYERS) - 1), 3);
-            else worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+                if (state.get(LAYERS) > 1) world.setBlockState(pos, state.with(LAYERS, state.get(LAYERS) - 1), 3);
+                else world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 
-            return ActionResultType.SUCCESS;
+                return ActionResultType.SUCCESS;
+            }
         }
-
         return ActionResultType.FAIL;
     }
 
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
-            if (!world.isRemote) {
+        if (!world.isRemote) {
+            if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
                 FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
                 world.addEntity(entity);
             }
@@ -192,17 +193,17 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return state.getFluidState().isTagged(FluidTags.WATER);
     }
 
-    public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-        if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
-            if (!worldIn.isRemote()) {
-                worldIn.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
-                worldIn.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
+    public boolean receiveFluid(IWorld world, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+        if (!world.isRemote()) {
+            if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
+                if (!world.isRemote()) {
+                    world.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
+                    world.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(world));
+                }
+                return true;
             }
-
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
@@ -219,13 +220,15 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-        if (rand.nextInt(16) == 0) {
-            BlockPos blockpos = pos.down();
-            if (world.isAirBlock(blockpos) || canFallThrough(world.getBlockState(blockpos))) {
-                double d0 = (double)pos.getX() + rand.nextDouble();
-                double d1 = (double)pos.getY() - 0.05D;
-                double d2 = (double)pos.getZ() + rand.nextDouble();
-                world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        if (!world.isRemote) {
+            if (rand.nextInt(16) == 0) {
+                BlockPos blockpos = pos.down();
+                if (world.isAirBlock(blockpos) || canFallThrough(world.getBlockState(blockpos))) {
+                    double d0 = (double) pos.getX() + rand.nextDouble();
+                    double d1 = (double) pos.getY() - 0.05D;
+                    double d2 = (double) pos.getZ() + rand.nextDouble();
+                    world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                }
             }
         }
     }

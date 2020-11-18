@@ -214,8 +214,8 @@ public class ColormaticModule extends AbstractModule {
     }
 
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (CoreModule.Configuration.CLIENT.STACKABLE_FLOWERS.get()) {
-            World world = event.getWorld();
+        World world = event.getWorld();
+        if (CoreModule.Configuration.CLIENT.STACKABLE_FLOWERS.get() && !world.isRemote) {
             ItemStack stack = event.getItemStack();
             BlockPos pos = event.getPos();
             Block block = world.getBlockState(pos).getBlock();
