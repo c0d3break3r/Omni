@@ -88,7 +88,7 @@ public class CoreModule extends AbstractModule {
         public ForgeConfigSpec.ConfigValue<Float> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
 
         //wintertime
-        //public ForgeConfigSpec.ConfigValue<Boolean> POLAR_BEAR_JOCKEYS;
+        public ForgeConfigSpec.ConfigValue<Integer> POLAR_BEAR_JOCKEY_CHANCE;
 
         public Configuration(ForgeConfigSpec.Builder builder) {
             builder.comment("Omni Configuration");
@@ -136,7 +136,7 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(WintertimeModule.instance.getName());
-            //POLAR_BEAR_JOCKEYS = builder.define("polar_bear_jockeys", true);
+            POLAR_BEAR_JOCKEY_CHANCE = builder.define("polar_bear_jockey_chance", 100);
             builder.pop();
         }
 
