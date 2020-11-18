@@ -3,7 +3,6 @@ package pugz.omni.common.entity.paradise;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
@@ -12,7 +11,6 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,15 +32,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 import pugz.omni.core.Omni;
-import pugz.omni.core.module.CoreModule;
+import pugz.omni.core.module.ParadiseModule;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniItems;
-import pugz.omni.core.util.BaseGenUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -95,7 +90,6 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PlayerEntity.class, 6.0F, 1.0D, 1.1D));
         this.goalSelector.addGoal(2, new FollowParentGoal(this, 0.8D));
         this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        //this.goalSelector.addGoal(4, new FindCoralGoal(this));
         this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0D, 25));
         this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
     }
@@ -106,12 +100,8 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         return new SwimmerPathNavigator(this, worldIn);
     }
 
-    private boolean isCoral(BlockPos pos) {
-        return this.world.isBlockPresent(pos) && this.world.getBlockState(pos).getBlock().isIn(BlockTags.CORAL_BLOCKS);
-    }
-
     public static boolean canSeahorseSpawn(EntityType<? extends SeahorseEntity> seahorse, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        for (String spawnBiomeName : CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_BIOMES.get().split(",")) {
+        for (String spawnBiomeName : ParadiseModule.seahorseSpawnBiomes.replace(" ", "").split(",")) {
             if (worldIn.getBiome(pos).getRegistryName().toString().equals(spawnBiomeName) && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER)) {
                 return true;
             }
@@ -379,7 +369,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         SeahorseEntity.CoralType seahorseentity$coraltype = SeahorseEntity.CoralType.getTypeByIndex(worldIn.getRandom().nextInt(CoralType.values().length - 1));
         this.setVariantType(seahorseentity$coraltype);
         this.setSeahorseSize(worldIn.getRandom().nextInt(4));
-        if (worldIn.getRandom().nextInt(CoreModule.Configuration.CLIENT.LARGE_SEAHORSE_SPAWN_CHANCE.get()) == 0) this.setSeahorseSize(this.rand.nextInt(1) + 6);
+        if (worldIn.getRandom().nextInt(ParadiseModule.largeSeahorseSpawnChance) == 0) this.setSeahorseSize(this.rand.nextInt(1) + 6);
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -409,10 +399,6 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     @Nullable
     public Entity getControllingPassenger() {
         return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
-    }
-
-    private boolean isWithinDistance(BlockPos pos, int distance) {
-        return !pos.withinDistance(this.getPosition(), (double) distance);
     }
 
     public boolean hasCoral() {
@@ -457,7 +443,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (!player.abilities.isCreativeMode) {
                     held.shrink(1);
                 }
-                if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+                if (this.rand.nextInt(ParadiseModule.seahorseTameChance) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
                     this.setTamedBy(player);
                     this.navigator.clearPath();
                     this.func_233687_w_(true);
@@ -483,7 +469,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
                 this.remove();
                 return ActionResultType.SUCCESS;
-            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
+            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && ParadiseModule.rideableSeahorses) {
                 this.mountTo(player);
                 return ActionResultType.func_233537_a_(this.world.isRemote);
             }
@@ -596,50 +582,6 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                     this.seahorse.setMoving(false);
                 }
                 super.tick();
-            }
-        }
-    }
-
-    public class FindCoralGoal extends Goal {
-        private final SeahorseEntity seahorse;
-        FindCoralGoal(SeahorseEntity seahorse) {
-            this.seahorse = seahorse;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        public boolean canStart() {
-            return SeahorseEntity.this.savedCoralPos != null && SeahorseEntity.this.isCoral(SeahorseEntity.this.savedCoralPos);
-        }
-
-        @Override
-        public boolean shouldExecute() {
-            return this.canStart() && SeahorseEntity.this.isWithinDistance(SeahorseEntity.this.savedCoralPos, CoreModule.Configuration.CLIENT.SEAHORSE_CORAL_GROWTH_DISTANCE.get());
-        }
-
-        @Override
-        public boolean shouldContinueExecuting() {
-            return this.canStart();
-        }
-
-        public void startExecuting() {
-            super.startExecuting();
-        }
-
-        public void resetTask() {
-            seahorse.navigator.clearPath();
-            seahorse.navigator.resetRangeMultiplier();
-        }
-
-        public void tick() {
-            if (seahorse.savedCoralPos != null) {
-                if (seahorse.getDistanceSq(seahorse.getCoralPos().getX(), seahorse.getCoralPos().getY(), seahorse.getCoralPos().getZ()) < CoreModule.Configuration.CLIENT.SEAHORSE_CORAL_GROWTH_DISTANCE.get()) {
-                    seahorse.getNavigator().clearPath();
-                } else {
-                    seahorse.getNavigator().tryMoveToXYZ(seahorse.getCoralPos().getX(), seahorse.getCoralPos().getY(), seahorse.getCoralPos().getZ(), seahorse.getAIMoveSpeed());
-                }
-            } else {
-                seahorse.savedCoralPos = BaseGenUtils.getBlocksWithinRange(seahorse.world, seahorse.getPosition(), Math.round(CoreModule.Configuration.CLIENT.SEAHORSE_CORAL_GROWTH_DISTANCE.get() * 3.0F), seahorse.getVariantType().getBlock().getBlock()).get(0);
-                System.out.println(seahorse.savedCoralPos.toString());
             }
         }
     }

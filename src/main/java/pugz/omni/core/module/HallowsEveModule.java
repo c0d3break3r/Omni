@@ -1,7 +1,5 @@
 package pugz.omni.core.module;
 
-import pugz.omni.core.util.RegistryUtil;
-
 public class HallowsEveModule extends AbstractModule {
     public static final HallowsEveModule instance = new HallowsEveModule();
 

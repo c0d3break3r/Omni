@@ -3,17 +3,18 @@ package pugz.omni.core.module;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import pugz.omni.client.render.FallingConcretePowderRenderer;
+import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeature;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
-import pugz.omni.core.registry.OmniBlocks;
-import pugz.omni.core.registry.OmniFeatures;
-import pugz.omni.core.registry.OmniItems;
-import pugz.omni.core.registry.OmniSoundEvents;
+import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
@@ -27,6 +28,16 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class CavierCavesModule extends AbstractModule {
     public static final CavierCavesModule instance = new CavierCavesModule();
+    public static boolean malachite = true;
+    public static int malachiteGeodeSpawnChance;
+    public static String geodeShellOuterBlock;
+    public static String geodeShellInnerBlock;
+    public static int buddingMalachiteGrowthChance;
+    public static boolean speleothems = true;
+    public static float speleothemsSpawnProbability;
+    public static boolean speleothemsFall;
+    public static boolean speleothemsFallByProjectiles;
+    public static boolean speleothemsFillCauldrons;
 
     public CavierCavesModule() {
         super("Cavier Caves");
@@ -44,7 +55,7 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void onClientInitialize() {
-        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) {
+        if (malachite) {
             RenderTypeLookup.setRenderLayer(OmniBlocks.MALACHITE_CLUSTER.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(OmniBlocks.LARGE_MALACHITE_BUD.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(OmniBlocks.MEDIUM_MALACHITE_BUD.get(), RenderType.getCutout());
@@ -54,6 +65,7 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void onPostInitialize() {
+        if (speleothems) RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SPELEOTHEM.get(), SpeleothemRenderer::new);
     }
 
     @Override
@@ -83,13 +95,13 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Block> STONE_SIGN;
         //RegistryObject<Block> BLACKSTONE_SIGN;
 
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) {
-            OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 4.5F)), ItemGroup.DECORATIONS);
-            OmniBlocks.ICE_SPELEOTHEM = RegistryUtil.createBlock("ice_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.PACKED_ICE).slipperiness(0.98F).hardnessAndResistance(0.4F).sound(SoundType.GLASS)), ItemGroup.DECORATIONS);
-            OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(0.3F)), ItemGroup.DECORATIONS);
+        if (speleothems) {
+            OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 0.1F)), ItemGroup.DECORATIONS);
+            OmniBlocks.ICE_SPELEOTHEM = RegistryUtil.createBlock("ice_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.PACKED_ICE).slipperiness(0.98F).hardnessAndResistance(0.4F, 0.1F).sound(SoundType.GLASS)), ItemGroup.DECORATIONS);
+            OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(0.3F, 0.1F)), ItemGroup.DECORATIONS);
         }
 
-        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) {
+        if (malachite) {
             OmniBlocks.MALACHITE_BLOCK = RegistryUtil.createBlock("malachite_block", MalachiteBlock::new, ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.BUDDING_MALACHITE = RegistryUtil.createBlock("budding_malachite", BuddingMalachiteBlock::new, ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.MALACHITE_CLUSTER = RegistryUtil.createBlock("malachite_cluster", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4.5F, 9.5F), 3), ItemGroup.DECORATIONS);
@@ -106,12 +118,14 @@ public class CavierCavesModule extends AbstractModule {
 
         //RegistryObject<Item> CRYSTAL_MELON;
 
-        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
+        if (malachite) OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
     }
 
     @Override
     protected void registerEntities() {
         //RegistryObject<EntityType<?>> SPIDERLING;
+
+        if (speleothems) OmniEntities.SPELEOTHEM = RegistryUtil.createEntity("speleothem", OmniEntities::createSpeleothemEntity);
     }
 
     @Override
@@ -121,7 +135,7 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Feature<?>> FLOORED_ORE;
         //RegistryObject<Feature<?>> CAVE_FLOWER;
 
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.codec));
+        if (speleothems) OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.codec));
         //RegistryObject<Feature<?>> SLIME;
         //RegistryObject<Feature<?>> CAVE_CARVING;
         //RegistryObject<Feature<?>> THIN_ICE;
@@ -131,7 +145,7 @@ public class CavierCavesModule extends AbstractModule {
 
         //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
 
-        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.b));
+        if (malachite) OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.b));
     }
 
     @Override
@@ -146,7 +160,7 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerSounds() {
-        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) {
+        if (malachite) {
             OmniSoundEvents.CRYSTAL_PLACE = RegistryUtil.createSoundEvent("block.crystal.place");
             OmniSoundEvents.CRYSTAL_BREAK = RegistryUtil.createSoundEvent("block.crystal.break");
             OmniSoundEvents.CRYSTAL_STEP = RegistryUtil.createSoundEvent("block.crystal.step");
@@ -165,14 +179,14 @@ public class CavierCavesModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
-            if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue());
-            if (CoreModule.Configuration.CLIENT.MALACHITE.get()) BiomeFeatures.addMalachiteGeodes(gen);
+            if (speleothems) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, speleothemsSpawnProbability);
+            if (malachite) BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
-            if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F);
+            if (speleothems) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, speleothemsSpawnProbability * 1.5F);
         }
         if (category == Biome.Category.NETHER) {
-            if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F);
+            if (speleothems) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, speleothemsSpawnProbability * 2.0F);
         }
     }
 }

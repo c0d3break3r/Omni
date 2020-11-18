@@ -1,6 +1,7 @@
 package pugz.omni.core.registry;
 
 import net.minecraft.entity.LivingEntity;
+import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.entity.EntityClassification;
@@ -9,11 +10,24 @@ import net.minecraftforge.fml.RegistryObject;
 import pugz.omni.core.Omni;
 
 public class OmniEntities {
+    //cavier caves
+    public static RegistryObject<EntityType<SpeleothemEntity>> SPELEOTHEM;
+
     //colormatic
     public static RegistryObject<EntityType<FallingConcretePowderEntity>> FALLING_CONCRETE_POWDER;
 
     //paradise
     public static RegistryObject<EntityType<SeahorseEntity>> SEAHORSE;
+
+    public static EntityType<SpeleothemEntity> createSpeleothemEntity() {
+        return EntityType.Builder.<SpeleothemEntity>create(SpeleothemEntity::new, EntityClassification.MISC)
+                .size(0.49F, 1.0F)
+                .setTrackingRange(10)
+                .setShouldReceiveVelocityUpdates(true)
+                .setCustomClientFactory((spawnEntity, world) -> new SpeleothemEntity(SPELEOTHEM.get(), world))
+                .func_233608_b_(20)
+                .build(Omni.MOD_ID + "speleothem");
+    }
 
     public static EntityType<FallingConcretePowderEntity> createFallingBlockEntity() {
         return EntityType.Builder.<FallingConcretePowderEntity>create(FallingConcretePowderEntity::new, EntityClassification.MISC)

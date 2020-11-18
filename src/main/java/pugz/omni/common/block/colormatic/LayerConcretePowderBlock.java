@@ -33,6 +33,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.core.module.ColormaticModule;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,9 +41,9 @@ import java.util.Random;
 
 public class LayerConcretePowderBlock extends FallingBlock implements IWaterLoggable {
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS_1_8;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{VoxelShapes.empty(), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
     private final BlockState solidifiedState;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public LayerConcretePowderBlock(Block solidifiedIn, DyeColor color) {
         super(AbstractBlock.Properties.create(Material.SAND, color).hardnessAndResistance(0.5F).sound(SoundType.SAND));
@@ -139,7 +140,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (!world.isRemote) {
+        if (!world.isRemote && ColormaticModule.concretePowderFalls) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
                 FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
                 world.addEntity(entity);
@@ -160,7 +161,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
-        if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
+        if (shouldSolidify(worldIn, pos, fallingState) && !worldIn.isRemote) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
     }
 
     private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
@@ -194,14 +195,12 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     public boolean receiveFluid(IWorld world, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-        if (!world.isRemote()) {
-            if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
-                if (!world.isRemote()) {
-                    world.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
-                    world.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(world));
-                }
-                return true;
+        if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
+            if (!world.isRemote()) {
+                world.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
+                world.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(world));
             }
+            return true;
         }
         return false;
     }

@@ -18,7 +18,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import pugz.omni.core.module.ColormaticModule;
-import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -45,7 +44,7 @@ public class QuiltedCarpetBlock extends Block {
     @Nonnull
     @SuppressWarnings("deprecation")
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
-        if (CoreModule.Configuration.CLIENT.CONNECTABLE_QUILTED_CARPETS.get()) {
+        if (ColormaticModule.connectableQuiltedCarpets) {
             if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
             return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState) state.with((Property) FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
         } else return super.updatePostPlacement(state, direction, state2, world, pos, pos2);
@@ -90,7 +89,7 @@ public class QuiltedCarpetBlock extends Block {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        if (CoreModule.Configuration.CLIENT.CONNECTABLE_QUILTED_CARPETS.get()) {
+        if (ColormaticModule.connectableQuiltedCarpets) {
             IBlockReader world = context.getWorld();
             BlockPos pos = context.getPos();
             BlockState state = world.getBlockState(pos);

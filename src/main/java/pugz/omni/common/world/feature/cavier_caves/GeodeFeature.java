@@ -22,7 +22,6 @@ import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.world.noise.NormalNoise;
 import pugz.omni.common.world.noise.WorldGenRandom;
 import pugz.omni.core.module.CavierCavesModule;
-import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.Iterator;
@@ -167,9 +166,9 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                             var40.add(var43.toImmutable());
                         }
                     } else if (var34 >= var22) {
-                        world.setBlockState(var43, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(CoreModule.Configuration.CLIENT.GEODE_SHELL_INNER_BLOCK.get())).getDefaultState(), 3);
+                        world.setBlockState(var43, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(CavierCavesModule.geodeShellInnerBlock)).getDefaultState(), 3);
                     } else if (var34 >= var24) {
-                        world.setBlockState(var43, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(CoreModule.Configuration.CLIENT.GEODE_SHELL_OUTER_BLOCK.get())).getDefaultState(), 3);
+                        world.setBlockState(var43, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(CavierCavesModule.geodeShellOuterBlock)).getDefaultState(), 3);
                     }
                 }
             }

@@ -8,7 +8,6 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -32,6 +31,9 @@ import java.util.List;
 
 public class MiscellaneousModule extends AbstractModule {
     public static final MiscellaneousModule instance = new MiscellaneousModule();
+    public static boolean enchantedGoldenCarrots = true;
+    public static float enchantedGoldenCarrotSpawnChance;
+    public static boolean zombieHorseTransmutation;
 
     public MiscellaneousModule() {
         super("Miscellaneous");
@@ -45,7 +47,7 @@ public class MiscellaneousModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
-        if (CoreModule.Configuration.CLIENT.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
+        if (zombieHorseTransmutation) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
     }
 
     @Override
@@ -93,7 +95,7 @@ public class MiscellaneousModule extends AbstractModule {
         //RegistryObject<Item> PHOENIX_FEATHER;
         //RegistryObject<Item> GOLD_STRING;
 
-        if (CoreModule.Configuration.CLIENT.ENCHANTED_GOLDEN_CARROTS.get()) OmniItems.ENCHANTED_GOLDEN_CARROT = RegistryUtil.createItem("enchanted_golden_carrot", EnchantedGoldenCarrotItem::new);
+        if (enchantedGoldenCarrots) OmniItems.ENCHANTED_GOLDEN_CARROT = RegistryUtil.createItem("enchanted_golden_carrot", EnchantedGoldenCarrotItem::new);
     }
 
     @Override
@@ -142,11 +144,11 @@ public class MiscellaneousModule extends AbstractModule {
         LootTable table = event.getTable();
         ResourceLocation name = event.getName();
 
-        if (CoreModule.Configuration.CLIENT.ENCHANTED_GOLDEN_CARROTS.get()) {
+        if (enchantedGoldenCarrots) {
             if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
-                float chance = 0.03F;
-                if (name.toString().equals(LootTables.BASTION_TREASURE.toString())) chance *= 3.0F;
-                LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(chance)).build();
+                float chance = enchantedGoldenCarrotSpawnChance;
+                if (name.toString().equals(LootTables.BASTION_TREASURE.toString())) chance *= 3.0D;
+                LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder((float) chance)).build();
                 table.addPool(pool);
             }
         }

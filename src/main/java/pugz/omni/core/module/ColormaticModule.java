@@ -3,6 +3,7 @@ package pugz.omni.core.module;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
@@ -44,6 +45,13 @@ public class ColormaticModule extends AbstractModule {
     public static final ColormaticModule instance = new ColormaticModule();
     public static List<Supplier<AbstractStackableBlock>> stackables = new ArrayList<Supplier<AbstractStackableBlock>>();
     public static List<Supplier<Block>> quilteds = new ArrayList<Supplier<Block>>();
+    public static boolean quiltedCarpets = true;
+    public static boolean connectableQuiltedCarpets;
+    public static int tradersWoolTradePrice;
+    public static boolean stackableFlowers = true;
+    public static int flowerFieldSpawnWeight;
+    public static boolean improvedConcretePowder = true;
+    public static boolean concretePowderFalls;
 
     @Override
     protected void sendInitMessage() {
@@ -62,26 +70,26 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void onClientInitialize() {
-        if (CoreModule.Configuration.CLIENT.STACKABLE_FLOWERS.get()) {
+        if (stackableFlowers) {
             for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
                 RenderTypeLookup.setRenderLayer(block.get(), RenderType.getCutout());
             }
         }
 
-        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.FALLING_CONCRETE_POWDER.get(), FallingConcretePowderRenderer::new);
+        if (improvedConcretePowder) RenderingRegistry.registerEntityRenderingHandler(OmniEntities.FALLING_CONCRETE_POWDER.get(), FallingConcretePowderRenderer::new);
     }
 
     @Override
     protected void onPostInitialize() {
         FireBlock fire = (FireBlock) Blocks.FIRE;
 
-        if (CoreModule.Configuration.CLIENT.STACKABLE_FLOWERS.get()) {
+        if (stackableFlowers) {
             for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
                 if (block.get() instanceof FlowersBlock) fire.setFireInfo(block.get(), 60, 100);
             }
         }
 
-        if (CoreModule.Configuration.CLIENT.QUILTED_CARPETS.get()) {
+        if (quiltedCarpets) {
             fire.setFireInfo(OmniBlocks.TRADERS_QUILTED_CARPET.get(), 60, 20);
             fire.setFireInfo(OmniBlocks.TRADERS_QUILTED_WOOL.get(), 30, 60);
 
@@ -96,20 +104,21 @@ public class ColormaticModule extends AbstractModule {
     @Override
     protected void registerBlocks() {
         for (DyeColor color : DyeColor.values()) {
-            final RegistryObject<Block> OVERRIDE_CONCRETE = RegistryUtil.createOverrideBlock(color.name().toLowerCase() + "_concrete", () -> new Block(AbstractBlock.Properties.from(Blocks.BLACK_CONCRETE)), null);
-            final RegistryObject<Block> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideBlock(color.name().toLowerCase() + "_concrete_powder", () -> new ConcretePowderBlock(OVERRIDE_CONCRETE.get(), AbstractBlock.Properties.from(Blocks.BLACK_CONCRETE_POWDER)), null);
+            if (improvedConcretePowder) {
+                final RegistryObject<Block> OVERRIDE_CONCRETE = RegistryUtil.createOverrideBlock(color.name().toLowerCase() + "_concrete", () -> new Block(AbstractBlock.Properties.from(Blocks.BLACK_CONCRETE)), null);
+                final RegistryObject<Block> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideBlock(color.name().toLowerCase() + "_concrete_powder", () -> new ConcretePowderBlock(OVERRIDE_CONCRETE.get(), AbstractBlock.Properties.from(Blocks.BLACK_CONCRETE_POWDER)), null);
+                final RegistryObject<Block> CONCRETE = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete", () -> new LayerConcreteBlock(color), ItemGroup.BUILDING_BLOCKS);
+                final RegistryObject<Block> CONCRETE_POWDER = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete_powder", () -> new LayerConcretePowderBlock(CONCRETE.get(), color), ItemGroup.BUILDING_BLOCKS);
+            }
 
-            if (CoreModule.Configuration.CLIENT.QUILTED_CARPETS.get()) {
+            if (quiltedCarpets) {
                 final RegistryObject<Block> QUILTED_CARPET = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_carpet", () -> new QuiltedCarpetBlock(color), ItemGroup.DECORATIONS);
                 final RegistryObject<Block> QUILTED_WOOL = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_wool", () -> new Block(AbstractBlock.Properties.create(Material.WOOL, color).hardnessAndResistance(0.8F).sound(SoundType.CLOTH)), ItemGroup.BUILDING_BLOCKS);
                 quilteds.addAll(ImmutableSet.of(QUILTED_CARPET, QUILTED_WOOL));
             }
-
-            final RegistryObject<Block> CONCRETE = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete", () -> new LayerConcreteBlock(color), ItemGroup.BUILDING_BLOCKS);
-            final RegistryObject<Block> CONCRETE_POWDER = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete_powder", () -> new LayerConcretePowderBlock(CONCRETE.get(), color), ItemGroup.BUILDING_BLOCKS);
         }
 
-        if (CoreModule.Configuration.CLIENT.STACKABLE_FLOWERS.get()) {
+        if (stackableFlowers) {
             for (Block block : ForgeRegistries.BLOCKS.getValues()) {
                 if (block instanceof FlowerBlock) {
                     String name = block.getRegistryName().getPath() + "s";
@@ -130,7 +139,7 @@ public class ColormaticModule extends AbstractModule {
             }
         }
 
-        if (CoreModule.Configuration.CLIENT.QUILTED_CARPETS.get()) {
+        if (quiltedCarpets) {
             OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);
             OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new Block(AbstractBlock.Properties.create(Material.WOOL, DyeColor.BLUE).hardnessAndResistance(0.8F).sound(SoundType.CLOTH)), ItemGroup.BUILDING_BLOCKS);
         }
@@ -145,9 +154,11 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
-        for (DyeColor color : DyeColor.values()) {
-            final RegistryObject<Item> OVERRIDE_CONCRETE = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()), null);
-            final RegistryObject<Item> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete_powder", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()), null);
+        if (improvedConcretePowder) {
+            for (DyeColor color : DyeColor.values()) {
+                final RegistryObject<Item> OVERRIDE_CONCRETE = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()), null);
+                final RegistryObject<Item> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete_powder", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()), null);
+            }
         }
 
         //RegistryObject<Item> DYES; ?
@@ -157,13 +168,13 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerEntities() {
-        OmniEntities.FALLING_CONCRETE_POWDER = RegistryUtil.createEntity("falling_concrete_powder", OmniEntities::createFallingBlockEntity);
+        if (improvedConcretePowder) OmniEntities.FALLING_CONCRETE_POWDER = RegistryUtil.createEntity("falling_concrete_powder", OmniEntities::createFallingBlockEntity);
         //RegistryObject<EntityType<?>> AEROMA;
     }
 
     @Override
     protected void registerBiomes() {
-        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.CLIENT.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
+        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, flowerFieldSpawnWeight, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
         //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
         //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
     }
@@ -195,9 +206,9 @@ public class ColormaticModule extends AbstractModule {
     }
 
     public void onWandererTrades(WandererTradesEvent event) {
-        if (CoreModule.Configuration.CLIENT.QUILTED_CARPETS.get()) {
+        if (quiltedCarpets) {
             event.getGenericTrades().addAll(ImmutableSet.of(
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), CoreModule.Configuration.CLIENT.TRADERS_WOOL_TRADE_PRICE.get(), 8, 8, 2)
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), tradersWoolTradePrice, 8, 8, 2)
             ));
         }
     }
@@ -215,7 +226,7 @@ public class ColormaticModule extends AbstractModule {
 
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         World world = event.getWorld();
-        if (CoreModule.Configuration.CLIENT.STACKABLE_FLOWERS.get() && !world.isRemote) {
+        if (stackableFlowers && !world.isRemote) {
             ItemStack stack = event.getItemStack();
             BlockPos pos = event.getPos();
             Block block = world.getBlockState(pos).getBlock();

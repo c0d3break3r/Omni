@@ -17,6 +17,8 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class DesertedModule extends AbstractModule {
     public static final DesertedModule instance = new DesertedModule();
+    public static boolean redRock = true;
+    public static int redRockGenSize;
 
     public DesertedModule() {
         super("Deserted");
@@ -42,7 +44,7 @@ public class DesertedModule extends AbstractModule {
 
     @Override
     protected void registerBlocks() {
-        if (CoreModule.Configuration.CLIENT.RED_ROCK.get()) {
+        if (redRock) {
             OmniBlocks.RED_ROCK = RegistryUtil.createBlock("red_rock", () -> new Block(AbstractBlock.Properties.from(Blocks.SANDSTONE)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.RED_ROCK_STAIRS = RegistryUtil.createBlock("red_rock_stairs", () -> new StairsBlock(() -> OmniBlocks.RED_ROCK.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.COBBLESTONE)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.RED_ROCK_SLAB = RegistryUtil.createBlock("red_rock_slab", () -> new SlabBlock(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK.get())), ItemGroup.BUILDING_BLOCKS);
@@ -138,7 +140,7 @@ public class DesertedModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category == Biome.Category.MESA) {
-            if (CoreModule.Configuration.CLIENT.RED_ROCK.get()) BiomeFeatures.addOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), 36, 0, 0, 100, 10, 80);
+            if (redRock) BiomeFeatures.addOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), redRockGenSize, 0, 0, 100, 10, 80);
         }
     }
 }
