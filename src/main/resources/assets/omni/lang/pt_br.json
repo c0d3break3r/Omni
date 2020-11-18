@@ -168,6 +168,13 @@
 
   "_comment4": "Forestry",
 
+  "block.omni.carved_oak_wood": "Madeira de carvalho esculpida",
+  "block.omni.carved_spruce_wood": "Madeira de pinheiro esculpida",
+  "block.omni.carved_birch_wood": "Madeira de bétula esculpida",
+  "block.omni.carved_jungle_wood": "Madeira de selva esculpida",
+  "block.omni.carved_dark_oak_wood": "Madeira de carvalho escuro esculpida",
+  "block.omni.carved_acacia_wood": "Madeira de acácia esculpida",
+
   "item.omni.enchanted_golden_carrot": "Cenoura dourada encantada",
 
   "biome.omni.tall_forest": "Tall Forest",
@@ -189,8 +196,16 @@
   "block.omni.white_lotus_flower": "Flor de lótus branca",
 
   "item.omni.seahorse_spawn_egg": "Ovo gerador de cavalo-marinho",
+  "item.omni.seahorse_bucket": "Cavalo-marinho Bucket",
 
   "entity.omni.seahorse": "Cavalo-marinho",
 
-  "biome.omni.tropical_plains": "Planície tropical"
+  "biome.omni.tropical_plains": "Planície tropical",
+
+  "coral_type.omni.horn": "Cavalo-marinho chifre",
+  "coral_type.omni.bubble": "Cavalo-marinho bolha",
+  "coral_type.omni.fire": "Cavalo-marinho fogo",
+  "coral_type.omni.tube": "Cavalo-marinho tubo",
+  "coral_type.omni.brain": "Cavalo-marinho cérebro",
+  "coral_type.omni.mystery": "Mistério"
 }
