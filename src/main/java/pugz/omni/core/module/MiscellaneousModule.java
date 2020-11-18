@@ -8,6 +8,7 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -154,20 +155,20 @@ public class MiscellaneousModule extends AbstractModule {
         Entity entity = event.getEntity();
         World world = lightning.getEntityWorld();
 
-        if (entity instanceof ZombieEntity || entity instanceof HorseEntity) {
+        if (entity instanceof HorseEntity) {
             List<Entity> list = world.getEntitiesInAABBexcluding(lightning, new AxisAlignedBB(lightning.getPosX() - 3.0D, lightning.getPosY() - 3.0D, lightning.getPosZ() - 3.0D, lightning.getPosX() + 3.0D, lightning.getPosY() + 6.0D + 3.0D, lightning.getPosZ() + 3.0D), Entity::isAlive);
-            list.forEach(target -> {
-                if (entity instanceof ZombieEntity && target instanceof HorseEntity) {
-                    transmutateZombieHorse(world, (ZombieEntity) entity, (HorseEntity) target);
-                } else if (entity instanceof HorseEntity && target instanceof ZombieEntity) {
+            for (Entity target : list) {
+                if (target instanceof ZombieEntity) {
+                    lightning.setEffectOnly(true);
                     transmutateZombieHorse(world, (ZombieEntity) target, (HorseEntity) entity);
+                    break;
                 }
-            });
+            }
         }
     }
 
     private void transmutateZombieHorse(World world, ZombieEntity zombie, HorseEntity horse) {
-        if (horse.hasCustomName() || zombie.hasCustomName() || horse.isTame()) return;
+        if (horse.hasCustomName() || horse.isTame()) return;
         if (world instanceof ServerWorld) {
             zombie.remove();
             horse.remove();
@@ -175,6 +176,8 @@ public class MiscellaneousModule extends AbstractModule {
             Entity entity = EntityType.ZOMBIE_HORSE.spawn((ServerWorld) world, null, null, horse.getPosition(), SpawnReason.CONVERSION, false, false);
             if (entity instanceof ZombieHorseEntity) {
                 ZombieHorseEntity zombieHorse = (ZombieHorseEntity)entity;
+                if (horse.isChild()) zombieHorse.setChild(true);
+                if (!horse.horseChest.func_233543_f_().isEmpty()) zombieHorse.horseChest = horse.horseChest;
                 zombieHorse.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
                 zombieHorse.onInitialSpawn((ServerWorld) world, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.CONVERSION, (ILivingEntityData) null, (CompoundNBT) null);
             }
