@@ -26,7 +26,7 @@ public class WintertimeModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
+        if (CoreModule.Configuration.CLIENT.POLAR_BEAR_JOCKEY_CHANCE.get() > 0) MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
     }
 
     @Override

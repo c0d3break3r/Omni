@@ -46,7 +46,7 @@ public class FieryNetherModule extends AbstractModule {
 
         //RegistryObject<Block> MAGMISS;
 
-        OmniBlocks.COBBLED_BASALT = RegistryUtil.createBlock("cobbled_basalt", () -> new Block(AbstractBlock.Properties.from(Blocks.BASALT)), ItemGroup.BUILDING_BLOCKS);
+        if (CoreModule.Configuration.CLIENT.COBBLED_BASALT.get()) OmniBlocks.COBBLED_BASALT = RegistryUtil.createBlock("cobbled_basalt", () -> new Block(AbstractBlock.Properties.from(Blocks.BASALT)), ItemGroup.BUILDING_BLOCKS);
     }
 
     @Override

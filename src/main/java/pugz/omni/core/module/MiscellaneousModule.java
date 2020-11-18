@@ -45,7 +45,7 @@ public class MiscellaneousModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
-        MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
+        if (CoreModule.Configuration.CLIENT.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class MiscellaneousModule extends AbstractModule {
         //RegistryObject<Item> PHOENIX_FEATHER;
         //RegistryObject<Item> GOLD_STRING;
 
-        OmniItems.ENCHANTED_GOLDEN_CARROT = RegistryUtil.createItem("enchanted_golden_carrot", EnchantedGoldenCarrotItem::new);
+        if (CoreModule.Configuration.CLIENT.ENCHANTED_GOLDEN_CARROTS.get()) OmniItems.ENCHANTED_GOLDEN_CARROT = RegistryUtil.createItem("enchanted_golden_carrot", EnchantedGoldenCarrotItem::new);
     }
 
     @Override
@@ -142,11 +142,13 @@ public class MiscellaneousModule extends AbstractModule {
         LootTable table = event.getTable();
         ResourceLocation name = event.getName();
 
-        if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
-            float chance = 0.03F;
-            if (name.toString().equals(LootTables.BASTION_TREASURE.toString())) chance *= 3.0F;
-            LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(chance)).build();
-            table.addPool(pool);
+        if (CoreModule.Configuration.CLIENT.ENCHANTED_GOLDEN_CARROTS.get()) {
+            if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
+                float chance = 0.03F;
+                if (name.toString().equals(LootTables.BASTION_TREASURE.toString())) chance *= 3.0F;
+                LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(chance)).build();
+                table.addPool(pool);
+            }
         }
     }
 
