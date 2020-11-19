@@ -34,6 +34,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.module.ColormaticModule;
+import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -140,7 +141,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (!world.isRemote && ColormaticModule.concretePowderFalls) {
+        if (!world.isRemote && CoreModule.Configuration.CLIENT.CONCRETE_POWDER_FALLS.get()) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
                 FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
                 world.addEntity(entity);

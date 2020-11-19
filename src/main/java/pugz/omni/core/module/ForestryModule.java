@@ -17,8 +17,6 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ForestryModule extends AbstractModule {
     public static final ForestryModule instance = new ForestryModule();
-    public static boolean ambientSounds = true;
-    public static boolean carvedWood = true;
 
     public ForestryModule() {
         super("Forestry");
@@ -46,7 +44,7 @@ public class ForestryModule extends AbstractModule {
     protected void registerBlocks() {
         //RegistryObject<Block> CARVED_OAK_PLANKS;
 
-        if (carvedWood) {
+        if (CoreModule.Configuration.CLIENT.CARVED_WOOD.get()) {
             OmniBlocks.CARVED_OAK_WOOD = RegistryUtil.createBlock("carved_oak_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CARVED_SPRUCE_WOOD = RegistryUtil.createBlock("carved_spruce_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CARVED_BIRCH_WOOD = RegistryUtil.createBlock("carved_birch_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
@@ -99,7 +97,7 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void registerSounds() {
-        if (ambientSounds) {
+        if (CoreModule.Configuration.CLIENT.AMBIENT_SOUNDS.get()) {
             OmniSoundEvents.AMBIENT_FOREST = RegistryUtil.createSoundEvent("ambient.forest");
             OmniSoundEvents.AMBIENT_JUNGLE = RegistryUtil.createSoundEvent("ambient.jungle");
             OmniSoundEvents.AMBIENT_PLAINS = RegistryUtil.createSoundEvent("ambient.plains");
@@ -108,7 +106,7 @@ public class ForestryModule extends AbstractModule {
     }
 
     public void onBiomeLoading(BiomeLoadingEvent event) {
-        if (ambientSounds) {
+        if (CoreModule.Configuration.CLIENT.AMBIENT_SOUNDS.get()) {
             BiomeAmbience effects = event.getEffects();
             BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
                     .withGrassColorModifier(effects.getGrassColorModifier())

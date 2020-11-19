@@ -50,56 +50,56 @@ public class CoreModule extends AbstractModule {
 
     public static class Configuration {
         //cavier caves
-        final ForgeConfigSpec.BooleanValue MALACHITE;
-        final ForgeConfigSpec.IntValue MALACHITE_GEODE_SPAWN_CHANCE;
-        final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_OUTER_BLOCK;
-        final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_INNER_BLOCK;
-        final ForgeConfigSpec.IntValue BUDDING_MALACHITE_GROWTH_CHANCE;
-        final ForgeConfigSpec.BooleanValue SPELEOTHEMS;
-        final ForgeConfigSpec.ConfigValue<Float> SPELEOTHEMS_SPAWN_PROBABILITY;
-        final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL;
-        final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL_BY_PROJECTILES;
-        final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FILL_CAULDRONS;
+        public final ForgeConfigSpec.BooleanValue MALACHITE;
+        public final ForgeConfigSpec.IntValue MALACHITE_GEODE_SPAWN_CHANCE;
+        public final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_OUTER_BLOCK;
+        public final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_INNER_BLOCK;
+        public final ForgeConfigSpec.IntValue BUDDING_MALACHITE_GROWTH_CHANCE;
+        public final ForgeConfigSpec.BooleanValue SPELEOTHEMS;
+        public final ForgeConfigSpec.ConfigValue<Double> SPELEOTHEMS_SPAWN_PROBABILITY;
+        public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL;
+        public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL_BY_PROJECTILES;
+        public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FILL_CAULDRONS;
 
         //colormatic
-        final ForgeConfigSpec.BooleanValue QUILTED_CARPETS;
-        final ForgeConfigSpec.BooleanValue CONNECTABLE_QUILTED_CARPETS;
-        final ForgeConfigSpec.IntValue TRADERS_WOOL_TRADE_PRICE;
-        final ForgeConfigSpec.BooleanValue STACKABLE_FLOWERS;
-        final ForgeConfigSpec.IntValue FLOWER_FIELD_SPAWN_WEIGHT;
-        final ForgeConfigSpec.BooleanValue IMPROVED_CONCRETE_POWDER;
-        final ForgeConfigSpec.BooleanValue CONCRETE_POWDER_FALLS;
+        public final ForgeConfigSpec.BooleanValue QUILTED_CARPETS;
+        public final ForgeConfigSpec.BooleanValue CONNECTABLE_QUILTED_CARPETS;
+        public final ForgeConfigSpec.IntValue TRADERS_WOOL_TRADE_PRICE;
+        public final ForgeConfigSpec.BooleanValue STACKABLE_FLOWERS;
+        public final ForgeConfigSpec.IntValue FLOWER_FIELD_SPAWN_WEIGHT;
+        public final ForgeConfigSpec.BooleanValue IMPROVED_CONCRETE_POWDER;
+        public final ForgeConfigSpec.BooleanValue CONCRETE_POWDER_FALLS;
 
         //deserted
-        final ForgeConfigSpec.BooleanValue RED_ROCK;
-        final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
+        public final ForgeConfigSpec.BooleanValue RED_ROCK;
+        public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
 
         //fiery nether
-        final ForgeConfigSpec.BooleanValue COBBLED_BASALT;
+        public final ForgeConfigSpec.BooleanValue COBBLED_BASALT;
 
         //forestry
-        final ForgeConfigSpec.BooleanValue AMBIENT_SOUNDS;
-        final ForgeConfigSpec.BooleanValue CARVED_WOOD;
+        public final ForgeConfigSpec.BooleanValue AMBIENT_SOUNDS;
+        public final ForgeConfigSpec.BooleanValue CARVED_WOOD;
 
         //miscellaneous
-        final ForgeConfigSpec.BooleanValue ENCHANTED_GOLDEN_CARROTS;
-        final ForgeConfigSpec.ConfigValue<Float> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
-        final ForgeConfigSpec.BooleanValue ZOMBIE_HORSE_TRANSMUTATION;
+        public final ForgeConfigSpec.BooleanValue ENCHANTED_GOLDEN_CARROTS;
+        public final ForgeConfigSpec.ConfigValue<Double> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
+        public final ForgeConfigSpec.BooleanValue ZOMBIE_HORSE_TRANSMUTATION;
 
         //paradise
-        final ForgeConfigSpec.BooleanValue SEAHORSES;
-        final ForgeConfigSpec.ConfigValue<Float> SEAHORSE_SPAWN_CHANCE;
-        final ForgeConfigSpec.IntValue SEAHORSE_TAME_CHANCE;
-        final ForgeConfigSpec.BooleanValue RIDEABLE_SEAHORSES;
-        final ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
-        final ForgeConfigSpec.IntValue LARGE_SEAHORSE_SPAWN_CHANCE;
-        final ForgeConfigSpec.IntValue TROPICAL_PLAINS_SPAWN_WEIGHT;
-        final ForgeConfigSpec.BooleanValue LOTUS_FLOWERS;
-        final ForgeConfigSpec.IntValue LOTUS_FLOWER_SPAWN_CHANCE;
-        final ForgeConfigSpec.IntValue LOTUS_FLOWER_TRADE_PRICE;
+        public final ForgeConfigSpec.BooleanValue SEAHORSES;
+        public final ForgeConfigSpec.ConfigValue<Double> SEAHORSE_SPAWN_CHANCE;
+        public final ForgeConfigSpec.IntValue SEAHORSE_TAME_CHANCE;
+        public final ForgeConfigSpec.BooleanValue RIDEABLE_SEAHORSES;
+        public final ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
+        public final ForgeConfigSpec.IntValue LARGE_SEAHORSE_SPAWN_CHANCE;
+        public final ForgeConfigSpec.IntValue TROPICAL_PLAINS_SPAWN_WEIGHT;
+        public final ForgeConfigSpec.BooleanValue LOTUS_FLOWERS;
+        public final ForgeConfigSpec.IntValue LOTUS_FLOWER_SPAWN_CHANCE;
+        public final ForgeConfigSpec.IntValue LOTUS_FLOWER_TRADE_PRICE;
 
         //wintertime
-        final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
+        public final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
 
         public Configuration(ForgeConfigSpec.Builder builder) {
             builder.comment("Omni Configuration");
@@ -111,7 +111,7 @@ public class CoreModule extends AbstractModule {
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.defineInRange("budding_malachite_growth_chance", 5, 0, 1000);
             SPELEOTHEMS = builder.define("speleothems", true);
-            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.003F);
+            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.003D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);
@@ -144,13 +144,13 @@ public class CoreModule extends AbstractModule {
 
             builder.push(MiscellaneousModule.instance.getName());
             ENCHANTED_GOLDEN_CARROTS = builder.define("enchanted_golden_carrots", true);
-            ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03F);
+            ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03D);
             ZOMBIE_HORSE_TRANSMUTATION = builder.define("zombie_horse_transmutation", true);
             builder.pop();
 
             builder.push(ParadiseModule.instance.getName());
             SEAHORSES = builder.define("seahorses", true);
-            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.75F);
+            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.75D);
             SEAHORSE_TAME_CHANCE = builder.defineInRange("seahorse_tame_chance", 5, 0, 1000);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
@@ -168,60 +168,6 @@ public class CoreModule extends AbstractModule {
 
         public static final ForgeConfigSpec CLIENT_SPEC;
         public static final Configuration CLIENT;
-
-        public static void bakeConfig(final ModConfig config) {
-            //cavier caves
-            CavierCavesModule.malachite = true;
-            CavierCavesModule.malachiteGeodeSpawnChance = CLIENT.MALACHITE_GEODE_SPAWN_CHANCE.get();
-            CavierCavesModule.geodeShellOuterBlock = CLIENT.GEODE_SHELL_OUTER_BLOCK.get();
-            CavierCavesModule.geodeShellInnerBlock = CLIENT.GEODE_SHELL_INNER_BLOCK.get();
-            CavierCavesModule.buddingMalachiteGrowthChance = CLIENT.BUDDING_MALACHITE_GROWTH_CHANCE.get();
-            CavierCavesModule.speleothems = true;
-            CavierCavesModule.speleothemsSpawnProbability = CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get();
-            CavierCavesModule.speleothemsFall = CLIENT.SPELEOTHEMS_FALL.get();
-            CavierCavesModule.speleothemsFallByProjectiles = CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get();
-            CavierCavesModule.speleothemsFillCauldrons = CLIENT.SPELEOTHEMS_FILL_CAULDRONS.get();
-
-            //colormatic
-            ColormaticModule.quiltedCarpets = true;
-            ColormaticModule.connectableQuiltedCarpets = CLIENT.CONNECTABLE_QUILTED_CARPETS.get();
-            ColormaticModule.tradersWoolTradePrice = CLIENT.TRADERS_WOOL_TRADE_PRICE.get();
-            ColormaticModule.stackableFlowers = true;
-            ColormaticModule.flowerFieldSpawnWeight = CLIENT.FLOWER_FIELD_SPAWN_WEIGHT.get();
-            ColormaticModule.improvedConcretePowder = true;
-            ColormaticModule.concretePowderFalls = CLIENT.CONCRETE_POWDER_FALLS.get();
-
-            //deserted
-            DesertedModule.redRock = true;
-            DesertedModule.redRockGenSize = CLIENT.RED_ROCK_GEN_SIZE.get();
-
-            //fiery nether
-            FieryNetherModule.cobbledBasalt = true;
-
-            //forestry
-            ForestryModule.ambientSounds = true;
-            ForestryModule.carvedWood = true;
-
-            //miscellaneous
-            MiscellaneousModule.enchantedGoldenCarrots = true;
-            MiscellaneousModule.enchantedGoldenCarrotSpawnChance = CLIENT.ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE.get();
-            MiscellaneousModule.zombieHorseTransmutation = CLIENT.ZOMBIE_HORSE_TRANSMUTATION.get();
-
-            //paradise
-            ParadiseModule.seahorses = true;
-            ParadiseModule.seahorseSpawnChance = CLIENT.SEAHORSE_SPAWN_CHANCE.get();
-            ParadiseModule.seahorseTameChance = CLIENT.SEAHORSE_TAME_CHANCE.get();
-            ParadiseModule.rideableSeahorses = CLIENT.RIDEABLE_SEAHORSES.get();
-            ParadiseModule.seahorseSpawnBiomes = CLIENT.SEAHORSE_SPAWN_BIOMES.get();
-            ParadiseModule.largeSeahorseSpawnChance = CLIENT.LARGE_SEAHORSE_SPAWN_CHANCE.get();
-            ParadiseModule.tropicalPlainsSpawnWeight = CLIENT.TROPICAL_PLAINS_SPAWN_WEIGHT.get();
-            ParadiseModule.lotusFlowers = true;
-            ParadiseModule.lotusFlowerSpawnChance = CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get();
-            ParadiseModule.lotusFlowerTradePrice = CLIENT.LOTUS_FLOWER_TRADE_PRICE.get();
-
-            //wintertime
-            WintertimeModule.polarBearJockeyChance = CLIENT.POLAR_BEAR_JOCKEY_CHANCE.get();
-        }
 
         static {
             final Pair<Configuration, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Configuration::new);

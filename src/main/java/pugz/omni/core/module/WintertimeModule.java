@@ -14,7 +14,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 public class WintertimeModule extends AbstractModule {
     public static final WintertimeModule instance = new WintertimeModule();
-    public static int polarBearJockeyChance;
 
     public WintertimeModule() {
         super("Wintertime");
@@ -27,7 +26,7 @@ public class WintertimeModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        if (polarBearJockeyChance > 0) MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
+        if (CoreModule.Configuration.CLIENT.POLAR_BEAR_JOCKEY_CHANCE.get() > 0) MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class WintertimeModule extends AbstractModule {
         if (!world.isRemote) {
             ServerWorld serverWorld = (ServerWorld)world;
             Entity entity = event.getEntity();
-            if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(polarBearJockeyChance) == 0) {
+            if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(CoreModule.Configuration.CLIENT.POLAR_BEAR_JOCKEY_CHANCE.get()) == 0) {
                 Entity entity1 = EntityType.STRAY.spawn(serverWorld, null, null, entity.getPosition(), SpawnReason.JOCKEY, false, false);
                 if (entity1 instanceof StrayEntity) {
                     StrayEntity stray = (StrayEntity)entity1;

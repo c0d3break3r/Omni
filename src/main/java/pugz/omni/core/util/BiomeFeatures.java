@@ -3,6 +3,7 @@ package pugz.omni.core.util;
 import net.minecraft.world.gen.placement.*;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.module.CavierCavesModule;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,6 +32,6 @@ public class BiomeFeatures {
     }
 
     public static void addMalachiteGeodes(BiomeGenerationSettingsBuilder biome) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CavierCavesModule.malachiteGeodeSpawnChance))));
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.CLIENT.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
     }
 }

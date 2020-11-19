@@ -6,6 +6,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
 import pugz.omni.core.module.CavierCavesModule;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -115,7 +116,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     private void trySpawnEntity(World world, BlockPos pos) {
-        if (CavierCavesModule.speleothemsFall && !world.isRemote) {
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get() && !world.isRemote) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
                 SpeleothemEntity fallingblockentity = new SpeleothemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
                 world.addEntity(fallingblockentity);
@@ -138,13 +139,13 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     public boolean ticksRandomly(BlockState state) {
-        return CavierCavesModule.speleothemsFillCauldrons;
+        return CoreModule.Configuration.CLIENT.SPELEOTHEMS_FILL_CAULDRONS.get();
     }
 
     @Nonnull
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-        if (CavierCavesModule.speleothemsFall) {
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get()) {
             BlockState down = world.getBlockState(currentPos.down());
             BlockState up = world.getBlockState(currentPos.up());
             Part part = state.get(PART);
@@ -242,7 +243,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        if (CavierCavesModule.speleothemsFallByProjectiles && !world.isRemote) trySpawnEntity(world, hit.getPos());
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote) trySpawnEntity(world, hit.getPos());
     }
 
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {

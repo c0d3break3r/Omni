@@ -63,13 +63,6 @@ public class Omni {
             eventBus.addListener(EventPriority.LOWEST, this::clientSetup);
         });
 
-        eventBus.addListener((final ModConfig.ModConfigEvent event) -> {
-            ModConfig config = event.getConfig();
-            if(config.getSpec() == CoreModule.Configuration.CLIENT_SPEC) {
-                CoreModule.Configuration.bakeConfig(config);
-            }
-        });
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CoreModule.Configuration.CLIENT_SPEC);
     }
 

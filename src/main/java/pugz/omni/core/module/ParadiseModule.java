@@ -41,16 +41,6 @@ import pugz.omni.core.util.TradeUtils;
 
 public class ParadiseModule extends AbstractModule {
     public static final ParadiseModule instance = new ParadiseModule();
-    public static boolean seahorses = true;
-    public static float seahorseSpawnChance;
-    public static int seahorseTameChance;
-    public static boolean rideableSeahorses;
-    public static String seahorseSpawnBiomes;
-    public static int largeSeahorseSpawnChance;
-    public static int tropicalPlainsSpawnWeight;
-    public static boolean lotusFlowers = true;
-    public static int lotusFlowerSpawnChance;
-    public static int lotusFlowerTradePrice;
 
     public ParadiseModule() {
         super("Paradise");
@@ -69,7 +59,7 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void onClientInitialize() {
-        if (lotusFlowers) {
+        if (CoreModule.Configuration.CLIENT.LOTUS_FLOWERS.get()) {
             RenderTypeLookup.setRenderLayer(OmniBlocks.YELLOW_LOTUS_FLOWER.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(OmniBlocks.ORANGE_LOTUS_FLOWER.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(OmniBlocks.RED_LOTUS_FLOWER.get(), RenderType.getCutout());
@@ -80,14 +70,14 @@ public class ParadiseModule extends AbstractModule {
             RenderTypeLookup.setRenderLayer(OmniBlocks.WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
         }
 
-        if (seahorses) RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
+        if (CoreModule.Configuration.CLIENT.SEAHORSES.get()) RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
     }
 
     @Override
     protected void onPostInitialize() {
         FireBlock fire = (FireBlock) Blocks.FIRE;
 
-        if (lotusFlowers) {
+        if (CoreModule.Configuration.CLIENT.LOTUS_FLOWERS.get()) {
             fire.setFireInfo(OmniBlocks.YELLOW_LOTUS_FLOWER.get(), 60, 100);
             fire.setFireInfo(OmniBlocks.ORANGE_LOTUS_FLOWER.get(), 60, 100);
             fire.setFireInfo(OmniBlocks.RED_LOTUS_FLOWER.get(), 60, 100);
@@ -107,7 +97,7 @@ public class ParadiseModule extends AbstractModule {
             ComposterBlock.CHANCES.put(OmniBlocks.WHITE_LOTUS_FLOWER.get().asItem(), 0.65F);
         }
 
-        if (seahorses) {
+        if (CoreModule.Configuration.CLIENT.SEAHORSES.get()) {
             GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
             EntitySpawnPlacementRegistry.register(OmniEntities.SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSeahorseSpawn);
         }
@@ -136,7 +126,7 @@ public class ParadiseModule extends AbstractModule {
         //RegistryObject<Block> COCONUT;
         //RegistryObject<Block> COCONUT_BLOCK;
 
-        if (lotusFlowers) {
+        if (CoreModule.Configuration.CLIENT.LOTUS_FLOWERS.get()) {
             OmniBlocks.RED_LOTUS_FLOWER = RegistryUtil.createBlock("red_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
             OmniBlocks.YELLOW_LOTUS_FLOWER = RegistryUtil.createBlock("yellow_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
             OmniBlocks.ORANGE_LOTUS_FLOWER = RegistryUtil.createBlock("orange_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
@@ -167,7 +157,7 @@ public class ParadiseModule extends AbstractModule {
 
         //RegistryObject<Item> SHELLS;
 
-        if (seahorses) {
+        if (CoreModule.Configuration.CLIENT.SEAHORSES.get()) {
             OmniItems.SEAHORSE_SPAWN_EGG = RegistryUtil.createItem("seahorse_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.SEAHORSE.get(), 3966437, 14827318, new Item.Properties().group(ItemGroup.MISC)));
             OmniItems.SEAHORSE_BUCKET = RegistryUtil.createItem("seahorse_bucket", SeahorseBucketItem::new);
         }
@@ -177,7 +167,7 @@ public class ParadiseModule extends AbstractModule {
     protected void registerEntities() {
         //RegistryObject<EntityType<?>> KIWI;
         //RegistryObject<EntityType<?>> TIKI;
-        if (seahorses) OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.3F, 0.85F));
+        if (CoreModule.Configuration.CLIENT.SEAHORSES.get()) OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.3F, 0.85F));
         //RegistryObject<EntityType<?>> GOLIATH;
         //RegistryObject<EntityType<?>> HERMIT_CRAB;
         //RegistryObject<EntityType<?>> SEAGULL;
@@ -187,7 +177,7 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome("tropical_plains", BiomeMaker.makeJungleEdgeBiome(), BiomeManager.BiomeType.WARM, tropicalPlainsSpawnWeight, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.OVERWORLD);
+        OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome("tropical_plains", BiomeMaker.makeJungleEdgeBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.CLIENT.TROPICAL_PLAINS_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.OVERWORLD);
         //RegistryObject<Biome> TROPICAL_ISLANDS;
     }
 
@@ -206,16 +196,16 @@ public class ParadiseModule extends AbstractModule {
     }
 
     public void onWandererTrades(WandererTradesEvent event) {
-        if (lotusFlowers) {
+        if (CoreModule.Configuration.CLIENT.LOTUS_FLOWERS.get()) {
             event.getGenericTrades().addAll(ImmutableSet.of(
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.RED_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLUE_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PINK_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLACK_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.WHITE_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PURPLE_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.ORANGE_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1),
-                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.YELLOW_LOTUS_FLOWER.get()), lotusFlowerTradePrice, 1, 12, 1)
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.RED_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLUE_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PINK_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.BLACK_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.WHITE_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.PURPLE_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.ORANGE_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1),
+                    new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.YELLOW_LOTUS_FLOWER.get()), CoreModule.Configuration.CLIENT.LOTUS_FLOWER_TRADE_PRICE.get(), 1, 12, 1)
             ));
         }
     }
@@ -224,22 +214,22 @@ public class ParadiseModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
-        if (seahorses) {
-            MobSpawnInfo seahorse = new MobSpawnInfo.Builder().withCreatureSpawnProbability(seahorseSpawnChance).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4)).copy();
+        if (CoreModule.Configuration.CLIENT.SEAHORSES.get()) {
+            MobSpawnInfo seahorse = new MobSpawnInfo.Builder().withCreatureSpawnProbability(CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4)).copy();
             seahorse.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
                 spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
             });
         }
 
-        if (event.getCategory() == Biome.Category.JUNGLE && lotusFlowers) {
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, lotusFlowerSpawnChance);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.ORANGE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, lotusFlowerSpawnChance);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.YELLOW_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, lotusFlowerSpawnChance);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, lotusFlowerSpawnChance);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PINK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, lotusFlowerSpawnChance);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PURPLE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, lotusFlowerSpawnChance);
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLACK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, Math.round(lotusFlowerSpawnChance * 1.5F));
-            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.WHITE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, Math.round(lotusFlowerSpawnChance * 1.5F));
+        if (event.getCategory() == Biome.Category.JUNGLE && CoreModule.Configuration.CLIENT.LOTUS_FLOWERS.get()) {
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get());
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.ORANGE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get());
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.YELLOW_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get());
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLUE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get());
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PINK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get());
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.PURPLE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 6, CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get());
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.BLACK_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, Math.round(CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get() * 1.5F));
+            BiomeFeatures.addScatteredBlock(gen, OmniBlocks.WHITE_LOTUS_FLOWER.get().getDefaultState(), ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL), 3, Math.round(CoreModule.Configuration.CLIENT.LOTUS_FLOWER_SPAWN_CHANCE.get() * 1.5F));
         }
     }
 }
