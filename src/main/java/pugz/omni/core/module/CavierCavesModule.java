@@ -1,5 +1,6 @@
 package pugz.omni.core.module;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -19,10 +20,7 @@ import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.world.feature.CaveOreFeatureConfig;
-import pugz.omni.common.world.feature.cavier_caves.GeodeFeature;
-import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
-import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
-import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
@@ -80,6 +78,7 @@ public class CavierCavesModule extends AbstractModule {
 
         OmniBlocks.YELLOW_CAVE_MUSHROOM = RegistryUtil.createBlock("yellow_cave_mushroom", () -> new CaveMushroomBlock(CaveMushroomBlock.Color.YELLOW), ItemGroup.DECORATIONS);
         OmniBlocks.GREEN_CAVE_MUSHROOM = RegistryUtil.createBlock("green_cave_mushroom", () -> new CaveMushroomBlock(CaveMushroomBlock.Color.GREEN), ItemGroup.DECORATIONS);
+        OmniBlocks.BLUE_CAVE_MUSHROOM = RegistryUtil.createBlock("blue_cave_mushroom", BlueCaveMushroomBlock::new, ItemGroup.DECORATIONS);
 
         //RegistryObject<Block> WEB_BLOCK;
         //RegistryObject<Block> SPIDER_SAC;
@@ -129,12 +128,9 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerFeatures() {
-        //RegistryObject<Feature<?>> CEILING_ORE;
-        //RegistryObject<Feature<?>> EXPOSED_ORE;
-        //RegistryObject<Feature<?>> FLOORED_ORE;
-        //RegistryObject<Feature<?>> CAVE_FLOWER;
+        OmniFeatures.SMALL_MUSHROOM = RegistryUtil.createFeature("small_mushroom", () -> new SmallMushroomFeature(SmallMushroomFeatureConfig.CODEC));
 
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.codec));
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.CODEC));
         //RegistryObject<Feature<?>> SLIME;
         //RegistryObject<Feature<?>> CAVE_CARVING;
         //RegistryObject<Feature<?>> THIN_ICE;
@@ -144,7 +140,7 @@ public class CavierCavesModule extends AbstractModule {
 
         //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
 
-        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.b));
+        if (CoreModule.Configuration.CLIENT.MALACHITE.get()) OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.CODEC));
     }
 
     @Override
@@ -180,13 +176,17 @@ public class CavierCavesModule extends AbstractModule {
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
             if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue());
             if (CoreModule.Configuration.CLIENT.MALACHITE.get()) BiomeFeatures.addMalachiteGeodes(gen);
-            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 128, 0, 0, 100, 10, 80);
         }
         if (category == Biome.Category.ICY) {
             if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F);
         }
         if (category == Biome.Category.NETHER) {
             if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F);
+        }
+        if (category == Biome.Category.MUSHROOM) {
+            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 128, 0, 0, 100, 10, 80, 2);
+            BiomeFeatures.addSmallMushrooms(gen, Blocks.RED_MUSHROOM_BLOCK.getDefaultState(), 0.002F);
+            BiomeFeatures.addSmallMushrooms(gen, Blocks.BROWN_MUSHROOM_BLOCK.getDefaultState(), 0.002F);
         }
     }
 

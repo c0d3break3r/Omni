@@ -25,7 +25,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
             BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
             if (world.getBlockState(lowerStart.up()).getBlock() instanceof SpeleothemBlock || world.getBlockState(lowerStart.down()).getBlock() instanceof SpeleothemBlock) return false;
 
-            int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart, config.variant);
+            int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
             if (lowerLength == 0) return false;
 
             lowerLength = MathHelper.clamp(random.nextInt(lowerLength), 3, lowerLength);
@@ -53,7 +53,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
             BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
             if (world.getBlockState(upperStart.up()).getBlock() instanceof SpeleothemBlock || world.getBlockState(upperStart.down()).getBlock() instanceof SpeleothemBlock) return false;
 
-            int upperLength = CaveGenUtils.getCaveHeight(world, upperStart, config.variant);
+            int upperLength = CaveGenUtils.getCaveHeight(world, upperStart);
             if (upperLength == 0 || !CaveGenUtils.isValidCavePos(world.getBlockState(upperStart.up(upperLength + 1)).getBlock(), config.variant)) return false;
 
             upperStart.setY(upperStart.getY() + (upperLength - 1));

@@ -2,6 +2,7 @@ package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -13,6 +14,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -35,6 +37,10 @@ public class CaveMushroomBlock extends Block implements IWaterLoggable {
     public CaveMushroomBlock(Color color) {
         super(AbstractBlock.Properties.from(Blocks.BROWN_MUSHROOM_BLOCK));
         this.color = color;
+
+        if (color == Color.BLUE) this.properties.setLightLevel((state) -> {
+            return 8;
+        });
     }
 
     public Color getColor() {
@@ -91,8 +97,8 @@ public class CaveMushroomBlock extends Block implements IWaterLoggable {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-        entityIn.onLivingFall(fallDistance, 0.0F);
+    public void onFallenUpon(World worldIn, BlockPos pos, Entity entity, float fallDistance) {
+        entity.onLivingFall(fallDistance, 0.0F);
     }
 
     @Override

@@ -5,11 +5,13 @@ import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 
+import javax.annotation.Nullable;
+
 public class CaveGenUtils {
     /**
      * Gets a floor position at the x and y of the given position
      */
-    public static BlockPos.Mutable getCaveFloorPosition(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig.Variant variant) {
+    public static BlockPos.Mutable getCaveFloorPosition(ISeedReader world, BlockPos pos, @Nullable SpeleothemFeatureConfig.Variant variant) {
         BlockPos.Mutable pos$mutable = pos.toMutable();
 
         for (int y = 0; y <= 128; ++y) {
@@ -19,9 +21,13 @@ public class CaveGenUtils {
             Block up = world.getBlockState(pos$mutable.up()).getBlock();
             Block down = world.getBlockState(pos$mutable.down()).getBlock();
 
-            if ((block == Blocks.CAVE_AIR || block == Blocks.WATER)
+            if (variant != null) {
+                if ((block == Blocks.CAVE_AIR || block == Blocks.WATER)
+                        && up != Blocks.AIR
+                        && isValidCavePos(down, variant)
+                        && !world.canBlockSeeSky(pos$mutable)) break;
+            } else if ((block == Blocks.CAVE_AIR || block == Blocks.WATER)
                     && up != Blocks.AIR
-                    && isValidCavePos(down, variant)
                     && !world.canBlockSeeSky(pos$mutable)) break;
         }
 
@@ -31,7 +37,7 @@ public class CaveGenUtils {
     /**
      * Gets the height of the cave at the position we are generating
      */
-    public static int getCaveHeight(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig.Variant variant) {
+    public static int getCaveHeight(ISeedReader world, BlockPos pos) {
         BlockPos.Mutable pos$mutable = pos.toMutable();
         int height = 0;
 

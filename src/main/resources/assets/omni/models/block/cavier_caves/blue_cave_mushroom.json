@@ -1,0 +1,8 @@
+{
+  "parent": "omni:block/cube_mushroom",
+  "textures": {
+    "stem": "omni:block/cavier_caves/cave_mushroom_stem",
+    "stem_top": "omni:block/cavier_caves/cave_mushroom_stem_top",
+    "cap": "omni:block/cavier_caves/blue_cave_mushroom_block"
+  }
+}

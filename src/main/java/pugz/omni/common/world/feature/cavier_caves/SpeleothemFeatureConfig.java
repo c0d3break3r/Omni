@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SpeleothemFeatureConfig implements IFeatureConfig {
-    public static final Codec<SpeleothemFeatureConfig> codec = RecordCodecBuilder.create((builder) -> {
+    public static final Codec<SpeleothemFeatureConfig> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(SpeleothemFeatureConfig.Variant.codec.fieldOf("variant").forGetter((p_236570_0_) -> {
             return p_236570_0_.variant;
         })).apply(builder, SpeleothemFeatureConfig::new);

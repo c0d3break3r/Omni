@@ -17,7 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
-import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -30,24 +29,25 @@ public class SpeleothemRenderer extends EntityRenderer<SpeleothemEntity> {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void render(SpeleothemEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixstack, IRenderTypeBuffer buffer, int p_225623_6_) {
-        BlockState blockstate = entity.getBlockState();
-        World world = entity.getEntityWorld();
-
+    public void render(SpeleothemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        BlockState blockstate = entityIn.getBlockState();
         if (blockstate.getRenderType() == BlockRenderType.MODEL) {
-            matrixstack.push();
-            BlockPos blockpos = new BlockPos(entity.getPosX(), entity.getBoundingBox().maxY, entity.getPosZ());
-            matrixstack.translate(-0.5D, 0.0D, -0.5D);
-            BlockRendererDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
-            for (RenderType type : RenderType.getBlockRenderTypes()) {
-                if (RenderTypeLookup.canRenderInLayer(blockstate, type)) {
-                    ForgeHooksClient.setRenderLayer(type);
-                    blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(blockstate), blockstate, blockpos, matrixstack, buffer.getBuffer(type), false, new Random(), blockstate.getPositionRandom(entity.getOrigin()), OverlayTexture.NO_OVERLAY);
+            World world = entityIn.getEntityWorld();
+            if (blockstate != world.getBlockState(entityIn.getPosition()) && blockstate.getRenderType() != BlockRenderType.INVISIBLE) {
+                matrixStackIn.push();
+                BlockPos blockpos = new BlockPos(entityIn.getPosX(), entityIn.getBoundingBox().maxY, entityIn.getPosZ());
+                matrixStackIn.translate(-0.5D, 0.0D, -0.5D);
+                BlockRendererDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
+                for (RenderType type : RenderType.getBlockRenderTypes()) {
+                    if (RenderTypeLookup.canRenderInLayer(blockstate, type)) {
+                        ForgeHooksClient.setRenderLayer(type);
+                        blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(blockstate), blockstate, blockpos, matrixStackIn, bufferIn.getBuffer(type), false, new Random(), blockstate.getPositionRandom(entityIn.getOrigin()), OverlayTexture.NO_OVERLAY);
+                    }
                 }
+                ForgeHooksClient.setRenderLayer(null);
+                matrixStackIn.pop();
+                super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             }
-            ForgeHooksClient.setRenderLayer(null);
-            matrixstack.pop();
-            super.render(entity, p_225623_2_, p_225623_3_, matrixstack, buffer, p_225623_6_);
         }
     }
 

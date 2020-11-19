@@ -6,7 +6,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 
 public class GeodeFeatureConfig implements IFeatureConfig {
     public static final Codec<Double> a = Codec.doubleRange(0.0D, 1.0D);
-    public static final Codec<GeodeFeatureConfig> b = RecordCodecBuilder.create((var0) -> {
+    public static final Codec<GeodeFeatureConfig> CODEC = RecordCodecBuilder.create((var0) -> {
         return var0.group(a.fieldOf("use_potential_placements_chance").orElse(0.35D).forGetter((var0x) -> {
             return var0x.potentialPlacementsChance;
         }), a.fieldOf("use_alternate_layer0_chance").orElse(0.0D).forGetter((var0x) -> {

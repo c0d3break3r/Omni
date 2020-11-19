@@ -2,6 +2,7 @@ package pugz.omni.core.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.World;
 
 import java.util.LinkedList;
@@ -45,5 +46,21 @@ public class BaseGenUtils {
                 }
             }
         } return positions;
+    }
+
+    public static boolean isAirPresent(ISeedReader world, BlockPos minimum, BlockPos maximum, float percent) {
+        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+        int volume = (Math.abs(Math.abs(maximum.getX()) - Math.abs(minimum.getX()))) * (Math.abs(Math.abs(maximum.getY()) - Math.abs(minimum.getY()))) * (Math.abs(Math.abs(maximum.getZ()) - Math.abs(minimum.getZ())));
+        int air = 0;
+        for (double x = minimum.getX(); x <= maximum.getX(); ++x) {
+            for (double y = minimum.getY(); y <= maximum.getY(); ++y) {
+                for (double z = minimum.getZ(); z <= maximum.getZ(); ++z) {
+                    blockpos$mutable.setPos(x, y, z);
+                    if (world.isAirBlock(blockpos$mutable)) ++air;
+                }
+            }
+        }
+
+        return (float)air / volume > percent;
     }
 }

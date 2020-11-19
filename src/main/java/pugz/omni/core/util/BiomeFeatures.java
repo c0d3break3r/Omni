@@ -23,12 +23,16 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> Feature.ORE.withConfiguration(new OreFeatureConfig(filler, state, size)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight))).range(range).square().func_242731_b(spread));
     }
 
-    public static void addCaveOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, CaveOreFeatureConfig.CaveFace face, int size, int bottom, int top, int maxHeight, int spread, int range) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> OmniFeatures.CAVE_ORE.get().withConfiguration(new CaveOreFeatureConfig(filler, state, size, face)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight))).range(range).square().func_242731_b(spread));
+    public static void addCaveOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, CaveOreFeatureConfig.CaveFace face, int size, int bottom, int top, int maxHeight, int spread, int range, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> OmniFeatures.CAVE_ORE.get().withConfiguration(new CaveOreFeatureConfig(filler, state, size, face)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight)).chance(chance)).range(range).square().func_242731_b(spread));
     }
 
     public static void addScatteredBlock(BiomeGenerationSettingsBuilder biome, BlockState state, Set<Block> placers, int tries, int chance) {
         biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(state), SimpleBlockPlacer.PLACER)).tries(tries).whitelist(placers).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(chance));
+    }
+
+    public static void addScatteredCaveBlock(BiomeGenerationSettingsBuilder biome, BlockState state, Set<Block> placers, int tries, int chance, float probability) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(state), SimpleBlockPlacer.PLACER)).tries(tries).whitelist(placers).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.LIQUID, probability))).func_242731_b(5).chance(chance));
     }
 
     public static void addSpeleothems(BiomeGenerationSettingsBuilder biome, SpeleothemFeatureConfig.Variant variant, float probability) {
@@ -38,5 +42,9 @@ public class BiomeFeatures {
 
     public static void addMalachiteGeodes(BiomeGenerationSettingsBuilder biome) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.CLIENT.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
+    }
+
+    public static void addSmallMushrooms(BiomeGenerationSettingsBuilder biome, BlockState state, float probability) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SMALL_MUSHROOM.get().withConfiguration(new SmallMushroomFeatureConfig(state)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability))));
     }
 }
