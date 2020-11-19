@@ -1,6 +1,7 @@
 package pugz.omni.core.util;
 
 import net.minecraft.world.gen.placement.*;
+import pugz.omni.common.world.feature.CaveOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
@@ -20,6 +21,10 @@ public class BiomeFeatures {
 
     public static void addOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, int size, int bottom, int top, int maxHeight, int spread, int range) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> Feature.ORE.withConfiguration(new OreFeatureConfig(filler, state, size)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight))).range(range).square().func_242731_b(spread));
+    }
+
+    public static void addCaveOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, CaveOreFeatureConfig.CaveFace face, int size, int bottom, int top, int maxHeight, int spread, int range) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> OmniFeatures.CAVE_ORE.get().withConfiguration(new CaveOreFeatureConfig(filler, state, size, face)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight))).range(range).square().func_242731_b(spread));
     }
 
     public static void addScatteredBlock(BiomeGenerationSettingsBuilder biome, BlockState state, Set<Block> placers, int tries, int chance) {

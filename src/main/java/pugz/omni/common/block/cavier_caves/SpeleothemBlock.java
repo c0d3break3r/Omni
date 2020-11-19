@@ -5,12 +5,10 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
-import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
@@ -249,7 +247,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getBlock() == Blocks.CAULDRON && !world.isRemote) {
             for (int i = 0; i < rand.nextInt(1) + 1; ++i) {
-                this.addDripParticle(world, pos, state);
+                if (rand.nextInt(4) == 0) this.addDripParticle(world, pos, state);
             }
         }
     }

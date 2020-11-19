@@ -17,6 +17,9 @@ public class OmniBlocks {
     public static RegistryObject<Block> SMALL_MALACHITE_BUD;
     public static RegistryObject<Block> CARVED_MALACHITE;
 
+    public static RegistryObject<Block> GREEN_CAVE_MUSHROOM;
+    public static RegistryObject<Block> YELLOW_CAVE_MUSHROOM;
+
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;

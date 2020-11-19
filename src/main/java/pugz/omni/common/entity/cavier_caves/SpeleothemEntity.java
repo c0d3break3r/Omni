@@ -20,6 +20,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -27,7 +28,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.common.block.cavier_caves.SpeleothemBlock;
+import pugz.omni.common.block.colormatic.LayerConcretePowderBlock;
+import pugz.omni.core.Omni;
+import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 
 import javax.annotation.Nonnull;
@@ -61,7 +66,6 @@ public class SpeleothemEntity extends Entity implements IEntityAdditionalSpawnDa
         this.dataManager.set(ORIGIN, origin);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public BlockPos getOrigin() {
         return this.dataManager.get(ORIGIN);
     }
@@ -84,13 +88,10 @@ public class SpeleothemEntity extends Entity implements IEntityAdditionalSpawnDa
         compound.putInt("Time", this.fallTime);
     }
 
-    @SuppressWarnings("deprecation")
     protected void readAdditional(CompoundNBT compound) {
-        this.fallTile = NBTUtil.readBlockState(compound.getCompound("BlockState"));
+        if (NBTUtil.readBlockState(compound.getCompound("BlockState")).getBlock() instanceof SpeleothemBlock) this.fallTile = NBTUtil.readBlockState(compound.getCompound("BlockState"));
+        else this.fallTile = OmniBlocks.STONE_SPELEOTHEM.get().getDefaultState();
         this.fallTime = compound.getInt("Time");
-        if (this.fallTile.isAir()) {
-            this.fallTile = Blocks.SAND.getDefaultState();
-        }
     }
 
     @SuppressWarnings("deprecation")

@@ -1,18 +1,30 @@
 package pugz.omni.core.module;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.potion.EffectUtils;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.cavier_caves.*;
+import pugz.omni.common.world.feature.CaveOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeature;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeature;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import pugz.omni.core.registry.*;
+import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.AbstractBlock;
@@ -39,6 +51,8 @@ public class CavierCavesModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
+        MinecraftForge.EVENT_BUS.addListener(this::onPlayerBreakSpeed);
+        MinecraftForge.EVENT_BUS.addListener(this::onLivingJump);
     }
 
     @Override
@@ -64,11 +78,8 @@ public class CavierCavesModule extends AbstractModule {
 
         //RegistryObject<Block> CAVE_PAINTING;
 
-        //RegistryObject<Block> CAVE_MUSHROOM;
-        //RegistryObject<Block> RED_SHELF_MUSHROOM;
-        //RegistryObject<Block> BROWN_SHELF_MUSHROOM;
-        //RegistryObject<Block> CAVE_SHELF_MUSHROOM;
-        //RegistryObject<Block> SHELF_GLOWSHROOM;
+        OmniBlocks.YELLOW_CAVE_MUSHROOM = RegistryUtil.createBlock("yellow_cave_mushroom", () -> new CaveMushroomBlock(CaveMushroomBlock.Color.YELLOW), ItemGroup.DECORATIONS);
+        OmniBlocks.GREEN_CAVE_MUSHROOM = RegistryUtil.createBlock("green_cave_mushroom", () -> new CaveMushroomBlock(CaveMushroomBlock.Color.GREEN), ItemGroup.DECORATIONS);
 
         //RegistryObject<Block> WEB_BLOCK;
         //RegistryObject<Block> SPIDER_SAC;
@@ -169,12 +180,33 @@ public class CavierCavesModule extends AbstractModule {
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
             if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue());
             if (CoreModule.Configuration.CLIENT.MALACHITE.get()) BiomeFeatures.addMalachiteGeodes(gen);
+            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 128, 0, 0, 100, 10, 80);
         }
         if (category == Biome.Category.ICY) {
             if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F);
         }
         if (category == Biome.Category.NETHER) {
             if (CoreModule.Configuration.CLIENT.SPELEOTHEMS.get()) BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F);
+        }
+    }
+
+    public void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
+        BlockPos pos = event.getPos();
+        PlayerEntity player = event.getPlayer();
+        World world = player.getEntityWorld();
+
+        if (BaseGenUtils.isBlockWithinRange(world, pos, 6, OmniBlocks.YELLOW_CAVE_MUSHROOM.get())) {
+            event.setNewSpeed(event.getOriginalSpeed() * 1.15F);
+        }
+    }
+    
+    public void onLivingJump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity living = event.getEntityLiving();
+        BlockPos pos = living.getPosition();
+        World world = living.getEntityWorld();
+
+        if (world.getBlockState(pos).getBlock() == OmniBlocks.GREEN_CAVE_MUSHROOM.get()) {
+            living.addVelocity(0.0D, 0.6D, 0.0D);
         }
     }
 }

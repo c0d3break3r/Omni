@@ -10,6 +10,9 @@ import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
 import pugz.omni.common.tileentity.OmniChestTileEntity;
 import pugz.omni.common.tileentity.OmniSignTileEntity;
 import pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
+import pugz.omni.common.world.feature.CaveOreFeature;
+import pugz.omni.common.world.feature.CaveOreFeatureConfig;
+import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniTileEntities;
 import pugz.omni.core.util.RegistryUtil;
 
@@ -46,6 +49,11 @@ public class CoreModule extends AbstractModule {
         OmniTileEntities.SIGN = RegistryUtil.createTileEntity("sign", OmniSignTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniSignTileEntity.class));
         OmniTileEntities.CHEST = RegistryUtil.createTileEntity("chest", OmniChestTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniChestTileEntity.class));
         OmniTileEntities.TRAPPED_CHEST = RegistryUtil.createTileEntity("trapped_chest", OmniTrappedChestTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniTrappedChestTileEntity.class));
+    }
+
+    @Override
+    protected void registerFeatures() {
+        OmniFeatures.CAVE_ORE = RegistryUtil.createFeature("cave_ore", () -> new CaveOreFeature(CaveOreFeatureConfig.CODEC));
     }
 
     public static class Configuration {

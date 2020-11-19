@@ -1,0 +1,34 @@
+{
+	"textures": {
+		"particle": "#cap"
+	},
+	"elements": [
+		{
+			"name": "stem",
+			"from": [6, 0, 6],
+			"to": [10, 6, 10],
+			"faces": {
+				"north": {"uv": [0, 0, 4, 6], "texture": "#stem"},
+				"east": {"uv": [0, 0, 4, 6], "texture": "#stem"},
+				"south": {"uv": [0, 0, 4, 6], "texture": "#stem"},
+				"west": {"uv": [0, 0, 4, 6], "texture": "#stem"},
+				"up": {"uv": [6, 5, 10, 9], "texture": "#stem_top"},
+				"down": {"uv": [6, 5, 10, 9], "texture": "#stem_top"}
+			}
+		},
+		{
+			"name": "cap",
+			"from": [0, 6, 0],
+			"to": [16, 13, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 14, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 7], "texture": "#cap"},
+				"east": {"uv": [0, 0, 16, 7], "texture": "#cap"},
+				"south": {"uv": [0, 0, 16, 7], "texture": "#cap"},
+				"west": {"uv": [0, 0, 16, 7], "texture": "#cap"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#cap"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#cap"}
+			}
+		}
+	]
+}
