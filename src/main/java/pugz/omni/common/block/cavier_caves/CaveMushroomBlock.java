@@ -1,8 +1,9 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -14,7 +15,6 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -32,19 +32,10 @@ public class CaveMushroomBlock extends Block implements IWaterLoggable {
     protected static final VoxelShape CAP = Block.makeCuboidShape(0.0D, 6.0D, 0.0D, 16.0D, 13.0D, 16.0D);
     protected static final VoxelShape STEM = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 6.0D, 10.0D);
     private static final VoxelShape SHAPE = VoxelShapes.or(CAP, STEM);
-    private final Color color;
 
-    public CaveMushroomBlock(Color color) {
-        super(AbstractBlock.Properties.from(Blocks.BROWN_MUSHROOM_BLOCK));
-        this.color = color;
-
-        if (color == Color.BLUE) this.properties.setLightLevel((state) -> {
-            return 8;
-        });
-    }
-
-    public Color getColor() {
-        return color;
+    public CaveMushroomBlock(MaterialColor color) {
+        super(AbstractBlock.Properties.create(Material.WOOD, color).hardnessAndResistance(0.2F).sound(SoundType.WOOD));
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
     }
 
     @SuppressWarnings("deprecation")
@@ -118,12 +109,5 @@ public class CaveMushroomBlock extends Block implements IWaterLoggable {
             default:
                 return false;
         }
-    }
-
-    public enum Color {
-        GREEN,
-        YELLOW,
-        BLUE,
-        PURPLE
     }
 }

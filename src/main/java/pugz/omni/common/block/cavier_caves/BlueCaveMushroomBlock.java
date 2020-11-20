@@ -2,6 +2,7 @@ package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.state.BooleanProperty;
@@ -18,7 +19,7 @@ public class BlueCaveMushroomBlock extends CaveMushroomBlock {
     public static final IntegerProperty LIGHT = IntegerProperty.create("light", 2, 14);
 
     public BlueCaveMushroomBlock() {
-        super(CaveMushroomBlock.Color.BLUE);
+        super(MaterialColor.BLUE);
         this.setDefaultState(this.stateContainer.getBaseState().with(LIGHT, 8));
     }
 
