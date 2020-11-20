@@ -33,7 +33,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
-import pugz.omni.core.module.ColormaticModule;
 import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
@@ -141,7 +140,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (!world.isRemote && CoreModule.Configuration.CLIENT.CONCRETE_POWDER_FALLS.get()) {
+        if (!world.isRemote) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
                 FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
                 world.addEntity(entity);
@@ -162,7 +161,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState) {
-        if (shouldSolidify(worldIn, pos, fallingState) && !worldIn.isRemote) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
+        if (shouldSolidify(worldIn, pos, fallingState)) worldIn.setBlockState(pos, solidifiedState.with(LAYERS, fallingState.get(LAYERS)).with(WATERLOGGED, fallingState.get(LAYERS) < 7), 3);
     }
 
     private static boolean shouldSolidify(IBlockReader reader, BlockPos pos, BlockState state) {
@@ -196,12 +195,14 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     public boolean receiveFluid(IWorld world, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-        if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
-            if (!world.isRemote()) {
-                world.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
-                world.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(world));
+        if (!world.isRemote()) {
+            if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
+                if (!world.isRemote()) {
+                    world.setBlockState(pos, solidifiedState.with(LAYERS, state.get(LAYERS)).with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 3);
+                    world.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(world));
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -220,15 +221,13 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     }
 
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-        if (!world.isRemote) {
-            if (rand.nextInt(16) == 0) {
-                BlockPos blockpos = pos.down();
-                if (world.isAirBlock(blockpos) || canFallThrough(world.getBlockState(blockpos))) {
-                    double d0 = (double) pos.getX() + rand.nextDouble();
-                    double d1 = (double) pos.getY() - 0.05D;
-                    double d2 = (double) pos.getZ() + rand.nextDouble();
-                    world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), d0, d1, d2, 0.0D, 0.0D, 0.0D);
-                }
+        if (rand.nextInt(16) == 0) {
+            BlockPos blockpos = pos.down();
+            if (world.isAirBlock(blockpos) || canFallThrough(world.getBlockState(blockpos))) {
+                double d0 = (double)pos.getX() + rand.nextDouble();
+                double d1 = (double)pos.getY() - 0.05D;
+                double d2 = (double)pos.getZ() + rand.nextDouble();
+                world.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), d0, d1, d2, 0.0D, 0.0D, 0.0D);
             }
         }
     }

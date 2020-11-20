@@ -22,7 +22,7 @@ public class BlueCaveMushroomBlock extends CaveMushroomBlock {
 
     public BlueCaveMushroomBlock() {
         super(MaterialColor.BLUE);
-        this.setDefaultState(this.stateContainer.getBaseState().with(LIGHT, 8));
+        this.setDefaultState(this.stateContainer.getBaseState().with(LIGHT, 8).with(WATERLOGGED, false));
     }
 
     @Override

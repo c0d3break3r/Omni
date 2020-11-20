@@ -58,51 +58,35 @@ public class CoreModule extends AbstractModule {
 
     public static class Configuration {
         //cavier caves
-        public final ForgeConfigSpec.BooleanValue MALACHITE;
         public final ForgeConfigSpec.IntValue MALACHITE_GEODE_SPAWN_CHANCE;
         public final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_OUTER_BLOCK;
         public final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_INNER_BLOCK;
         public final ForgeConfigSpec.IntValue BUDDING_MALACHITE_GROWTH_CHANCE;
-        public final ForgeConfigSpec.BooleanValue SPELEOTHEMS;
         public final ForgeConfigSpec.ConfigValue<Double> SPELEOTHEMS_SPAWN_PROBABILITY;
         public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL;
         public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL_BY_PROJECTILES;
         public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FILL_CAULDRONS;
 
         //colormatic
-        public final ForgeConfigSpec.BooleanValue QUILTED_CARPETS;
         public final ForgeConfigSpec.BooleanValue CONNECTABLE_QUILTED_CARPETS;
         public final ForgeConfigSpec.IntValue TRADERS_WOOL_TRADE_PRICE;
-        public final ForgeConfigSpec.BooleanValue STACKABLE_FLOWERS;
         public final ForgeConfigSpec.IntValue FLOWER_FIELD_SPAWN_WEIGHT;
-        public final ForgeConfigSpec.BooleanValue IMPROVED_CONCRETE_POWDER;
         public final ForgeConfigSpec.BooleanValue CONCRETE_POWDER_FALLS;
 
         //deserted
-        public final ForgeConfigSpec.BooleanValue RED_ROCK;
         public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
 
-        //fiery nether
-        public final ForgeConfigSpec.BooleanValue COBBLED_BASALT;
-
-        //forestry
-        public final ForgeConfigSpec.BooleanValue AMBIENT_SOUNDS;
-        public final ForgeConfigSpec.BooleanValue CARVED_WOOD;
-
         //miscellaneous
-        public final ForgeConfigSpec.BooleanValue ENCHANTED_GOLDEN_CARROTS;
         public final ForgeConfigSpec.ConfigValue<Double> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
         public final ForgeConfigSpec.BooleanValue ZOMBIE_HORSE_TRANSMUTATION;
 
         //paradise
-        public final ForgeConfigSpec.BooleanValue SEAHORSES;
         public final ForgeConfigSpec.ConfigValue<Double> SEAHORSE_SPAWN_CHANCE;
         public final ForgeConfigSpec.IntValue SEAHORSE_TAME_CHANCE;
         public final ForgeConfigSpec.BooleanValue RIDEABLE_SEAHORSES;
         public final ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
         public final ForgeConfigSpec.IntValue LARGE_SEAHORSE_SPAWN_CHANCE;
         public final ForgeConfigSpec.IntValue TROPICAL_PLAINS_SPAWN_WEIGHT;
-        public final ForgeConfigSpec.BooleanValue LOTUS_FLOWERS;
         public final ForgeConfigSpec.IntValue LOTUS_FLOWER_SPAWN_CHANCE;
         public final ForgeConfigSpec.IntValue LOTUS_FLOWER_TRADE_PRICE;
 
@@ -113,12 +97,10 @@ public class CoreModule extends AbstractModule {
             builder.comment("Omni Configuration");
 
             builder.push(CavierCavesModule.instance.getName());
-            MALACHITE = builder.define("malachite", true);
             MALACHITE_GEODE_SPAWN_CHANCE = builder.defineInRange("malachite_geode_spawn_chance", 48, 0, 1000);
             GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.defineInRange("budding_malachite_growth_chance", 5, 0, 1000);
-            SPELEOTHEMS = builder.define("speleothems", true);
             SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.03D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
@@ -126,45 +108,28 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(ColormaticModule.instance.getName());
-            QUILTED_CARPETS = builder.define("quilted_carpets", true);
             CONNECTABLE_QUILTED_CARPETS = builder.define("connectable_quilted_carpets", true);
             TRADERS_WOOL_TRADE_PRICE = builder.defineInRange("traders_wool_trade_price", 1, 0, 64);
-            STACKABLE_FLOWERS = builder.define("stackable_flowers", true);
             FLOWER_FIELD_SPAWN_WEIGHT = builder.defineInRange("flower_field_spawn_weight", 1, 0, 100);
-            IMPROVED_CONCRETE_POWDER = builder.define("improved_concrete_powder", true);
             CONCRETE_POWDER_FALLS = builder.define("concrete_powder_falls", true);
             builder.pop();
 
             builder.push(DesertedModule.instance.getName());
-            RED_ROCK = builder.define("red_rock", true);
             RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
             builder.pop();
 
-            builder.push(FieryNetherModule.instance.getName());
-            COBBLED_BASALT = builder.define("cobbled_basalt", true);
-            builder.pop();
-
-            builder.push(ForestryModule.instance.getName());
-            AMBIENT_SOUNDS = builder.define("ambient_sounds", true);
-            CARVED_WOOD = builder.define("carved_wood", true);
-            builder.pop();
-
-
             builder.push(MiscellaneousModule.instance.getName());
-            ENCHANTED_GOLDEN_CARROTS = builder.define("enchanted_golden_carrots", true);
             ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03D);
             ZOMBIE_HORSE_TRANSMUTATION = builder.define("zombie_horse_transmutation", true);
             builder.pop();
 
             builder.push(ParadiseModule.instance.getName());
-            SEAHORSES = builder.define("seahorses", true);
             SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.75D);
             SEAHORSE_TAME_CHANCE = builder.defineInRange("seahorse_tame_chance", 5, 0, 1000);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
             LARGE_SEAHORSE_SPAWN_CHANCE = builder.defineInRange("large_seahorse_spawn_chance", 25, 0, 1000);
             TROPICAL_PLAINS_SPAWN_WEIGHT = builder.defineInRange("tropical_plains_spawn_weight", 2, 0, 100);
-            LOTUS_FLOWERS = builder.define("lotus_flowers", true);
             LOTUS_FLOWER_SPAWN_CHANCE = builder.defineInRange("lotus_flower_spawn_chance", 8, 0, 1000);
             LOTUS_FLOWER_TRADE_PRICE = builder.defineInRange("lotus_flower_trade_price", 1, 0, 64);
             builder.pop();

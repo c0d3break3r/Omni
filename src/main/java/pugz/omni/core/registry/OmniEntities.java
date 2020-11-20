@@ -1,6 +1,7 @@
 package pugz.omni.core.registry;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.ResourceLocation;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
@@ -26,7 +27,7 @@ public class OmniEntities {
                 .setShouldReceiveVelocityUpdates(true)
                 .setCustomClientFactory((spawnEntity, world) -> new SpeleothemEntity(SPELEOTHEM.get(), world))
                 .func_233608_b_(20)
-                .build(Omni.MOD_ID + "speleothem");
+                .build(new ResourceLocation(Omni.MOD_ID, "speleothem").toString());
     }
 
     public static EntityType<FallingConcretePowderEntity> createFallingBlockEntity() {
@@ -36,7 +37,7 @@ public class OmniEntities {
                 .setShouldReceiveVelocityUpdates(true)
                 .setCustomClientFactory((spawnEntity, world) -> new FallingConcretePowderEntity(FALLING_CONCRETE_POWDER.get(), world))
                 .func_233608_b_(20)
-                .build(Omni.MOD_ID + "falling_concrete_powder");
+                .build(new ResourceLocation(Omni.MOD_ID, "falling_concrete_powder").toString());
     }
 
     public static  <E extends LivingEntity> EntityType<E> createLivingEntity(EntityType.IFactory<E> factory, EntityClassification entityClassification, String name, float width, float height) {
@@ -45,6 +46,6 @@ public class OmniEntities {
                 .setTrackingRange(64)
                 .setShouldReceiveVelocityUpdates(true)
                 .setUpdateInterval(3)
-                .build(Omni.MOD_ID + name);
+                .build(new ResourceLocation(Omni.MOD_ID, name).toString());
     }
 }

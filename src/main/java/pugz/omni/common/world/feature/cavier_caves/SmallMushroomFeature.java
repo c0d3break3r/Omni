@@ -22,9 +22,14 @@ public class SmallMushroomFeature extends Feature<SmallMushroomFeatureConfig> {
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, SmallMushroomFeatureConfig config) {
         BlockPos place = CaveGenUtils.getCaveFloorPosition(world, pos, null);
-        int height = rand.nextInt(3) + 1;
-
         if (world.getBlockState(place.down()).getBlock() != Blocks.MYCELIUM) return false;
+
+        if (rand.nextBoolean()) {
+            world.setBlockState(place, config.smallState, 2);
+            return true;
+        }
+
+        int height = rand.nextInt(3) + 1;
 
         if (BaseGenUtils.isAirPresent(world, new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ() - 1), new BlockPos(pos.getX() + 1, pos.getY() + height + 1, pos.getZ() + 1), 1.0F)) {
             for (int y = place.getY(); y <= place.getY() + height; ++y) {

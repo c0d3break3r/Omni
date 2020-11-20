@@ -22,7 +22,7 @@ public class PurpleCaveMushroomBlock extends CaveMushroomBlock {
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entity, float fallDistance) {
         entity.onLivingFall(fallDistance, 0.0F);
 
-        if (entity instanceof LivingEntity && fallDistance >= 4.0F) {
+        if (entity instanceof LivingEntity && fallDistance >= 4.0F && !entity.isSuppressingBounce()) {
             worldIn.playSound(null, pos, OmniSoundEvents.MUSHROOM_BOUNCE.get(), SoundCategory.BLOCKS, 0.75F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
 
             AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(worldIn, pos.getX(), pos.getY() + 0.5F, pos.getZ());

@@ -44,7 +44,7 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.CLIENT.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
     }
 
-    public static void addSmallMushrooms(BiomeGenerationSettingsBuilder biome, BlockState state, float probability, int chance) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SMALL_MUSHROOM.get().withConfiguration(new SmallMushroomFeatureConfig(state)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+    public static void addSmallMushrooms(BiomeGenerationSettingsBuilder biome, BlockState state, BlockState smallState, float probability, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SMALL_MUSHROOM.get().withConfiguration(new SmallMushroomFeatureConfig(state, smallState)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
     }
 }

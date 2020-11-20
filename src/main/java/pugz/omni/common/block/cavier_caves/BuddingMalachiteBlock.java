@@ -35,10 +35,11 @@ public class BuddingMalachiteBlock extends Block {
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBlockHarvested(worldIn, pos, state, player);
+
         if (!worldIn.isRemote) {
             worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
         }
-        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     @Override

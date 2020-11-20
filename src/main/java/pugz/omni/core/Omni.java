@@ -1,6 +1,5 @@
 package pugz.omni.core;
 
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import pugz.omni.core.module.*;
@@ -36,8 +35,6 @@ public class Omni {
     public Omni() {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        eventBus.addListener(this::commonSetup);
-
         Registries.BLOCKS.register(eventBus);
         OverrideRegistries.BLOCKS.register(eventBus);
         Registries.ITEMS.register(eventBus);
@@ -58,6 +55,7 @@ public class Omni {
         Registries.STATS.register(eventBus);
 
         registerModuleInit();
+        eventBus.addListener(this::commonSetup);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             eventBus.addListener(EventPriority.LOWEST, this::clientSetup);
@@ -111,14 +109,12 @@ public class Omni {
         WintertimeModule.instance.initializePost();
     }
 
-    @SuppressWarnings("deprecation")
     private void commonSetup(final FMLCommonSetupEvent event) {
-        DeferredWorkQueue.runLater(this::registerModulePost);
+        registerModulePost();
     }
 
-    @SuppressWarnings("deprecation")
     private void clientSetup(final FMLClientSetupEvent event) {
-        DeferredWorkQueue.runLater(this::registerModuleClient);
+        registerModuleClient();
     }
 
     public static class Registries {
