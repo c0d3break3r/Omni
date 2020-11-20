@@ -33,7 +33,7 @@ public class BlueCaveMushroomBlock extends CaveMushroomBlock {
         BlockState state = worldIn.getBlockState(pos);
         entity.onLivingFall(fallDistance, 0.0F);
 
-        if (entity instanceof LivingEntity) {
+        if (entity instanceof LivingEntity && fallDistance >= 1.0F) {
             if (entity.isSuppressingBounce()) {
                 worldIn.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(state.get(LIGHT) - 2, 2, 14)), 3);
             } else {
