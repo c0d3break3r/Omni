@@ -2,13 +2,14 @@ package pugz.omni.common.world.feature.cavier_caves;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Blocks;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
-import net.minecraftforge.common.Tags;
+import pugz.omni.common.block.cavier_caves.CaveMushroomBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.CaveGenUtils;
@@ -26,7 +27,7 @@ public class SmallMushroomFeature extends Feature<SmallMushroomFeatureConfig> {
         if (world.getBlockState(place.down()).getBlock() != Blocks.MYCELIUM) return false;
 
         if (rand.nextBoolean()) {
-            world.setBlockState(place, config.smallState, 2);
+            world.setBlockState(place, config.smallState.with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(place).isTagged(FluidTags.WATER)), 2);
             return true;
         }
 
