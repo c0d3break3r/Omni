@@ -17,6 +17,11 @@
   "block.omni.green_cave_mushroom": "Green Cave Mushroom",
   "block.omni.blue_cave_mushroom": "Blue Cave Mushroom",
   "block.omni.purple_cave_mushroom": "Purple Cave Mushroom",
+  "block.omni.yellow_cave_mushroom_block": "Yellow Cave Mushroom Block",
+  "block.omni.green_cave_mushroom_block": "Green Cave Mushroom Block",
+  "block.omni.blue_cave_mushroom_block": "Blue Cave Mushroom Block",
+  "block.omni.purple_cave_mushroom_block": "Purple Cave Mushroom Block",
+  "block.omni.cave_mushroom_stem": "Cave Mushroom Stem",
 
   "item.omni.malachite_shard": "Malachite Shard",
 

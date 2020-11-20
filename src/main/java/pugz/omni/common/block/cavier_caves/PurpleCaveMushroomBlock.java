@@ -19,10 +19,10 @@ public class PurpleCaveMushroomBlock extends CaveMushroomBlock {
 
         if (entity instanceof LivingEntity && fallDistance > 5) {
             AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(worldIn, pos.getX(), pos.getY() + 0.5F, pos.getZ());
-            areaeffectcloudentity.setRadius(3.0F);
-            areaeffectcloudentity.setRadiusOnUse(-0.5F);
-            areaeffectcloudentity.setWaitTime(5);
-            areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / 150.0F);
+            areaeffectcloudentity.setRadius(2.0F);
+            areaeffectcloudentity.setRadiusOnUse(-0.25F);
+            areaeffectcloudentity.setWaitTime(0);
+            areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / 75.0F);
             areaeffectcloudentity.setPotion(Potions.POISON);
             areaeffectcloudentity.setColor(7221919);
             worldIn.addEntity(areaeffectcloudentity);

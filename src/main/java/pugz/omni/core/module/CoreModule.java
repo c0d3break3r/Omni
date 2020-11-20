@@ -119,7 +119,7 @@ public class CoreModule extends AbstractModule {
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.defineInRange("budding_malachite_growth_chance", 5, 0, 1000);
             SPELEOTHEMS = builder.define("speleothems", true);
-            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.003D);
+            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.03D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);

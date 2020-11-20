@@ -116,12 +116,12 @@ public class CaveOreFeature extends Feature<CaveOreFeatureConfig> {
                                                     switch (config.face) {
                                                         case FLOOR:
                                                             if (direction == Direction.UP) {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
                                                             }
                                                             break;
                                                         case CEILING:
                                                             if (direction == Direction.DOWN) {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
                                                             }
                                                             break;
                                                         case WALLS:
