@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.common.Tags;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.BaseGenUtils;
@@ -29,6 +30,11 @@ public class SmallMushroomFeature extends Feature<SmallMushroomFeatureConfig> {
             return true;
         }
 
+        if (rand.nextInt(6) == 0) {
+            if (rand.nextBoolean()) Features.PATCH_RED_MUSHROOM.generate(world, generator, rand, place);
+            else Features.PATCH_BROWN_MUSHROOM.generate(world, generator, rand, place);
+        }
+
         int height = rand.nextInt(3) + 1;
 
         if (BaseGenUtils.isAirPresent(world, new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ() - 1), new BlockPos(pos.getX() + 1, pos.getY() + height + 1, pos.getZ() + 1), 1.0F)) {
@@ -38,7 +44,7 @@ public class SmallMushroomFeature extends Feature<SmallMushroomFeatureConfig> {
 
                 if (y == place.getY() + height) {
                     for (Direction direction : Direction.values()) {
-                        if (world.isAirBlock(place1.offset(direction)))
+                        if (!world.getBlockState(place1.offset(direction)).isSolid())
                             world.setBlockState(place1.offset(direction), config.state, 2);
                     }
                 }

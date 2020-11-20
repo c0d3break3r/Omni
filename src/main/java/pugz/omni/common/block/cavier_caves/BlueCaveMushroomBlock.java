@@ -36,7 +36,7 @@ public class BlueCaveMushroomBlock extends CaveMushroomBlock {
         entity.onLivingFall(fallDistance, 0.0F);
 
         if (entity instanceof LivingEntity && fallDistance >= 1.0F) {
-            if (!worldIn.isRemote) worldIn.playSound(null, pos, OmniSoundEvents.MUSHROOM_BOUNCE.get(), SoundCategory.BLOCKS, 0.75F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+            if (!worldIn.isRemote && fallDistance > 1.0F) worldIn.playSound(null, pos, OmniSoundEvents.MUSHROOM_BOUNCE.get(), SoundCategory.BLOCKS, 0.75F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
 
             if (entity.isSuppressingBounce()) {
                 worldIn.setBlockState(pos, state.with(LIGHT, MathHelper.clamp(state.get(LIGHT) - 2, 2, 14)), 3);
