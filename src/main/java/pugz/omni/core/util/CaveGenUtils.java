@@ -49,9 +49,9 @@ public class CaveGenUtils {
             BlockState up = world.getBlockState(pos$mutable.up());
 
             if ((up.getBlock() != Blocks.CAVE_AIR
-                    && block == Blocks.CAVE_AIR) || ((up.getBlock() != Blocks.WATER
+                    && block == Blocks.CAVE_AIR) || (((block != Blocks.WATER || block != Blocks.LAVA)
                     && up.getBlock() != Blocks.CAVE_AIR)
-                    && block == Blocks.WATER)) break;
+                    && (block == Blocks.WATER || block == Blocks.LAVA))) break;
         }
 
         if (height <= 2 || height > 63) return 0;

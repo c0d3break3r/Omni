@@ -1,11 +1,13 @@
 package pugz.omni.common.world.feature.cavier_caves;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.common.Tags;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.CaveGenUtils;
@@ -22,7 +24,7 @@ public class SmallMushroomFeature extends Feature<SmallMushroomFeatureConfig> {
         BlockPos place = CaveGenUtils.getCaveFloorPosition(world, pos, null);
         int height = rand.nextInt(3) + 1;
 
-        if (!world.getBlockState(place.down()).isSolid()) return false;
+        if (world.getBlockState(place.down()).getBlock() != Blocks.MYCELIUM) return false;
 
         if (BaseGenUtils.isAirPresent(world, new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ() - 1), new BlockPos(pos.getX() + 1, pos.getY() + height + 1, pos.getZ() + 1), 1.0F)) {
             for (int y = place.getY(); y <= place.getY() + height; ++y) {
