@@ -17,7 +17,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
-import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniSoundEvents;
@@ -36,26 +35,32 @@ public class BuddingMalachiteBlock extends Block {
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        worldIn.playSound(player, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-        super.onBlockHarvested(worldIn, pos, state, player);
+        if (!worldIn.isRemote) {
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        world.playSound(null, hit.getPos(), OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (!world.isRemote) {
+            world.playSound(null, hit.getPos(), OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        if (placer instanceof PlayerEntity) worldIn.playSound((PlayerEntity) placer, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-        else worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (!worldIn.isRemote) {
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Override
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        if (entityIn instanceof PlayerEntity) worldIn.playSound((PlayerEntity) entityIn, pos, OmniSoundEvents.CRYSTAL_STEP.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-        else worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_STEP.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (!worldIn.isRemote) {
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_STEP.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Nonnull

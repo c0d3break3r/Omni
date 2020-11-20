@@ -1,9 +1,9 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -19,19 +19,17 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ForgeHooks;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniSoundEvents;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class MalachiteBudBlock extends Block implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -58,14 +56,25 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        worldIn.playSound(player, pos, OmniSoundEvents.CRYSTAL_BUD_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-        super.onBlockHarvested(worldIn, pos, state, player);
+        if (!worldIn.isRemote) {
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        if (!world.isRemote) {
+            world.playSound(null, hit.getPos(), OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        if (placer instanceof PlayerEntity) worldIn.playSound((PlayerEntity) placer, pos, OmniSoundEvents.CRYSTAL_BUD_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-        else worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BUD_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (!worldIn.isRemote) {
+            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Nonnull
