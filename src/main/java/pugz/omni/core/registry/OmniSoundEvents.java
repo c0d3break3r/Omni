@@ -12,6 +12,8 @@ public class OmniSoundEvents {
     public static RegistryObject<SoundEvent> CRYSTAL_BUD_PLACE;
     public static RegistryObject<SoundEvent> CRYSTAL_BUD_BREAK;
 
+    public static RegistryObject<SoundEvent> MUSHROOM_BOUNCE;
+
     //forestry
     public static RegistryObject<SoundEvent> AMBIENT_FOREST;
     public static RegistryObject<SoundEvent> AMBIENT_JUNGLE;

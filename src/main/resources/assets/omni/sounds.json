@@ -85,5 +85,11 @@
       "omni:block/crystal_bud/place/place4"
     ],
     "subtitle": "subtitles.block.crystal_bud.place"
+  },
+  "block.mushroom.bounce": {
+    "sounds": [
+      "omni:block/mushroom/bounce"
+    ],
+    "subtitle": "subtitles.block.mushroom.bounce"
   }
 }

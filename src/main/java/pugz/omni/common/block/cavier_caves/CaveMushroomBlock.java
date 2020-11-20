@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -14,6 +15,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -23,6 +25,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import pugz.omni.core.registry.OmniSoundEvents;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -90,6 +93,10 @@ public class CaveMushroomBlock extends Block implements IWaterLoggable {
 
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entity, float fallDistance) {
         entity.onLivingFall(fallDistance, 0.0F);
+
+        if (!worldIn.isRemote && entity instanceof LivingEntity && fallDistance > 1.0F) {
+            worldIn.playSound(null, pos, OmniSoundEvents.MUSHROOM_BOUNCE.get(), SoundCategory.BLOCKS, 0.75F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        }
     }
 
     @Override
