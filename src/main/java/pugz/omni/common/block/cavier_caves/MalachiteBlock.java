@@ -26,8 +26,8 @@ public class MalachiteBlock extends Block {
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!worldIn.isRemote) {
             worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
-            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_BREAK.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
         }
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     @Override
@@ -42,13 +42,6 @@ public class MalachiteBlock extends Block {
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         if (!worldIn.isRemote) {
             worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
-        }
-    }
-
-    @Override
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        if (!worldIn.isRemote) {
-            worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_STEP.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
         }
     }
 }
