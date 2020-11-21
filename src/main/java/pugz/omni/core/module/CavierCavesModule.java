@@ -195,7 +195,7 @@ public class CavierCavesModule extends AbstractModule {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 112, 10, 0, 100, 10, 80, 5);
+            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
             BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.YELLOW_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.YELLOW_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
             BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.PURPLE_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.PURPLE_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
             BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.BLUE_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.BLUE_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);

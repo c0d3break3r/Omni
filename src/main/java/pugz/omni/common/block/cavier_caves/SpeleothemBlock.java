@@ -143,7 +143,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     }
 
     private boolean canGrow(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (state.get(PART) == Part.UPPER && rand.nextInt(12) == 0 && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
+        if (state.get(PART) == Part.UPPER && rand.nextInt(16) == 0 && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
             BlockPos.Mutable check = pos.toMutable();
             for (int y = pos.getY(); y <= 128; ++y) {
                 check.setPos(pos.getX(), y, pos.getZ());
