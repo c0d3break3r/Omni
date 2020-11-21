@@ -42,7 +42,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, GeodeFeatureConfig config) {
         int minGenOffset = config.minGenOffset;
         int maxGenOffset = config.maxGenOffset;
-        if (world.getBlockState(pos.add(0, maxGenOffset / 3, 0)).isAir()) {
+        if (world.getBlockState(pos.add(0, maxGenOffset / 3, 0)).isAir() || (world.getBlockState(pos.down()).getFluidState().isTagged(FluidTags.WATER) && world.getBiome(pos).getCategory() == Biome.Category.OCEAN)) {
             return false;
         } else {
             List<Pair<BlockPos, Integer>> var8 = Lists.newLinkedList();
@@ -92,8 +92,6 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
             List<BlockPos> var40 = Lists.newArrayList();
             Iterator var41 = BlockPos.getAllInBox(pos.add(minGenOffset, minGenOffset, minGenOffset), pos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
 
-            if (world.getBlockState(pos.down()).getFluidState().isTagged(FluidTags.WATER) && world.getBiome(pos).getCategory() == Biome.Category.OCEAN) return false;
-
             while(true) {
                 while(true) {
                     double var34;
@@ -123,7 +121,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                                         }
 
                                         if (BuddingMalachiteBlock.isStateAir(var52)) {
-                                            world.setBlockState(var50, crystalBudState, 2);
+                                            world.setBlockState(var50, crystalBudState, 3);
                                             break;
                                         }
                                     }
@@ -153,17 +151,17 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                     if (var28 && var36 >= var26 && var34 < var18) {
                         if (world.getBlockState(var43).isSolid()) {
                             if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
-                            else if (world.isAirBlock(var43.down())) world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
+                            world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                         }
                     } else if (var34 >= var18) {
                         if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
-                        else if (world.isAirBlock(var43.down())) world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
+                        world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                     } else if (var34 >= var20) {
                         boolean var49 = (double)rand.nextFloat() < config.alternateLayer0Chance;
                         if (var49) {
-                            world.setBlockState(var43, OmniBlocks.BUDDING_MALACHITE.get().getDefaultState(), 2);
+                            world.setBlockState(var43, OmniBlocks.BUDDING_MALACHITE.get().getDefaultState(), 3);
                         } else {
-                            world.setBlockState(var43, OmniBlocks.MALACHITE_BLOCK.get().getDefaultState(), 2);
+                            world.setBlockState(var43, OmniBlocks.MALACHITE_BLOCK.get().getDefaultState(), 3);
                         }
 
                         if ((!config.requireLayer0Alternate || var49) && (double)rand.nextFloat() < config.potentialPlacementsChance) {

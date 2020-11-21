@@ -1,0 +1,6 @@
+{
+    "parent": "block/button_inventory",
+    "textures": {
+        "texture": "omni:block/cavier_caves/cave_mushroom_planks"
+    }
+}

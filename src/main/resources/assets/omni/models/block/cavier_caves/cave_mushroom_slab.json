@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "omni:block/cavier_caves/cave_mushroom_planks",
+    "top": "omni:block/cavier_caves/cave_mushroom_planks",
+    "side": "omni:block/cavier_caves/cave_mushroom_planks"
+  }
+}

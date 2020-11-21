@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "omni:block/cavier_caves/cave_mushroom_slab" },
+    "type=top": { "model": "omni:block/cavier_caves/cave_mushroom_slab_top" },
+    "type=double": { "model": "omni:block/cavier_caves/cave_mushroom_planks" }
+  }
+}

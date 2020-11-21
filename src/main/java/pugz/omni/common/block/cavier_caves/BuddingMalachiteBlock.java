@@ -98,6 +98,6 @@ public class BuddingMalachiteBlock extends Block {
 
     @SuppressWarnings("deprecation")
     public static boolean isStateAir(BlockState state) {
-        return state.isAir() || state.isIn(Blocks.AIR);
+        return state.isAir() || state.isIn(Blocks.AIR) || state.getMaterial().isLiquid();
     }
 }

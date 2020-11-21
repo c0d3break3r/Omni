@@ -9,6 +9,7 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
+import net.minecraftforge.fml.ModList;
 import pugz.omni.common.block.cavier_caves.CaveMushroomBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.BaseGenUtils;
@@ -27,11 +28,8 @@ public class CaveMushroomFeature extends Feature<CaveMushroomFeatureConfig> {
         if (world.getBlockState(place.down()).getBlock() != Blocks.MYCELIUM) return false;
 
         if (rand.nextBoolean()) {
-            //if (rand.nextBoolean()) return Features.BROWN_MUSHROOM_GIANT.generate(world, generator, rand, pos);
-            //else {
-                world.setBlockState(place, config.smallState.with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(place).isTagged(FluidTags.WATER)), 2);
-                return true;
-            //}
+            world.setBlockState(place, config.smallState.with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(place).isTagged(FluidTags.WATER)), 2);
+            return true;
         }
 
         if (rand.nextInt(6) == 0) {
@@ -41,10 +39,10 @@ public class CaveMushroomFeature extends Feature<CaveMushroomFeatureConfig> {
 
         int height = rand.nextInt(3) + 1;
 
-        if (BaseGenUtils.isAirPresent(world, new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ() - 1), new BlockPos(pos.getX() + 1, pos.getY() + height + 1, pos.getZ() + 1), 1.0F)) {
+        if (BaseGenUtils.isAirPresent(world, new BlockPos(pos.getX() - 1, pos.getY() + 1, pos.getZ() - 1), new BlockPos(pos.getX() + 1, pos.getY() + height, pos.getZ() + 1), 1.0F)) {
             for (int y = place.getY(); y <= place.getY() + height; ++y) {
                 BlockPos place1 = new BlockPos(place.getX(), y, place.getZ());
-                world.setBlockState(place1, OmniBlocks.CAVE_MUSHROOM_STEM.get().getDefaultState(), 2);
+                world.setBlockState(place1, ModList.get().isLoaded("enhanced_mushrooms") ? OmniBlocks.CAVE_MUSHROOM_STEM.get().getDefaultState() : Blocks.MUSHROOM_STEM.getDefaultState(), 2);
 
                 if (y == place.getY() + height) {
                     for (Direction direction : Direction.values()) {

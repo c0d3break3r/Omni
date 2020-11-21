@@ -25,7 +25,16 @@ public class OmniBlocks {
     public static RegistryObject<Block> GREEN_CAVE_MUSHROOM_BLOCK;
     public static RegistryObject<Block> BLUE_CAVE_MUSHROOM_BLOCK;
     public static RegistryObject<Block> PURPLE_CAVE_MUSHROOM_BLOCK;
+
     public static RegistryObject<Block> CAVE_MUSHROOM_STEM;
+    public static RegistryObject<Block> CAVE_MUSHROOM_PLANKS;
+    public static RegistryObject<Block> CAVE_MUSHROOM_STAIRS;
+    public static RegistryObject<Block> CAVE_MUSHROOM_SLAB;
+    public static RegistryObject<Block> CAVE_MUSHROOM_FENCE;
+    public static RegistryObject<Block> CAVE_MUSHROOM_FENCE_GATE;
+    public static RegistryObject<Block> CAVE_MUSHROOM_BUTTON;
+    public static RegistryObject<Block> CAVE_MUSHROOM_PRESSURE_PLATE;
+    public static RegistryObject<Block> CAVE_MUSHROOM_VERTICAL_SLAB;
 
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;

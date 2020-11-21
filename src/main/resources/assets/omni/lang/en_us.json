@@ -21,7 +21,16 @@
   "block.omni.green_cave_mushroom_block": "Green Cave Mushroom Block",
   "block.omni.blue_cave_mushroom_block": "Blue Cave Mushroom Block",
   "block.omni.purple_cave_mushroom_block": "Purple Cave Mushroom Block",
+
   "block.omni.cave_mushroom_stem": "Cave Mushroom Stem",
+  "block.omni.cave_mushroom_planks": "Cave Mushroom Planks",
+  "block.omni.cave_mushroom_stairs": "Cave Mushroom Stairs",
+  "block.omni.cave_mushroom_slab": "Cave Mushroom Slab",
+  "block.omni.cave_mushroom_fence": "Cave Mushroom Fence",
+  "block.omni.cave_mushroom_fence_gate": "Cave Mushroom Fence Gate",
+  "block.omni.cave_mushroom_button": "Cave Mushroom Button",
+  "block.omni.cave_mushroom_pressure_plate": "Cave Mushroom Pressure Plate",
+  "block.omni.cave_mushroom_vertical_slab": "Cave Mushroom Vertical Slab",
 
   "item.omni.malachite_shard": "Malachite Shard",
 
