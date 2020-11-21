@@ -125,19 +125,40 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
 
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
-            BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
-            BlockState block = world.getBlockState(check);
+        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FILL_CAULDRONS.get()) {
+            for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
+                BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
+                BlockState block = world.getBlockState(check);
 
-            if (block.getBlock() == Blocks.CAULDRON && rand.nextInt(40) == 0 && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
-                int level = block.get(CauldronBlock.LEVEL);
-                if (level < 3) world.setBlockState(check, block.with(CauldronBlock.LEVEL, level + 1), 3);
+                if (block.getBlock() == Blocks.CAULDRON && rand.nextInt(40) == 0 && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
+                    int level = block.get(CauldronBlock.LEVEL);
+                    if (level < 3) world.setBlockState(check, block.with(CauldronBlock.LEVEL, level + 1), 3);
+                }
             }
+        }
+
+        if (canGrow(state, world, pos, rand) && !world.isRemote) {
+            world.setBlockState(pos.down(), state, 2);
         }
     }
 
+    private boolean canGrow(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+        if (state.get(PART) == Part.UPPER && rand.nextInt(12) == 0 && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
+            BlockPos.Mutable check = pos.toMutable();
+            for (int y = pos.getY(); y <= 128; ++y) {
+                check.setPos(pos.getX(), y, pos.getZ());
+                BlockState block = world.getBlockState(check);
+
+                if (!(block.getBlock() instanceof SpeleothemBlock)) break;
+            }
+
+            return world.getFluidState(check.up(2)).isTagged(FluidTags.WATER);
+        }
+        return false;
+    }
+
     public boolean ticksRandomly(BlockState state) {
-        return CoreModule.Configuration.CLIENT.SPELEOTHEMS_FILL_CAULDRONS.get();
+        return true;
     }
 
     @Nonnull
