@@ -57,6 +57,11 @@ public class BuddingMalachiteBlock extends Block {
         }
     }
 
+    @Override
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+        if (worldIn.rand.nextInt(4) == 0 && !worldIn.isRemote) worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+    }
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")

@@ -1,4 +1,4 @@
-package pugz.omni.common.item;
+package pugz.omni.common.item.paradise;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
