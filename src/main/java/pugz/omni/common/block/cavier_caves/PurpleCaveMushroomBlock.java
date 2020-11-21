@@ -30,7 +30,7 @@ public class PurpleCaveMushroomBlock extends CaveMushroomBlock {
             areaeffectcloudentity.setRadiusOnUse(-0.25F);
             areaeffectcloudentity.setWaitTime(0);
             areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / MathHelper.clamp(fallDistance * 10.0F, 0.0F, 600.0F));
-            areaeffectcloudentity.setPotion(new Potion(new EffectInstance(Effects.POISON, Math.round(fallDistance * 10.0F))));
+            areaeffectcloudentity.setPotion(new Potion(new EffectInstance(Effects.POISON, Math.round(fallDistance * 15.0F))));
             areaeffectcloudentity.setColor(7221919);
             worldIn.addEntity(areaeffectcloudentity);
         }
