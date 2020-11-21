@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:red_rock_brick_button"
+    "omni:red_rock_brick_button",
+    "omni:cave_mushroom_button"
   ]
 }

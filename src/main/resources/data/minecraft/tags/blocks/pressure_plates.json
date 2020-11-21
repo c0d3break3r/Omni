@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:red_rock_brick_pressure_plate"
+    "omni:red_rock_brick_pressure_plate",
+    "omni:cave_mushroom_pressure_plate"
   ]
 }

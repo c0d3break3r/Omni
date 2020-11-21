@@ -1,0 +1,6 @@
+{
+  "parent": "block/fence_post",
+  "textures": {
+    "texture": "omni:block/cavier_caves/cave_mushroom_planks"
+  }
+}
