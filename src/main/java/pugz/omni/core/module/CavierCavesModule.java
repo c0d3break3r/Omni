@@ -123,7 +123,7 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerFeatures() {
-        OmniFeatures.SMALL_MUSHROOM = RegistryUtil.createFeature("small_mushroom", () -> new SmallMushroomFeature(SmallMushroomFeatureConfig.CODEC));
+        OmniFeatures.CAVE_MUSHROOM = RegistryUtil.createFeature("cave_mushroom", () -> new CaveMushroomFeature(CaveMushroomFeatureConfig.CODEC));
 
         OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.CODEC));
         //RegistryObject<Feature<?>> SLIME;

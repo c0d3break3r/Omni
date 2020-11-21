@@ -16,19 +16,22 @@ import pugz.omni.core.util.CaveGenUtils;
 
 import java.util.Random;
 
-public class SmallMushroomFeature extends Feature<SmallMushroomFeatureConfig> {
-    public SmallMushroomFeature(Codec<SmallMushroomFeatureConfig> codec) {
+public class CaveMushroomFeature extends Feature<CaveMushroomFeatureConfig> {
+    public CaveMushroomFeature(Codec<CaveMushroomFeatureConfig> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, SmallMushroomFeatureConfig config) {
+    public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveMushroomFeatureConfig config) {
         BlockPos place = CaveGenUtils.getCaveFloorPosition(world, pos, null);
         if (world.getBlockState(place.down()).getBlock() != Blocks.MYCELIUM) return false;
 
         if (rand.nextBoolean()) {
-            world.setBlockState(place, config.smallState.with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(place).isTagged(FluidTags.WATER)), 2);
-            return true;
+            //if (rand.nextBoolean()) return Features.BROWN_MUSHROOM_GIANT.generate(world, generator, rand, pos);
+            //else {
+                world.setBlockState(place, config.smallState.with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(place).isTagged(FluidTags.WATER)), 2);
+                return true;
+            //}
         }
 
         if (rand.nextInt(6) == 0) {

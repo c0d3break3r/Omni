@@ -3,7 +3,6 @@ package pugz.omni.core.util;
 import net.minecraft.world.gen.placement.*;
 import pugz.omni.common.world.feature.CaveOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
-import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;
@@ -45,6 +44,6 @@ public class BiomeFeatures {
     }
 
     public static void addSmallMushrooms(BiomeGenerationSettingsBuilder biome, BlockState state, BlockState smallState, float probability, int chance) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.SMALL_MUSHROOM.get().withConfiguration(new SmallMushroomFeatureConfig(state, smallState)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.CAVE_MUSHROOM.get().withConfiguration(new CaveMushroomFeatureConfig(state, smallState)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
     }
 }

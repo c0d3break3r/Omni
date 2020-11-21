@@ -10,9 +10,9 @@ import java.util.List;
 
 public class BaseGenUtils {
     public static boolean isBlockWithinRange(World world, BlockPos pos, int rangeX, int rangeY, int rangeZ, Block... blocks) {
-        for (double x = pos.getX() - rangeX; x <= pos.getX() + rangeX; x++) {
-            for (double y = pos.getY() - rangeY; y <= pos.getY() + rangeY; y++) {
-                for (double z = pos.getZ() - rangeZ; z <= pos.getZ() + rangeZ; z++) {
+        for (int x = pos.getX() - rangeX; x <= pos.getX() + rangeX; x++) {
+            for (int y = pos.getY() - rangeY; y <= pos.getY() + rangeY; y++) {
+                for (int z = pos.getZ() - rangeZ; z <= pos.getZ() + rangeZ; z++) {
 
                     for (Block block : blocks) {
                         if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == block) return true;
@@ -23,9 +23,9 @@ public class BaseGenUtils {
     }
 
     public static boolean isBlockWithinRange(World world, BlockPos pos, int range, Block... blocks) {
-        for (double x = pos.getX() - range; x <= pos.getX() + range; x++) {
-            for (double y = pos.getY() - range; y <= pos.getY() + range; y++) {
-                for (double z = pos.getZ() - range; z <= pos.getZ() + range; z++) {
+        for (int x = pos.getX() - range; x <= pos.getX() + range; x++) {
+            for (int y = pos.getY() - range; y <= pos.getY() + range; y++) {
+                for (int z = pos.getZ() - range; z <= pos.getZ() + range; z++) {
 
                     for (Block block : blocks) {
                         if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == block) return true;
@@ -38,9 +38,9 @@ public class BaseGenUtils {
     public static List<BlockPos> getBlocksWithinRange(World world, BlockPos pos, int range, Block block) {
         List<BlockPos> positions = new LinkedList<BlockPos>();
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-        for (double x = pos.getX() - range; x <= pos.getX() + range; x++) {
-            for (double y = pos.getY() - range; y <= pos.getY() + range; y++) {
-                for (double z = pos.getZ() - range; z <= pos.getZ() + range; z++) {
+        for (int x = pos.getX() - range; x <= pos.getX() + range; x++) {
+            for (int y = pos.getY() - range; y <= pos.getY() + range; y++) {
+                for (int z = pos.getZ() - range; z <= pos.getZ() + range; z++) {
                     blockpos$mutable.setPos(x, y, z);
                     if (world.getBlockState(blockpos$mutable).getBlock() == block) positions.add(blockpos$mutable);
                 }
@@ -50,17 +50,18 @@ public class BaseGenUtils {
 
     public static boolean isAirPresent(ISeedReader world, BlockPos minimum, BlockPos maximum, float percent) {
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-        int volume = (Math.abs(Math.abs(maximum.getX()) - Math.abs(minimum.getX()))) * (Math.abs(Math.abs(maximum.getY()) - Math.abs(minimum.getY()))) * (Math.abs(Math.abs(maximum.getZ()) - Math.abs(minimum.getZ())));
+        int volume = (maximum.getX() - minimum.getX()) * (maximum.getZ() - minimum.getZ()) * (maximum.getY() - minimum.getY());
+
         int air = 0;
-        for (double x = minimum.getX(); x <= maximum.getX(); ++x) {
-            for (double y = minimum.getY(); y <= maximum.getY(); ++y) {
-                for (double z = minimum.getZ(); z <= maximum.getZ(); ++z) {
+        for (int x = minimum.getX(); x <= maximum.getX(); ++x) {
+            for (int y = minimum.getY(); y <= maximum.getY(); ++y) {
+                for (int z = minimum.getZ(); z <= maximum.getZ(); ++z) {
                     blockpos$mutable.setPos(x, y, z);
                     if (world.isAirBlock(blockpos$mutable)) ++air;
                 }
             }
         }
 
-        return (float)air / volume > percent;
+        return (float)air / volume < percent;
     }
 }

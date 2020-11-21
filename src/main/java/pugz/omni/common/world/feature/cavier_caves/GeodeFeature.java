@@ -152,10 +152,12 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
 
                     if (var28 && var36 >= var26 && var34 < var18) {
                         if (world.getBlockState(var43).isSolid()) {
-                            world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                            if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                            else if (world.isAirBlock(var43.down())) world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                         }
                     } else if (var34 >= var18) {
-                        world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                        if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                        else if (world.isAirBlock(var43.down())) world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                     } else if (var34 >= var20) {
                         boolean var49 = (double)rand.nextFloat() < config.alternateLayer0Chance;
                         if (var49) {
