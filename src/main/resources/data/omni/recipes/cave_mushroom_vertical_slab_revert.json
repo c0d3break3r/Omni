@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "omni:cave_mushroom_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:cave_mushroom_slab",
+    "count": 1
+  }
+}

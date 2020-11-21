@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "omni:cave_mushroom_planks"
+    }
+  },
+  "result": {
+    "item": "omni:cave_mushroom_pressure_plate",
+    "count": 2
+  }
+}

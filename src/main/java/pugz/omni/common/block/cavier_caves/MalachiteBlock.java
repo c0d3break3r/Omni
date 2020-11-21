@@ -47,6 +47,6 @@ public class MalachiteBlock extends Block {
 
     @Override
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        if (worldIn.rand.nextInt(16) == 0 && !worldIn.isRemote && !entityIn.isSneaking()) worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
+        if (worldIn.rand.nextInt(32) == 0 && !worldIn.isRemote && !entityIn.isSneaking()) worldIn.playSound(null, pos, OmniSoundEvents.CRYSTAL_PLACE.get(), SoundCategory.BLOCKS, 1.0F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
     }
 }
