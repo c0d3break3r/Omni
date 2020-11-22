@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.api.distmarker.Dist;
@@ -218,9 +219,9 @@ public class CavierCavesModule extends AbstractModule {
     
     public void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity living = event.getEntityLiving();
-        BlockPos pos = living.getPosition();
+        BlockPos pos = new BlockPos(living.getPositionVec());
         World world = living.getEntityWorld();
-
+        
         if (world.getBlockState(pos).getBlock() == OmniBlocks.GREEN_CAVE_MUSHROOM.get() && !living.isSuppressingBounce()) {
             if (world.getBlockState(pos.down()).getBlock() instanceof SlimeBlock) living.addVelocity(0.0D, 0.9D, 0.0D);
             else living.addVelocity(0.0D, 0.6D, 0.0D);

@@ -162,7 +162,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     protected void updateAir(int p_209207_1_) {
-        if (this.isAlive() && !this.isInWaterOrBubbleColumn() && !world.isRemote) {
+        if (this.isAlive() && !this.isInWaterOrBubbleColumn()) {
             this.setAir(p_209207_1_ - 1);
             if (this.getAir() == -20) {
                 this.setAir(0);
@@ -310,7 +310,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         int i = this.calculateFallDamage(distance, damageMultiplier);
         if (i <= 0) {
             return false;
-        } else if (!this.world.isRemote) {
+        } else {
             this.attackEntityFrom(DamageSource.FALL, (float)i);
             if (this.isBeingRidden()) {
                 for(Entity entity : this.getRecursivePassengers()) {
@@ -320,7 +320,6 @@ public class SeahorseEntity extends TameableEntity implements IMob {
             this.playFallSound();
             return true;
         }
-        else return false;
     }
 
     protected int calculateFallDamage(float distance, float damageMultiplier) {
@@ -477,11 +476,9 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     protected void mountTo(PlayerEntity player) {
-        if (!this.world.isRemote) {
-            player.rotationYaw = this.rotationYaw;
-            player.rotationPitch = this.rotationPitch;
-            player.startRiding(this);
-        }
+        player.rotationYaw = this.rotationYaw;
+        player.rotationPitch = this.rotationPitch;
+        player.startRiding(this);
     }
 
     @Override
@@ -497,7 +494,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     public void travel(Vector3d travelVector) {
-        if (this.isServerWorld() && this.isAlive()) {
+        if (this.isAlive()) {
             if (this.isBeingRidden() && this.canBeSteered() && this.isInWater()) {
                 LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
                 this.rotationYaw = livingentity.rotationYaw;
