@@ -8,6 +8,7 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -24,6 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import pugz.omni.common.item.forestry.EnchantedGoldenCarrotItem;
 import pugz.omni.core.Omni;
 import pugz.omni.core.registry.OmniItems;
@@ -47,6 +49,7 @@ public class MiscellaneousModule extends AbstractModule {
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
         if (CoreModule.Configuration.CLIENT.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
+        MinecraftForge.EVENT_BUS.addListener(this::onEntityInteractSpecific);
     }
 
     @Override
@@ -183,6 +186,19 @@ public class MiscellaneousModule extends AbstractModule {
                 zombieHorse.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
                 zombieHorse.onInitialSpawn((ServerWorld) world, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.CONVERSION, (ILivingEntityData) null, (CompoundNBT) null);
             }
+        }
+    }
+
+    public void onEntityInteractSpecific(PlayerInteractEvent.EntityInteractSpecific event) {
+        Entity entity = event.getTarget();
+        PlayerEntity player = event.getPlayer();
+
+        if (entity instanceof ZombieHorseEntity) {
+            ZombieHorseEntity zombieHorse = (ZombieHorseEntity)entity;
+
+            player.rotationYaw = zombieHorse.rotationYaw;
+            player.rotationPitch = zombieHorse.rotationPitch;
+            player.startRiding(zombieHorse);
         }
     }
 }

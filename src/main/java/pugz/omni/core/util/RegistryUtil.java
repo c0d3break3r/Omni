@@ -2,6 +2,9 @@ package pugz.omni.core.util;
 
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -41,9 +44,8 @@ public class RegistryUtil {
         return Omni.Registries.ITEMS.register(name, supplier);
     }
 
-    public static <I extends Item> RegistryObject<I> createOverrideItem(String name, Supplier<? extends I> supplier, @Nullable ItemGroup group) {
-        RegistryObject<I> item = Omni.OverrideRegistries.ITEMS.register(name, supplier);
-        return item;
+    public static <I extends Item> RegistryObject<I> createOverrideItem(String name, Supplier<? extends I> supplier) {
+        return Omni.OverrideRegistries.ITEMS.register(name, supplier);
     }
 
     public static <T extends TileEntity> RegistryObject<TileEntityType<T>> createTileEntity(String name, Supplier<? extends T> supplier, Supplier<Block[]> blocks) {
@@ -64,6 +66,10 @@ public class RegistryUtil {
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {
         return Omni.Registries.FEATURES.register(name, supplier);
+    }
+
+    public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> createConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
     }
 
     public static <E extends Enchantment> RegistryObject<E> createEnchantment(String name, Supplier<? extends E> supplier) {

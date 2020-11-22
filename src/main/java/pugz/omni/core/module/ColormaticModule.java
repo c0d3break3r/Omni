@@ -136,8 +136,8 @@ public class ColormaticModule extends AbstractModule {
     @Override
     protected void registerItems() {
         for (DyeColor color : DyeColor.values()) {
-            final RegistryObject<Item> OVERRIDE_CONCRETE = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()), null);
-            final RegistryObject<Item> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete_powder", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()), null);
+            final RegistryObject<Item> OVERRIDE_CONCRETE = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()));
+            final RegistryObject<Item> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete_powder", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()));
         }
 
         //RegistryObject<Item> DYES; ?

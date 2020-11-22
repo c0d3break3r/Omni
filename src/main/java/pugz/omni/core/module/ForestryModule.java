@@ -1,15 +1,25 @@
 package pugz.omni.core.module;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ForgeConfigSpec;
+import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
@@ -90,7 +100,7 @@ public class ForestryModule extends AbstractModule {
     protected void registerFeatures() {
         //RegistryObject<Feature<?>> FALLEN_TREES;
 
-        //RegistryObject<Feature<?>> TALL_OAK_TREE;
+        OmniFeatures.TALL_OAK_TREE = RegistryUtil.createConfiguredFeature("oak_tall", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(5, 2, 6), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().setDecorators(ImmutableList.of(Features.Placements.BEES_0002_PLACEMENT)).build()));
         //RegistryObject<Feature<?>> TALL_SPRUCE_TREE;
         //RegistryObject<Feature<?>> TALL_JUNGLE_TREE;
         //RegistryObject<Feature<?>> TALL_DARK_OAK_TREE;
