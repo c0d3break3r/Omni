@@ -4,15 +4,13 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.MobSpawnInfoBuilder;
+import net.minecraftforge.common.MinecraftForge;
 import pugz.omni.common.block.forestry.CarvedLogBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
@@ -36,6 +34,7 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -108,8 +107,7 @@ public class ForestryModule extends AbstractModule {
         OmniSoundEvents.AMBIENT_SWAMP = RegistryUtil.createSoundEvent("ambient.swamp");
     }
 
-    @Override
-    protected void registerBiomeLoading(BiomeLoadingEvent event) {
+    protected void onBiomeLoading(BiomeLoadingEvent event) {
         Biome.Category category = event.getCategory();
         BiomeAmbience effects = event.getEffects();
         BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())

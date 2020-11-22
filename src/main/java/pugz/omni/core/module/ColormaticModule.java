@@ -55,6 +55,7 @@ public class ColormaticModule extends AbstractModule {
 
     public void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
     }
 
@@ -168,8 +169,7 @@ public class ColormaticModule extends AbstractModule {
         ));
     }
 
-    @Override
-    protected void registerBiomeLoading(BiomeLoadingEvent event) {
+    protected void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         ResourceLocation name = event.getName();
 

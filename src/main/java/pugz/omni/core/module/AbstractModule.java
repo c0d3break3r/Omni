@@ -47,9 +47,6 @@ public abstract class AbstractModule {
         registerStats();
 
         onInitialize();
-
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
-
         sendInitMessage();
     }
 
@@ -112,12 +109,5 @@ public abstract class AbstractModule {
     }
 
     protected void registerStats() {
-    }
-
-    protected void registerBiomeLoading(BiomeLoadingEvent event) {
-    }
-
-    private void onBiomeLoading(BiomeLoadingEvent event) {
-        registerBiomeLoading(event);
     }
 }

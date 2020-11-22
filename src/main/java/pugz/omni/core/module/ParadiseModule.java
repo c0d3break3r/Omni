@@ -51,6 +51,7 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -166,8 +167,7 @@ public class ParadiseModule extends AbstractModule {
         ));
     }
 
-    @Override
-    protected void registerBiomeLoading(BiomeLoadingEvent event) {
+    protected void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
