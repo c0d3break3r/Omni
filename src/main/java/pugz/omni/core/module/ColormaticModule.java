@@ -3,6 +3,8 @@ package pugz.omni.core.module;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
@@ -61,6 +63,7 @@ public class ColormaticModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
         for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
             RenderTypeLookup.setRenderLayer(block.get(), RenderType.getCutout());
@@ -209,7 +212,7 @@ public class ColormaticModule extends AbstractModule {
             for (Supplier<AbstractStackableBlock> b : stackables) {
                 AbstractStackableBlock stackable = b.get();
                 if (stack.getItem() == block.asItem() && stackable.getBase() == block && !player.isSneaking()) {
-                    if (!player.isCreative()) {
+                    if (!player.isCreative() && !world.isRemote) {
                         stack.shrink(1);
                     }
 

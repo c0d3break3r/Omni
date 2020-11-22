@@ -1,5 +1,7 @@
 package pugz.omni.core.module;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.deserted.RedRockBrickButton;
@@ -34,6 +36,7 @@ public class DesertedModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
     }
 

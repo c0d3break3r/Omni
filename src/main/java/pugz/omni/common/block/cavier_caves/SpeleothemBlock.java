@@ -4,6 +4,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
@@ -82,13 +84,13 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult ray) {
-        if (!worldIn.isRemote) {
-            ItemStack held = player.getHeldItem(handIn);
-            Size size = state.get(SIZE);
+        ItemStack held = player.getHeldItem(handIn);
+        Size size = state.get(SIZE);
 
-            if (held.getItem() instanceof PickaxeItem) {
-                FluidState fluidstate = worldIn.getFluidState(pos);
+        if (held.getItem() instanceof PickaxeItem) {
+            FluidState fluidstate = worldIn.getFluidState(pos);
 
+            if (!worldIn.isRemote) {
                 if (size == Size.LARGE || size == Size.ICE_LARGE)
                     worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
                 else if (size == Size.MEDIUM)
@@ -98,9 +100,9 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
                 if (held.isDamageable()) held.damageItem(1, player, (living) -> {
                     living.sendBreakAnimation(handIn);
                 });
-
-                return ActionResultType.SUCCESS;
             }
+
+            return ActionResultType.func_233537_a_(worldIn.isRemote);
         }
         return ActionResultType.FAIL;
     }
@@ -265,6 +267,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote) trySpawnEntity(world, hit.getPos());
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         if (world.isAirBlock(pos.down()) || world.getBlockState(pos.down()).getBlock() == Blocks.CAULDRON && !world.isRemote) {
             for (int i = 0; i < rand.nextInt(1) + 1; ++i) {
@@ -273,6 +276,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void addDripParticle(World world, BlockPos pos, BlockState state) {
         if (state.getFluidState().isEmpty() && !(world.rand.nextFloat() < 0.3F)) {
             VoxelShape shape = state.getCollisionShape(world, pos);
@@ -293,6 +297,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void addDripParticle(World world, BlockPos pos, BlockState state, VoxelShape shape, double y) {
         IParticleData type = state.getBlock() == OmniBlocks.NETHERRACK_SPELEOTHEM.get() ? ParticleTypes.DRIPPING_LAVA : ParticleTypes.DRIPPING_WATER;
         world.addParticle(type, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getX() + shape.getStart(Direction.Axis.X), (double)pos.getX() + shape.getEnd(Direction.Axis.X)), y, MathHelper.lerp(world.rand.nextDouble(), (double)pos.getZ() + shape.getStart(Direction.Axis.Z), (double)pos.getZ() + shape.getEnd(Direction.Axis.Z)), 0.0D, 0.0D, 0.0D);

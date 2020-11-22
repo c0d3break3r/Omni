@@ -19,6 +19,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
@@ -48,6 +50,7 @@ public class MiscellaneousModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
     }
 
@@ -166,7 +169,7 @@ public class MiscellaneousModule extends AbstractModule {
         }
     }
 
-    private void transmutateZombieHorse(World world, ZombieEntity zombie, HorseEntity horse) {
+    private static void transmutateZombieHorse(World world, ZombieEntity zombie, HorseEntity horse) {
         if (horse.hasCustomName() || horse.isTame()) return;
         if (!world.isRemote) {
             zombie.remove();

@@ -70,10 +70,10 @@ public abstract class AbstractStackableBlock extends BushBlock {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!world.isRemote) {
-            ItemStack held = player.getHeldItem(handIn);
+        ItemStack held = player.getHeldItem(handIn);
 
-            if (held.getItem() == getBase().asItem()) {
+        if (held.getItem() == getBase().asItem()) {
+            if (!world.isRemote) {
                 int i = state.get(getCountProperty());
                 if (i < 4) {
                     if (!player.isCreative()) {
@@ -81,7 +81,7 @@ public abstract class AbstractStackableBlock extends BushBlock {
                     }
 
                     world.setBlockState(pos, state.with(getCountProperty(), i + 1), 3);
-                    return ActionResultType.SUCCESS;
+                    return ActionResultType.func_233537_a_(world.isRemote);
                 }
             }
         }

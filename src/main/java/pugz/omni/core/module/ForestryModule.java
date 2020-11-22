@@ -6,6 +6,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniSoundEvents;
@@ -33,6 +35,7 @@ public class ForestryModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
     }
 

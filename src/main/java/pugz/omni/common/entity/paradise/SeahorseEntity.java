@@ -439,7 +439,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         ItemStack held = player.getHeldItem(hand);
         if (!this.isChild()) {
             if ((held.getItem() == Items.KELP) && !this.isTamed()) {
-                if (!player.abilities.isCreativeMode) {
+                if (!player.abilities.isCreativeMode && !this.world.isRemote) {
                     held.shrink(1);
                 }
                 if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
@@ -450,7 +450,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 } else {
                     this.world.setEntityState(this, (byte) 6);
                 }
-                return ActionResultType.SUCCESS;
+                return ActionResultType.func_233537_a_(world.isRemote);
             } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
                 this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
                 held.shrink(1);

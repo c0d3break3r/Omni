@@ -2,6 +2,8 @@ package pugz.omni.core.module;
 
 import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.config.ModConfig;
@@ -33,6 +35,7 @@ public class CoreModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
         ClientRegistry.bindTileEntityRenderer(OmniTileEntities.CHEST.get(), ChestTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(OmniTileEntities.TRAPPED_CHEST.get(), ChestTileEntityRenderer::new);

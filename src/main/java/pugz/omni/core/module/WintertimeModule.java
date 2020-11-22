@@ -9,6 +9,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
@@ -30,6 +32,7 @@ public class WintertimeModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
     }
 
@@ -87,7 +90,7 @@ public class WintertimeModule extends AbstractModule {
 
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         World world = event.getWorld();
-        if (!world.isRemote) {
+        if (world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld)world;
             Entity entity = event.getEntity();
             if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(CoreModule.Configuration.CLIENT.POLAR_BEAR_JOCKEY_CHANCE.get()) == 0) {

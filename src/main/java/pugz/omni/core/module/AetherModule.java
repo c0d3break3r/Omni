@@ -1,5 +1,8 @@
 package pugz.omni.core.module;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 public class AetherModule extends AbstractModule {
     public AetherModule() {
         super("Aether");
@@ -10,6 +13,7 @@ public class AetherModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
     }
 

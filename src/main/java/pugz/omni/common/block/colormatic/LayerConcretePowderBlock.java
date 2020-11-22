@@ -32,6 +32,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.module.CoreModule;
 
@@ -220,6 +222,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
         return shouldSolidify(world, pos, blockstate) ? this.solidifiedState.with(LAYERS, 8) : super.getStateForPlacement(context);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         if (rand.nextInt(16) == 0) {
             BlockPos blockpos = pos.down();

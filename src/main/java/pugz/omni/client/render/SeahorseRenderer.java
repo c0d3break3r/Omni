@@ -7,12 +7,15 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.client.model.SeahorseModel;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.core.Omni;
 
 import javax.annotation.Nonnull;
 
+@OnlyIn(Dist.CLIENT)
 public class SeahorseRenderer extends MobRenderer<SeahorseEntity, EntityModel<SeahorseEntity>> {
     public SeahorseRenderer(EntityRendererManager manager) {
         super(manager, new SeahorseModel<>(), 0.3F);

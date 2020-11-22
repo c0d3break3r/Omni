@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
@@ -57,6 +59,7 @@ public class ParadiseModule extends AbstractModule {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
         RenderTypeLookup.setRenderLayer(OmniBlocks.YELLOW_LOTUS_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.ORANGE_LOTUS_FLOWER.get(), RenderType.getCutout());

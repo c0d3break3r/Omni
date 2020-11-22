@@ -20,6 +20,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 
@@ -72,6 +74,7 @@ public class LayerConcreteBlock extends Block implements IWaterLoggable {
         return SHAPES[state.get(LAYERS)];
     }
 
+    @OnlyIn(Dist.CLIENT)
     @SuppressWarnings("deprecation")
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1.0F;

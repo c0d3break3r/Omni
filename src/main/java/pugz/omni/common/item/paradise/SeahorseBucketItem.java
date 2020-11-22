@@ -22,6 +22,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.core.registry.OmniEntities;
 
@@ -37,7 +39,7 @@ public class SeahorseBucketItem extends BucketItem {
     }
 
     public void onLiquidPlaced(World world, ItemStack stack, BlockPos pos) {
-        if (!world.isRemote) this.placeEntity((ServerWorld) world, stack, pos);
+        this.placeEntity((ServerWorld) world, stack, pos);
     }
 
     protected void playEmptySound(PlayerEntity player, IWorld worldIn, BlockPos pos) {
@@ -63,6 +65,7 @@ public class SeahorseBucketItem extends BucketItem {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         CompoundNBT compoundnbt = stack.getTag();
         if (compoundnbt != null && compoundnbt.contains("SeahorseVariantTag", 3)) {

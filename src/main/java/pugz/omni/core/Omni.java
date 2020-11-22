@@ -1,5 +1,6 @@
 package pugz.omni.core;
 
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import pugz.omni.core.module.*;
@@ -79,6 +80,7 @@ public class Omni {
         WintertimeModule.instance.initialize();
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void registerModuleClient() {
         CoreModule.instance.initializeClient();
 
