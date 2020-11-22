@@ -15,9 +15,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.registry.OmniSoundEvents;
 
-public class MalachiteBlock extends Block {
+public class MalachiteBlock extends Block implements IBaseBlock {
     public MalachiteBlock() {
         super(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WARPED_WART).hardnessAndResistance(4.5F, 10.0F).sound(SoundType.SNOW));
     }

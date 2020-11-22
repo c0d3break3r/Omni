@@ -7,8 +7,9 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
+import pugz.omni.core.base.IBaseBlock;
 
-public class HorizontalFacingBlock extends HorizontalBlock {
+public class HorizontalFacingBlock extends HorizontalBlock implements IBaseBlock {
     public HorizontalFacingBlock(AbstractBlock.Properties properties) {
         super(properties);
     }

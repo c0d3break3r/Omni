@@ -9,10 +9,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
 
-public class RedRockBrickButton extends AbstractButtonBlock {
+public class RedRockBrickButton extends AbstractButtonBlock implements IBaseBlock {
     public RedRockBrickButton() {
         super(false, AbstractBlock.Properties.from(Blocks.STONE_BUTTON));
     }

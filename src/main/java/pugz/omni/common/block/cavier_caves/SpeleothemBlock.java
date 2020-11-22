@@ -7,6 +7,8 @@ import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
+import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import net.minecraft.block.*;
@@ -45,7 +47,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
+public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBaseBlock {
     public static final EnumProperty<Size> SIZE = EnumProperty.create("size", Size.class);
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final BooleanProperty STATIC = BooleanProperty.create("static");
@@ -306,6 +308,13 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(SIZE, PART, STATIC, WATERLOGGED);
+    }
+
+    public static boolean isValidCavePos(Block block, SpeleothemFeatureConfig.Variant variant) {
+        for (Block b : variant.getSpawnableBlocks()) {
+            if (b == block) return true;
+        }
+        return false;
     }
 
     public enum Size implements IStringSerializable {

@@ -1,30 +1,25 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.ForgeConfigSpec;
-import pugz.omni.core.registry.OmniBiomes;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.common.world.MobSpawnInfoBuilder;
+import pugz.omni.common.block.forestry.CarvedLogBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniSoundEvents;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ForestryModule extends AbstractModule {
@@ -41,7 +36,6 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -57,12 +51,12 @@ public class ForestryModule extends AbstractModule {
     protected void registerBlocks() {
         //RegistryObject<Block> CARVED_OAK_PLANKS;
 
-        OmniBlocks.CARVED_OAK_WOOD = RegistryUtil.createBlock("carved_oak_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.CARVED_SPRUCE_WOOD = RegistryUtil.createBlock("carved_spruce_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.CARVED_BIRCH_WOOD = RegistryUtil.createBlock("carved_birch_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.CARVED_JUNGLE_WOOD = RegistryUtil.createBlock("carved_jungle_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.DIRT).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.CARVED_DARK_OAK_WOOD = RegistryUtil.createBlock("carved_dark_oak_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.CARVED_ACACIA_WOOD = RegistryUtil.createBlock("carved_acacia_wood", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_OAK_WOOD = RegistryUtil.createBlock("carved_oak_wood", () -> new CarvedLogBlock(MaterialColor.WOOD), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_SPRUCE_WOOD = RegistryUtil.createBlock("carved_spruce_wood", () -> new CarvedLogBlock(MaterialColor.OBSIDIAN), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_BIRCH_WOOD = RegistryUtil.createBlock("carved_birch_wood", () -> new CarvedLogBlock(MaterialColor.SAND), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_JUNGLE_WOOD = RegistryUtil.createBlock("carved_jungle_wood", () -> new CarvedLogBlock(MaterialColor.DIRT), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_DARK_OAK_WOOD = RegistryUtil.createBlock("carved_dark_oak_wood", () -> new CarvedLogBlock(MaterialColor.ADOBE), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.CARVED_ACACIA_WOOD = RegistryUtil.createBlock("carved_acacia_wood", () -> new CarvedLogBlock(MaterialColor.BROWN), ItemGroup.BUILDING_BLOCKS);
 
         //CHARRED_LOG
 
@@ -114,7 +108,9 @@ public class ForestryModule extends AbstractModule {
         OmniSoundEvents.AMBIENT_SWAMP = RegistryUtil.createSoundEvent("ambient.swamp");
     }
 
-    public void onBiomeLoading(BiomeLoadingEvent event) {
+    @Override
+    protected void registerBiomeLoading(BiomeLoadingEvent event) {
+        Biome.Category category = event.getCategory();
         BiomeAmbience effects = event.getEffects();
         BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
                 .withGrassColorModifier(effects.getGrassColorModifier())
@@ -130,13 +126,13 @@ public class ForestryModule extends AbstractModule {
             ambience = ambience.setAdditionsSound(effects.getAdditionsSound().get());
         if (effects.getParticle().isPresent()) ambience = ambience.setParticle(effects.getParticle().get());
 
-        if (event.getCategory() == Biome.Category.FOREST) {
+        if (category == Biome.Category.FOREST) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());
-        } else if (event.getCategory() == Biome.Category.JUNGLE) {
+        } else if (category == Biome.Category.JUNGLE) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).build());
-        } else if (event.getCategory() == Biome.Category.PLAINS) {
+        } else if (category == Biome.Category.PLAINS) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
-        } else if (event.getCategory() == Biome.Category.SWAMP) {
+        } else if (category == Biome.Category.SWAMP) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
         }
     }

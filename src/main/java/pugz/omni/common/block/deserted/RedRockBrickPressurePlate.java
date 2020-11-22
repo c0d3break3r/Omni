@@ -17,12 +17,13 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock {
+public class RedRockBrickPressurePlate extends AbstractPressurePlateBlock implements IBaseBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public RedRockBrickPressurePlate() {

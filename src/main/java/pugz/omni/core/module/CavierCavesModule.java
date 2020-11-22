@@ -1,20 +1,16 @@
 package pugz.omni.core.module;
 
 import net.minecraft.block.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.HorizontalFacingBlock;
@@ -48,7 +44,6 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerBreakSpeed);
         MinecraftForge.EVENT_BUS.addListener(this::onLivingJump);
     }
@@ -56,10 +51,6 @@ public class CavierCavesModule extends AbstractModule {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
-        RenderTypeLookup.setRenderLayer(OmniBlocks.MALACHITE_CLUSTER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.LARGE_MALACHITE_BUD.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.MEDIUM_MALACHITE_BUD.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.SMALL_MALACHITE_BUD.get(), RenderType.getCutout());
     }
 
     @Override
@@ -184,19 +175,20 @@ public class CavierCavesModule extends AbstractModule {
     protected void registerStats() {
     }
 
-    public void onBiomeLoading(BiomeLoadingEvent event) {
+    @Override
+    protected void registerBiomeLoading(BiomeLoadingEvent event) {
         Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 3);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 2);
             BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 2);
         }
         if (category == Biome.Category.NETHER) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 2);
         }
         if (category == Biome.Category.MUSHROOM) {
             BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
@@ -221,7 +213,7 @@ public class CavierCavesModule extends AbstractModule {
         LivingEntity living = event.getEntityLiving();
         BlockPos pos = new BlockPos(living.getPositionVec());
         World world = living.getEntityWorld();
-        
+
         if (world.getBlockState(pos).getBlock() == OmniBlocks.GREEN_CAVE_MUSHROOM.get() && !living.isSuppressingBounce()) {
             if (world.getBlockState(pos.down()).getBlock() instanceof SlimeBlock) living.addVelocity(0.0D, 0.9D, 0.0D);
             else living.addVelocity(0.0D, 0.6D, 0.0D);

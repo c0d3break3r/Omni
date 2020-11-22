@@ -4,6 +4,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -23,11 +24,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public abstract class AbstractStackableBlock extends BushBlock {
+public abstract class AbstractStackableBlock extends BushBlock implements IBaseBlock {
     public AbstractStackableBlock(AbstractBlock.Properties properties) {
         super(properties);
         setDefaultState(this.stateContainer.getBaseState().with(getCountProperty(), 2));
@@ -40,6 +42,11 @@ public abstract class AbstractStackableBlock extends BushBlock {
     public abstract Block getBlock();
 
     public abstract Property<Integer> getCountProperty();
+
+    @Override
+    public RenderType getRenderType() {
+        return RenderType.getCutout();
+    }
 
     public void removeOne(World world, BlockPos pos, BlockState state) {
         world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);

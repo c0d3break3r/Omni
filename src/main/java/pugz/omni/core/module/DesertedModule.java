@@ -32,7 +32,6 @@ public class DesertedModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -135,7 +134,8 @@ public class DesertedModule extends AbstractModule {
     protected void registerStats() {
     }
 
-    public void onBiomeLoading(BiomeLoadingEvent event) {
+    @Override
+    protected void registerBiomeLoading(BiomeLoadingEvent event) {
         Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 

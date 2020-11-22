@@ -1,5 +1,16 @@
 package pugz.omni.core.module;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComposterBlock;
+import net.minecraft.block.FireBlock;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import pugz.omni.core.base.IBaseBlock;
+
 public abstract class AbstractModule {
     private final String name;
 
@@ -36,11 +47,25 @@ public abstract class AbstractModule {
         registerStats();
 
         onInitialize();
+
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
+
         sendInitMessage();
     }
 
     public void initializeClient() {
         onClientInitialize();
+
+        ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
+            if (block.getValue() instanceof IBaseBlock) {
+                final FireBlock fire = (FireBlock) Blocks.FIRE;
+                IBaseBlock baseBlock = (IBaseBlock) block.getValue();
+
+                if (baseBlock.getRenderType() != RenderType.getSolid()) RenderTypeLookup.setRenderLayer((Block) baseBlock, baseBlock.getRenderType());
+                if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());
+                if (baseBlock.getCompostChance() != 0.0F) ComposterBlock.CHANCES.put(((Block) baseBlock).asItem(), baseBlock.getCompostChance());
+            }
+        });
     }
 
     public void initializePost() {
@@ -87,5 +112,12 @@ public abstract class AbstractModule {
     }
 
     protected void registerStats() {
+    }
+
+    protected void registerBiomeLoading(BiomeLoadingEvent event) {
+    }
+
+    private void onBiomeLoading(BiomeLoadingEvent event) {
+        registerBiomeLoading(event);
     }
 }

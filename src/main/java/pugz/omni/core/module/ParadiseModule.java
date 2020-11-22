@@ -1,10 +1,6 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.FireBlock;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -55,46 +51,16 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
-        RenderTypeLookup.setRenderLayer(OmniBlocks.YELLOW_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.ORANGE_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.RED_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.PINK_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.PURPLE_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.BLUE_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.BLACK_LOTUS_FLOWER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OmniBlocks.WHITE_LOTUS_FLOWER.get(), RenderType.getCutout());
-
         RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
     }
 
     @Override
     protected void onPostInitialize() {
-        FireBlock fire = (FireBlock) Blocks.FIRE;
-
-        fire.setFireInfo(OmniBlocks.YELLOW_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.ORANGE_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.RED_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.PINK_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.PURPLE_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.BLUE_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.BLACK_LOTUS_FLOWER.get(), 60, 100);
-        fire.setFireInfo(OmniBlocks.WHITE_LOTUS_FLOWER.get(), 60, 100);
-
-        ComposterBlock.CHANCES.put(OmniBlocks.YELLOW_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.ORANGE_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.RED_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.PINK_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.PURPLE_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.BLUE_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.BLACK_LOTUS_FLOWER.get().asItem(), 0.65F);
-        ComposterBlock.CHANCES.put(OmniBlocks.WHITE_LOTUS_FLOWER.get().asItem(), 0.65F);
-
         GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
         EntitySpawnPlacementRegistry.register(OmniEntities.SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSeahorseSpawn);
     }
@@ -200,7 +166,8 @@ public class ParadiseModule extends AbstractModule {
         ));
     }
 
-    public void onBiomeLoading(BiomeLoadingEvent event) {
+    @Override
+    protected void registerBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         MobSpawnInfoBuilder spawns = event.getSpawns();
 

@@ -24,7 +24,7 @@ public class CaveMushroomFeature extends Feature<CaveMushroomFeatureConfig> {
 
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveMushroomFeatureConfig config) {
-        BlockPos place = CaveGenUtils.getCaveFloorPosition(world, pos, null);
+        BlockPos place = CaveGenUtils.getCaveFloorPosition(world, pos);
         if (world.getBlockState(place.down()).getBlock() != Blocks.MYCELIUM) return false;
 
         if (rand.nextBoolean()) {

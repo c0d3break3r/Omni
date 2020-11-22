@@ -1,6 +1,7 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -26,12 +27,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniSoundEvents;
 
 import javax.annotation.Nonnull;
 
-public class MalachiteBudBlock extends Block implements IWaterLoggable {
+public class MalachiteBudBlock extends Block implements IWaterLoggable, IBaseBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     protected static final VoxelShape[] UP_SHAPES = new VoxelShape[] {Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 3.0D, 11.0D), Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D), Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 5.0D, 12.0D), Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D)};
@@ -48,6 +50,11 @@ public class MalachiteBudBlock extends Block implements IWaterLoggable {
         }).sound(SoundType.SNOW));
         this.age = age;
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(WATERLOGGED, false));
+    }
+
+    @Override
+    public RenderType getRenderType() {
+        return RenderType.getCutout();
     }
 
     public boolean ticksRandomly(BlockState state) {

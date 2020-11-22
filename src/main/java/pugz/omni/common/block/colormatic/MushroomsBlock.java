@@ -10,11 +10,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.server.ServerWorld;
+import pugz.omni.core.base.IBaseBlock;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class MushroomsBlock extends AbstractStackableBlock implements IGrowable {
+public class MushroomsBlock extends AbstractStackableBlock implements IGrowable, IBaseBlock {
     private static final VoxelShape MULTI_MUSHROOM_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 6.0D, 12.0D);
     public static final IntegerProperty MUSHROOMS = IntegerProperty.create("mushrooms", 1, 4);
     private final Block base;

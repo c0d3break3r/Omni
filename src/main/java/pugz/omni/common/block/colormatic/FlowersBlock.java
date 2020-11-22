@@ -1,5 +1,6 @@
 package pugz.omni.common.block.colormatic;
 
+import net.minecraft.client.renderer.RenderType;
 import pugz.omni.common.block.AbstractStackableBlock;
 import net.minecraft.block.*;
 import net.minecraft.state.IntegerProperty;
@@ -9,10 +10,11 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
+import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
 
-public class FlowersBlock extends AbstractStackableBlock {
+public class FlowersBlock extends AbstractStackableBlock implements IBaseBlock {
     private static final VoxelShape MULTI_FLOWER_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
     public static final IntegerProperty FLOWERS = IntegerProperty.create("flowers", 1, 4);
     private final Block base;
@@ -20,6 +22,21 @@ public class FlowersBlock extends AbstractStackableBlock {
     public FlowersBlock(AbstractBlock.Properties properties, Block base) {
         super(properties);
         this.base = base;
+    }
+
+    @Override
+    public RenderType getRenderType() {
+        return RenderType.getCutout();
+    }
+
+    @Override
+    public int getFireEncouragement() {
+        return 60;
+    }
+
+    @Override
+    public int getFireFlammability() {
+        return 100;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -15,7 +13,6 @@ import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.util.RegistryUtil;
 import pugz.omni.core.util.TradeUtils;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
@@ -58,36 +55,17 @@ public class ColormaticModule extends AbstractModule {
 
     public void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
-        for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
-            RenderTypeLookup.setRenderLayer(block.get(), RenderType.getCutout());
-        }
-
         RenderingRegistry.registerEntityRenderingHandler(OmniEntities.FALLING_CONCRETE_POWDER.get(), FallingConcretePowderRenderer::new);
     }
 
     @Override
     protected void onPostInitialize() {
-        FireBlock fire = (FireBlock) Blocks.FIRE;
-
-        for (Supplier<AbstractStackableBlock> block : ColormaticModule.stackables) {
-            if (block.get() instanceof FlowersBlock) fire.setFireInfo(block.get(), 60, 100);
-        }
-
-        fire.setFireInfo(OmniBlocks.TRADERS_QUILTED_CARPET.get(), 60, 20);
-        fire.setFireInfo(OmniBlocks.TRADERS_QUILTED_WOOL.get(), 30, 60);
-
-        for (Supplier<Block> block : ColormaticModule.quilteds) {
-            if (StringUtils.contains(block.get().getRegistryName().getPath(), "wool")) {
-                fire.setFireInfo(block.get(), 30, 60);
-            } else fire.setFireInfo(block.get(), 60, 20);
-        }
     }
 
     @Override
@@ -99,7 +77,7 @@ public class ColormaticModule extends AbstractModule {
             final RegistryObject<Block> CONCRETE_POWDER = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete_powder", () -> new LayerConcretePowderBlock(CONCRETE.get(), color), ItemGroup.BUILDING_BLOCKS);
 
             final RegistryObject<Block> QUILTED_CARPET = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_carpet", () -> new QuiltedCarpetBlock(color), ItemGroup.DECORATIONS);
-            final RegistryObject<Block> QUILTED_WOOL = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_wool", () -> new Block(AbstractBlock.Properties.create(Material.WOOL, color).hardnessAndResistance(0.8F).sound(SoundType.CLOTH)), ItemGroup.BUILDING_BLOCKS);
+            final RegistryObject<Block> QUILTED_WOOL = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_wool", () -> new QuiltedWoolBlock(color), ItemGroup.BUILDING_BLOCKS);
             quilteds.addAll(ImmutableSet.of(QUILTED_CARPET, QUILTED_WOOL));
         }
 
@@ -123,7 +101,7 @@ public class ColormaticModule extends AbstractModule {
         }
 
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);
-        OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new Block(AbstractBlock.Properties.create(Material.WOOL, DyeColor.BLUE).hardnessAndResistance(0.8F).sound(SoundType.CLOTH)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new QuiltedWoolBlock(DyeColor.BLUE), ItemGroup.BUILDING_BLOCKS);
 
         //OmniBlocks.FLOWER_STEM = RegistryUtil.createBlock(null, null, null);
         //OmniBlocks.DANDELION_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
@@ -190,11 +168,11 @@ public class ColormaticModule extends AbstractModule {
         ));
     }
 
-    public void onBiomeLoading(BiomeLoadingEvent event) {
+    @Override
+    protected void registerBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         ResourceLocation name = event.getName();
 
-        assert name != null;
         if (name.equals(new ResourceLocation("omni", "flower_field"))) {
             gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FOREST_FLOWER_VEGETATION_COMMON);
             gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FLOWER_FOREST);

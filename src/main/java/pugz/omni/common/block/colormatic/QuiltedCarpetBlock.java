@@ -17,13 +17,14 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.module.ColormaticModule;
 import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class QuiltedCarpetBlock extends Block {
+public class QuiltedCarpetBlock extends Block implements IBaseBlock {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
     public static final BooleanProperty NORTH;
     public static final BooleanProperty EAST;
@@ -34,6 +35,16 @@ public class QuiltedCarpetBlock extends Block {
     public QuiltedCarpetBlock(DyeColor color) {
         super(AbstractBlock.Properties.create(Material.CARPET, color).hardnessAndResistance(0.1F).sound(SoundType.CLOTH));
         setDefaultState(stateContainer.getBaseState().with(NORTH, false).with(SOUTH, false).with(EAST, false).with(WEST, false));
+    }
+
+    @Override
+    public int getFireEncouragement() {
+        return 60;
+    }
+
+    @Override
+    public int getFireFlammability() {
+        return 20;
     }
 
     @Nonnull

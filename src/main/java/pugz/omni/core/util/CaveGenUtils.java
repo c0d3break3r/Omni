@@ -1,17 +1,15 @@
 package pugz.omni.core.util;
 
-import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
+import net.minecraftforge.common.Tags;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-
-import javax.annotation.Nullable;
 
 public class CaveGenUtils {
     /**
      * Gets a floor position at the x and y of the given position
      */
-    public static BlockPos.Mutable getCaveFloorPosition(ISeedReader world, BlockPos pos, @Nullable SpeleothemFeatureConfig.Variant variant) {
+    public static BlockPos.Mutable getCaveFloorPosition(ISeedReader world, BlockPos pos) {
         BlockPos.Mutable pos$mutable = pos.toMutable();
 
         for (int y = 0; y <= 128; ++y) {
@@ -21,14 +19,12 @@ public class CaveGenUtils {
             Block up = world.getBlockState(pos$mutable.up()).getBlock();
             Block down = world.getBlockState(pos$mutable.down()).getBlock();
 
-            if (variant != null) {
-                if ((block == Blocks.CAVE_AIR || block == Blocks.WATER)
-                        && up != Blocks.AIR
-                        && isValidCavePos(down, variant)
-                        && !world.canBlockSeeSky(pos$mutable)) break;
-            } else if ((block == Blocks.CAVE_AIR || block == Blocks.WATER)
-                    && up != Blocks.AIR
-                    && !world.canBlockSeeSky(pos$mutable)) break;
+            if ((block == Blocks.CAVE_AIR ||
+                    block == Blocks.WATER) &&
+                    up.getBlock() != Blocks.AIR &&
+                    isValidCavePos(down.getBlock()) &&
+                    !world.canBlockSeeSky(pos$mutable)) break;
+
         }
 
         return pos$mutable;
@@ -59,10 +55,7 @@ public class CaveGenUtils {
         return height;
     }
 
-    public static boolean isValidCavePos(Block block, SpeleothemFeatureConfig.Variant variant) {
-        for (Block b : variant.getSpawnableBlocks()) {
-            if (b == block) return true;
-        }
-        return false;
+    public static boolean isValidCavePos(Block block) {
+        return block.isIn(Tags.Blocks.STONE) || block.isIn(Tags.Blocks.NETHERRACK);
     }
 }

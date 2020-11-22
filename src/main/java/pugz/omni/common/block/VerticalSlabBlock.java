@@ -23,11 +23,12 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class VerticalSlabBlock extends Block implements IWaterLoggable {
+public class VerticalSlabBlock extends Block implements IWaterLoggable, IBaseBlock {
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.create("type", VerticalSlabType.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 

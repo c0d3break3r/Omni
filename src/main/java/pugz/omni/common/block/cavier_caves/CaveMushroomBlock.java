@@ -25,12 +25,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.registry.OmniSoundEvents;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CaveMushroomBlock extends Block implements IWaterLoggable {
+public class CaveMushroomBlock extends Block implements IWaterLoggable, IBaseBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape CAP = Block.makeCuboidShape(0.0D, 6.0D, 0.0D, 16.0D, 13.0D, 16.0D);
     protected static final VoxelShape STEM = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 6.0D, 10.0D);

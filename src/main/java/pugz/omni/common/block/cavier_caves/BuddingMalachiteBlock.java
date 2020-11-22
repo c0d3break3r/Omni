@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniSoundEvents;
@@ -24,7 +25,7 @@ import pugz.omni.core.registry.OmniSoundEvents;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BuddingMalachiteBlock extends Block {
+public class BuddingMalachiteBlock extends Block implements IBaseBlock {
     public BuddingMalachiteBlock() {
         super(Properties.from(OmniBlocks.MALACHITE_BLOCK.get()).noDrops());
     }

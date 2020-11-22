@@ -22,8 +22,8 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, SpeleothemFeatureConfig config) {
         //floor
         if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
-            BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
-            if (world.getBlockState(lowerStart.up()).getBlock() instanceof SpeleothemBlock || world.getBlockState(lowerStart.down()).getBlock() instanceof SpeleothemBlock) return false;
+            BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos);
+            //if (!SpeleothemBlock.isValidCavePos(world.getBlockState(lowerStart.down()).getBlock(), config.variant)) return false;
 
             int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
             if (lowerLength == 0) return false;
@@ -50,11 +50,11 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
         }
         //ceiling
         else {
-            BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos, config.variant);
-            if (world.getBlockState(upperStart.up()).getBlock() instanceof SpeleothemBlock || world.getBlockState(upperStart.down()).getBlock() instanceof SpeleothemBlock) return false;
+            BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos);
+            if (world.getBlockState(upperStart.up()).getBlock() instanceof SpeleothemBlock || !SpeleothemBlock.isValidCavePos(world.getBlockState(upperStart.down()).getBlock(), config.variant)) return false;
 
             int upperLength = CaveGenUtils.getCaveHeight(world, upperStart);
-            if (upperLength == 0 || !CaveGenUtils.isValidCavePos(world.getBlockState(upperStart.up(upperLength + 1)).getBlock(), config.variant)) return false;
+            if (upperLength == 0 || !SpeleothemBlock.isValidCavePos(world.getBlockState(upperStart.up(upperLength + 1)).getBlock(), config.variant)) return false;
 
             upperStart.setY(upperStart.getY() + (upperLength - 1));
             upperLength = MathHelper.clamp(random.nextInt(upperLength), 3, upperLength);
@@ -80,11 +80,8 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
     }
 
     public static void placeSpeleothem(ISeedReader world, BlockPos pos, SpeleothemBlock.Size size, SpeleothemFeatureConfig config, boolean part) {
-        if (!world.isRemote()) {
-            Block block = world.getBlockState(pos).getBlock();
-            if (block == Blocks.CAVE_AIR || block == Blocks.WATER)
-                world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.PART, part ? SpeleothemBlock.Part.UPPER : SpeleothemBlock.Part.LOWER).with(SpeleothemBlock.STATIC, true).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
-        }
+        Block block = world.getBlockState(pos).getBlock();
+        if (block == Blocks.CAVE_AIR || block == Blocks.WATER) world.setBlockState(pos, config.variant.getState().with(SpeleothemBlock.SIZE, size).with(SpeleothemBlock.PART, part ? SpeleothemBlock.Part.UPPER : SpeleothemBlock.Part.LOWER).with(SpeleothemBlock.STATIC, true).with(SpeleothemBlock.WATERLOGGED, world.getBlockState(pos).getBlock() == Blocks.WATER), 0);
     }
 
     public static void placeFullSpeleothem(ISeedReader world, BlockPos pos, SpeleothemFeatureConfig config, int i, boolean part) {

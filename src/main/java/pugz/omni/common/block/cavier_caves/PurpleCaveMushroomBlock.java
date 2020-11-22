@@ -11,9 +11,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.registry.OmniSoundEvents;
 
-public class PurpleCaveMushroomBlock extends CaveMushroomBlock {
+public class PurpleCaveMushroomBlock extends CaveMushroomBlock implements IBaseBlock {
     public PurpleCaveMushroomBlock() {
         super(MaterialColor.PURPLE);
     }
