@@ -2,6 +2,7 @@ package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -32,6 +33,11 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
     public SpiderSacBlock() {
         super(AbstractBlock.Properties.create(Material.ORGANIC).hardnessAndResistance(0.25F).notSolid().sound(SoundType.SLIME));
         setDefaultState(this.stateContainer.getBaseState().with(SIZE, 2).with(WATERLOGGED, false));
+    }
+
+    @Override
+    public RenderType getRenderType() {
+        return RenderType.getCutout();
     }
 
     @Override

@@ -98,7 +98,7 @@ public class CavierCavesModule extends AbstractModule {
             //}
         //}
 
-        //RegistryObject<Block> WEB_BLOCK;
+        OmniBlocks.COBWEB_CARPET = RegistryUtil.createBlock("cobweb_carpet", CobwebCarpetBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.CAVE_SPIDER_SAC = RegistryUtil.createBlock("cave_spider_sac", SpiderSacBlock::new, ItemGroup.DECORATIONS);
 
         //RegistryObject<Block> WEAK_STONE;
