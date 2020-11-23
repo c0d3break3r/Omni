@@ -2,6 +2,7 @@ package pugz.omni.core.registry;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
+import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
@@ -13,6 +14,7 @@ import pugz.omni.core.Omni;
 public class OmniEntities {
     //cavier caves
     public static RegistryObject<EntityType<SpeleothemEntity>> SPELEOTHEM;
+    public static RegistryObject<EntityType<SizedCaveSpiderEntity>> CAVE_SPIDER;
 
     //colormatic
     public static RegistryObject<EntityType<FallingConcretePowderEntity>> FALLING_CONCRETE_POWDER;

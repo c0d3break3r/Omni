@@ -51,6 +51,8 @@ public class CaveOreFeatureConfig implements IFeatureConfig {
         CEILING("ceiling"),
         WALLS("walls"),
         FLOOR_CEILING("floor_ceiling"),
+        FLOOR_BOTTOM("floor_bottom"),
+        ABOVE_FLOOR_BOTTOM("above_floor_bottom"),
         ALL("all");
 
         public static final Codec<CaveFace> codec = IStringSerializable.createEnumCodec(CaveFace::values, CaveFace::byName);

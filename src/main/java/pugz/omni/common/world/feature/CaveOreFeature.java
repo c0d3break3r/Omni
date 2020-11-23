@@ -134,6 +134,16 @@ public class CaveOreFeature extends Feature<CaveOreFeatureConfig> {
                                                                 if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
                                                             }
                                                             break;
+                                                        case FLOOR_BOTTOM:
+                                                            if (direction == Direction.UP && !isNextToAir(worldIn, blockpos$mutable)) {
+                                                                //if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                            }
+                                                            break;
+                                                        case ABOVE_FLOOR_BOTTOM:
+                                                            if (direction == Direction.UP && !isNextToAir(worldIn, blockpos$mutable)) {
+                                                                //if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable.up(), config.state, 2);
+                                                            }
+                                                            break;
                                                         default:
                                                             if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
                                                             break;
@@ -151,5 +161,15 @@ public class CaveOreFeature extends Feature<CaveOreFeatureConfig> {
             }
         }
         return i > 0;
+    }
+
+    private boolean isNextToAir(IWorld world, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            if (direction != Direction.UP && direction != Direction.DOWN) {
+                if (world.isAirBlock(pos.offset(direction))) return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,7 +1,9 @@
 package pugz.omni.core.module;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -12,10 +14,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import pugz.omni.client.render.SizedCaveSpiderRenderer;
 import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.cavier_caves.*;
+import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
+import pugz.omni.common.entity.paradise.SeahorseEntity;
+import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.common.world.feature.CaveOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.registry.*;
@@ -45,17 +51,19 @@ public class CavierCavesModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerBreakSpeed);
+        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onLivingJump);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
-    }
+        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.CAVE_SPIDER.get(), SizedCaveSpiderRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SPELEOTHEM.get(), SpeleothemRenderer::new);}
 
     @Override
     protected void onPostInitialize() {
-        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SPELEOTHEM.get(), SpeleothemRenderer::new);
+        GlobalEntityTypeAttributes.put(OmniEntities.CAVE_SPIDER.get(), SizedCaveSpiderEntity.registerAttributes().create());
     }
 
     @Override
@@ -123,12 +131,12 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Item> CRYSTAL_MELON;
 
         OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
+        OmniItems.CAVE_SPIDER_SPAWN_EGG = RegistryUtil.createOverrideItem("cave_spider_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.CAVE_SPIDER.get(), 803406, 11013646, new Item.Properties().group(ItemGroup.MATERIALS)));
     }
 
     @Override
     protected void registerEntities() {
-        //RegistryObject<EntityType<?>> SPIDERLING;
-
+        OmniEntities.CAVE_SPIDER = RegistryUtil.createEntity("cave_spider", () -> OmniEntities.createLivingEntity(SizedCaveSpiderEntity::new, EntityClassification.MONSTER, "cave_spider",0.7F, 0.5F));
         OmniEntities.SPELEOTHEM = RegistryUtil.createEntity("speleothem", OmniEntities::createSpeleothemEntity);
     }
 
@@ -180,14 +188,14 @@ public class CavierCavesModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 2);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 3);
             BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 2);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
         }
         if (category == Biome.Category.NETHER) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 2);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
             BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
