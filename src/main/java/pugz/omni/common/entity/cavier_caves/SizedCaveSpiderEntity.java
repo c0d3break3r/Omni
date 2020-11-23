@@ -100,7 +100,7 @@ public class SizedCaveSpiderEntity extends CaveSpiderEntity {
     public EntitySize getSize(Pose poseIn) {
         int i = this.getSpiderSize();
         EntitySize entitysize = super.getSize(poseIn);
-        float f = (entitysize.width * (float)i) / entitysize.width;
-        return entitysize.scale(f);
+        float f = 1.0F + 0.3F * (float) i;
+        return entitysize.scale(f * 2.0F, f * 1.5F);
     }
 }

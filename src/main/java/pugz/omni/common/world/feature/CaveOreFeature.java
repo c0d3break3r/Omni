@@ -116,36 +116,57 @@ public class CaveOreFeature extends Feature<CaveOreFeatureConfig> {
                                                     switch (config.face) {
                                                         case FLOOR:
                                                             if (direction == Direction.UP) {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                    if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                                }
                                                             }
                                                             break;
                                                         case CEILING:
                                                             if (direction == Direction.DOWN) {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                    if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                                }
                                                             }
                                                             break;
                                                         case WALLS:
                                                             if (direction != Direction.UP && direction != Direction.DOWN) {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                    if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                                }
                                                             }
                                                             break;
                                                         case FLOOR_CEILING:
                                                             if (direction == Direction.UP || direction == Direction.DOWN) {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                    if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                                }
                                                             }
                                                             break;
                                                         case FLOOR_BOTTOM:
                                                             if (direction == Direction.UP && !isNextToAir(worldIn, blockpos$mutable)) {
-                                                                //if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                    if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                                }
                                                             }
                                                             break;
                                                         case ABOVE_FLOOR_BOTTOM:
                                                             if (direction == Direction.UP && !isNextToAir(worldIn, blockpos$mutable)) {
-                                                                //if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) worldIn.setBlockState(blockpos$mutable.up(), config.state, 2);
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction)) && !worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) {
+                                                                    worldIn.setBlockState(blockpos$mutable.up(), config.state, 2);
+                                                                    if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                                }
                                                             }
                                                             break;
                                                         default:
-                                                            if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                            if (worldIn.isAirBlock(blockpos$mutable.offset(direction))) {
+                                                                worldIn.setBlockState(blockpos$mutable, config.state, 2);
+                                                                if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
+                                                            }
                                                             break;
                                                     }
                                                 }

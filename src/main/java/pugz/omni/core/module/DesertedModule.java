@@ -140,7 +140,7 @@ public class DesertedModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category == Biome.Category.MESA) {
-            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), CaveOreFeatureConfig.CaveFace.ALL, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), 0, 0, 100, 10, 80, 1);
+            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CaveOreFeatureConfig.CaveFace.ALL, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), 0, 0, 100, 10, 80, 1);
         }
     }
 }

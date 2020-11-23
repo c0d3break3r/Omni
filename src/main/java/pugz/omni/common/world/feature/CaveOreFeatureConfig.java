@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,6 +23,8 @@ public class CaveOreFeatureConfig implements IFeatureConfig {
             return config.target;
         }), BlockState.CODEC.fieldOf("state").forGetter((config) -> {
             return config.state;
+        }), BlockState.CODEC.fieldOf("filler_state").forGetter((config) -> {
+            return config.state;
         }), Codec.intRange(0, 64).fieldOf("size").forGetter((config) -> {
             return config.size;
         }), CaveFace.codec.fieldOf("variant").forGetter((config) -> {
@@ -31,11 +34,13 @@ public class CaveOreFeatureConfig implements IFeatureConfig {
     public final RuleTest target;
     public final int size;
     public final BlockState state;
+    @Nullable public final BlockState fillerState;
     public final CaveFace face;
 
-    public CaveOreFeatureConfig(RuleTest ruleTest, BlockState state, int size, CaveFace face) {
+    public CaveOreFeatureConfig(RuleTest ruleTest, BlockState state, @Nullable BlockState fillerState, int size, CaveFace face) {
         this.size = size;
         this.state = state;
+        this.fillerState = fillerState;
         this.target = ruleTest;
         this.face = face;
     }

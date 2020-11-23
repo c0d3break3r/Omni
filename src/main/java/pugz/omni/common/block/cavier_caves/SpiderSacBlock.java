@@ -31,6 +31,7 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
 
     public SpiderSacBlock() {
         super(AbstractBlock.Properties.create(Material.ORGANIC).hardnessAndResistance(0.25F).notSolid().sound(SoundType.SLIME));
+        setDefaultState(this.stateContainer.getBaseState().with(SIZE, 2).with(WATERLOGGED, false));
     }
 
     @Override
@@ -50,6 +51,11 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
             worldIn.removeBlock(pos, false);
         }
         super.tick(state, worldIn, pos, rand);
+    }
+
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        return true;
     }
 
     @Nullable

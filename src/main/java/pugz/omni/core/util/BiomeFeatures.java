@@ -13,6 +13,8 @@ import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+
+import javax.annotation.Nullable;
 import java.util.Set;
 
 public class BiomeFeatures {
@@ -22,8 +24,8 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> Feature.ORE.withConfiguration(new OreFeatureConfig(filler, state, size)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight))).range(range).square().func_242731_b(spread));
     }
 
-    public static void addCaveOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, CaveOreFeatureConfig.CaveFace face, int size, int bottom, int top, int maxHeight, int spread, int range, int chance) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> OmniFeatures.CAVE_ORE.get().withConfiguration(new CaveOreFeatureConfig(filler, state, size, face)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight)).chance(chance)).range(range).square().func_242731_b(spread));
+    public static void addCaveOreCluster(BiomeGenerationSettingsBuilder biome, RuleTest filler, BlockState state, @Nullable BlockState fillerState, CaveOreFeatureConfig.CaveFace face, int size, int bottom, int top, int maxHeight, int spread, int range, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> OmniFeatures.CAVE_ORE.get().withConfiguration(new CaveOreFeatureConfig(filler, state, fillerState, size, face)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(bottom, top, maxHeight)).chance(chance)).range(range).square().func_242731_b(spread));
     }
 
     public static void addScatteredBlock(BiomeGenerationSettingsBuilder biome, BlockState state, Set<Block> placers, int tries, int chance) {
