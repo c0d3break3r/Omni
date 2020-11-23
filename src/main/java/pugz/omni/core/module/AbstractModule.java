@@ -6,8 +6,6 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.core.base.IBaseBlock;
 

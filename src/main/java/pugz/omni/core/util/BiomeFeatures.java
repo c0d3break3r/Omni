@@ -40,7 +40,7 @@ public class BiomeFeatures {
     }
 
     public static void addMalachiteGeodes(BiomeGenerationSettingsBuilder biome) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.CLIENT.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.COMMON.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
     }
 
     public static void addSmallMushrooms(BiomeGenerationSettingsBuilder biome, BlockState state, BlockState smallState, float probability, int chance) {

@@ -80,7 +80,7 @@ public class BuddingMalachiteBlock extends Block implements IBaseBlock {
             BlockPos place = pos.offset(direction);
             BlockState placeState = worldIn.getBlockState(place);
 
-            if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(CoreModule.Configuration.CLIENT.BUDDING_MALACHITE_GROWTH_CHANCE.get()) == 1)) {
+            if (ForgeHooks.onCropsGrowPre(worldIn, place, placeState, random.nextInt(CoreModule.Configuration.COMMON.BUDDING_MALACHITE_GROWTH_CHANCE.get()) == 1)) {
                 if (worldIn.isAirBlock(place) || worldIn.getBlockState(place).getMaterial().isLiquid()) {
                     worldIn.setBlockState(place, OmniBlocks.SMALL_MALACHITE_BUD.get().getDefaultState().with(MalachiteBudBlock.FACING, direction).with(MalachiteBudBlock.WATERLOGGED, worldIn.getFluidState(place).isTagged(FluidTags.WATER)), 3);
                 } else {

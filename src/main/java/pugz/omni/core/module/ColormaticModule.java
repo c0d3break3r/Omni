@@ -132,7 +132,7 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.CLIENT.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
+        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
         //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
         //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
     }
@@ -165,7 +165,7 @@ public class ColormaticModule extends AbstractModule {
 
     public void onWandererTrades(WandererTradesEvent event) {
         event.getGenericTrades().addAll(ImmutableSet.of(
-                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), CoreModule.Configuration.CLIENT.TRADERS_WOOL_TRADE_PRICE.get(), 8, 8, 2)
+                new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), CoreModule.Configuration.COMMON.TRADERS_WOOL_TRADE_PRICE.get(), 8, 8, 2)
         ));
     }
 

@@ -120,7 +120,6 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable, IBaseBlo
         DOUBLE(null);
 
         private final String name;
-        @Nullable
         public final Direction direction;
         public final VoxelShape shape;
 

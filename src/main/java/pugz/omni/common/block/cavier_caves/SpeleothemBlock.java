@@ -118,7 +118,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
     }
 
     private void trySpawnEntity(World world, BlockPos pos) {
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get()) {
+        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FALL.get()) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
                 SpeleothemEntity fallingblockentity = new SpeleothemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
                 world.addEntity(fallingblockentity);
@@ -129,7 +129,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
 
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FILL_CAULDRONS.get()) {
+        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FILL_CAULDRONS.get()) {
             for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
                 BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
                 BlockState block = world.getBlockState(check);
@@ -168,7 +168,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
     @Nonnull
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL.get()) {
+        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FALL.get()) {
             BlockState down = world.getBlockState(currentPos.down());
             BlockState up = world.getBlockState(currentPos.up());
             Part part = state.get(PART);
@@ -266,7 +266,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        if (CoreModule.Configuration.CLIENT.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote) trySpawnEntity(world, hit.getPos());
+        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote) trySpawnEntity(world, hit.getPos());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -327,12 +327,10 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
             int pad = (16 - width) / 2;
             shape = Block.makeCuboidShape(pad, 0, pad, 16 - pad, 16, 16 - pad);
             name = nameIn;
-            this.width = width;
         }
 
         public VoxelShape shape;
         public String name;
-        private final int width;
 
         @Nonnull
         @Override

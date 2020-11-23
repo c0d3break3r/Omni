@@ -102,7 +102,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     public static boolean canSeahorseSpawn(EntityType<? extends SeahorseEntity> seahorse, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        for (String spawnBiomeName : CoreModule.Configuration.CLIENT.SEAHORSE_SPAWN_BIOMES.get().replace(" ", "").split(",")) {
+        for (String spawnBiomeName : CoreModule.Configuration.COMMON.SEAHORSE_SPAWN_BIOMES.get().replace(" ", "").split(",")) {
             if (worldIn.getBiome(pos).getRegistryName().toString().equals(spawnBiomeName) && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER)) {
                 return true;
             }
@@ -367,7 +367,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         SeahorseEntity.CoralType seahorseentity$coraltype = SeahorseEntity.CoralType.getTypeByIndex(worldIn.getRandom().nextInt(CoralType.values().length - 1));
         this.setVariantType(seahorseentity$coraltype);
         this.setSeahorseSize(worldIn.getRandom().nextInt(4));
-        if (worldIn.getRandom().nextInt(CoreModule.Configuration.CLIENT.LARGE_SEAHORSE_SPAWN_CHANCE.get()) == 0) this.setSeahorseSize(this.rand.nextInt(1) + 6);
+        if (worldIn.getRandom().nextInt(CoreModule.Configuration.COMMON.LARGE_SEAHORSE_SPAWN_CHANCE.get()) == 0) this.setSeahorseSize(this.rand.nextInt(1) + 6);
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -441,7 +441,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 if (!player.abilities.isCreativeMode && !this.world.isRemote) {
                     held.shrink(1);
                 }
-                if (this.rand.nextInt(CoreModule.Configuration.CLIENT.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+                if (this.rand.nextInt(CoreModule.Configuration.COMMON.SEAHORSE_TAME_CHANCE.get()) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
                     this.setTamedBy(player);
                     this.navigator.clearPath();
                     this.func_233687_w_(true);
@@ -467,7 +467,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
                 this.remove();
                 return ActionResultType.SUCCESS;
-            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.CLIENT.RIDEABLE_SEAHORSES.get()) {
+            } else if (this.getSeahorseSize() > 5 && this.isTamed() && this.getOwner() == player && CoreModule.Configuration.COMMON.RIDEABLE_SEAHORSES.get()) {
                 this.mountTo(player);
                 return ActionResultType.func_233537_a_(this.world.isRemote);
             }

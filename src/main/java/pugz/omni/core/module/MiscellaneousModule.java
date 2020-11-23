@@ -48,7 +48,7 @@ public class MiscellaneousModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
-        if (CoreModule.Configuration.CLIENT.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
+        if (CoreModule.Configuration.COMMON.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityInteractSpecific);
     }
 
@@ -148,7 +148,7 @@ public class MiscellaneousModule extends AbstractModule {
         ResourceLocation name = event.getName();
 
         if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
-            float chance = CoreModule.Configuration.CLIENT.ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE.get().floatValue();
+            float chance = CoreModule.Configuration.COMMON.ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE.get().floatValue();
             if (name.toString().equals(LootTables.BASTION_TREASURE.toString())) chance *= 3.0D;
             LootPool pool = new LootPool.Builder().addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder((float) chance)).build();
             table.addPool(pool);

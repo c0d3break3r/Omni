@@ -142,13 +142,13 @@ public class CoreModule extends AbstractModule {
             builder.pop();
         }
 
-        public static final ForgeConfigSpec CLIENT_SPEC;
-        public static final Configuration CLIENT;
+        public static final ForgeConfigSpec COMMON_SPEC;
+        public static final Configuration COMMON;
 
         static {
             final Pair<Configuration, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Configuration::new);
-            CLIENT_SPEC = specPair.getRight();
-            CLIENT = specPair.getLeft();
+            COMMON_SPEC = specPair.getRight();
+            COMMON = specPair.getLeft();
         }
     }
 }

@@ -180,14 +180,14 @@ public class CavierCavesModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 2);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 2);
             BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 2);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 2);
         }
         if (category == Biome.Category.NETHER) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.CLIENT.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 2);
+            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 2);
         }
         if (category == Biome.Category.MUSHROOM) {
             BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
