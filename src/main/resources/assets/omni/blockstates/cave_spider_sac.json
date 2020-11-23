@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "size=1": {
+      "model": "omni:block/cavier_caves/small_cave_spider_sac"
+    },
+    "size=2": {
+      "model": "omni:block/cavier_caves/medium_cave_spider_sac"
+    },
+    "size=3": {
+      "model": "omni:block/cavier_caves/large_cave_spider_sac"
+    }
+  }
+}
