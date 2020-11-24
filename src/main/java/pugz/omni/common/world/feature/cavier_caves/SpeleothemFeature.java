@@ -23,7 +23,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
         //floor
         if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
             BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos);
-            //if (!SpeleothemBlock.isValidCavePos(world.getBlockState(lowerStart.down()).getBlock(), config.variant)) return false;
+            if (!SpeleothemBlock.isValidCavePos(world.getBlockState(lowerStart.down()).getBlock(), config.variant)) return false;
 
             int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
             if (lowerLength == 0) return false;

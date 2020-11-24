@@ -6,14 +6,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
 import pugz.omni.common.tileentity.OmniChestTileEntity;
 import pugz.omni.common.tileentity.OmniSignTileEntity;
 import pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
-import pugz.omni.common.world.feature.CaveOreFeature;
-import pugz.omni.common.world.feature.CaveOreFeatureConfig;
+import pugz.omni.common.world.feature.ExposedOreFeature;
+import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniTileEntities;
 import pugz.omni.core.util.RegistryUtil;
@@ -56,7 +55,7 @@ public class CoreModule extends AbstractModule {
 
     @Override
     protected void registerFeatures() {
-        OmniFeatures.CAVE_ORE = RegistryUtil.createFeature("cave_ore", () -> new CaveOreFeature(CaveOreFeatureConfig.CODEC));
+        OmniFeatures.EXPOSED_ORE = RegistryUtil.createFeature("exposed_ore", () -> new ExposedOreFeature(ExposedOreFeatureConfig.CODEC));
     }
 
     public static class Configuration {
@@ -104,7 +103,7 @@ public class CoreModule extends AbstractModule {
             GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.defineInRange("budding_malachite_growth_chance", 5, 0, 1000);
-            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.03D);
+            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.02D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);

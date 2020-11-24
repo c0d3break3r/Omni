@@ -13,13 +13,13 @@ import net.minecraft.world.gen.feature.Feature;
 import java.util.BitSet;
 import java.util.Random;
 
-public class CaveOreFeature extends Feature<CaveOreFeatureConfig> {
-    public CaveOreFeature(Codec<CaveOreFeatureConfig> codec) {
+public class ExposedOreFeature extends Feature<ExposedOreFeatureConfig> {
+    public ExposedOreFeature(Codec<ExposedOreFeatureConfig> codec) {
         super(codec);
     }
 
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, CaveOreFeatureConfig config) {
+    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, ExposedOreFeatureConfig config) {
         float f = rand.nextFloat() * (float)Math.PI;
         float f1 = (float)config.size / 8.0F;
         int i = MathHelper.ceil(((float)config.size / 16.0F * 2.0F + 1.0F) / 2.0F);
@@ -45,7 +45,7 @@ public class CaveOreFeature extends Feature<CaveOreFeatureConfig> {
         return false;
     }
 
-    protected boolean func_207803_a(IWorld worldIn, Random random, CaveOreFeatureConfig config, double p_207803_4_, double p_207803_6_, double p_207803_8_, double p_207803_10_, double p_207803_12_, double p_207803_14_, int p_207803_16_, int p_207803_17_, int p_207803_18_, int p_207803_19_, int p_207803_20_) {
+    protected boolean func_207803_a(IWorld worldIn, Random random, ExposedOreFeatureConfig config, double p_207803_4_, double p_207803_6_, double p_207803_8_, double p_207803_10_, double p_207803_12_, double p_207803_14_, int p_207803_16_, int p_207803_17_, int p_207803_18_, int p_207803_19_, int p_207803_20_) {
         int i = 0;
         BitSet bitset = new BitSet(p_207803_19_ * p_207803_20_ * p_207803_19_);
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();

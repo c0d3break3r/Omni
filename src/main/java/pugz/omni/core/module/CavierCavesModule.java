@@ -20,9 +20,8 @@ import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
-import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.item.OmniSpawnEggItem;
-import pugz.omni.common.world.feature.CaveOreFeatureConfig;
+import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BaseGenUtils;
@@ -198,7 +197,7 @@ public class CavierCavesModule extends AbstractModule {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), CaveOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
+            BiomeFeatures.addExposedOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), ExposedOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
             BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.YELLOW_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.YELLOW_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
             BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.PURPLE_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.PURPLE_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
             BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.BLUE_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.BLUE_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);

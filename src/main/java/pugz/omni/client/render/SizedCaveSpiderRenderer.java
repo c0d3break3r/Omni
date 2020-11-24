@@ -21,7 +21,7 @@ public class SizedCaveSpiderRenderer extends SpiderRenderer<SizedCaveSpiderEntit
 
     protected void preRenderCallback(SizedCaveSpiderEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
         int i = entity.getSpiderSize();
-        float f = 1.0F + 0.3F * (float)i;
+        float f = 0.6F + 0.225F * (float) (i * i);
         matrixStackIn.scale(f, f, f);
     }
 

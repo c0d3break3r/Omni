@@ -6,7 +6,7 @@ import net.minecraftforge.fml.ModList;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.deserted.RedRockBrickButton;
 import pugz.omni.common.block.deserted.RedRockBrickPressurePlate;
-import pugz.omni.common.world.feature.CaveOreFeatureConfig;
+import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
@@ -140,7 +140,7 @@ public class DesertedModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category == Biome.Category.MESA) {
-            BiomeFeatures.addCaveOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CaveOreFeatureConfig.CaveFace.ALL, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), 0, 0, 100, 10, 80, 1);
+            BiomeFeatures.addExposedOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, ExposedOreFeatureConfig.CaveFace.ALL, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), 0, 0, 100, 10, 80, 1);
         }
     }
 }

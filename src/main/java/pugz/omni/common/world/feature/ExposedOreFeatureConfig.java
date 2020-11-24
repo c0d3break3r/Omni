@@ -17,8 +17,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CaveOreFeatureConfig implements IFeatureConfig {
-    public static final Codec<CaveOreFeatureConfig> CODEC = RecordCodecBuilder.create((p_236568_0_) -> {
+public class ExposedOreFeatureConfig implements IFeatureConfig {
+    public static final Codec<ExposedOreFeatureConfig> CODEC = RecordCodecBuilder.create((p_236568_0_) -> {
         return p_236568_0_.group(RuleTest.field_237127_c_.fieldOf("target").forGetter((config) -> {
             return config.target;
         }), BlockState.CODEC.fieldOf("state").forGetter((config) -> {
@@ -29,7 +29,7 @@ public class CaveOreFeatureConfig implements IFeatureConfig {
             return config.size;
         }), CaveFace.codec.fieldOf("variant").forGetter((config) -> {
             return config.face;
-        })).apply(p_236568_0_, CaveOreFeatureConfig::new);
+        })).apply(p_236568_0_, ExposedOreFeatureConfig::new);
     });
     public final RuleTest target;
     public final int size;
@@ -37,7 +37,7 @@ public class CaveOreFeatureConfig implements IFeatureConfig {
     @Nullable public final BlockState fillerState;
     public final CaveFace face;
 
-    public CaveOreFeatureConfig(RuleTest ruleTest, BlockState state, @Nullable BlockState fillerState, int size, CaveFace face) {
+    public ExposedOreFeatureConfig(RuleTest ruleTest, BlockState state, @Nullable BlockState fillerState, int size, CaveFace face) {
         this.size = size;
         this.state = state;
         this.fillerState = fillerState;
