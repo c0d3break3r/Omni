@@ -3,6 +3,7 @@ package pugz.omni.common.block.cavier_caves;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -117,6 +118,7 @@ public class CobwebCarpetBlock extends DirectionalBlock implements IWaterLoggabl
 
     @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        if (entityIn instanceof SpiderEntity) return;
         entityIn.setMotionMultiplier(state, new Vector3d(0.8D, (double)0.8F, 0.8D));
     }
 
