@@ -1,15 +1,19 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
 import pugz.omni.common.block.colormatic.*;
+import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
@@ -42,6 +46,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import static pugz.omni.common.block.colormatic.LayerConcretePowderBlock.LAYERS;
+
 public class ColormaticModule extends AbstractModule {
     public static final ColormaticModule instance = new ColormaticModule();
     public static List<Supplier<Block>> CONCRETES = new ArrayList<Supplier<Block>>();
@@ -62,6 +68,7 @@ public class ColormaticModule extends AbstractModule {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
+        MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
     }
 
     @Override
@@ -209,8 +216,29 @@ public class ColormaticModule extends AbstractModule {
                     Block block = supplier.get();
                     if (block.getRegistryName().getPath().equals(state.getBlock().getRegistryName().getPath())) {
                         if (!player.isCreative() && !world.isRemote) stack.damageItem(1, player, e -> e.sendBreakAnimation(hand));
-                        world.setBlockState(pos, block.getDefaultState().with(LayerConcretePowderBlock.LAYERS, 7).with(LayerConcretePowderBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 3);
+                        world.setBlockState(pos, block.getDefaultState().with(LAYERS, 7).with(LayerConcretePowderBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 3);
                         event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
+                    }
+                }
+            }
+        }
+    }
+
+    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        Entity entity = event.getEntity();
+        World world = event.getWorld();
+
+        if (entity instanceof FallingBlockEntity) {
+            FallingBlockEntity fallingBlock = (FallingBlockEntity) entity;
+
+            if (fallingBlock.getBlockState().getBlock() instanceof ConcretePowderBlock) {
+                for (Supplier<Block> supplier : CONCRETE_POWDERS) {
+                    Block block = supplier.get();
+                    if (block.getRegistryName().getPath().equals(fallingBlock.getBlockState().getBlock().getRegistryName().getPath())) {
+                        event.setCanceled(true);
+                        world.removeBlock(fallingBlock.getPosition(), false);
+                        FallingConcretePowderEntity fallingConcretePowder = new FallingConcretePowderEntity(world, (double) fallingBlock.getPosition().getX() + 0.5D, (double) fallingBlock.getPosition().getY(), (double) fallingBlock.getPosition().getZ() + 0.5D, 8, block.getDefaultState());
+                        world.addEntity(fallingConcretePowder);
                     }
                 }
             }
