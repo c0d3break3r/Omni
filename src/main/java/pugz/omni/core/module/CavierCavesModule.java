@@ -197,7 +197,7 @@ public class CavierCavesModule extends AbstractModule {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addMushroomCave(gen, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(),160, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, 0.5F, 15);
+            BiomeFeatures.addMushroomCave(gen, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(),160, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, 0.5F, 15);
         }
     }
 

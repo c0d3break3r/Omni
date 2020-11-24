@@ -20,12 +20,10 @@ public class MushroomCaveBiomeFeature extends AbstractCaveBiomeFeature {
     }
 
     public void generateFeature(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
-        if (rand.nextBoolean()) {
+        if (rand.nextInt(3) == 0) {
             world.setBlockState(pos, getRandomSmallState(rand).with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 2);
             return;
-        }
-
-        if (rand.nextInt(5) == 0) {
+        } else if (rand.nextInt(5) == 0) {
             if (rand.nextBoolean()) Features.PATCH_RED_MUSHROOM.generate(world, generator, rand, pos);
             else Features.PATCH_BROWN_MUSHROOM.generate(world, generator, rand, pos);
         }
