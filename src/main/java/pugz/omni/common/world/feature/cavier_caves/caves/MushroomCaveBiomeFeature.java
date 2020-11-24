@@ -1,4 +1,4 @@
-package pugz.omni.common.world.feature.cavier_caves;
+package pugz.omni.common.world.feature.cavier_caves.caves;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
@@ -9,16 +9,18 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Features;
 import pugz.omni.common.block.cavier_caves.CaveMushroomBlock;
+import pugz.omni.common.world.feature.cavier_caves.AbstractCaveBiomeFeature;
+import pugz.omni.common.world.feature.cavier_caves.CaveBiomeFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.Random;
 
 public class MushroomCaveBiomeFeature extends AbstractCaveBiomeFeature {
-
     public MushroomCaveBiomeFeature(Codec<CaveBiomeFeatureConfig> codec) {
         super(codec);
     }
 
+    @Override
     public void generateFeature(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
         if (rand.nextInt(3) == 0) {
             world.setBlockState(pos, getRandomSmallState(rand).with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 2);

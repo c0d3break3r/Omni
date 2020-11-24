@@ -44,8 +44,6 @@ public class WintertimeModule extends AbstractModule {
     protected void registerBlocks() {
         //RegistryObject<Block> ANTLER_BLOCK;
 
-        //RegistryObject<Block> ARCTISS_BLOCK;
-
         //RegistryObject<Block> MOONSTONE_BLOCK;
         //RegistryObject<Block> CREOSTONE;
         //RegistryObject<Block> CREOSTONE_STAIRS;

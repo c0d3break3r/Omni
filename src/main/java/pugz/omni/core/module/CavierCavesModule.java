@@ -21,8 +21,9 @@ import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.common.item.OmniSpawnEggItem;
-import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
+import pugz.omni.common.world.feature.cavier_caves.caves.IcyCaveBiomeFeature;
+import pugz.omni.common.world.feature.cavier_caves.caves.MushroomCaveBiomeFeature;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
@@ -121,6 +122,9 @@ public class CavierCavesModule extends AbstractModule {
         OmniBlocks.MEDIUM_MALACHITE_BUD = RegistryUtil.createBlock("medium_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.5F, 8.5F), 1), ItemGroup.DECORATIONS);
         OmniBlocks.SMALL_MALACHITE_BUD = RegistryUtil.createBlock("small_malachite_bud", () -> new MalachiteBudBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 8.0F), 0), ItemGroup.DECORATIONS);
         OmniBlocks.CARVED_MALACHITE = RegistryUtil.createBlock("carved_malachite", () -> new HorizontalFacingBlock(AbstractBlock.Properties.from(OmniBlocks.MALACHITE_BLOCK.get())), ItemGroup.BUILDING_BLOCKS);
+
+        OmniBlocks.ARCTISS = RegistryUtil.createBlock("arctiss", ArctissBlock::new, ItemGroup.DECORATIONS);
+        OmniBlocks.ARCTISS_BLOCK = RegistryUtil.createBlock("arctiss_block", () -> new Block(AbstractBlock.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
     }
 
     @Override
@@ -142,6 +146,7 @@ public class CavierCavesModule extends AbstractModule {
     @Override
     protected void registerFeatures() {
         OmniFeatures.MUSHROOM_CAVE = RegistryUtil.createFeature("mushroom_cave", () -> new MushroomCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
+        OmniFeatures.ICY_CAVE = RegistryUtil.createFeature("icy_cave", () -> new IcyCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
 
         OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.CODEC));
         //RegistryObject<Feature<?>> SLIME;
@@ -192,12 +197,13 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
+            BiomeFeatures.addCaveBiome(gen, OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 112, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true,0.4F, 12);
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addMushroomCave(gen, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(),160, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, 0.5F, 15);
+            BiomeFeatures.addCaveBiome(gen, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), 160, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, false, 0.5F, 15);
         }
     }
 

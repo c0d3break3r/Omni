@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "side": "omni:block/cavier_caves/arctiss_block_side",
+    "top": "omni:block/cavier_caves/arctiss_block_top",
+    "bottom": "block/stone"
+  }
+}

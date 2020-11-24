@@ -39,6 +39,9 @@ public class OmniBlocks {
     public static RegistryObject<Block> CAVE_SPIDER_SAC;
     public static RegistryObject<Block> COBWEB_CARPET;
 
+    public static RegistryObject<Block> ARCTISS;
+    public static RegistryObject<Block> ARCTISS_BLOCK;
+
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;
