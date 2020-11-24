@@ -1,6 +1,9 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -41,8 +44,10 @@ import java.util.function.Supplier;
 
 public class ColormaticModule extends AbstractModule {
     public static final ColormaticModule instance = new ColormaticModule();
-    public static List<Supplier<AbstractStackableBlock>> stackables = new ArrayList<Supplier<AbstractStackableBlock>>();
-    public static List<Supplier<Block>> quilteds = new ArrayList<Supplier<Block>>();
+    public static List<Supplier<Block>> CONCRETES = new ArrayList<Supplier<Block>>();
+    public static List<Supplier<Block>> CONCRETE_POWDERS = new ArrayList<Supplier<Block>>();
+    public static List<Supplier<AbstractStackableBlock>> STACKABLES = new ArrayList<Supplier<AbstractStackableBlock>>();
+    public static List<Supplier<Block>> QUILTEDS = new ArrayList<Supplier<Block>>();
 
     @Override
     protected void sendInitMessage() {
@@ -72,14 +77,14 @@ public class ColormaticModule extends AbstractModule {
     @Override
     protected void registerBlocks() {
         for (DyeColor color : DyeColor.values()) {
-            final RegistryObject<Block> OVERRIDE_CONCRETE = RegistryUtil.createOverrideBlock(color.name().toLowerCase() + "_concrete", () -> new Block(AbstractBlock.Properties.from(Blocks.BLACK_CONCRETE)), null);
-            final RegistryObject<Block> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideBlock(color.name().toLowerCase() + "_concrete_powder", () -> new ConcretePowderBlock(OVERRIDE_CONCRETE.get(), AbstractBlock.Properties.from(Blocks.BLACK_CONCRETE_POWDER)), null);
-            final RegistryObject<Block> CONCRETE = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete", () -> new LayerConcreteBlock(color), ItemGroup.BUILDING_BLOCKS);
-            final RegistryObject<Block> CONCRETE_POWDER = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete_powder", () -> new LayerConcretePowderBlock(CONCRETE.get(), color), ItemGroup.BUILDING_BLOCKS);
+            final RegistryObject<Block> CONCRETE = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete", () -> new LayerConcreteBlock(color), null);
+            CONCRETES.add(CONCRETE);
+            final RegistryObject<Block> CONCRETE_POWDER = RegistryUtil.createBlock(color.name().toLowerCase() + "_concrete_powder", () -> new LayerConcretePowderBlock(CONCRETE.get(), color), null);
+            CONCRETE_POWDERS.add(CONCRETE_POWDER);
 
             final RegistryObject<Block> QUILTED_CARPET = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_carpet", () -> new QuiltedCarpetBlock(color), ItemGroup.DECORATIONS);
             final RegistryObject<Block> QUILTED_WOOL = RegistryUtil.createBlock(color.name().toLowerCase() + "_quilted_wool", () -> new QuiltedWoolBlock(color), ItemGroup.BUILDING_BLOCKS);
-            quilteds.addAll(ImmutableSet.of(QUILTED_CARPET, QUILTED_WOOL));
+            QUILTEDS.addAll(ImmutableSet.of(QUILTED_CARPET, QUILTED_WOOL));
         }
 
         for (Block block : ForgeRegistries.BLOCKS.getValues()) {
@@ -87,17 +92,17 @@ public class ColormaticModule extends AbstractModule {
                 String name = block.getRegistryName().getPath() + "s";
                 if (StringUtils.endsWith(name, "ss")) name = StringUtils.removeEnd(name, "ss") + "ses";
                 final RegistryObject<AbstractStackableBlock> FLOWERS = RegistryUtil.createBlock(name, () -> new FlowersBlock(AbstractBlock.Properties.from(block), block), null);
-                stackables.add(FLOWERS);
+                STACKABLES.add(FLOWERS);
             } else if (block instanceof MushroomBlock) {
                 String name = block.getRegistryName().getPath() + "s";
                 ConfiguredFeature<?, ?> configuredFeature = StringUtils.contains(name, "red") ? Features.HUGE_RED_MUSHROOM : Features.HUGE_BROWN_MUSHROOM;
                 final RegistryObject<AbstractStackableBlock> MUSHROOMS = RegistryUtil.createBlock(name, () -> new MushroomsBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
-                stackables.add(MUSHROOMS);
+                STACKABLES.add(MUSHROOMS);
             } else if (block instanceof FungusBlock) {
                 String name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
                 ConfiguredFeature<HugeFungusConfig, ?> configuredFeature = StringUtils.contains(name, "crimson") ? Features.CRIMSON_FUNGI_PLANTED : Features.WARPED_FUNGI_PLANTED;
                 final RegistryObject<AbstractStackableBlock> FUNGI = RegistryUtil.createBlock(name, () -> new FungiBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
-                stackables.add(FUNGI);
+                STACKABLES.add(FUNGI);
             }
         }
 
@@ -114,11 +119,6 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
-        for (DyeColor color : DyeColor.values()) {
-            final RegistryObject<Item> OVERRIDE_CONCRETE = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()));
-            final RegistryObject<Item> OVERRIDE_CONCRETE_POWDER = RegistryUtil.createOverrideItem(color.name().toLowerCase() + "_concrete_powder", () -> new BlockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.name().toLowerCase() + "_concrete"))), new Item.Properties()));
-        }
-
         //RegistryObject<Item> DYES; ?
 
         //RegistryObject<Item> DANDELION_FLUFF;
@@ -183,13 +183,15 @@ public class ColormaticModule extends AbstractModule {
         World world = event.getWorld();
         ItemStack stack = event.getItemStack();
         BlockPos pos = event.getPos();
-        Block block = world.getBlockState(pos).getBlock();
+        BlockState state = world.getBlockState(pos);
         PlayerEntity player = event.getPlayer();
+        Hand hand = event.getHand();
+        Direction direction = event.getFace();
 
-        if (block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof FungusBlock) {
-            for (Supplier<AbstractStackableBlock> b : stackables) {
+        if (state.getBlock() instanceof FlowerBlock || state.getBlock() instanceof MushroomBlock || state.getBlock() instanceof FungusBlock) {
+            for (Supplier<AbstractStackableBlock> b : STACKABLES) {
                 AbstractStackableBlock stackable = b.get();
-                if (stack.getItem() == block.asItem() && stackable.getBase() == block && !player.isSneaking()) {
+                if (stack.getItem() == state.getBlock().asItem() && stackable.getBase() == state.getBlock() && !player.isSneaking()) {
                     if (!player.isCreative() && !world.isRemote) {
                         stack.shrink(1);
                     }
@@ -197,6 +199,19 @@ public class ColormaticModule extends AbstractModule {
                     world.setBlockState(pos, stackable.getBlock().getDefaultState(), 3);
                     event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
                     event.setCanceled(true);
+                }
+            }
+        }
+
+        if (state.getBlock() instanceof ConcretePowderBlock) {
+            if (stack.getItem() instanceof ShovelItem && direction == Direction.UP) {
+                for (Supplier<Block> supplier : CONCRETE_POWDERS) {
+                    Block block = supplier.get();
+                    if (block.getRegistryName().getPath().equals(state.getBlock().getRegistryName().getPath())) {
+                        if (!player.isCreative() && !world.isRemote) stack.damageItem(1, player, e -> e.sendBreakAnimation(hand));
+                        world.setBlockState(pos, block.getDefaultState().with(LayerConcretePowderBlock.LAYERS, 7).with(LayerConcretePowderBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 3);
+                        event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
+                    }
                 }
             }
         }

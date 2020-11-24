@@ -25,6 +25,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class LayerConcreteBlock extends Block implements IWaterLoggable, IBaseBlock {
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS_1_8;
