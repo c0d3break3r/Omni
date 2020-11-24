@@ -1,5 +1,6 @@
 package pugz.omni.core.util;
 
+import net.minecraft.tags.FluidTags;
 import net.minecraftforge.common.Tags;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
@@ -17,12 +18,11 @@ public class CaveGenUtils {
 
             Block block = world.getBlockState(pos$mutable).getBlock();
             Block up = world.getBlockState(pos$mutable.up()).getBlock();
-            Block down = world.getBlockState(pos$mutable.down()).getBlock();
 
             if ((block == Blocks.CAVE_AIR ||
                     block == Blocks.WATER) &&
                     up.getBlock() != Blocks.AIR &&
-                    isValidCavePos(down.getBlock()) &&
+                    isValidCavePos(world, pos) &&
                     !world.canBlockSeeSky(pos$mutable)) break;
 
         }
@@ -55,7 +55,9 @@ public class CaveGenUtils {
         return height;
     }
 
-    public static boolean isValidCavePos(Block block) {
-        return block.isIn(Tags.Blocks.STONE) || block.isIn(Tags.Blocks.NETHERRACK);
+    public static boolean isValidCavePos(ISeedReader world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        BlockState down = world.getBlockState(pos.down());
+        return (down.getBlock().isIn(Tags.Blocks.STONE) || down.getBlock().isIn(Tags.Blocks.NETHERRACK)) && (state.getBlock() == Blocks.CAVE_AIR || state.getFluidState().isTagged(FluidTags.WATER));
     }
 }

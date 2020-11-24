@@ -1,5 +1,6 @@
 package pugz.omni.core.util;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.placement.*;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
@@ -41,7 +42,7 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.COMMON.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
     }
 
-    public static void addSmallMushrooms(BiomeGenerationSettingsBuilder biome, BlockState state, BlockState smallState, float probability, int chance) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.CAVE_MUSHROOM.get().withConfiguration(new CaveMushroomFeatureConfig(state, smallState)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+    public static void addMushroomCave(BiomeGenerationSettingsBuilder biome, BlockState floorState, BlockState ceilingState, BlockState wallState, BlockState fillerState, int size, float featureChance, RuleTest target, float probability, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.MUSHROOM_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(floorState, ceilingState, wallState, fillerState, size, featureChance, target, false)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
     }
 }

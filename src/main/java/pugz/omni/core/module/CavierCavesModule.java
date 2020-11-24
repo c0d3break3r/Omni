@@ -141,7 +141,7 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerFeatures() {
-        OmniFeatures.CAVE_MUSHROOM = RegistryUtil.createFeature("cave_mushroom", () -> new CaveMushroomFeature(CaveMushroomFeatureConfig.CODEC));
+        OmniFeatures.MUSHROOM_CAVE = RegistryUtil.createFeature("mushroom_cave", () -> new MushroomCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
 
         OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.CODEC));
         //RegistryObject<Feature<?>> SLIME;
@@ -197,11 +197,7 @@ public class CavierCavesModule extends AbstractModule {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addExposedOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), ExposedOreFeatureConfig.CaveFace.FLOOR, 256, 8, 0, 100, 12, 80, 15);
-            BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.YELLOW_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.YELLOW_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
-            BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.PURPLE_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.PURPLE_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
-            BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.BLUE_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.BLUE_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
-            BiomeFeatures.addSmallMushrooms(gen, OmniBlocks.GREEN_CAVE_MUSHROOM_BLOCK.get().getDefaultState(), OmniBlocks.GREEN_CAVE_MUSHROOM.get().getDefaultState(), 0.01F, 3);
+            BiomeFeatures.addMushroomCave(gen, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(),160, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, 0.5F, 15);
         }
     }
 
