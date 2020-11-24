@@ -18,6 +18,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
@@ -57,6 +58,11 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
     @Override
     public RenderType getRenderType() {
         return RenderType.getCutout();
+    }
+
+    @SuppressWarnings("deprecation")
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return hasEnoughSolidSide(worldIn, pos.down(), Direction.UP);
     }
 
     @Override

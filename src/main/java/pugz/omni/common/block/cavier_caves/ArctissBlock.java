@@ -1,6 +1,8 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -25,6 +27,11 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
         setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
     }
 
+    @Override
+    public RenderType getRenderType() {
+        return RenderType.getCutout();
+    }
+
     protected boolean isValidGround(BlockState state) {
         return state.isIn(Tags.Blocks.STONE) || state.getBlock() == OmniBlocks.ARCTISS_BLOCK.get();
     }
@@ -43,6 +50,12 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
 
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return state.getFluidState().isEmpty();
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isReplaceable(BlockState state, Fluid fluid) {
+        return false;
     }
 
     @Override
