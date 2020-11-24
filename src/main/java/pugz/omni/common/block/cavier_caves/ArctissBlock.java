@@ -26,7 +26,7 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
     }
 
     protected boolean isValidGround(BlockState state) {
-        return state.isIn(Tags.Blocks.STONE) || state.isIn(OmniBlocks.ARCTISS_BLOCK.get());
+        return state.isIn(Tags.Blocks.STONE) || state.getBlock() == OmniBlocks.ARCTISS_BLOCK.get();
     }
 
     @Nonnull

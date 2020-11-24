@@ -51,10 +51,10 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
         //ceiling
         else {
             BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos);
-            if (world.getBlockState(upperStart.up()).getBlock() instanceof SpeleothemBlock || !SpeleothemBlock.isValidCavePos(world.getBlockState(upperStart.down()).getBlock(), config.variant)) return false;
-
             int upperLength = CaveGenUtils.getCaveHeight(world, upperStart);
             if (upperLength == 0 || !SpeleothemBlock.isValidCavePos(world.getBlockState(upperStart.up(upperLength + 1)).getBlock(), config.variant)) return false;
+
+            if (config.variant == SpeleothemFeatureConfig.Variant.ICE) upperLength -= Math.round(upperLength * 0.75F);
 
             upperStart.setY(upperStart.getY() + (upperLength - 1));
             upperLength = MathHelper.clamp(random.nextInt(upperLength), 3, upperLength);

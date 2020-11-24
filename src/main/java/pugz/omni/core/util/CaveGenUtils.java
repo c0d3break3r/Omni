@@ -5,6 +5,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
+import pugz.omni.core.registry.OmniBlocks;
 
 public class CaveGenUtils {
     /**
@@ -58,6 +59,6 @@ public class CaveGenUtils {
     public static boolean isValidCavePos(ISeedReader world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         BlockState down = world.getBlockState(pos.down());
-        return (down.getBlock().isIn(Tags.Blocks.STONE) || down.getBlock().isIn(Tags.Blocks.NETHERRACK)) && (state.getBlock() == Blocks.CAVE_AIR || state.getFluidState().isTagged(FluidTags.WATER));
+        return (down.getBlock().isIn(Tags.Blocks.STONE) || down.getBlock().isIn(Tags.Blocks.NETHERRACK) || down.getBlock() == OmniBlocks.ARCTISS_BLOCK.get()) && (state.getBlock() == Blocks.CAVE_AIR || state.getFluidState().isTagged(FluidTags.WATER));
     }
 }

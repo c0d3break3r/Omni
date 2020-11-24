@@ -197,7 +197,7 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
-            BiomeFeatures.addCaveBiome(gen, OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 112, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true,0.4F, 12);
+            BiomeFeatures.addCaveBiome(gen, OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 96, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true,0.4F, 18);
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);

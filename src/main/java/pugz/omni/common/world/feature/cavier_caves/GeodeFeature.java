@@ -106,10 +106,8 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                                 while(var44.hasNext()) {
                                     BlockPos var46 = (BlockPos)var44.next();
                                     BlockState crystalBudState = (BlockState)var42.get(rand.nextInt(var42.size()));
-                                    Direction[] var47 = directions;
-                                    int var35 = var47.length;
 
-                                    for (Direction var37 : var47) {
+                                    for (Direction var37 : directions) {
                                         if (crystalBudState.hasProperty(BlockStateProperties.FACING)) {
                                             crystalBudState = (BlockState) crystalBudState.with(BlockStateProperties.FACING, var37);
                                         }
@@ -149,10 +147,8 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                     } while(var34 < var24);
 
                     if (var28 && var36 >= var26 && var34 < var18) {
-                        if (world.getBlockState(var43).isSolid()) {
-                            if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
-                            world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
-                        }
+                        if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                        world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                     } else if (var34 >= var18) {
                         if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
                         world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
