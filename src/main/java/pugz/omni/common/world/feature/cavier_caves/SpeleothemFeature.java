@@ -22,7 +22,7 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
     public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos, SpeleothemFeatureConfig config) {
         //floor
         if (random.nextBoolean() && config.variant != SpeleothemFeatureConfig.Variant.ICE) {
-            BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos);
+            BlockPos.Mutable lowerStart = CaveGenUtils.getCaveFloorPosition(world, pos, false);
             if (!SpeleothemBlock.isValidCavePos(world.getBlockState(lowerStart.down()).getBlock(), config.variant)) return false;
 
             int lowerLength = CaveGenUtils.getCaveHeight(world, lowerStart);
@@ -50,11 +50,9 @@ public class SpeleothemFeature extends Feature<SpeleothemFeatureConfig> {
         }
         //ceiling
         else {
-            BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos);
+            BlockPos.Mutable upperStart = CaveGenUtils.getCaveFloorPosition(world, pos, true);
             int upperLength = CaveGenUtils.getCaveHeight(world, upperStart);
             if (upperLength == 0 || !SpeleothemBlock.isValidCavePos(world.getBlockState(upperStart.up(upperLength + 1)).getBlock(), config.variant)) return false;
-
-            if (config.variant == SpeleothemFeatureConfig.Variant.ICE) upperLength -= Math.round(upperLength * 0.75F);
 
             upperStart.setY(upperStart.getY() + (upperLength - 1));
             upperLength = MathHelper.clamp(random.nextInt(upperLength), 3, upperLength);

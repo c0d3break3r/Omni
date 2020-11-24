@@ -11,7 +11,7 @@ public class CaveGenUtils {
     /**
      * Gets a floor position at the x and y of the given position
      */
-    public static BlockPos.Mutable getCaveFloorPosition(ISeedReader world, BlockPos pos) {
+    public static BlockPos.Mutable getCaveFloorPosition(ISeedReader world, BlockPos pos, boolean forCeiling) {
         BlockPos.Mutable pos$mutable = pos.toMutable();
 
         for (int y = 0; y <= 128; ++y) {
@@ -23,7 +23,7 @@ public class CaveGenUtils {
             if ((block == Blocks.CAVE_AIR ||
                     block == Blocks.WATER) &&
                     up.getBlock() != Blocks.AIR &&
-                    isValidCavePos(world, pos) &&
+                    (isValidCavePos(world, pos) || (forCeiling && world.getBlockState(pos.down()).getBlock() == Blocks.LAVA)) &&
                     !world.canBlockSeeSky(pos$mutable)) break;
 
         }
