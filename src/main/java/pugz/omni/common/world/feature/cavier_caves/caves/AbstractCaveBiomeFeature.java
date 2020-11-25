@@ -1,7 +1,6 @@
 package pugz.omni.common.world.feature.cavier_caves.caves;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -42,7 +41,8 @@ public abstract class AbstractCaveBiomeFeature extends Feature<CaveBiomeFeatureC
                 }
             }
         }
-        return false;    }
+        return false;
+    }
 
     protected boolean func_207803_a(ISeedReader worldIn, ChunkGenerator generator, Random random, CaveBiomeFeatureConfig config, double p_207803_4_, double p_207803_6_, double p_207803_8_, double p_207803_10_, double p_207803_12_, double p_207803_14_, int p_207803_16_, int p_207803_17_, int p_207803_18_, int p_207803_19_, int p_207803_20_) {
         int i = 0;
@@ -111,39 +111,7 @@ public abstract class AbstractCaveBiomeFeature extends Feature<CaveBiomeFeatureC
                                             bitset.set(l2);
                                             blockpos$mutable.setPos(i2, j2, k2);
                                             if (config.target.test(worldIn.getBlockState(blockpos$mutable), random)) {
-                                                for (Direction direction : Direction.values()) {
-                                                    if (direction == Direction.DOWN) {
-                                                        if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR && worldIn.getBlockState(blockpos$mutable.offset(direction.getOpposite())).getBlock() != Blocks.CAVE_AIR) {
-                                                            if (config.ceilingState != null) worldIn.setBlockState(blockpos$mutable, config.ceilingState, 2);
-                                                            if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
-                                                        }
-                                                    }
-                                                    if (direction != Direction.UP && direction != Direction.DOWN) {
-                                                        if (config.ridged) {
-                                                            if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR) {
-                                                                if (config.wallState != null)
-                                                                    worldIn.setBlockState(blockpos$mutable, config.wallState, 2);
-                                                                if (config.fillerState != null)
-                                                                    worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
-                                                            }
-                                                        } else {
-                                                            if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR && worldIn.getBlockState(blockpos$mutable.offset(Direction.UP)).getBlock() != Blocks.CAVE_AIR) {
-                                                                if (config.wallState != null)
-                                                                    worldIn.setBlockState(blockpos$mutable, config.wallState, 2);
-                                                                if (config.fillerState != null)
-                                                                    worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
-                                                            }
-                                                        }
-                                                    }
-                                                    if (direction == Direction.UP) {
-                                                        if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR && worldIn.getBlockState(blockpos$mutable.offset(direction.getOpposite())).getBlock() != Blocks.CAVE_AIR) {
-                                                            if (config.floorState != null) worldIn.setBlockState(blockpos$mutable, config.floorState, 2);
-                                                            if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
-
-                                                            if (random.nextFloat() <= config.featureChance) this.generateFeature(worldIn, generator, random, blockpos$mutable.up(), config);
-                                                        }
-                                                    }
-                                                }
+                                                this.place(worldIn, generator, random, blockpos$mutable, config);
                                                 ++i;
                                             }
                                         }
@@ -158,5 +126,21 @@ public abstract class AbstractCaveBiomeFeature extends Feature<CaveBiomeFeatureC
         return i > 0;
     }
 
-    public abstract void generateFeature(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config);
+    public void place(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.DOWN) {
+                this.placeCeiling(world, generator, rand, pos, direction, config);
+            }
+            if (direction != Direction.UP && direction != Direction.DOWN) {
+                this.placeWall(world, generator, rand, pos, direction, config);
+            }
+            if (direction == Direction.UP) {
+                this.placeFloor(world, generator, rand, pos, direction, config);
+            }
+        }
+    }
+
+    public abstract void placeCeiling(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, Direction direction, CaveBiomeFeatureConfig config);
+    public abstract void placeWall(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, Direction direction, CaveBiomeFeatureConfig config);
+    public abstract void placeFloor(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, Direction direction, CaveBiomeFeatureConfig config);
 }

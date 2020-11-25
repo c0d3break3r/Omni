@@ -51,4 +51,8 @@ public class BiomeFeatures {
     public static void addIcyCave(BiomeGenerationSettingsBuilder biome, float probability, int chance) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.ICY_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 96, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
     }
+
+    public static void addTerracottaCave(BiomeGenerationSettingsBuilder biome, float probability, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.TERRACOTTA_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.RED_SAND.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), Blocks.TERRACOTTA.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), 128, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+    }
 }

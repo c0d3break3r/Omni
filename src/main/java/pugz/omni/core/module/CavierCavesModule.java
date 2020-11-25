@@ -24,6 +24,7 @@ import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.caves.IcyCaveBiomeFeature;
 import pugz.omni.common.world.feature.cavier_caves.caves.MushroomCaveBiomeFeature;
+import pugz.omni.common.world.feature.cavier_caves.caves.TerracottaCaveBiomeFeature;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
@@ -147,6 +148,7 @@ public class CavierCavesModule extends AbstractModule {
     protected void registerFeatures() {
         OmniFeatures.MUSHROOM_CAVE = RegistryUtil.createFeature("mushroom_cave", () -> new MushroomCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
         OmniFeatures.ICY_CAVE = RegistryUtil.createFeature("icy_cave", () -> new IcyCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
+        OmniFeatures.TERRACOTTA_CAVE = RegistryUtil.createFeature("terracotta_cave", () -> new TerracottaCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
 
         OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.CODEC));
         //RegistryObject<Feature<?>> SLIME;
@@ -197,13 +199,13 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
-            BiomeFeatures.addIcyCave(gen,0.4F, 18);
+            BiomeFeatures.addIcyCave(gen,0.3F, 18);
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addMushroomCave(gen, 0.5F, 15);
+            BiomeFeatures.addMushroomCave(gen, 0.4F, 15);
         }
     }
 

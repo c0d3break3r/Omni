@@ -15,6 +15,7 @@ public class OmniFeatures {
     public static RegistryObject<Feature<GeodeFeatureConfig>> GEODE;
     public static RegistryObject<Feature<CaveBiomeFeatureConfig>> MUSHROOM_CAVE;
     public static RegistryObject<Feature<CaveBiomeFeatureConfig>> ICY_CAVE;
+    public static RegistryObject<Feature<CaveBiomeFeatureConfig>> TERRACOTTA_CAVE;
 
     //core
     public static RegistryObject<Feature<ExposedOreFeatureConfig>> EXPOSED_ORE;
