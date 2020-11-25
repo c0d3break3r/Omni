@@ -173,7 +173,7 @@ public class MushroomCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
                 else Features.PATCH_BROWN_MUSHROOM.generate(world, generator, rand, pos);
             }
 
-            int height = rand.nextInt(3) + 1;
+            int height = rand.nextInt(4) + 1;
             BlockState state = getRandomState(rand);
 
             for (int y = pos.getY(); y <= pos.getY() + height; ++y) {

@@ -21,8 +21,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.world.noise.NormalNoise;
 import pugz.omni.common.world.noise.WorldGenRandom;
-import pugz.omni.core.Omni;
-import pugz.omni.core.module.CavierCavesModule;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
@@ -147,10 +145,10 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                     } while(var34 < var24);
 
                     if (var28 && var36 >= var26 && var34 < var18) {
-                        if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                        if (!world.getFluidState(var43).isTagged(FluidTags.WATER)) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
                         world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                     } else if (var34 >= var18) {
-                        if (!world.getBlockState(var43).getMaterial().isLiquid()) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
+                        if (!world.getFluidState(var43).isTagged(FluidTags.WATER)) world.setBlockState(var43, Blocks.AIR.getDefaultState(), 3);
                         world.getPendingBlockTicks().scheduleTick(var43, world.getBlockState(var43).getBlock(), 3);
                     } else if (var34 >= var20) {
                         boolean var49 = (double)rand.nextFloat() < config.alternateLayer0Chance;
