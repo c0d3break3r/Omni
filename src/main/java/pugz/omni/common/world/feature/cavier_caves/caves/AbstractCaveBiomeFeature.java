@@ -9,7 +9,6 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
-import pugz.omni.common.world.feature.cavier_caves.CaveBiomeFeatureConfig;
 
 import java.util.BitSet;
 import java.util.Random;

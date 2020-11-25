@@ -1,4 +1,4 @@
-package pugz.omni.common.world.feature.cavier_caves;
+package pugz.omni.common.world.feature.cavier_caves.caves;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

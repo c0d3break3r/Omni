@@ -1,7 +1,6 @@
 package pugz.omni.common.world.feature.cavier_caves.caves;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -12,8 +11,9 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import pugz.omni.common.world.feature.cavier_caves.CaveBiomeFeatureConfig;
+import net.minecraft.world.gen.feature.Features;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.BitSet;
@@ -120,22 +120,41 @@ public class IcyCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
                                                 for (Direction direction : Direction.values()) {
                                                     if (direction == Direction.DOWN) {
                                                         if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR && worldIn.getBlockState(blockpos$mutable.offset(direction.getOpposite())).getBlock() != Blocks.CAVE_AIR) {
-                                                            if (config.ceilingState != null) worldIn.setBlockState(blockpos$mutable, config.ceilingState, 2);
+                                                            if (config.ceilingState != null) {
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite()))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, Blocks.ICE.getDefaultState(), 2);
+                                                                    worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                                                                    continue;
+                                                                }
+                                                                else worldIn.setBlockState(blockpos$mutable, config.ceilingState, 2);
+                                                            }
                                                             if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
                                                         }
                                                     }
                                                     if (direction != Direction.UP && direction != Direction.DOWN) {
                                                         if (config.ridged) {
                                                             if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR) {
-                                                                if (config.wallState != null)
-                                                                    worldIn.setBlockState(blockpos$mutable, config.wallState, 2);
+                                                                if (config.wallState != null) {
+                                                                    if (worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite(), 2))) {
+                                                                        worldIn.setBlockState(blockpos$mutable, Blocks.ICE.getDefaultState(), 2);
+                                                                        worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                                                                        continue;
+                                                                    }
+                                                                    else worldIn.setBlockState(blockpos$mutable, config.wallState, 2);
+                                                                }
                                                                 if (config.fillerState != null)
                                                                     worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
                                                             }
                                                         } else {
                                                             if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR && worldIn.getBlockState(blockpos$mutable.offset(Direction.UP)).getBlock() != Blocks.CAVE_AIR) {
-                                                                if (config.wallState != null)
-                                                                    worldIn.setBlockState(blockpos$mutable, config.wallState, 2);
+                                                                if (config.wallState != null) {
+                                                                    if (worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite(), 2))) {
+                                                                        worldIn.setBlockState(blockpos$mutable, Blocks.ICE.getDefaultState(), 2);
+                                                                        worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                                                                        continue;
+                                                                    }
+                                                                    else worldIn.setBlockState(blockpos$mutable, config.wallState, 2);
+                                                                }
                                                                 if (config.fillerState != null)
                                                                     worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
                                                             }
@@ -143,10 +162,17 @@ public class IcyCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
                                                     }
                                                     if (direction == Direction.UP) {
                                                         if (worldIn.getBlockState(blockpos$mutable.offset(direction)).getBlock() == Blocks.CAVE_AIR && worldIn.getBlockState(blockpos$mutable.offset(direction.getOpposite())).getBlock() != Blocks.CAVE_AIR) {
-                                                            if (config.floorState != null) worldIn.setBlockState(blockpos$mutable, config.floorState, 2);
+                                                            if (config.floorState != null) {
+                                                                if (worldIn.isAirBlock(blockpos$mutable.offset(direction.getOpposite(), 2))) {
+                                                                    worldIn.setBlockState(blockpos$mutable, Blocks.ICE.getDefaultState(), 2);
+                                                                    worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                                                                    continue;
+                                                                }
+                                                                else worldIn.setBlockState(blockpos$mutable, config.floorState, 2);
+                                                            }
                                                             if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
 
-                                                            if (random.nextFloat() <= config.featureChance) this.generateFeature(worldIn, generator, random, blockpos$mutable.up(), config);
+                                                            if (random.nextFloat() <= config.featureChance) this.generateFeatures(worldIn, generator, random, blockpos$mutable.up(), config);
                                                         }
                                                     }
                                                 }
@@ -164,16 +190,11 @@ public class IcyCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
         return i > 0;
     }
 
-    public void generateFeature(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
-        if (rand.nextInt(4) == 0) {
+    public void generateFeatures(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
+        if (rand.nextInt(4) == 0 && !world.canBlockSeeSky(pos)) {
             world.setBlockState(pos, OmniBlocks.ARCTISS.get().getDefaultState(), 2);
         } else if (rand.nextInt(4) == 0) {
-            Feature.RANDOM_PATCH.generate(world, generator, rand, pos, new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.SNOW.getDefaultState()), SimpleBlockPlacer.PLACER).tries(12).build());
-        }
-
-        if (world.isAirBlock(pos.down())) {
-            world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
-            world.setBlockState(pos.down(), Blocks.ICE.getDefaultState(), 2);
+            Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.SNOW.getDefaultState()), SimpleBlockPlacer.PLACER)).tries(64).xSpread(5).ySpread(5).zSpread(5).func_227317_b_().build()).generate(world, generator, rand, pos);
         }
     }
 }

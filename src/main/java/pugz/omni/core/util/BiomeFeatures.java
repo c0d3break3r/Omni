@@ -4,6 +4,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.placement.*;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
+import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;

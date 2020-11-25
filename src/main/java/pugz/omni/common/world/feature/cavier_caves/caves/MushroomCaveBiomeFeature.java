@@ -13,7 +13,6 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import pugz.omni.common.block.cavier_caves.CaveMushroomBlock;
-import pugz.omni.common.world.feature.cavier_caves.CaveBiomeFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.BitSet;
@@ -146,7 +145,7 @@ public class MushroomCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
                                                             if (config.floorState != null) worldIn.setBlockState(blockpos$mutable, config.floorState, 2);
                                                             if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
 
-                                                            if (random.nextFloat() <= config.featureChance) this.generateFeature(worldIn, generator, random, blockpos$mutable.up(), config);
+                                                            if (random.nextFloat() <= config.featureChance) this.generateFeatures(worldIn, generator, random, blockpos$mutable.up(), config);
                                                         }
                                                     }
                                                 }
@@ -164,7 +163,7 @@ public class MushroomCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
         return i > 0;
     }
 
-    public void generateFeature(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
+    public void generateFeatures(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
         if (world.getBlockState(pos.down()).getBlock() == Blocks.MYCELIUM) {
             if (rand.nextInt(3) == 0) {
                 world.setBlockState(pos, getRandomSmallState(rand).with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 2);
