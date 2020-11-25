@@ -29,14 +29,10 @@ public class TerracottaCaveBiomeFeature extends AbstractCaveBiomeFeature {
             if (config.ceilingState != null) world.setBlockState(pos, config.ceilingState, 2);
             if (config.fillerState != null) world.setBlockState(pos.offset(direction.getOpposite()), config.fillerState, 2);
         }
-
-        if (rand.nextInt(6) == 0) OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 100)).chance(1)).range(80).square().func_242731_b(10);
     }
 
     @Override
     public void placeWall(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, Direction direction, CaveBiomeFeatureConfig config) {
-        if (rand.nextInt(4) == 0) OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 100)).chance(1)).range(80).square().func_242731_b(10);
-
         if (world.getBlockState(pos.offset(direction)).getBlock() == Blocks.CAVE_AIR) {
             if (config.wallState != null) {
                 BlockState state1 = Blocks.TERRACOTTA.getDefaultState();
@@ -73,11 +69,9 @@ public class TerracottaCaveBiomeFeature extends AbstractCaveBiomeFeature {
                 if (world.getBlockState(pos.down(3)).getShape(world, pos.down(3)) == VoxelShapes.fullCube()) world.setBlockState(pos.down(4), Blocks.RED_SANDSTONE.getDefaultState(), 2);
             }
 
-            if (rand.nextInt(6) == 0) OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 100)).chance(1)).range(80).square().func_242731_b(10);
-
             if (rand.nextFloat() <= config.featureChance) {
-                if (rand.nextBoolean()) Features.PATCH_DEAD_BUSH_BADLANDS.generate(world, generator, rand, pos);
-                else Features.PATCH_CACTUS_DECORATED.generate(world, generator, rand, pos);
+                if (rand.nextBoolean()) world.setBlockState(pos.up(), Blocks.DEAD_BUSH.getDefaultState(), 2);
+                else Features.PATCH_CACTUS_DECORATED.generate(world, generator, rand, pos.up());
             }
         }
     }
