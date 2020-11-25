@@ -86,7 +86,8 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        BlockPos pos = hit.getPos();
+        Vector3d offset = state.getOffset(worldIn, hit.getPos());
+        BlockPos pos = hit.getPos().add(offset.x, offset.y, offset.z);
         if (worldIn.isRemote) {
             for (int i = 0; i < 20; ++i) {
                 Random random = worldIn.getRandom();
