@@ -5,6 +5,7 @@ import net.minecraft.world.gen.placement.*;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.core.module.CoreModule;
+import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -42,7 +43,11 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.GEODE.get().withConfiguration(geodeFeatureConfig).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.COMMON.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
     }
 
-    public static void addCaveBiome(BiomeGenerationSettingsBuilder biome, BlockState floorState, BlockState ceilingState, BlockState wallState, BlockState fillerState, int size, float featureChance, RuleTest target, boolean ridged, float probability, int chance) {
-        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.MUSHROOM_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(floorState, ceilingState, wallState, fillerState, size, featureChance, target, ridged)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+    public static void addMushroomCave(BiomeGenerationSettingsBuilder biome, float probability, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.MUSHROOM_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), 144, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, false)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+    }
+
+    public static void addIcyCave(BiomeGenerationSettingsBuilder biome, float probability, int chance) {
+        biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.ICY_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 96, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
     }
 }

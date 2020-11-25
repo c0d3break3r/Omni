@@ -124,7 +124,7 @@ public class CavierCavesModule extends AbstractModule {
         OmniBlocks.CARVED_MALACHITE = RegistryUtil.createBlock("carved_malachite", () -> new HorizontalFacingBlock(AbstractBlock.Properties.from(OmniBlocks.MALACHITE_BLOCK.get())), ItemGroup.BUILDING_BLOCKS);
 
         OmniBlocks.ARCTISS = RegistryUtil.createBlock("arctiss", ArctissBlock::new, ItemGroup.DECORATIONS);
-        OmniBlocks.ARCTISS_BLOCK = RegistryUtil.createBlock("arctiss_block", () -> new Block(AbstractBlock.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
+        OmniBlocks.ARCTISS_BLOCK = RegistryUtil.createBlock("arctiss_block", () -> new Block(AbstractBlock.Properties.from(Blocks.STONE)), ItemGroup.BUILDING_BLOCKS);
     }
 
     @Override
@@ -197,13 +197,13 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
-            BiomeFeatures.addCaveBiome(gen, OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 96, 0.25F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true,0.4F, 18);
+            BiomeFeatures.addIcyCave(gen,0.4F, 18);
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addCaveBiome(gen, Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), 160, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, false, 0.5F, 15);
+            BiomeFeatures.addMushroomCave(gen, 0.5F, 15);
         }
     }
 

@@ -147,12 +147,6 @@ public class IcyCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
                                                             if (config.fillerState != null) worldIn.setBlockState(blockpos$mutable.offset(direction.getOpposite()), config.fillerState, 2);
 
                                                             if (random.nextFloat() <= config.featureChance) this.generateFeature(worldIn, generator, random, blockpos$mutable.up(), config);
-                                                            else {
-                                                                if (worldIn.isAirBlock(blockpos$mutable.down())) {
-                                                                    worldIn.setBlockState(blockpos$mutable, Blocks.ICE.getDefaultState(), 2);
-                                                                    worldIn.setBlockState(blockpos$mutable.down(), Blocks.ICE.getDefaultState(), 2);
-                                                                }
-                                                            }
                                                         }
                                                     }
                                                 }
@@ -171,10 +165,15 @@ public class IcyCaveBiomeFeature extends Feature<CaveBiomeFeatureConfig> {
     }
 
     public void generateFeature(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, CaveBiomeFeatureConfig config) {
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(4) == 0) {
             world.setBlockState(pos, OmniBlocks.ARCTISS.get().getDefaultState(), 2);
-        } else if (rand.nextInt(3) == 0) {
+        } else if (rand.nextInt(4) == 0) {
             Feature.RANDOM_PATCH.generate(world, generator, rand, pos, new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.SNOW.getDefaultState()), SimpleBlockPlacer.PLACER).tries(12).build());
+        }
+
+        if (world.isAirBlock(pos.down())) {
+            world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
+            world.setBlockState(pos.down(), Blocks.ICE.getDefaultState(), 2);
         }
     }
 }
