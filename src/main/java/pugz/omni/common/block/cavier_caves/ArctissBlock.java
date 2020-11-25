@@ -1,30 +1,46 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.BlockParticleData;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 import pugz.omni.core.base.IBaseBlock;
 import pugz.omni.core.registry.OmniBlocks;
 
 import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
 
 public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 6.0D, 12.0D);
 
     public ArctissBlock() {
-        super(AbstractBlock.Properties.from(Blocks.GRASS));
+        super(AbstractBlock.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).sound(SoundType.GLASS));
         setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
     }
 
@@ -37,7 +53,8 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPE;
+        Vector3d offset = state.getOffset(worldIn, pos);
+        return SHAPE.withOffset(offset.x, offset.y, offset.z);
     }
 
     @Nonnull
@@ -64,6 +81,27 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
 
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return state.getFluidState().isEmpty();
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        BlockPos pos = hit.getPos();
+        if (worldIn.isRemote) {
+            for (int i = 0; i < 20; ++i) {
+                Random random = worldIn.getRandom();
+                worldIn.addOptionalParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
+                worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), (double)pos.getX() + 0.25D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4D, (double)pos.getZ() + 0.25D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
+            }
+        }
+
+        List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(pos.getX() - 0.5D, pos.getY() - 0.5D, pos.getZ() - 0.5D, pos.getX() + 0.5D, pos.getY() + 6.0D + 0.5D, pos.getZ() + 0.5D), Entity::isAlive);
+        for (Entity target : list) {
+            if (target instanceof LivingEntity) {
+                LivingEntity living = (LivingEntity) target;
+                living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 120, 10));
+            }
+        }
     }
 
     @Override

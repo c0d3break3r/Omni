@@ -80,10 +80,7 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
         if (!worldIn.isRemote && worldIn.getRandom().nextBoolean() && !player.isCreative()) {
             SizedCaveSpiderEntity caveSpider = OmniEntities.CAVE_SPIDER.get().create(worldIn);
             caveSpider.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY() + 0.05D, (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-            if (state.get(SIZE) == 4) {
-                caveSpider.setSpiderSize(state.get(SIZE));
-            }
-            else caveSpider.setSpiderSize(state.get(SIZE) - 1);
+            caveSpider.setSpiderSize(state.get(SIZE) - 1);
             worldIn.addEntity(caveSpider);
         }
 
