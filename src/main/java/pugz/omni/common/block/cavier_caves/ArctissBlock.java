@@ -86,13 +86,12 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        Vector3d offset = state.getOffset(worldIn, hit.getPos());
-        BlockPos pos = hit.getPos().add(offset.x, offset.y, offset.z);
+        BlockPos pos = hit.getPos();
         if (worldIn.isRemote) {
+            Random random = worldIn.getRandom();
             for (int i = 0; i < 20; ++i) {
-                Random random = worldIn.getRandom();
-                worldIn.addOptionalParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
-                worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), (double)pos.getX() + 0.25D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4D, (double)pos.getZ() + 0.25D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
+                worldIn.addOptionalParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), true, (double) pos.getX() + 0.75D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble() * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getZ() + 0.75D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.05D, 0.0D);
+                worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), (double)pos.getX() + 0.5D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
             }
         }
 
