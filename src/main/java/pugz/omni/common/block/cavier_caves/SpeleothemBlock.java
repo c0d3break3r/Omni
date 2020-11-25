@@ -1,6 +1,7 @@
 package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
@@ -129,25 +130,25 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
 
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FILL_CAULDRONS.get()) {
-            for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
-                BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
-                BlockState block = world.getBlockState(check);
+        if (hasWaterAbove(state, world, pos) && !world.isRemote) {
+            if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FILL_CAULDRONS.get()) {
+                for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
+                    BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
+                    BlockState block = world.getBlockState(check);
 
-                if (block.getBlock() == Blocks.CAULDRON && rand.nextInt(40) == 0 && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
-                    int level = block.get(CauldronBlock.LEVEL);
-                    if (level < 3) world.setBlockState(check, block.with(CauldronBlock.LEVEL, level + 1), 3);
+                    if (block.getBlock() == Blocks.CAULDRON && rand.nextInt(40) == 0 && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
+                        int level = block.get(CauldronBlock.LEVEL);
+                        if (level < 3) world.setBlockState(check, block.with(CauldronBlock.LEVEL, level + 1), 3);
+                    }
                 }
             }
-        }
 
-        if (canGrow(state, world, pos, rand) && !world.isRemote) {
-            world.setBlockState(pos.down(), state, 2);
+            if (rand.nextInt(16) == 0) world.setBlockState(pos.down(), state, 2);
         }
     }
 
-    private boolean canGrow(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (state.get(PART) == Part.UPPER && rand.nextInt(16) == 0 && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
+    private boolean hasWaterAbove(BlockState state, ServerWorld world, BlockPos pos) {
+        if (state.get(PART) == Part.UPPER && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
             BlockPos.Mutable check = pos.toMutable();
             for (int y = pos.getY(); y <= 128; ++y) {
                 check.setPos(pos.getX(), y, pos.getZ());
@@ -266,7 +267,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
     @Override
     @SuppressWarnings("deprecation")
     public void onProjectileCollision(World world, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote) trySpawnEntity(world, hit.getPos());
+        if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FALL_BY_PROJECTILES.get() && !world.isRemote && projectile instanceof TridentEntity) trySpawnEntity(world, hit.getPos());
     }
 
     @OnlyIn(Dist.CLIENT)
