@@ -91,19 +91,15 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
         Size size = state.get(SIZE);
 
         if (held.getItem() instanceof PickaxeItem) {
-            FluidState fluidstate = worldIn.getFluidState(pos);
+            if (size == Size.LARGE || size == Size.ICE_LARGE)
+                worldIn.setBlockState(pos, state.with(SIZE, Size.MEDIUM), 1);
+            else if (size == Size.MEDIUM)
+                worldIn.setBlockState(pos, state.with(SIZE, Size.SMALL), 1);
+            else if (size == Size.SMALL) worldIn.removeBlock(pos, false);
 
-            if (!worldIn.isRemote) {
-                if (size == Size.LARGE || size == Size.ICE_LARGE)
-                    worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.MEDIUM).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
-                else if (size == Size.MEDIUM)
-                    worldIn.setBlockState(pos, getDefaultState().with(SIZE, Size.SMALL).with(PART, state.get(PART)).with(STATIC, state.get(STATIC)).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER)), 1);
-                else if (size == Size.SMALL) worldIn.removeBlock(pos, false);
-
-                if (held.isDamageable()) held.damageItem(1, player, (living) -> {
-                    living.sendBreakAnimation(handIn);
-                });
-            }
+            if (held.isDamageable()) held.damageItem(1, player, (living) -> {
+                living.sendBreakAnimation(handIn);
+            });
 
             return ActionResultType.func_233537_a_(worldIn.isRemote);
         }

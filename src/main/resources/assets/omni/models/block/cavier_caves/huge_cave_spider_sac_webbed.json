@@ -1,0 +1,8 @@
+{
+	"parent": "omni:block/cavier_caves/huge_spider_sac_webbed",
+	"textures": {
+		"side": "omni:block/cavier_caves/huge_cave_spider_sac_side",
+		"end": "omni:block/cavier_caves/huge_cave_spider_sac_end",
+		"web": "block/cobweb"
+	}
+}

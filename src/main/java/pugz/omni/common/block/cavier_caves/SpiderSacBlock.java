@@ -8,14 +8,19 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -23,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 
 import javax.annotation.Nonnull;
@@ -30,15 +36,17 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock {
-    public static final IntegerProperty SIZE = IntegerProperty.create("size", 1, 3);
+    public static final IntegerProperty SIZE = IntegerProperty.create("size", 1, 4);
+    public static final BooleanProperty WEBBED = BooleanProperty.create("webbed");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape SMALL_AABB = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 6.0D, 10.0D);
     private static final VoxelShape MEDIUM_AABB = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 8.0D, 11.0D);
     private static final VoxelShape LARGE_AABB = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 12.0D, 12.0D);
+    private static final VoxelShape HUGE_AABB = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
 
     public SpiderSacBlock() {
         super(AbstractBlock.Properties.create(Material.ORGANIC).hardnessAndResistance(0.25F).notSolid().sound(SoundType.SLIME));
-        setDefaultState(this.stateContainer.getBaseState().with(SIZE, 2).with(WATERLOGGED, false));
+        setDefaultState(this.stateContainer.getBaseState().with(SIZE, 2).with(WEBBED, false).with(WATERLOGGED, false));
     }
 
     @Nonnull
@@ -47,11 +55,13 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch (state.get(SIZE)) {
             case 1:
-                return SMALL_AABB;
+                return state.get(WEBBED) ? VoxelShapes.or(SMALL_AABB, CobwebCarpetBlock.DOWN_AABB) : SMALL_AABB;
             case 2:
-                return MEDIUM_AABB;
+                return state.get(WEBBED) ? VoxelShapes.or(MEDIUM_AABB, CobwebCarpetBlock.DOWN_AABB) : MEDIUM_AABB;
+            case 3:
+                return state.get(WEBBED) ? VoxelShapes.or(LARGE_AABB, CobwebCarpetBlock.DOWN_AABB) : LARGE_AABB;
             default:
-                return LARGE_AABB;
+                return state.get(WEBBED) ? VoxelShapes.or(HUGE_AABB, CobwebCarpetBlock.DOWN_AABB) : HUGE_AABB;
         }
     }
 
@@ -70,11 +80,30 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
         if (!worldIn.isRemote && worldIn.getRandom().nextBoolean() && !player.isCreative()) {
             SizedCaveSpiderEntity caveSpider = OmniEntities.CAVE_SPIDER.get().create(worldIn);
             caveSpider.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY() + 0.05D, (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-            caveSpider.setSpiderSize(state.get(SIZE) - 1);
+            if (state.get(SIZE) == 4) {
+                caveSpider.setSpiderSize(state.get(SIZE));
+            }
+            else caveSpider.setSpiderSize(state.get(SIZE) - 1);
             worldIn.addEntity(caveSpider);
         }
 
         super.onBlockHarvested(worldIn, pos, state, player);
+    }
+
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        ItemStack held = player.getHeldItem(handIn);
+
+        if (held.getItem() == OmniBlocks.COBWEB_CARPET.get().asItem()) {
+            worldIn.setBlockState(pos, state.with(WEBBED, true), 3);
+            if (!player.isCreative()) held.shrink(1);
+
+            return ActionResultType.func_233537_a_(worldIn.isRemote);
+        }
+
+        return ActionResultType.PASS;
     }
 
     @Override
@@ -122,6 +151,6 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(SIZE, WATERLOGGED);
+        builder.add(SIZE, WEBBED, WATERLOGGED);
     }
 }
