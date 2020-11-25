@@ -3,6 +3,8 @@ package pugz.omni.common.block.cavier_caves;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -21,6 +23,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -62,6 +65,22 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
                 return state.get(WEBBED) ? VoxelShapes.or(LARGE_AABB, CobwebCarpetBlock.DOWN_AABB) : LARGE_AABB;
             default:
                 return state.get(WEBBED) ? VoxelShapes.or(HUGE_AABB, CobwebCarpetBlock.DOWN_AABB) : HUGE_AABB;
+        }
+    }
+
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
+        switch (state.get(SIZE)) {
+            case 1:
+                return SMALL_AABB;
+            case 2:
+                return MEDIUM_AABB;
+            case 3:
+                return LARGE_AABB;
+            default:
+                return HUGE_AABB;
         }
     }
 
@@ -144,6 +163,12 @@ public class SpiderSacBlock extends Block implements IWaterLoggable, IBaseBlock 
         }
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    }
+
+    @SuppressWarnings("deprecation")
+    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        if (entityIn instanceof SpiderEntity || !state.get(WEBBED)) return;
+        entityIn.setMotionMultiplier(state, new Vector3d(0.8D, (double)0.8F, 0.8D));
     }
 
     @Override

@@ -53,18 +53,25 @@ public abstract class AbstractModule {
 
         ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
             if (block.getValue() instanceof IBaseBlock) {
-                final FireBlock fire = (FireBlock) Blocks.FIRE;
                 IBaseBlock baseBlock = (IBaseBlock) block.getValue();
 
                 if (baseBlock.getRenderType() != RenderType.getSolid()) RenderTypeLookup.setRenderLayer((Block) baseBlock, baseBlock.getRenderType());
-                if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());
-                if (baseBlock.getCompostChance() != 0.0F) ComposterBlock.CHANCES.put(((Block) baseBlock).asItem(), baseBlock.getCompostChance());
             }
         });
     }
 
     public void initializePost() {
         onPostInitialize();
+
+        ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
+            if (block.getValue() instanceof IBaseBlock) {
+                final FireBlock fire = (FireBlock) Blocks.FIRE;
+                IBaseBlock baseBlock = (IBaseBlock) block.getValue();
+
+                if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());
+                if (baseBlock.getCompostChance() != 0.0F) ComposterBlock.CHANCES.put(((Block) baseBlock).asItem(), baseBlock.getCompostChance());
+            }
+        });
     }
 
     protected void registerBlocks() {

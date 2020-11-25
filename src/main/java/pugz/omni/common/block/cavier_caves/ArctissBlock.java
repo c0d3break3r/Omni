@@ -90,12 +90,12 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
         if (worldIn.isRemote) {
             Random random = worldIn.getRandom();
             for (int i = 0; i < 20; ++i) {
-                worldIn.addOptionalParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), true, (double) pos.getX() + 0.75D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble() * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getZ() + 0.75D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.05D, 0.0D);
-                worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), (double)pos.getX() + 0.5D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
+                worldIn.addOptionalParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), true, (double) pos.getX() + 0.75D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble() * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getZ() + 0.75D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.045D, 0.0D);
+                worldIn.addParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), (double)pos.getX() + 0.5D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble() * (double) (random.nextBoolean() ? 1 : -1), (double)pos.getZ() + 0.5D + random.nextDouble() / 2.0D * (double)(random.nextBoolean() ? 1 : -1), 0.0D, 0.03D, 0.0D);
             }
         }
 
-        List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(pos.getX() - 0.5D, pos.getY() - 0.5D, pos.getZ() - 0.5D, pos.getX() + 0.5D, pos.getY() + 6.0D + 0.5D, pos.getZ() + 0.5D), Entity::isAlive);
+        List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(pos.getX() - 0.5D, pos.getY() - 0.5D, pos.getZ() - 0.5D, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D), Entity::isAlive);
         for (Entity target : list) {
             if (target instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) target;
