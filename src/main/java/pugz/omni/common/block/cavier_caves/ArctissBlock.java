@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleType;
@@ -106,7 +107,7 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public boolean isReplaceable(BlockState state, Fluid fluid) {
+    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
         return false;
     }
 

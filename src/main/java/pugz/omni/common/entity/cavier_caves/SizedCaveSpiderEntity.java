@@ -2,7 +2,9 @@ package pugz.omni.common.entity.cavier_caves;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.CaveSpiderEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,7 +39,13 @@ public class SizedCaveSpiderEntity extends CaveSpiderEntity {
 
     @Nonnull
     public ResourceLocation getLootTable() {
-        return new ResourceLocation("entities/spider/cave_spider");
+        return new ResourceLocation("entity/spider/cave_spider");
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     public void setSpiderSize(int sizeIn) {
@@ -111,7 +119,7 @@ public class SizedCaveSpiderEntity extends CaveSpiderEntity {
     public EntitySize getSize(Pose poseIn) {
         int i = this.getSpiderSize();
         EntitySize entitysize = super.getSize(poseIn);
-        float f = 0.6F + 0.2F * (float) (i * i);
+        float f = 0.5F + 0.2F * (float) (i * i);
         return entitysize.scale(f * 2.0F, f * 1.6F);
     }
 }

@@ -40,6 +40,9 @@
 
   "item.omni.malachite_shard": "Malachite Shard",
 
+  "entity.omni.speleothem": "Speleothem",
+  "entity.omni.cave_spider": "Cave Spider",
+
   "subtitles.block.crystal.break": "Block broken",
   "subtitles.block.crystal.place": "Block placed",
   "subtitles.block.crystal.step": "Steps",
