@@ -137,7 +137,7 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(WintertimeModule.instance.getName());
-            POLAR_BEAR_JOCKEY_CHANCE = builder.defineInRange("polar_bear_jockey_chance", 100, 0, 1000);
+            POLAR_BEAR_JOCKEY_CHANCE = builder.defineInRange("polar_bear_jockey_chance", 40, 0, 1000);
             builder.pop();
         }
 

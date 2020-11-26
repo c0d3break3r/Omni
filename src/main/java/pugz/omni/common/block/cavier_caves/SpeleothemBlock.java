@@ -91,11 +91,8 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
         Size size = state.get(SIZE);
 
         if (held.getItem() instanceof PickaxeItem) {
-            if (size == Size.LARGE || size == Size.ICE_LARGE)
-                worldIn.setBlockState(pos, state.with(SIZE, Size.MEDIUM), 1);
-            else if (size == Size.MEDIUM)
-                worldIn.setBlockState(pos, state.with(SIZE, Size.SMALL), 1);
-            else if (size == Size.SMALL) worldIn.removeBlock(pos, false);
+            if (size == Size.LARGE || size == Size.ICE_LARGE) worldIn.setBlockState(pos, state.with(SIZE, Size.MEDIUM), 1);
+            else if (size == Size.MEDIUM) worldIn.setBlockState(pos, state.with(SIZE, Size.SMALL), 1);
 
             if (held.isDamageable()) held.damageItem(1, player, (living) -> {
                 living.sendBreakAnimation(handIn);
