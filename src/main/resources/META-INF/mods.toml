@@ -5,7 +5,7 @@ license="https://github.com/c0d3break3r/Omni/blob/main/LICENSE"
 
 [[mods]]
     modId="omni"
-    version="${version}"
+    version='${version}'
     logoFile="logo.png"
     displayName="Omni"
     authors="Pugz"

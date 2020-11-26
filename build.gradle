@@ -21,7 +21,7 @@ mixin {
 
 version = "${version}"
 group = 'pugz.omni'
-archivesBaseName = "${name}-${minecraft_version}"
+archivesBaseName = "${name}-${minecraft_version}-${version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
