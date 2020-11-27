@@ -3,6 +3,7 @@ package pugz.omni.core.util;
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import pugz.omni.core.Omni;
@@ -70,6 +71,10 @@ public class RegistryUtil {
 
     public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> createConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
+    }
+
+    public static <C extends WorldCarver<?>> RegistryObject<C> createCarver(String name, Supplier<? extends C> supplier) {
+        return Omni.Registries.CARVERS.register(name, supplier);
     }
 
     public static <E extends Enchantment> RegistryObject<E> createEnchantment(String name, Supplier<? extends E> supplier) {

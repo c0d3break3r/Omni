@@ -8,6 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.ProbabilityConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -21,10 +23,7 @@ import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.common.world.feature.cavier_caves.*;
-import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
-import pugz.omni.common.world.feature.cavier_caves.caves.IcyCaveBiomeFeature;
-import pugz.omni.common.world.feature.cavier_caves.caves.MushroomCaveBiomeFeature;
-import pugz.omni.common.world.feature.cavier_caves.caves.TerracottaCaveBiomeFeature;
+import pugz.omni.common.world.feature.cavier_caves.caves.*;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
@@ -99,9 +98,6 @@ public class CavierCavesModule extends AbstractModule {
             //}
         //}
 
-        OmniBlocks.COBWEB_CARPET = RegistryUtil.createBlock("cobweb_carpet", CobwebCarpetBlock::new, ItemGroup.DECORATIONS);
-        OmniBlocks.CAVE_SPIDER_SAC = RegistryUtil.createBlock("cave_spider_sac", SpiderSacBlock::new, ItemGroup.DECORATIONS);
-
         //RegistryObject<Block> WEAK_STONE;
 
         //RegistryObject<Block> SLIME;
@@ -164,6 +160,10 @@ public class CavierCavesModule extends AbstractModule {
     }
 
     @Override
+    protected void registerCarvers() {
+    }
+
+    @Override
     protected void registerEffects() {
         //RegistryObject<Effect> DEAFENED;
     }
@@ -207,6 +207,7 @@ public class CavierCavesModule extends AbstractModule {
         if (category == Biome.Category.MUSHROOM) {
             BiomeFeatures.addMushroomCave(gen, 0.4F, 15);
         }
+        BiomeFeatures.addSpiderNest(gen, 0.05F, 24);
     }
 
     public void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {

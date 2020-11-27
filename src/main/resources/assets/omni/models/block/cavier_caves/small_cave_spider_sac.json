@@ -1,6 +1,0 @@
-{
-  "parent": "omni:block/cavier_caves/small_spider_sac",
-  "textures": {
-    "all": "omni:block/cavier_caves/small_cave_spider_sac"
-  }
-}

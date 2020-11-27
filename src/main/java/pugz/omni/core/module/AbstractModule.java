@@ -37,6 +37,7 @@ public abstract class AbstractModule {
         registerSurfaceBuilders();
         registerFeatures();
         registerStructures();
+        registerCarvers();
         registerDimensions();
         registerEnchantments();
         registerEffects();
@@ -96,6 +97,9 @@ public abstract class AbstractModule {
     }
 
     protected void registerStructures() {
+    }
+
+    protected void registerCarvers() {
     }
 
     protected void registerDimensions() {
