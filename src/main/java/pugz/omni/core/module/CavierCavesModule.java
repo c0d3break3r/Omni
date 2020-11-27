@@ -207,7 +207,6 @@ public class CavierCavesModule extends AbstractModule {
         if (category == Biome.Category.MUSHROOM) {
             BiomeFeatures.addMushroomCave(gen, 0.4F, 15);
         }
-        BiomeFeatures.addSpiderNest(gen, 0.05F, 24);
     }
 
     public void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
