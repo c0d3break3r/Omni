@@ -2,7 +2,9 @@ package pugz.omni.common.block.cavier_caves;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.projectile.TridentEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -123,8 +125,8 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
 
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (hasWaterAbove(state, world, pos) && !world.isRemote) {
-            if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FILL_CAULDRONS.get()) {
+        if ((state.getBlock() == OmniBlocks.NETHERRACK_SPELEOTHEM.get() ? hasLiquidAbove(state, world, pos, FluidTags.LAVA) : hasLiquidAbove(state, world, pos, FluidTags.WATER)) && !world.isRemote) {
+            if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FILL_CAULDRONS.get() && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
                 for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
                     BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
                     BlockState block = world.getBlockState(check);
@@ -140,7 +142,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
         }
     }
 
-    private boolean hasWaterAbove(BlockState state, ServerWorld world, BlockPos pos) {
+    private boolean hasLiquidAbove(BlockState state, ServerWorld world, BlockPos pos, ITag.INamedTag<Fluid> tag) {
         if (state.get(PART) == Part.UPPER && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
             BlockPos.Mutable check = pos.toMutable();
             for (int y = pos.getY(); y <= 128; ++y) {
@@ -150,7 +152,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
                 if (!(block.getBlock() instanceof SpeleothemBlock)) break;
             }
 
-            return world.getFluidState(check.up(2)).isTagged(FluidTags.WATER);
+            return world.getFluidState(check.up(2)).isTagged(tag);
         }
         return false;
     }
@@ -254,7 +256,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
     }
 
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-        super.onFallenUpon(worldIn, pos, entityIn, fallDistance * 1.5F);
+        super.onFallenUpon(worldIn, pos, entityIn, fallDistance * 2.0F);
     }
 
     @Override
