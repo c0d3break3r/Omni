@@ -74,7 +74,7 @@ public class Omni {
         DesertedModule.instance.initialize();
         FieryNetherModule.instance.initialize();
         ForestryModule.instance.initialize();
-        HallowsEveModule.instance.initialize();
+        //HallowsEveModule.instance.initialize();
         MiscellaneousModule.instance.initialize();
         ParadiseModule.instance.initialize();
         WintertimeModule.instance.initialize();
@@ -90,7 +90,7 @@ public class Omni {
         DesertedModule.instance.initializeClient();
         FieryNetherModule.instance.initializeClient();
         ForestryModule.instance.initializeClient();
-        HallowsEveModule.instance.initializeClient();
+        //HallowsEveModule.instance.initializeClient();
         MiscellaneousModule.instance.initializeClient();
         ParadiseModule.instance.initializeClient();
         WintertimeModule.instance.initializeClient();
@@ -105,7 +105,7 @@ public class Omni {
         DesertedModule.instance.initializePost();
         FieryNetherModule.instance.initializePost();
         ForestryModule.instance.initializePost();
-        HallowsEveModule.instance.initializePost();
+        //HallowsEveModule.instance.initializePost();
         MiscellaneousModule.instance.initializePost();
         ParadiseModule.instance.initializePost();
         WintertimeModule.instance.initializePost();

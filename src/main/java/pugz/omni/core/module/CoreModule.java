@@ -101,7 +101,7 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
 
         public Configuration(ForgeConfigSpec.Builder builder) {
-            builder.comment("Omni Configuration");
+            builder.comment("Omni Common Configuration");
 
             builder.push(CavierCavesModule.instance.getName());
             MALACHITE_GEODE_SPAWN_CHANCE = builder.defineInRange("malachite_geode_spawn_chance", 48, 0, 1000);

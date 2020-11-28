@@ -1,14 +1,11 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
-import javafx.scene.paint.Color;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
@@ -19,7 +16,6 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import pugz.omni.client.particle.LotusPetalParticle;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
 import pugz.omni.common.entity.paradise.SeahorseEntity;

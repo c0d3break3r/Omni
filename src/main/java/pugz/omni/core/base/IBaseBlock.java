@@ -1,8 +1,11 @@
 package pugz.omni.core.base;
 
 import net.minecraft.client.renderer.RenderType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface IBaseBlock {
+    @OnlyIn(Dist.CLIENT)
     default RenderType getRenderType() {
         return RenderType.getSolid();
     }

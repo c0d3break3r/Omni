@@ -62,6 +62,6 @@ public class BaseGenUtils {
             }
         }
 
-        return (float)air / volume < percent;
+        return (float)air / volume <= percent;
     }
 }

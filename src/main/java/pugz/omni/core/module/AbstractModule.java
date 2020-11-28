@@ -66,8 +66,8 @@ public abstract class AbstractModule {
 
         ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
             if (block.getValue() instanceof IBaseBlock) {
-                final FireBlock fire = (FireBlock) Blocks.FIRE;
                 IBaseBlock baseBlock = (IBaseBlock) block.getValue();
+                final FireBlock fire = (FireBlock) Blocks.FIRE;
 
                 if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());
                 if (baseBlock.getCompostChance() != 0.0F) ComposterBlock.CHANCES.put(((Block) baseBlock).asItem(), baseBlock.getCompostChance());

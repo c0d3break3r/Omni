@@ -3,7 +3,6 @@ package pugz.omni.core.util;
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
