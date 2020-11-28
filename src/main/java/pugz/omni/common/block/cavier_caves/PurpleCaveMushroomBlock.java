@@ -23,15 +23,15 @@ public class PurpleCaveMushroomBlock extends CaveMushroomBlock implements IBaseB
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entity, float fallDistance) {
         entity.onLivingFall(fallDistance, 0.0F);
 
-        if (entity instanceof LivingEntity && fallDistance >= 4.0F && !entity.isSuppressingBounce()) {
+        if (entity instanceof LivingEntity && fallDistance >= 1.0F && !entity.isSuppressingBounce()) {
             worldIn.playSound(null, pos, OmniSoundEvents.MUSHROOM_BOUNCE.get(), SoundCategory.BLOCKS, 0.75F, 0.5F + worldIn.rand.nextFloat() * 1.2F);
 
             AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(worldIn, pos.getX(), pos.getY() + 0.5F, pos.getZ());
-            areaeffectcloudentity.setRadius(MathHelper.clamp(fallDistance * 0.25F, 0.0F, 5.0F));
+            areaeffectcloudentity.setRadius(MathHelper.clamp(fallDistance * 0.5F, 0.0F, 6.0F));
             areaeffectcloudentity.setRadiusOnUse(-0.25F);
             areaeffectcloudentity.setWaitTime(0);
-            areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / MathHelper.clamp(fallDistance * 10.0F, 0.0F, 600.0F));
-            areaeffectcloudentity.setPotion(new Potion(new EffectInstance(Effects.POISON, Math.round(fallDistance * 15.0F))));
+            areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / MathHelper.clamp(fallDistance * 12.0F, 0.0F, 600.0F));
+            areaeffectcloudentity.setPotion(new Potion(new EffectInstance(Effects.POISON, MathHelper.clamp(Math.round(fallDistance * 20.0F), 0, 9600))));
             areaeffectcloudentity.setColor(7221919);
             worldIn.addEntity(areaeffectcloudentity);
         }

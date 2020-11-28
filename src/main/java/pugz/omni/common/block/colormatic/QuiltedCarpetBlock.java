@@ -2,15 +2,11 @@ package pugz.omni.common.block.colormatic;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.DyeColor;
+import net.minecraft.item.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -18,7 +14,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import pugz.omni.core.base.IBaseBlock;
-import pugz.omni.core.module.ColormaticModule;
 import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
@@ -45,6 +40,13 @@ public class QuiltedCarpetBlock extends Block implements IBaseBlock {
     @Override
     public int getFireFlammability() {
         return 20;
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        items.forEach(stack -> {
+            if (stack.getItem() == Items.BLACK_CARPET) items.add(new ItemStack(this));
+        });
     }
 
     @Nonnull

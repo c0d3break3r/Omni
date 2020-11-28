@@ -44,23 +44,23 @@ public class MushroomCaveBiomeFeature extends AbstractCaveBiomeFeature {
             if (config.fillerState != null) world.setBlockState(pos.offset(direction.getOpposite()), config.fillerState, 2);
 
             if (rand.nextFloat() <= config.featureChance) {
-                if (world.getBlockState(pos.down()).getBlock() == Blocks.MYCELIUM) {
+                if (world.getBlockState(pos).getBlock() == Blocks.MYCELIUM) {
                     if (rand.nextInt(3) == 0) {
-                        world.setBlockState(pos, getRandomSmallState(rand).with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 2);
+                        world.setBlockState(pos.up(), getRandomSmallState(rand).with(CaveMushroomBlock.WATERLOGGED, world.getFluidState(pos).isTagged(FluidTags.WATER)), 2);
                         return;
                     } else if (rand.nextInt(5) == 0) {
-                        if (rand.nextBoolean()) Features.PATCH_RED_MUSHROOM.generate(world, generator, rand, pos);
-                        else Features.PATCH_BROWN_MUSHROOM.generate(world, generator, rand, pos);
+                        if (rand.nextBoolean()) Features.PATCH_RED_MUSHROOM.generate(world, generator, rand, pos.up());
+                        else Features.PATCH_BROWN_MUSHROOM.generate(world, generator, rand, pos.up());
                     }
 
                     int height = rand.nextInt(4) + 1;
                     BlockState state = getRandomState(rand);
 
-                    for (int y = pos.getY(); y <= pos.getY() + height; ++y) {
-                        BlockPos place1 = new BlockPos(pos.getX(), y, pos.getZ());
+                    for (int y = pos.up().getY(); y <= pos.up().getY() + height; ++y) {
+                        BlockPos place1 = new BlockPos(pos.up().getX(), y, pos.up().getZ());
                         world.setBlockState(place1, OmniBlocks.CAVE_MUSHROOM_STEM.get().getDefaultState(), 2);
 
-                        if (y == pos.getY() + height) {
+                        if (y == pos.up().getY() + height) {
                             for (Direction d : Direction.values()) {
                                 if (!world.getBlockState(place1.offset(d)).isSolid())
                                     world.setBlockState(place1.offset(d), state, 2);

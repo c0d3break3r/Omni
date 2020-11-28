@@ -6,11 +6,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -30,6 +27,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import javax.annotation.Nonnull;
@@ -100,7 +98,7 @@ public class ArctissBlock extends Block implements IWaterLoggable, IBaseBlock {
         for (Entity target : list) {
             if (target instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) target;
-                living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 120, 10));
+                living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, CoreModule.Configuration.COMMON.ARCTISS_FREEZE_DURATION.get(), 10));
             }
         }
     }

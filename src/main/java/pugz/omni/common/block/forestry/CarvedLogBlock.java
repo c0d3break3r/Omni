@@ -5,6 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.NonNullList;
 import pugz.omni.core.base.IBaseBlock;
 
 public class CarvedLogBlock extends Block implements IBaseBlock {
@@ -20,5 +24,12 @@ public class CarvedLogBlock extends Block implements IBaseBlock {
     @Override
     public int getFireFlammability() {
         return 5;
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        items.forEach(stack -> {
+            if (stack.getItem() == Items.DARK_OAK_WOOD) items.add(new ItemStack(this));
+        });
     }
 }

@@ -68,6 +68,11 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL;
         public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FALL_BY_PROJECTILES;
         public final ForgeConfigSpec.BooleanValue SPELEOTHEMS_FILL_CAULDRONS;
+        public final ForgeConfigSpec.IntValue MUSHROOM_CAVE_CHANCE;
+        public final ForgeConfigSpec.IntValue GREEN_CAVE_MUSHROOM_BOUNCE_MODIFIER;
+        public final ForgeConfigSpec.IntValue ICY_CAVE_CHANCE;
+        public final ForgeConfigSpec.IntValue ARCTISS_FREEZE_DURATION;
+        public final ForgeConfigSpec.BooleanValue ICY_CAVE_ICE_WINDOWS;
 
         //colormatic
         public final ForgeConfigSpec.BooleanValue CONNECTABLE_QUILTED_CARPETS;
@@ -107,6 +112,11 @@ public class CoreModule extends AbstractModule {
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);
+            MUSHROOM_CAVE_CHANCE = builder.defineInRange("mushroom_cave_chance", 15, 0, 1000);
+            GREEN_CAVE_MUSHROOM_BOUNCE_MODIFIER = builder.defineInRange("green_cave_mushroom_bounce_modifier", 1, 0, 1000);
+            ICY_CAVE_CHANCE = builder.defineInRange("icy_cave_chance", 18, 0, 1000);
+            ARCTISS_FREEZE_DURATION = builder.defineInRange("arctiss_freeze_duration", 120, 0, 9600);
+            ICY_CAVE_ICE_WINDOWS = builder.define("icy_cave_ice_windows", true);
             builder.pop();
 
             builder.push(ColormaticModule.instance.getName());

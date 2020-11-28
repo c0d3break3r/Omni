@@ -50,7 +50,6 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onPlayerBreakSpeed);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onLivingJump);
     }
@@ -199,23 +198,13 @@ public class CavierCavesModule extends AbstractModule {
         }
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 3);
-            BiomeFeatures.addIcyCave(gen,0.3F, 18);
+            BiomeFeatures.addIcyCave(gen,0.3F, CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get());
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 3);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addMushroomCave(gen, 0.4F, 15);
-        }
-    }
-
-    public void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
-        BlockPos pos = event.getPos();
-        PlayerEntity player = event.getPlayer();
-        World world = player.getEntityWorld();
-
-        if (BaseGenUtils.isBlockWithinRange(world, pos, 6, OmniBlocks.YELLOW_CAVE_MUSHROOM.get())) {
-            event.setNewSpeed(event.getOriginalSpeed() * 1.15F);
+            BiomeFeatures.addMushroomCave(gen, 0.4F, CoreModule.Configuration.COMMON.MUSHROOM_CAVE_CHANCE.get());
         }
     }
     
@@ -225,7 +214,7 @@ public class CavierCavesModule extends AbstractModule {
         World world = living.getEntityWorld();
 
         if (world.getBlockState(pos).getBlock() == OmniBlocks.GREEN_CAVE_MUSHROOM.get() && !living.isSuppressingBounce()) {
-            if (world.getBlockState(pos.down()).getBlock() instanceof SlimeBlock) living.addVelocity(0.0D, 0.9D, 0.0D);
+            if (world.getBlockState(pos.down()).getBlock() instanceof SlimeBlock) living.addVelocity(0.0D, 0.9D * CoreModule.Configuration.COMMON.GREEN_CAVE_MUSHROOM_BOUNCE_MODIFIER.get(), 0.0D);
             else living.addVelocity(0.0D, 0.6D, 0.0D);
         }
     }

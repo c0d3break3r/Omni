@@ -10,6 +10,7 @@ import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.Random;
@@ -25,7 +26,7 @@ public class IcyCaveBiomeFeature extends AbstractCaveBiomeFeature {
             if (direction == Direction.DOWN) {
                 if (world.getBlockState(pos.offset(direction)).getBlock() == Blocks.CAVE_AIR && world.getBlockState(pos.offset(direction.getOpposite())).getBlock() != Blocks.CAVE_AIR) {
                     if (config.ceilingState != null) {
-                        if (world.isAirBlock(pos.offset(direction.getOpposite()))) {
+                        if (world.isAirBlock(pos.offset(direction.getOpposite())) && CoreModule.Configuration.COMMON.ICY_CAVE_ICE_WINDOWS.get()) {
                             world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
                             world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
                             continue;
@@ -38,7 +39,7 @@ public class IcyCaveBiomeFeature extends AbstractCaveBiomeFeature {
             if (direction != Direction.UP && direction != Direction.DOWN) {
                 if (world.getBlockState(pos.offset(direction)).getBlock() == Blocks.CAVE_AIR) {
                     if (config.wallState != null) {
-                        if (world.isAirBlock(pos.offset(direction.getOpposite(), 2))) {
+                        if (world.isAirBlock(pos.offset(direction.getOpposite(), 2)) && CoreModule.Configuration.COMMON.ICY_CAVE_ICE_WINDOWS.get()) {
                             world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
                             world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
                             continue;
@@ -52,7 +53,7 @@ public class IcyCaveBiomeFeature extends AbstractCaveBiomeFeature {
             if (direction == Direction.UP) {
                 if (world.getBlockState(pos.offset(direction)).getBlock() == Blocks.CAVE_AIR && world.getBlockState(pos.offset(direction.getOpposite())).getBlock() != Blocks.CAVE_AIR) {
                     if (config.floorState != null) {
-                        if (world.isAirBlock(pos.offset(direction.getOpposite(), 2))) {
+                        if (world.isAirBlock(pos.offset(direction.getOpposite(), 2)) && CoreModule.Configuration.COMMON.ICY_CAVE_ICE_WINDOWS.get()) {
                             world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
                             world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
                             continue;
