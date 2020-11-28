@@ -452,7 +452,9 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 return ActionResultType.func_233537_a_(world.isRemote);
             } else if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
                 this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
-                held.shrink(1);
+                if (!player.abilities.isCreativeMode && !this.world.isRemote) {
+                    held.shrink(1);
+                }
                 ItemStack bucket = this.getBucket();
                 if (this.hasCustomName()) bucket.setDisplayName(this.getCustomName());
                 CompoundNBT compoundnbt = bucket.getOrCreateTag();
