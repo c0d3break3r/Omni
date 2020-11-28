@@ -125,7 +125,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
 
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if ((state.getBlock() == OmniBlocks.NETHERRACK_SPELEOTHEM.get() ? hasLiquidAbove(state, world, pos, FluidTags.LAVA) : hasLiquidAbove(state, world, pos, FluidTags.WATER)) && !world.isRemote) {
+        if ((state.getBlock() == OmniBlocks.NETHERRACK_SPELEOTHEM.get() ? hasLiquidAbove(state, world, pos.up(), FluidTags.LAVA) : hasLiquidAbove(state, world, pos.up(), FluidTags.WATER)) && !world.isRemote) {
             if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FILL_CAULDRONS.get() && state.getBlock() != OmniBlocks.NETHERRACK_SPELEOTHEM.get()) {
                 for (int y = pos.getY(); y >= Math.max(0, pos.getY() - 64); --y) {
                     BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
