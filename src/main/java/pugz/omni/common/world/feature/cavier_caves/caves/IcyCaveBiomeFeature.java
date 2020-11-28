@@ -28,7 +28,7 @@ public class IcyCaveBiomeFeature extends AbstractCaveBiomeFeature {
                     if (config.ceilingState != null) {
                         if (world.isAirBlock(pos.offset(direction.getOpposite())) && CoreModule.Configuration.COMMON.ICY_CAVE_ICE_WINDOWS.get()) {
                             world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
-                            world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                            if (!world.canBlockSeeSky(pos.offset(direction.getOpposite()))) world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
                             continue;
                         }
                         else world.setBlockState(pos, config.ceilingState, 2);
@@ -41,7 +41,7 @@ public class IcyCaveBiomeFeature extends AbstractCaveBiomeFeature {
                     if (config.wallState != null) {
                         if (world.isAirBlock(pos.offset(direction.getOpposite(), 2)) && CoreModule.Configuration.COMMON.ICY_CAVE_ICE_WINDOWS.get()) {
                             world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
-                            world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                            if (!world.canBlockSeeSky(pos.offset(direction.getOpposite()))) world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
                             continue;
                         }
                         else world.setBlockState(pos, config.wallState, 2);
@@ -55,7 +55,7 @@ public class IcyCaveBiomeFeature extends AbstractCaveBiomeFeature {
                     if (config.floorState != null) {
                         if (world.isAirBlock(pos.offset(direction.getOpposite(), 2)) && CoreModule.Configuration.COMMON.ICY_CAVE_ICE_WINDOWS.get()) {
                             world.setBlockState(pos, Blocks.ICE.getDefaultState(), 2);
-                            world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
+                            if (!world.canBlockSeeSky(pos.offset(direction.getOpposite()))) world.setBlockState(pos.offset(direction.getOpposite()), Blocks.ICE.getDefaultState(), 2);
                             continue;
                         }
                         else world.setBlockState(pos, config.floorState, 2);
