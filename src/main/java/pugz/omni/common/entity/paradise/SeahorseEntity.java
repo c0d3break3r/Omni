@@ -379,7 +379,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         EntitySize entitysize = super.getSize(poseIn);
         float f = 1.0F + 0.3F * (float) i;
 
-        if (this.isOnGround() && !this.isBeingRidden()) {
+        if (!this.isInWater() && !this.isBeingRidden()) {
             EntitySize size = new EntitySize(entitysize.height, entitysize.width, entitysize.fixed);
             return size.scale(f);
         }
