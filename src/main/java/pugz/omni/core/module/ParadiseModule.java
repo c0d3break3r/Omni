@@ -1,11 +1,14 @@
 package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
+import javafx.scene.paint.Color;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
@@ -16,15 +19,13 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import pugz.omni.client.particle.LotusPetalParticle;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.item.paradise.SeahorseBucketItem;
 import pugz.omni.common.item.OmniSpawnEggItem;
-import pugz.omni.core.registry.OmniBiomes;
-import pugz.omni.core.registry.OmniBlocks;
-import pugz.omni.core.registry.OmniEntities;
-import pugz.omni.core.registry.OmniItems;
+import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.Blocks;
@@ -58,6 +59,8 @@ public class ParadiseModule extends AbstractModule {
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
         RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
+
+        //Minecraft.getInstance().particles.registerFactory(OmniParticles.RED_LOTUS_LEAF.get(), LotusPetalParticle.Factory::new);
     }
 
     @Override
@@ -125,9 +128,7 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void registerEntities() {
         //RegistryObject<EntityType<?>> KIWI;
-        //RegistryObject<EntityType<?>> TIKI;
         OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.3F, 0.85F));
-        //RegistryObject<EntityType<?>> GOLIATH;
         //RegistryObject<EntityType<?>> HERMIT_CRAB;
         //RegistryObject<EntityType<?>> SEAGULL;
 
@@ -148,6 +149,11 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void registerFeatures() {
         //RegistryObject<Feature<?>> WHITE_SAND_REPLACEMENT;
+    }
+
+    @Override
+    protected void registerParticles() {
+        //OmniParticles.RED_LOTUS_LEAF = RegistryUtil.createParticle("red_lotus_leaf");
     }
 
     @Override

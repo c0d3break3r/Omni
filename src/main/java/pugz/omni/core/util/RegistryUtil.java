@@ -2,6 +2,8 @@ package pugz.omni.core.util;
 
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -83,5 +85,9 @@ public class RegistryUtil {
 
     public static RegistryObject<SoundEvent> createSoundEvent(String name) {
         return Omni.Registries.SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(Omni.MOD_ID, name)));
+    }
+
+    public static RegistryObject<BasicParticleType> createParticle(String name) {
+        return Omni.Registries.PARTICLES.register(name, () -> new BasicParticleType(false));
     }
 }
