@@ -12,9 +12,33 @@
 	"block.omni.medium_malachite_bud": "中孔雀石芽",
 	"block.omni.small_malachite_bud": "小孔雀石芽",
 	"block.omni.carved_malachite": "Carved Malachite",
-	"block.omni.malachite_totem": "Malachite Totem",
+
+	"block.omni.yellow_cave_mushroom": "Yellow Cave Mushroom",
+	"block.omni.green_cave_mushroom": "Green Cave Mushroom",
+	"block.omni.blue_cave_mushroom": "Blue Cave Mushroom",
+	"block.omni.purple_cave_mushroom": "Purple Cave Mushroom",
+	"block.omni.yellow_cave_mushroom_block": "Yellow Cave Mushroom Block",
+	"block.omni.green_cave_mushroom_block": "Green Cave Mushroom Block",
+	"block.omni.blue_cave_mushroom_block": "Blue Cave Mushroom Block",
+	"block.omni.purple_cave_mushroom_block": "Purple Cave Mushroom Block",
+
+	"block.omni.cave_mushroom_stem": "Cave Mushroom Stem",
+	"block.omni.cave_mushroom_planks": "Cave Mushroom Planks",
+	"block.omni.cave_mushroom_stairs": "Cave Mushroom Stairs",
+	"block.omni.cave_mushroom_slab": "Cave Mushroom Slab",
+	"block.omni.cave_mushroom_fence": "Cave Mushroom Fence",
+	"block.omni.cave_mushroom_fence_gate": "Cave Mushroom Fence Gate",
+	"block.omni.cave_mushroom_button": "Cave Mushroom Button",
+	"block.omni.cave_mushroom_pressure_plate": "Cave Mushroom Pressure Plate",
+	"block.omni.cave_mushroom_vertical_slab": "Cave Mushroom Vertical Slab",
+
+	"block.omni.arctiss": "Arctiss",
+	"block.omni.arctiss_block": "Arctiss Block",
 
 	"item.omni.malachite_shard": "Malachite Shard",
+
+	"entity.omni.speleothem": "Speleothem",
+	"entity.omni.cave_spider": "Cave Spider",
 
 	"subtitles.block.crystal.break": "Block broken",
 	"subtitles.block.crystal.place": "Block placed",
@@ -22,6 +46,8 @@
 	"subtitles.block.crystal.shimmer": "Crystal shimmering",
 	"subtitles.block.crystal_bud.break": "Block broken",
 	"subtitles.block.crystal_bud.place": "Block placed",
+
+	"subtitles.block.mushroom.bounce": "Boioioioing",
 
 	"_comment1": "Colormatic",
 
@@ -175,7 +201,7 @@
 	"block.omni.carved_dark_oak_wood": "Carved Dark Oak Wood",
 	"block.omni.carved_acacia_wood": "Carved Acacia Wood",
 
-	"item.omni.enchanted_golden_carrot": "附魔金色胡蘿蔔",
+	"block.omni.golden_oak_leaves": "Golden Oak Leaves",
 
 	"biome.omni.tall_forest": "高大的森林",
 
@@ -185,6 +211,10 @@
 	"subtitles.ambient.swamp": "隱約的聲音",
 
 	"_comment5": "Paradise",
+
+	"item.omni.enchanted_golden_carrot": "附魔金色胡蘿蔔",
+
+	"_comment6": "Paradise",
 
 	"block.omni.red_lotus_flower": "紅色蓮花",
 	"block.omni.orange_lotus_flower": "橘色蓮花",
@@ -207,5 +237,5 @@
 	"coral_type.omni.fire": "火海馬",
 	"coral_type.omni.tube": "管海馬",
 	"coral_type.omni.brain": "腦海馬",
-	"coral_type.omni.mystery": "神秘"
+	"coral_type.omni.mystery": "神秘",
 }

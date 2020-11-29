@@ -11,10 +11,13 @@ import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import pugz.omni.common.block.forestry.CarvedLogBlock;
+import pugz.omni.common.block.forestry.GoldenOakLeavesBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniSoundEvents;
+import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
@@ -56,6 +59,8 @@ public class ForestryModule extends AbstractModule {
         OmniBlocks.CARVED_BIRCH_WOOD = RegistryUtil.createBlock("carved_birch_wood", () -> new CarvedLogBlock(MaterialColor.SAND), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.CARVED_SPRUCE_WOOD = RegistryUtil.createBlock("carved_spruce_wood", () -> new CarvedLogBlock(MaterialColor.OBSIDIAN), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.CARVED_OAK_WOOD = RegistryUtil.createBlock("carved_oak_wood", () -> new CarvedLogBlock(MaterialColor.WOOD), ItemGroup.BUILDING_BLOCKS);
+
+        OmniBlocks.GOLDEN_OAK_LEAVES = RegistryUtil.createBlock("golden_oak_leaves", GoldenOakLeavesBlock::new, ItemGroup.DECORATIONS);
 
         //CHARRED_LOG
 
@@ -108,6 +113,7 @@ public class ForestryModule extends AbstractModule {
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
+        BiomeGenerationSettingsBuilder gen = event.getGeneration();
         Biome.Category category = event.getCategory();
         BiomeAmbience effects = event.getEffects();
         BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
@@ -126,10 +132,12 @@ public class ForestryModule extends AbstractModule {
 
         if (category == Biome.Category.FOREST) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());
+            BiomeFeatures.addGoldenOakTrees(gen);
         } else if (category == Biome.Category.JUNGLE) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).build());
         } else if (category == Biome.Category.PLAINS) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
+            BiomeFeatures.addGoldenOakTrees(gen);
         } else if (category == Biome.Category.SWAMP) {
             event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
         }

@@ -8,6 +8,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.stats.IStatFormatter;
 import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -196,6 +197,9 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerStats() {
+        // does not work
+        OmniStats.ARCTISS_DISTURB = RegistryUtil.createStatType("arctiss_disturb", IStatFormatter.DEFAULT);
+        OmniStats.CAVE_MUSHROOM_BOUNCE = RegistryUtil.createStatType("cave_mushroom_bounce", IStatFormatter.DEFAULT);
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {

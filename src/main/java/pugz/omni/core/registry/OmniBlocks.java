@@ -75,6 +75,8 @@ public class OmniBlocks {
     public static RegistryObject<Block> CARVED_DARK_OAK_WOOD;
     public static RegistryObject<Block> CARVED_ACACIA_WOOD;
 
+    public static RegistryObject<Block> GOLDEN_OAK_LEAVES;
+
     //paradise
     public static RegistryObject<Block> RED_LOTUS_FLOWER;
     public static RegistryObject<Block> YELLOW_LOTUS_FLOWER;

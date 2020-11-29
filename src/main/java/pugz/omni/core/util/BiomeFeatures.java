@@ -1,7 +1,9 @@
 package pugz.omni.core.util;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
@@ -54,5 +56,9 @@ public class BiomeFeatures {
 
     public static void addTerracottaCave(BiomeGenerationSettingsBuilder biome, float probability, int chance) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.TERRACOTTA_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.RED_SAND.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), Blocks.TERRACOTTA.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), 112, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, probability)).chance(chance)));
+    }
+
+    public static void addGoldenOakTrees(BiomeGenerationSettingsBuilder biome) {
+        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Feature.TREE.withConfiguration((new net.minecraft.world.gen.feature.BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(OmniBlocks.GOLDEN_OAK_LEAVES.get().getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build()).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, CoreModule.Configuration.COMMON.GOLDEN_OAK_SPAWN_CHANCE.get().floatValue(), 1))));
     }
 }

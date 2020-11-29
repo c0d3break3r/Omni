@@ -83,6 +83,9 @@ public class CoreModule extends AbstractModule {
         //deserted
         public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
 
+        //forestry
+        public final ForgeConfigSpec.ConfigValue<Double> GOLDEN_OAK_SPAWN_CHANCE;
+
         //miscellaneous
         public final ForgeConfigSpec.ConfigValue<Double> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
         public final ForgeConfigSpec.BooleanValue ZOMBIE_HORSE_TRANSMUTATION;
@@ -128,6 +131,10 @@ public class CoreModule extends AbstractModule {
 
             builder.push(DesertedModule.instance.getName());
             RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
+            builder.pop();
+
+            builder.push(ForestryModule.instance.getName());
+            GOLDEN_OAK_SPAWN_CHANCE = builder.define("golden_oak_spawn_chance", 0.005D);
             builder.pop();
 
             builder.push(MiscellaneousModule.instance.getName());

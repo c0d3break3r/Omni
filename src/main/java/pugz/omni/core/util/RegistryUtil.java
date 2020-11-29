@@ -3,6 +3,8 @@ package pugz.omni.core.util;
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.stats.IStatFormatter;
+import net.minecraft.stats.StatType;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -88,5 +90,10 @@ public class RegistryUtil {
 
     public static RegistryObject<BasicParticleType> createParticle(String name) {
         return Omni.Registries.PARTICLES.register(name, () -> new BasicParticleType(false));
+    }
+
+    public static RegistryObject<StatType<?>> createStatType(String name, IStatFormatter formatter) {
+        //Stats.CUSTOM.get(new ResourceLocation(Omni.MOD_ID, name), formatter);
+        return Omni.Registries.STATS.register(name, () -> new StatType<>(Registry.CUSTOM_STAT));
     }
 }

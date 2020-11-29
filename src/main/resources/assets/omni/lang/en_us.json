@@ -201,7 +201,7 @@
   "block.omni.carved_dark_oak_wood": "Carved Dark Oak Wood",
   "block.omni.carved_acacia_wood": "Carved Acacia Wood",
 
-  "item.omni.enchanted_golden_carrot": "Enchanted Golden Carrot",
+  "block.omni.golden_oak_leaves": "Golden Oak Leaves",
 
   "biome.omni.tall_forest": "Tall Forest",
 
@@ -210,7 +210,11 @@
   "subtitles.ambient.plains": "Country vibe",
   "subtitles.ambient.swamp": "Murky noise",
 
-  "_comment5": "Paradise",
+  "_comment5": "Miscellaneous",
+
+  "item.omni.enchanted_golden_carrot": "Enchanted Golden Carrot",
+
+  "_comment6": "Paradise",
 
   "block.omni.red_lotus_flower": "Red Lotus Flower",
   "block.omni.orange_lotus_flower": "Orange Lotus Flower",

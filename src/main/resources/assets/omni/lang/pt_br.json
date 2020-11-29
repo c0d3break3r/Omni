@@ -12,9 +12,33 @@
   "block.omni.medium_malachite_bud": "Cristal de malaquita médio",
   "block.omni.small_malachite_bud": "Cristal de malaquita pequeno",
   "block.omni.carved_malachite": "Malaquita esculpida",
-  "block.omni.malachite_totem": "Totem de malaquita",
+
+  "block.omni.yellow_cave_mushroom": "Yellow Cave Mushroom",
+  "block.omni.green_cave_mushroom": "Green Cave Mushroom",
+  "block.omni.blue_cave_mushroom": "Blue Cave Mushroom",
+  "block.omni.purple_cave_mushroom": "Purple Cave Mushroom",
+  "block.omni.yellow_cave_mushroom_block": "Yellow Cave Mushroom Block",
+  "block.omni.green_cave_mushroom_block": "Green Cave Mushroom Block",
+  "block.omni.blue_cave_mushroom_block": "Blue Cave Mushroom Block",
+  "block.omni.purple_cave_mushroom_block": "Purple Cave Mushroom Block",
+
+  "block.omni.cave_mushroom_stem": "Cave Mushroom Stem",
+  "block.omni.cave_mushroom_planks": "Cave Mushroom Planks",
+  "block.omni.cave_mushroom_stairs": "Cave Mushroom Stairs",
+  "block.omni.cave_mushroom_slab": "Cave Mushroom Slab",
+  "block.omni.cave_mushroom_fence": "Cave Mushroom Fence",
+  "block.omni.cave_mushroom_fence_gate": "Cave Mushroom Fence Gate",
+  "block.omni.cave_mushroom_button": "Cave Mushroom Button",
+  "block.omni.cave_mushroom_pressure_plate": "Cave Mushroom Pressure Plate",
+  "block.omni.cave_mushroom_vertical_slab": "Cave Mushroom Vertical Slab",
+
+  "block.omni.arctiss": "Arctiss",
+  "block.omni.arctiss_block": "Arctiss Block",
 
   "item.omni.malachite_shard": "Fragmento de malaquita",
+
+  "entity.omni.speleothem": "Speleothem",
+  "entity.omni.cave_spider": "Cave Spider",
 
   "subtitles.block.crystal.break": "Bloco destruído",
   "subtitles.block.crystal.place": "Bloco colocado",
@@ -22,6 +46,8 @@
   "subtitles.block.crystal.shimmer": "Cristal cintilante",
   "subtitles.block.crystal_bud.break": "Bloco destruído",
   "subtitles.block.crystal_bud.place": "Bloco colocado",
+
+  "subtitles.block.mushroom.bounce": "Boioioioing",
 
   "_comment1": "Colormatic",
 
@@ -175,7 +201,7 @@
   "block.omni.carved_dark_oak_wood": "Madeira de carvalho escuro esculpida",
   "block.omni.carved_acacia_wood": "Madeira de acácia esculpida",
 
-  "item.omni.enchanted_golden_carrot": "Cenoura dourada encantada",
+  "block.omni.golden_oak_leaves": "Golden Oak Leaves",
 
   "biome.omni.tall_forest": "Tall Forest",
 
@@ -185,6 +211,10 @@
   "subtitles.ambient.swamp": "Ruídos tenebrosos",
 
   "_comment5": "Paradise",
+
+  "item.omni.enchanted_golden_carrot": "Cenoura dourada encantada",
+
+  "_comment6": "Paradise",
 
   "block.omni.red_lotus_flower": "Flor de lótus vermelha",
   "block.omni.orange_lotus_flower": "Flor de lótus laranja",
@@ -207,5 +237,5 @@
   "coral_type.omni.fire": "Cavalo-marinho fogo",
   "coral_type.omni.tube": "Cavalo-marinho tubo",
   "coral_type.omni.brain": "Cavalo-marinho cérebro",
-  "coral_type.omni.mystery": "Mistério"
+  "coral_type.omni.mystery": "Mistério",
 }
