@@ -10,18 +10,11 @@ import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import pugz.omni.common.block.forestry.CarvedLogBlock;
 import pugz.omni.common.block.forestry.GoldenOakLeavesBlock;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
-import pugz.omni.core.registry.OmniSoundEvents;
-import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ForestryModule extends AbstractModule {
     public static final ForestryModule instance = new ForestryModule();
@@ -37,7 +30,6 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
     }
 
     @Override
@@ -106,40 +98,5 @@ public class ForestryModule extends AbstractModule {
 
     @Override
     protected void registerSounds() {
-        OmniSoundEvents.AMBIENT_FOREST = RegistryUtil.createSoundEvent("ambient.forest");
-        OmniSoundEvents.AMBIENT_JUNGLE = RegistryUtil.createSoundEvent("ambient.jungle");
-        OmniSoundEvents.AMBIENT_PLAINS = RegistryUtil.createSoundEvent("ambient.plains");
-        OmniSoundEvents.AMBIENT_SWAMP = RegistryUtil.createSoundEvent("ambient.swamp");
-    }
-
-    protected void onBiomeLoading(BiomeLoadingEvent event) {
-        BiomeGenerationSettingsBuilder gen = event.getGeneration();
-        Biome.Category category = event.getCategory();
-        BiomeAmbience effects = event.getEffects();
-        BiomeAmbience.Builder ambience = (new BiomeAmbience.Builder())
-                .withGrassColorModifier(effects.getGrassColorModifier())
-                .setWaterColor(effects.getWaterColor())
-                .setWaterFogColor(effects.getWaterFogColor())
-                .setFogColor(effects.getFogColor())
-                .withSkyColor(effects.getSkyColor());
-        if (effects.getFoliageColor().isPresent())
-            ambience = ambience.withFoliageColor(effects.getFoliageColor().get());
-        if (effects.getGrassColor().isPresent()) ambience = ambience.withGrassColor(effects.getGrassColor().get());
-        if (effects.getMoodSound().isPresent()) ambience = ambience.setMoodSound(effects.getMoodSound().get());
-        if (effects.getAdditionsSound().isPresent())
-            ambience = ambience.setAdditionsSound(effects.getAdditionsSound().get());
-        if (effects.getParticle().isPresent()) ambience = ambience.setParticle(effects.getParticle().get());
-
-        if (category == Biome.Category.FOREST) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_FOREST.get()).build());
-            BiomeFeatures.addGoldenOakTrees(gen);
-        } else if (category == Biome.Category.JUNGLE) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_JUNGLE.get()).build());
-        } else if (category == Biome.Category.PLAINS) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_PLAINS.get()).build());
-            BiomeFeatures.addGoldenOakTrees(gen);
-        } else if (category == Biome.Category.SWAMP) {
-            event.setEffects(ambience.setAmbientSound(OmniSoundEvents.AMBIENT_SWAMP.get()).build());
-        }
     }
 }
