@@ -194,22 +194,24 @@ public class ColormaticModule extends AbstractModule {
         Hand hand = event.getHand();
         Direction direction = event.getFace();
 
-        if (state.getBlock() instanceof FlowerBlock || state.getBlock() instanceof MushroomBlock || state.getBlock() instanceof FungusBlock) {
-            for (Supplier<AbstractStackableBlock> b : STACKABLES) {
-                AbstractStackableBlock stackable = b.get();
-                if (stack.getItem() == state.getBlock().asItem() && stackable.getBase() == state.getBlock() && !player.isSneaking()) {
-                    if (!player.isCreative() && !world.isRemote) {
-                        stack.shrink(1);
-                    }
+        if (CoreModule.Configuration.COMMON.STACK_FLOWERS.get()) {
+            if (state.getBlock() instanceof FlowerBlock || state.getBlock() instanceof MushroomBlock || state.getBlock() instanceof FungusBlock) {
+                for (Supplier<AbstractStackableBlock> b : STACKABLES) {
+                    AbstractStackableBlock stackable = b.get();
+                    if (stack.getItem() == state.getBlock().asItem() && stackable.getBase() == state.getBlock() && !player.isSneaking()) {
+                        if (!player.isCreative() && !world.isRemote) {
+                            stack.shrink(1);
+                        }
 
-                    world.setBlockState(pos, stackable.getBlock().getDefaultState(), 3);
-                    event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
-                    event.setCanceled(true);
+                        world.setBlockState(pos, stackable.getBlock().getDefaultState(), 3);
+                        event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote));
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
 
-        if (state.getBlock() instanceof ConcretePowderBlock) {
+        if (state.getBlock() instanceof ConcretePowderBlock && CoreModule.Configuration.COMMON.LAYER_CONCRETE.get()) {
             if (stack.getItem() instanceof ShovelItem && direction == Direction.UP) {
                 for (Supplier<Block> supplier : CONCRETE_POWDERS) {
                     Block block = supplier.get();

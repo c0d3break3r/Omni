@@ -77,7 +77,9 @@ public class CoreModule extends AbstractModule {
         //colormatic
         public final ForgeConfigSpec.BooleanValue CONNECTABLE_QUILTED_CARPETS;
         public final ForgeConfigSpec.IntValue TRADERS_WOOL_TRADE_PRICE;
+        public final ForgeConfigSpec.BooleanValue STACK_FLOWERS;
         public final ForgeConfigSpec.IntValue FLOWER_FIELD_SPAWN_WEIGHT;
+        public final ForgeConfigSpec.BooleanValue LAYER_CONCRETE;
         public final ForgeConfigSpec.BooleanValue CONCRETE_POWDER_FALLS;
 
         //deserted
@@ -125,7 +127,9 @@ public class CoreModule extends AbstractModule {
             builder.push(ColormaticModule.instance.getName());
             CONNECTABLE_QUILTED_CARPETS = builder.define("connectable_quilted_carpets", true);
             TRADERS_WOOL_TRADE_PRICE = builder.defineInRange("traders_wool_trade_price", 1, 0, 64);
+            STACK_FLOWERS = builder.define("stack_flowers", true);
             FLOWER_FIELD_SPAWN_WEIGHT = builder.defineInRange("flower_field_spawn_weight", 1, 0, 100);
+            LAYER_CONCRETE = builder.define("layer_concrete", true);
             CONCRETE_POWDER_FALLS = builder.define("concrete_powder_falls", true);
             builder.pop();
 
