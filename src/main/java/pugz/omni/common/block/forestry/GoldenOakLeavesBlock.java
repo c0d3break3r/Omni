@@ -2,8 +2,11 @@ package pugz.omni.common.block.forestry;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import pugz.omni.core.base.IBaseBlock;
 
 public class GoldenOakLeavesBlock extends Block implements IBaseBlock {
@@ -24,5 +27,9 @@ public class GoldenOakLeavesBlock extends Block implements IBaseBlock {
     @Override
     public RenderType getRenderType() {
         return RenderType.getCutoutMipped();
+    }
+
+    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1;
     }
 }
