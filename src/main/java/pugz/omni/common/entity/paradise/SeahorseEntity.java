@@ -24,7 +24,6 @@ import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -36,7 +35,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 import pugz.omni.core.Omni;
 import pugz.omni.core.module.CoreModule;
-import pugz.omni.core.module.ParadiseModule;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniItems;
 
