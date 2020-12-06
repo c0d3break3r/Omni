@@ -35,8 +35,6 @@ public class HallowsEveModule extends AbstractModule {
 
         //RegistryObject<Block> PUMPKIN_PLANKS;
 
-        //RegistryObject<Block> SOUL_GLASS;
-
         //RegistryObject<Block> MORTIS;
         //RegistryObject<Block> MORTIS_STAIRS;
         //RegistryObject<Block> MORTIS_SLAB;

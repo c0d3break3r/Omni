@@ -29,6 +29,7 @@ public class GoldenOakLeavesBlock extends Block implements IBaseBlock {
         return RenderType.getCutoutMipped();
     }
 
+    @SuppressWarnings("deprecation")
     public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1;
     }

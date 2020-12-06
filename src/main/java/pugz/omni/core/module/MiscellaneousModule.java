@@ -9,6 +9,7 @@ import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
@@ -26,8 +27,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import pugz.omni.common.block.miscellaneous.VexedGlassBlock;
 import pugz.omni.common.item.forestry.EnchantedGoldenCarrotItem;
 import pugz.omni.core.Omni;
+import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniItems;
 import pugz.omni.core.util.RegistryUtil;
 
@@ -63,6 +66,8 @@ public class MiscellaneousModule extends AbstractModule {
 
     @Override
     protected void registerBlocks() {
+        OmniBlocks.VEXED_GLASS = RegistryUtil.createBlock("vexed_glass", VexedGlassBlock::new, ItemGroup.REDSTONE);
+
         //RegistryObject<Block> PALISADE;
 
         //RegistryObject<Block> REDSTONE_RECEPTOR;
@@ -201,4 +206,6 @@ public class MiscellaneousModule extends AbstractModule {
             player.startRiding(zombieHorse);
         }
     }
+
+
 }

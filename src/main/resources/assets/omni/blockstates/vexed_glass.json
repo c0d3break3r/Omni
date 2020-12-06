@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "omni:block/miscellaneous/vexed_glass"
+    },
+    "powered=true": {
+      "model": "omni:block/miscellaneous/vexed_glass_angered"
+    }
+  }
+}

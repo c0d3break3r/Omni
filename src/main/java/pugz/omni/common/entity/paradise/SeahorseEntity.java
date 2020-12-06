@@ -484,9 +484,11 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     }
 
     protected void mountTo(PlayerEntity player) {
-        player.rotationYaw = this.rotationYaw;
-        player.rotationPitch = this.rotationPitch;
-        player.startRiding(this);
+        if (!this.world.isRemote) {
+            player.rotationYaw = this.rotationYaw;
+            player.rotationPitch = this.rotationPitch;
+            player.startRiding(this);
+        }
     }
 
     @Override
