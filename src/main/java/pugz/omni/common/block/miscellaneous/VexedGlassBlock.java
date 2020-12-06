@@ -6,10 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -77,7 +79,6 @@ public class VexedGlassBlock extends Block implements IBaseBlock {
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (entityIn instanceof VexEntity) {
             VexEntity vex = (VexEntity)entityIn;
-            vex.setBoundingBox(vex.getSize(Pose.STANDING).func_242285_a(vex.getPosX(), vex.getPosY(), vex.getPosZ()));
             vex.setMotion(Vector3d.ZERO);
         }
         super.onEntityCollision(state, worldIn, pos, entityIn);
