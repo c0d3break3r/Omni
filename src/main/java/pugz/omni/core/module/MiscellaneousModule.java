@@ -1,10 +1,9 @@
 package pugz.omni.core.module;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.LightningBoltEntity;
+import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
@@ -18,6 +17,7 @@ import net.minecraft.loot.conditions.RandomChance;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -26,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import pugz.omni.common.block.miscellaneous.VexedGlassBlock;
 import pugz.omni.common.item.forestry.EnchantedGoldenCarrotItem;
@@ -53,6 +54,7 @@ public class MiscellaneousModule extends AbstractModule {
         MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
         if (CoreModule.Configuration.COMMON.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityInteractSpecific);
+        MinecraftForge.EVENT_BUS.addListener(this::onLivingUpdate);
     }
 
     @Override
@@ -198,7 +200,7 @@ public class MiscellaneousModule extends AbstractModule {
         Entity entity = event.getTarget();
         PlayerEntity player = event.getPlayer();
 
-        if (entity instanceof ZombieHorseEntity) {
+        if (entity instanceof ZombieHorseEntity && !event.getWorld().isRemote) {
             ZombieHorseEntity zombieHorse = (ZombieHorseEntity)entity;
 
             player.rotationYaw = zombieHorse.rotationYaw;
@@ -207,5 +209,15 @@ public class MiscellaneousModule extends AbstractModule {
         }
     }
 
+    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+        LivingEntity living = event.getEntityLiving();
 
+        if (living instanceof VexEntity) {
+            BlockPos pos = living.getPosition();
+            World world = living.getEntityWorld();
+            if (world.getBlockState(pos).getBlock() == Blocks.GLASS) {
+                world.setBlockState(pos, OmniBlocks.VEXED_GLASS.get().getDefaultState(), 3);
+            }
+        }
+    }
 }

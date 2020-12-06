@@ -33,4 +33,8 @@ public class GoldenOakLeavesBlock extends Block implements IBaseBlock {
     public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1;
     }
+
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        return true;
+    }
 }

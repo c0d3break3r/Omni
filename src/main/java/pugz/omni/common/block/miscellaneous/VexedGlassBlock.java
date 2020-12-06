@@ -6,6 +6,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
@@ -19,6 +21,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.core.base.IBaseBlock;
 
 import javax.annotation.Nonnull;
@@ -38,9 +42,20 @@ public class VexedGlassBlock extends Block implements IBaseBlock {
         return RenderType.getCutoutMipped();
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
-    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return 1;
+    public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+        return VoxelShapes.empty();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SuppressWarnings("deprecation")
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1.0F;
+    }
+
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        return true;
     }
 
     @Nonnull
@@ -62,6 +77,7 @@ public class VexedGlassBlock extends Block implements IBaseBlock {
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (entityIn instanceof VexEntity) {
             VexEntity vex = (VexEntity)entityIn;
+            vex.setBoundingBox(vex.getSize(Pose.STANDING).func_242285_a(vex.getPosX(), vex.getPosY(), vex.getPosZ()));
             vex.setMotion(Vector3d.ZERO);
         }
         super.onEntityCollision(state, worldIn, pos, entityIn);
