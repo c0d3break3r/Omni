@@ -45,6 +45,8 @@ public class OmniBlocks {
     //colormatic
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;
+    public static RegistryObject<Block> ENCHANTERS_QUILTED_WOOL;
+    public static RegistryObject<Block> ENCHANTERS_QUILTED_CARPET;
 
     //deserted
     public static RegistryObject<Block> RED_ROCK;

@@ -114,6 +114,8 @@ public class ColormaticModule extends AbstractModule {
 
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);
         OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new QuiltedWoolBlock(DyeColor.BLUE), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.ENCHANTERS_QUILTED_CARPET = RegistryUtil.createBlock("enchanters_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.RED), ItemGroup.DECORATIONS);
+        OmniBlocks.ENCHANTERS_QUILTED_WOOL = RegistryUtil.createBlock("enchanters_quilted_wool", () -> new QuiltedWoolBlock(DyeColor.RED), ItemGroup.BUILDING_BLOCKS);
 
         //OmniBlocks.FLOWER_STEM = RegistryUtil.createBlock(null, null, null);
         //OmniBlocks.DANDELION_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);

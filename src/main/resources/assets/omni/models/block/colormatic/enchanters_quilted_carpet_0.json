@@ -1,0 +1,6 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+    "wool": "omni:block/colormatic/enchanters_quilted_wool_0"
+  }
+}
