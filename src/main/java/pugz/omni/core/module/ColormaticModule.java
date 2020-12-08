@@ -9,6 +9,7 @@ import net.minecraft.util.Hand;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
@@ -17,6 +18,7 @@ import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
+import pugz.omni.core.util.CompatBlocks;
 import pugz.omni.core.util.RegistryUtil;
 import pugz.omni.core.util.TradeUtils;
 import net.minecraft.block.*;
@@ -94,22 +96,78 @@ public class ColormaticModule extends AbstractModule {
         }
 
         for (Block block : ForgeRegistries.BLOCKS.getValues()) {
-            if (block instanceof FlowerBlock) {
-                String name = block.getRegistryName().getPath() + "s";
-                if (StringUtils.endsWith(name, "ss")) name = StringUtils.removeEnd(name, "ss") + "ses";
-                final RegistryObject<AbstractStackableBlock> FLOWERS = RegistryUtil.createBlock(name, () -> new FlowersBlock(AbstractBlock.Properties.from(block), block), null);
-                STACKABLES.add(FLOWERS);
-            } else if (block instanceof MushroomBlock) {
-                String name = block.getRegistryName().getPath() + "s";
-                ConfiguredFeature<?, ?> configuredFeature = StringUtils.contains(name, "red") ? Features.HUGE_RED_MUSHROOM : Features.HUGE_BROWN_MUSHROOM;
-                final RegistryObject<AbstractStackableBlock> MUSHROOMS = RegistryUtil.createBlock(name, () -> new MushroomsBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
-                STACKABLES.add(MUSHROOMS);
-            } else if (block instanceof FungusBlock) {
-                String name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
-                ConfiguredFeature<HugeFungusConfig, ?> configuredFeature = StringUtils.contains(name, "crimson") ? Features.CRIMSON_FUNGI_PLANTED : Features.WARPED_FUNGI_PLANTED;
-                final RegistryObject<AbstractStackableBlock> FUNGI = RegistryUtil.createBlock(name, () -> new FungiBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
-                STACKABLES.add(FUNGI);
+            if (block.getRegistryName().getNamespace().equals("minecraft")) {
+                if (block instanceof FlowerBlock) {
+                    String name = block.getRegistryName().getPath() + "s";
+                    if (StringUtils.endsWith(name, "ss")) name = StringUtils.removeEnd(name, "ss") + "ses";
+                    final RegistryObject<AbstractStackableBlock> FLOWERS = RegistryUtil.createBlock(name, () -> new FlowersBlock(AbstractBlock.Properties.from(block), block), null);
+                    STACKABLES.add(FLOWERS);
+                } else if (block instanceof MushroomBlock) {
+                    String name = block.getRegistryName().getPath() + "s";
+                    ConfiguredFeature<?, ?> configuredFeature = StringUtils.contains(name, "red") ? Features.HUGE_RED_MUSHROOM : Features.HUGE_BROWN_MUSHROOM;
+                    final RegistryObject<AbstractStackableBlock> MUSHROOMS = RegistryUtil.createBlock(name, () -> new MushroomsBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
+                    STACKABLES.add(MUSHROOMS);
+                } else if (block instanceof FungusBlock) {
+                    String name = StringUtils.replace(block.getRegistryName().getPath(), "us", "i");
+                    ConfiguredFeature<HugeFungusConfig, ?> configuredFeature = StringUtils.contains(name, "crimson") ? Features.CRIMSON_FUNGI_PLANTED : Features.WARPED_FUNGI_PLANTED;
+                    final RegistryObject<AbstractStackableBlock> FUNGI = RegistryUtil.createBlock(name, () -> new FungiBlock(AbstractBlock.Properties.from(block), block, () -> configuredFeature), null);
+                    STACKABLES.add(FUNGI);
+                }
             }
+        }
+
+        if (ModList.get().isLoaded("quark")) {
+            if (CompatBlocks.GLOWSHROOM != null) {
+                OmniBlocks.GLOWSHROOMS = RegistryUtil.createBlock("glowshrooms", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.GLOWSHROOM), CompatBlocks.GLOWSHROOM), null);
+                STACKABLES.add(OmniBlocks.GLOWSHROOMS);
+            }
+        }
+
+        if (ModList.get().isLoaded("buzzier_bees")) {
+            OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.BUTTERCUP), CompatBlocks.BUTTERCUP), null);
+            STACKABLES.add(OmniBlocks.BUTTERCUPS);
+        }
+
+        if (ModList.get().isLoaded("environmental")) {
+
+        }
+
+        if (ModList.get().isLoaded("upgrade_aquatic")) {
+
+        }
+
+        if (ModList.get().isLoaded("endergetic")) {
+
+        }
+
+        if (ModList.get().isLoaded("atmospheric")) {
+            OmniBlocks.HOT_MONKEY_BRUSH = RegistryUtil.createBlock("hot_monkey_brush", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.HOT_MONKEY_BRUSH), CompatBlocks.HOT_MONKEY_BRUSH), null);
+            OmniBlocks.SCALDING_MONKEY_BRUSH = RegistryUtil.createBlock("scalding_monkey_brush", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.SCALDING_MONKEY_BRUSH), CompatBlocks.SCALDING_MONKEY_BRUSH), null);
+            OmniBlocks.WARM_MONKEY_BRUSH = RegistryUtil.createBlock("warm_monkey_brush", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.WARM_MONKEY_BRUSH), CompatBlocks.WARM_MONKEY_BRUSH), null);
+        }
+
+        if (ModList.get().isLoaded("autumnity")) {
+            OmniBlocks.AUTUMN_CROCUSES = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.AUTUMN_CROCUS), CompatBlocks.AUTUMN_CROCUS), null);
+            STACKABLES.add(OmniBlocks.AUTUMN_CROCUSES);
+            
+            //OmniBlocks.BLUEBELLS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.CARTWHEELS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.DIANTHUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.GILIAS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.MAGENTA_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.ORANGE_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.PINK_CLOVERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.PINK_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.PURPLE_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.RED_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.RED_LOTUS_FLOWERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.VIOLETS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.WATER_HYACINTHS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.WHITE_CLOVERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.WHITE_LOTUS_FLOWERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.YELLOW_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
+            //OmniBlocks.YUCCA_FLOWERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
         }
 
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);

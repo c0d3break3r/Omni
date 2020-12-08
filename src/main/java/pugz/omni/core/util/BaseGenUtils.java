@@ -35,7 +35,7 @@ public class BaseGenUtils {
         } return false;
     }
 
-    public static List<BlockPos> getBlocksWithinRange(World world, BlockPos pos, int range, Block block) {
+    public static List<BlockPos> getBlocksPosWithinRange(World world, BlockPos pos, int range, Block block) {
         List<BlockPos> positions = new LinkedList<BlockPos>();
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
         for (int x = pos.getX() - range; x <= pos.getX() + range; x++) {
