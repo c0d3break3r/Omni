@@ -429,6 +429,11 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         super.livingTick();
     }
 
+    @Override
+    public int getGrowingAge() {
+        return 0;
+    }
+
     protected ItemStack getBucket() {
         return new ItemStack(OmniItems.SEAHORSE_BUCKET.get());
     }
@@ -512,7 +517,6 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 this.prevRotationYaw = this.rotationYaw;
                 this.prevRotationYawHead = this.rotationYawHead;
                 this.setRotation(this.rotationYaw, this.rotationPitch);
-                this.setHeadRotation(this.rotationYawHead, (int)this.rotationPitch);
                 this.renderYawOffset = this.rotationYaw;
 
                 float f1 = livingentity.moveForward;
