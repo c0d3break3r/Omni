@@ -73,6 +73,7 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.IntValue ICY_CAVE_CHANCE;
         public final ForgeConfigSpec.IntValue ARCTISS_FREEZE_DURATION;
         public final ForgeConfigSpec.BooleanValue ICY_CAVE_ICE_WINDOWS;
+        public final ForgeConfigSpec.IntValue TERRACOTTA_CAVE_CHANCE;
 
         //colormatic
         public final ForgeConfigSpec.BooleanValue CONNECTABLE_QUILTED_CARPETS;
@@ -122,6 +123,7 @@ public class CoreModule extends AbstractModule {
             ICY_CAVE_CHANCE = builder.defineInRange("icy_cave_chance", 18, 0, 1000);
             ARCTISS_FREEZE_DURATION = builder.defineInRange("arctiss_freeze_duration", 120, 0, 9600);
             ICY_CAVE_ICE_WINDOWS = builder.define("icy_cave_ice_windows", true);
+            TERRACOTTA_CAVE_CHANCE = builder.defineInRange("terracotta_cave_chance", 18, 0, 1000);
             builder.pop();
 
             builder.push(ColormaticModule.instance.getName());

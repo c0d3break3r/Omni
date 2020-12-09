@@ -6,6 +6,7 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.StrayEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -28,7 +29,8 @@ public class WintertimeModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        if (CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get() > 0) MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
+        int i = MathHelper.clamp(CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get(), 0, 1000);
+        if (i > 0) MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
     }
 
     @Override

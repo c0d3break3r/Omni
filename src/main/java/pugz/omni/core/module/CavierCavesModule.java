@@ -1,5 +1,6 @@
 package pugz.omni.core.module;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -16,7 +17,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ProbabilityConfig;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraft.world.gen.placement.*;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.api.distmarker.Dist;
@@ -167,6 +172,13 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
 
         OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.CODEC));
+
+        OmniFeatures.Configured.STONE_SPELEOTHEM = RegistryUtil.createConfiguredFeature("stone_speleothem", OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(SpeleothemFeatureConfig.Variant.STONE)).chance(2));
+        OmniFeatures.Configured.ICICLE = RegistryUtil.createConfiguredFeature("icicle", OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(SpeleothemFeatureConfig.Variant.ICE)).chance(2));
+        OmniFeatures.Configured.NETHERRACK_SPELEOTHEM = RegistryUtil.createConfiguredFeature("netherrack_speleothem", OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(SpeleothemFeatureConfig.Variant.NETHERRACK)).chance(2));
+        OmniFeatures.Configured.MALACHITE_GEODE = RegistryUtil.createConfiguredFeature("malachite_geode", OmniFeatures.GEODE.get().withConfiguration(new GeodeFeatureConfig(0.35D, 0.083D, true, 4, 7, 3, 5, 1, 3, -16, 16, 0.05D)).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.COMMON.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
+        OmniFeatures.Configured.MUSHROOM_CAVE = RegistryUtil.createConfiguredFeature("mushroom_cave", OmniFeatures.MUSHROOM_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), 128, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, false)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.4F)).chance(CoreModule.Configuration.COMMON.MUSHROOM_CAVE_CHANCE.get())));
+        OmniFeatures.Configured.ICY_CAVE = RegistryUtil.createConfiguredFeature("icy_cave", OmniFeatures.ICY_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 96, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.3F)).chance(CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get())));
     }
 
     @Override
@@ -207,18 +219,18 @@ public class CavierCavesModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.STONE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue(), 2);
+            BiomeFeatures.addStoneSpeleothems(gen);
             BiomeFeatures.addMalachiteGeodes(gen);
         }
         if (category == Biome.Category.ICY) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.ICE, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 1.5F, 2);
-            BiomeFeatures.addIcyCave(gen,0.3F, CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get());
+            BiomeFeatures.addIcicles(gen);
+            BiomeFeatures.addIcyCave(gen);
         }
         if (category == Biome.Category.NETHER) {
-            BiomeFeatures.addSpeleothems(gen, SpeleothemFeatureConfig.Variant.NETHERRACK, CoreModule.Configuration.COMMON.SPELEOTHEMS_SPAWN_PROBABILITY.get().floatValue() * 2.0F, 2);
+            BiomeFeatures.addNetherrackSpeleothems(gen);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addMushroomCave(gen, 0.4F, CoreModule.Configuration.COMMON.MUSHROOM_CAVE_CHANCE.get());
+            BiomeFeatures.addMushroomCave(gen);
         }
     }
     

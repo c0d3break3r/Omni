@@ -20,6 +20,31 @@ public class OmniFeatures {
     //core
     public static RegistryObject<Feature<ExposedOreFeatureConfig>> EXPOSED_ORE;
 
-    //forestry
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> TALL_OAK_TREE;
+    public static class Configured {
+        //cavier caves
+        public static ConfiguredFeature<?, ?> STONE_SPELEOTHEM;
+        public static ConfiguredFeature<?, ?> ICICLE;
+        public static ConfiguredFeature<?, ?> NETHERRACK_SPELEOTHEM;
+        public static ConfiguredFeature<?, ?> MALACHITE_GEODE;
+        public static ConfiguredFeature<?, ?> MUSHROOM_CAVE;
+        public static ConfiguredFeature<?, ?> ICY_CAVE;
+        public static ConfiguredFeature<?, ?> TERRACOTTA_CAVE;
+
+        //core
+        public static ConfiguredFeature<?, ?> RED_ROCK;
+
+        //forestry
+        public static ConfiguredFeature<?, ?> TALL_OAK_TREE;
+        public static ConfiguredFeature<?, ?> GOLDEN_APPLE_TREE;
+
+        //paradise
+        public static ConfiguredFeature<?, ?> RED_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> ORANGE_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> YELLOW_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> BLUE_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> PINK_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> PURPLE_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> BLACK_LOTUS_FLOWER;
+        public static ConfiguredFeature<?, ?> WHITE_LOTUS_FLOWER;
+    }
 }

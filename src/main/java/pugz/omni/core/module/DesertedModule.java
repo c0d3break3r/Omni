@@ -1,5 +1,10 @@
 package pugz.omni.core.module;
 
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.placement.CaveEdgeConfig;
+import net.minecraft.world.gen.placement.ConfiguredPlacement;
+import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
@@ -7,7 +12,9 @@ import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.deserted.RedRockBrickButton;
 import pugz.omni.common.block.deserted.RedRockBrickPressurePlate;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
+import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
 import pugz.omni.core.registry.OmniBlocks;
+import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.*;
@@ -115,6 +122,9 @@ public class DesertedModule extends AbstractModule {
         //RegistryObject<Feature<?>> BLEACHED_TREE;
         //RegistryObject<Feature<?>> QUICKSAND;
         //RegistryObject<Feature<?>> RED_ROCK;
+
+        OmniFeatures.Configured.RED_ROCK = RegistryUtil.createConfiguredFeature("red_rock", OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 128)).chance(1)).range(80).square().func_242731_b(10));
+        OmniFeatures.Configured.TERRACOTTA_CAVE = RegistryUtil.createConfiguredFeature("terracotta_cave", OmniFeatures.TERRACOTTA_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.RED_SAND.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), Blocks.TERRACOTTA.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), 112, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.4F)).chance(CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get())));
     }
 
     @Override
@@ -140,8 +150,8 @@ public class DesertedModule extends AbstractModule {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
         if (category == Biome.Category.MESA) {
-            BiomeFeatures.addExposedOreCluster(gen, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, ExposedOreFeatureConfig.CaveFace.ALL, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), 0, 0, 100, 10, 80, 1);
-            BiomeFeatures.addTerracottaCave(gen,0.4F, 18);
+            BiomeFeatures.addRedRock(gen);
+            BiomeFeatures.addTerracottaCave(gen);
         }
     }
 }
