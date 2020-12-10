@@ -15,7 +15,6 @@ import pugz.omni.common.world.feature.ExposedOreFeature;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniTileEntities;
-import pugz.omni.core.util.CompatBlocks;
 import pugz.omni.core.util.RegistryUtil;
 
 public class CoreModule extends AbstractModule {
@@ -44,7 +43,6 @@ public class CoreModule extends AbstractModule {
 
     @Override
     protected void onPostInitialize() {
-        CompatBlocks.initializeBlocks();
     }
 
     @Override

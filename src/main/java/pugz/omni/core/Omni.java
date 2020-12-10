@@ -28,6 +28,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import pugz.omni.core.util.CompatReferences;
 
 @Mod(Omni.MOD_ID)
 public class Omni {
@@ -113,6 +114,7 @@ public class Omni {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         registerModulePost();
+        CompatReferences.initializeReferences();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

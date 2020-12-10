@@ -52,7 +52,7 @@ public class MiscellaneousModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
-        if (CoreModule.Configuration.COMMON.ZOMBIE_HORSE_TRANSMUTATION.get()) MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
+        MinecraftForge.EVENT_BUS.addListener(this::onEntityStruckByLightning);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityInteractSpecific);
         MinecraftForge.EVENT_BUS.addListener(this::onLivingUpdate);
     }
@@ -163,17 +163,19 @@ public class MiscellaneousModule extends AbstractModule {
     }
 
     public void onEntityStruckByLightning(EntityStruckByLightningEvent event) {
-        LightningBoltEntity lightning = event.getLightning();
-        Entity entity = event.getEntity();
-        World world = lightning.getEntityWorld();
+        if (CoreModule.Configuration.COMMON.ZOMBIE_HORSE_TRANSMUTATION.get()) {
+            LightningBoltEntity lightning = event.getLightning();
+            Entity entity = event.getEntity();
+            World world = lightning.getEntityWorld();
 
-        if (entity instanceof HorseEntity) {
-            List<Entity> list = world.getEntitiesInAABBexcluding(lightning, new AxisAlignedBB(lightning.getPosX() - 3.0D, lightning.getPosY() - 3.0D, lightning.getPosZ() - 3.0D, lightning.getPosX() + 3.0D, lightning.getPosY() + 6.0D + 3.0D, lightning.getPosZ() + 3.0D), Entity::isAlive);
-            for (Entity target : list) {
-                if (target instanceof ZombieEntity) {
-                    lightning.setEffectOnly(true);
-                    transmutateZombieHorse(world, (ZombieEntity) target, (HorseEntity) entity);
-                    break;
+            if (entity instanceof HorseEntity) {
+                List<Entity> list = world.getEntitiesInAABBexcluding(lightning, new AxisAlignedBB(lightning.getPosX() - 3.0D, lightning.getPosY() - 3.0D, lightning.getPosZ() - 3.0D, lightning.getPosX() + 3.0D, lightning.getPosY() + 6.0D + 3.0D, lightning.getPosZ() + 3.0D), Entity::isAlive);
+                for (Entity target : list) {
+                    if (target instanceof ZombieEntity) {
+                        lightning.setEffectOnly(true);
+                        transmutateZombieHorse(world, (ZombieEntity) target, (HorseEntity) entity);
+                        break;
+                    }
                 }
             }
         }

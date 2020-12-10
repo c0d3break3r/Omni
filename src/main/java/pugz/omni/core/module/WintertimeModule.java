@@ -29,8 +29,7 @@ public class WintertimeModule extends AbstractModule {
 
     @Override
     protected void onInitialize() {
-        int i = MathHelper.clamp(CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get(), 0, 1000);
-        if (i > 0) MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
+        MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
     }
 
     @Override
@@ -91,15 +90,19 @@ public class WintertimeModule extends AbstractModule {
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         World world = event.getWorld();
         if (world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld)world;
+            ServerWorld serverWorld = (ServerWorld) world;
             Entity entity = event.getEntity();
-            if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get()) == 0) {
-                Entity entity1 = EntityType.STRAY.spawn(serverWorld, null, null, entity.getPosition(), SpawnReason.JOCKEY, false, false);
-                if (entity1 instanceof StrayEntity) {
-                    StrayEntity stray = (StrayEntity)entity1;
-                    stray.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
-                    stray.onInitialSpawn(serverWorld, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.JOCKEY, (ILivingEntityData) null, (CompoundNBT) null);
-                    stray.startRiding(entity);
+            if (CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get() > 0) {
+                if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(MathHelper.clamp(CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get(), 1, 1000)) == 0) {
+                    Entity entity1 = EntityType.STRAY.spawn(serverWorld, null, null, entity.getPosition(), SpawnReason.JOCKEY, false, false);
+                    if (entity1 instanceof StrayEntity) {
+                        StrayEntity stray = (StrayEntity) entity1;
+                        stray.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
+                        stray.onInitialSpawn(serverWorld, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.JOCKEY, (ILivingEntityData) null, (CompoundNBT) null);
+                        stray.startRiding(entity);
+
+                        serverWorld.addEntity(stray);
+                    }
                 }
             }
         }
