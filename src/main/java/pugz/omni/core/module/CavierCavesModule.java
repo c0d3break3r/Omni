@@ -1,34 +1,20 @@
 package pugz.omni.core.module;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.stats.IStatFormatter;
-import net.minecraft.tileentity.MobSpawnerTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
-import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SizedCaveSpiderRenderer;
 import pugz.omni.client.render.SpeleothemRenderer;
@@ -36,11 +22,9 @@ import pugz.omni.common.block.HorizontalFacingBlock;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
-import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.caves.*;
 import pugz.omni.core.registry.*;
-import pugz.omni.core.util.BaseGenUtils;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.material.Material;
@@ -49,8 +33,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-
-import java.util.Objects;
 
 public class CavierCavesModule extends AbstractModule {
     public static final CavierCavesModule instance = new CavierCavesModule();
@@ -172,13 +154,17 @@ public class CavierCavesModule extends AbstractModule {
         //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
 
         OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.CODEC));
+    }
 
+    @Override
+    protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.STONE_SPELEOTHEM = RegistryUtil.createConfiguredFeature("stone_speleothem", OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(SpeleothemFeatureConfig.Variant.STONE)).chance(2));
         OmniFeatures.Configured.ICICLE = RegistryUtil.createConfiguredFeature("icicle", OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(SpeleothemFeatureConfig.Variant.ICE)).chance(2));
         OmniFeatures.Configured.NETHERRACK_SPELEOTHEM = RegistryUtil.createConfiguredFeature("netherrack_speleothem", OmniFeatures.SPELEOTHEM.get().withConfiguration(new SpeleothemFeatureConfig(SpeleothemFeatureConfig.Variant.NETHERRACK)).chance(2));
         OmniFeatures.Configured.MALACHITE_GEODE = RegistryUtil.createConfiguredFeature("malachite_geode", OmniFeatures.GEODE.get().withConfiguration(new GeodeFeatureConfig(0.35D, 0.083D, true, 4, 7, 3, 5, 1, 3, -16, 16, 0.05D)).withPlacement((DecoratedPlacement.RANGE.configure(new TopSolidRangeConfig(6, 0, 47)).chance(CoreModule.Configuration.COMMON.MALACHITE_GEODE_SPAWN_CHANCE.get()))));
         OmniFeatures.Configured.MUSHROOM_CAVE = RegistryUtil.createConfiguredFeature("mushroom_cave", OmniFeatures.MUSHROOM_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), 128, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, false)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.4F)).chance(CoreModule.Configuration.COMMON.MUSHROOM_CAVE_CHANCE.get())));
         OmniFeatures.Configured.ICY_CAVE = RegistryUtil.createConfiguredFeature("icy_cave", OmniFeatures.ICY_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 96, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.3F)).chance(CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get())));
+        OmniFeatures.Configured.TERRACOTTA_CAVE = RegistryUtil.createConfiguredFeature("terracotta_cave", OmniFeatures.TERRACOTTA_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.RED_SAND.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), Blocks.TERRACOTTA.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), 112, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.4F)).chance(CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get())));
     }
 
     @Override

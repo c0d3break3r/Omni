@@ -1,15 +1,24 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-        {
-            "item": "omni:red_quilted_wool"
-        },
-		{
-            "item": "minecraft:lapis_lazuli"
-        }
+      {
+        "item": "omni:red_quilted_wool"
+      },
+      {
+        "item": "omni:red_quilted_wool"
+      },
+      {
+        "item": "omni:red_quilted_wool"
+      },
+      {
+        "item": "omni:red_quilted_wool"
+      },
+      {
+        "item": "minecraft:lapis_lazuli"
+      }
 	],
   "result": {
     "item": "omni:enchanters_quilted_wool",
-    "count": 1
+    "count": 4
   }
 }

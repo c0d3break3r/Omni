@@ -151,7 +151,10 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void registerFeatures() {
         //RegistryObject<Feature<?>> WHITE_SAND_REPLACEMENT;
+    }
 
+    @Override
+    protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.RED_LOTUS_FLOWER = RegistryUtil.createConfiguredFeature("red_lotus_flower", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.RED_LOTUS_FLOWER.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(6).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL)).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(CoreModule.Configuration.COMMON.LOTUS_FLOWER_SPAWN_CHANCE.get()));
         OmniFeatures.Configured.ORANGE_LOTUS_FLOWER = RegistryUtil.createConfiguredFeature("orange_lotus_flower", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.ORANGE_LOTUS_FLOWER.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(6).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL)).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(CoreModule.Configuration.COMMON.LOTUS_FLOWER_SPAWN_CHANCE.get()));
         OmniFeatures.Configured.YELLOW_LOTUS_FLOWER = RegistryUtil.createConfiguredFeature("yellow_lotus_flower", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.YELLOW_LOTUS_FLOWER.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(6).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL)).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(CoreModule.Configuration.COMMON.LOTUS_FLOWER_SPAWN_CHANCE.get()));
