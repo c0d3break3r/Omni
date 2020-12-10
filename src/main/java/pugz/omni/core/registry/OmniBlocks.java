@@ -51,7 +51,6 @@ public class OmniBlocks {
     public static RegistryObject<AbstractStackableBlock> DIANTHUSES;
     public static RegistryObject<AbstractStackableBlock> GILIAS;
     public static RegistryObject<AbstractStackableBlock> GLOWSHROOMS;
-    public static RegistryObject<AbstractStackableBlock> HOT_MONKEY_BRUSH;
     public static RegistryObject<AbstractStackableBlock> MAGENTA_HIBISCUSES;
     public static RegistryObject<AbstractStackableBlock> ORANGE_HIBISCUSES;
     public static RegistryObject<AbstractStackableBlock> PINK_CLOVERS;
@@ -59,14 +58,10 @@ public class OmniBlocks {
     public static RegistryObject<AbstractStackableBlock> PURPLE_HIBISCUSES;
     public static RegistryObject<AbstractStackableBlock> RED_HIBISCUSES;
     public static RegistryObject<AbstractStackableBlock> RED_LOTUS_FLOWERS;
-    public static RegistryObject<AbstractStackableBlock> SCALDING_MONKEY_BRUSH;
     public static RegistryObject<AbstractStackableBlock> VIOLETS;
-    public static RegistryObject<AbstractStackableBlock> WARM_MONKEY_BRUSH;
-    public static RegistryObject<AbstractStackableBlock> WATER_HYACINTHS;
     public static RegistryObject<AbstractStackableBlock> WHITE_CLOVERS;
     public static RegistryObject<AbstractStackableBlock> WHITE_LOTUS_FLOWERS;
     public static RegistryObject<AbstractStackableBlock> YELLOW_HIBISCUSES;
-    public static RegistryObject<AbstractStackableBlock> YUCCA_FLOWERS;
 
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;

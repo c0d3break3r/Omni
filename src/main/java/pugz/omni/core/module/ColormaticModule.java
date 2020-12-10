@@ -125,49 +125,48 @@ public class ColormaticModule extends AbstractModule {
 
         if (ModList.get().isLoaded("buzzier_bees")) {
             OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.BUTTERCUP), CompatBlocks.BUTTERCUP), null);
+            OmniBlocks.PINK_CLOVERS = RegistryUtil.createBlock("pink_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.PINK_CLOVER), CompatBlocks.PINK_CLOVER), null);
+            OmniBlocks.WHITE_CLOVERS = RegistryUtil.createBlock("white_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.WHITE_CLOVER), CompatBlocks.WHITE_CLOVER), null);
             STACKABLES.add(OmniBlocks.BUTTERCUPS);
+            STACKABLES.add(OmniBlocks.PINK_CLOVERS);
+            STACKABLES.add(OmniBlocks.WHITE_CLOVERS);
         }
 
         if (ModList.get().isLoaded("environmental")) {
-
-        }
-
-        if (ModList.get().isLoaded("upgrade_aquatic")) {
-
-        }
-
-        if (ModList.get().isLoaded("endergetic")) {
-
+            OmniBlocks.BLUEBELLS = RegistryUtil.createBlock("bluebells", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.BLUEBELL), CompatBlocks.BLUEBELL), null);
+            OmniBlocks.CARTWHEELS = RegistryUtil.createBlock("cartwheels", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.CARTWHEEL), CompatBlocks.CARTWHEEL), null);
+            OmniBlocks.DIANTHUSES = RegistryUtil.createBlock("dianthuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.DIANTHUS), CompatBlocks.DIANTHUS), null);
+            OmniBlocks.MAGENTA_HIBISCUSES = RegistryUtil.createBlock("magenta_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.MAGENTA_HIBISCUS), CompatBlocks.MAGENTA_HIBISCUS), null);
+            OmniBlocks.ORANGE_HIBISCUSES = RegistryUtil.createBlock("orange_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.ORANGE_HIBISCUS), CompatBlocks.ORANGE_HIBISCUS), null);
+            OmniBlocks.PINK_HIBISCUSES = RegistryUtil.createBlock("pink_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.PINK_HIBISCUS), CompatBlocks.PINK_HIBISCUS), null);
+            OmniBlocks.PURPLE_HIBISCUSES = RegistryUtil.createBlock("purple_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.PURPLE_HIBISCUS), CompatBlocks.PURPLE_HIBISCUS), null);
+            OmniBlocks.RED_HIBISCUSES = RegistryUtil.createBlock("red_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.RED_HIBISCUS), CompatBlocks.RED_HIBISCUS), null);
+            OmniBlocks.RED_LOTUS_FLOWERS = RegistryUtil.createBlock("red_lotus_flowers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.RED_LOTUS_FLOWER), CompatBlocks.RED_LOTUS_FLOWER), null);
+            OmniBlocks.VIOLETS = RegistryUtil.createBlock("violets", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.VIOLET), CompatBlocks.VIOLET), null);
+            OmniBlocks.WHITE_LOTUS_FLOWERS = RegistryUtil.createBlock("white_lotus_flowers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.WHITE_LOTUS_FLOWER), CompatBlocks.WHITE_LOTUS_FLOWER), null);
+            OmniBlocks.YELLOW_HIBISCUSES = RegistryUtil.createBlock("yellow_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.YELLOW_HIBISCUS), CompatBlocks.YELLOW_HIBISCUS), null);
+            STACKABLES.add(OmniBlocks.BLUEBELLS);
+            STACKABLES.add(OmniBlocks.CARTWHEELS);
+            STACKABLES.add(OmniBlocks.DIANTHUSES);
+            STACKABLES.add(OmniBlocks.MAGENTA_HIBISCUSES);
+            STACKABLES.add(OmniBlocks.ORANGE_HIBISCUSES);
+            STACKABLES.add(OmniBlocks.PINK_HIBISCUSES);
+            STACKABLES.add(OmniBlocks.PURPLE_HIBISCUSES);
+            STACKABLES.add(OmniBlocks.RED_HIBISCUSES);
+            STACKABLES.add(OmniBlocks.RED_LOTUS_FLOWERS);
+            STACKABLES.add(OmniBlocks.VIOLETS);
+            STACKABLES.add(OmniBlocks.WHITE_LOTUS_FLOWERS);
+            STACKABLES.add(OmniBlocks.YELLOW_HIBISCUSES);
         }
 
         if (ModList.get().isLoaded("atmospheric")) {
-            OmniBlocks.HOT_MONKEY_BRUSH = RegistryUtil.createBlock("hot_monkey_brush", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.HOT_MONKEY_BRUSH), CompatBlocks.HOT_MONKEY_BRUSH), null);
-            OmniBlocks.SCALDING_MONKEY_BRUSH = RegistryUtil.createBlock("scalding_monkey_brush", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.SCALDING_MONKEY_BRUSH), CompatBlocks.SCALDING_MONKEY_BRUSH), null);
-            OmniBlocks.WARM_MONKEY_BRUSH = RegistryUtil.createBlock("warm_monkey_brush", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.WARM_MONKEY_BRUSH), CompatBlocks.WARM_MONKEY_BRUSH), null);
+            OmniBlocks.GILIAS = RegistryUtil.createBlock("gilias", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.GILIA), CompatBlocks.GILIA), null);
+            STACKABLES.add(OmniBlocks.GILIAS);
         }
 
         if (ModList.get().isLoaded("autumnity")) {
             OmniBlocks.AUTUMN_CROCUSES = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatBlocks.AUTUMN_CROCUS), CompatBlocks.AUTUMN_CROCUS), null);
             STACKABLES.add(OmniBlocks.AUTUMN_CROCUSES);
-            
-            //OmniBlocks.BLUEBELLS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.CARTWHEELS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.DIANTHUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.GILIAS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.MAGENTA_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.ORANGE_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.PINK_CLOVERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.PINK_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.PURPLE_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.RED_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.RED_LOTUS_FLOWERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.VIOLETS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.WATER_HYACINTHS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.WHITE_CLOVERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.WHITE_LOTUS_FLOWERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.YELLOW_HIBISCUSES = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
-            //OmniBlocks.YUCCA_FLOWERS = RegistryUtil.createBlock("", () -> new FlowersBlock(AbstractBlock.Properties.from(Blocks.DANDELION), Blocks.DANDELION), null);
         }
 
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);
