@@ -10,7 +10,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.server.ServerWorld;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 import java.util.Random;
 import java.util.function.Supplier;

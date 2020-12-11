@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "omni:block/deserted/red_rock_pavement"
+      "model": "omni:block/wild_west/red_rock_pavement"
     }
   }
 }

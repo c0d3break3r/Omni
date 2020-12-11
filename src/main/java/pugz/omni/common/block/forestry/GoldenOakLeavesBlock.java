@@ -7,7 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 public class GoldenOakLeavesBlock extends Block implements IBaseBlock {
     public GoldenOakLeavesBlock() {

@@ -1,6 +1,0 @@
-{
-    "parent": "block/button",
-    "textures": {
-        "texture": "omni:block/deserted/red_rock_bricks"
-    }
-}

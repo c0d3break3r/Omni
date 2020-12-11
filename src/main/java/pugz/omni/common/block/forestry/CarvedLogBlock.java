@@ -9,7 +9,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 public class CarvedLogBlock extends Block implements IBaseBlock {
     public CarvedLogBlock(MaterialColor color) {

@@ -24,7 +24,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

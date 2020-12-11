@@ -135,7 +135,7 @@ public class CoreModule extends AbstractModule {
             CONCRETE_POWDER_FALLS = builder.define("concrete_powder_falls", true);
             builder.pop();
 
-            builder.push(DesertedModule.instance.getName());
+            builder.push(WildWestModule.instance.getName());
             RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
             builder.pop();
 

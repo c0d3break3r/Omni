@@ -1,6 +1,0 @@
-{
-    "parent": "block/wall_inventory",
-    "textures": {
-        "wall": "omni:block/deserted/red_rock_bricks"
-    }
-}

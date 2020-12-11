@@ -22,12 +22,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
 
 public class LayerConcreteBlock extends Block implements IWaterLoggable, IBaseBlock {
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS_1_8;

@@ -1,0 +1,8 @@
+{
+  "parent": "omni:block/vertical_slab",
+  "textures": {
+    "bottom": "omni:block/wild_west/red_rock",
+    "top": "omni:block/wild_west/red_rock",
+    "side": "omni:block/wild_west/red_rock"
+  }
+}

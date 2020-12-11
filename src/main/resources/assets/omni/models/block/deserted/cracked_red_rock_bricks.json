@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "omni:block/deserted/cracked_red_rock_bricks"
-  }
-}

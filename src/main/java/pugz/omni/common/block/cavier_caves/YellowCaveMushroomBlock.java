@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 public class YellowCaveMushroomBlock extends CaveMushroomBlock implements IBaseBlock {
     public YellowCaveMushroomBlock() {

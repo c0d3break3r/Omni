@@ -1,0 +1,6 @@
+{
+    "parent": "block/button",
+    "textures": {
+        "texture": "omni:block/wild_west/red_rock_bricks"
+    }
+}

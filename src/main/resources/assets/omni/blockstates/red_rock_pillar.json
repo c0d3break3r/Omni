@@ -1,7 +1,7 @@
 {
     "variants": {
-        "axis=y": { "model": "omni:block/deserted/red_rock_pillar" },
-        "axis=z": { "model": "omni:block/deserted/red_rock_pillar", "x": 90 },
-        "axis=x": { "model": "omni:block/deserted/red_rock_pillar", "x": 90, "y": 90 }
+        "axis=y": { "model": "omni:block/wild_west/red_rock_pillar" },
+        "axis=z": { "model": "omni:block/wild_west/red_rock_pillar", "x": 90 },
+        "axis=x": { "model": "omni:block/wild_west/red_rock_pillar", "x": 90, "y": 90 }
     }
 }

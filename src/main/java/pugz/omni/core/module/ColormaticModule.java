@@ -116,12 +116,12 @@ public class ColormaticModule extends AbstractModule {
             }
         }
 
-        if (ModList.get().isLoaded("quark")) {
+        if (ModList.get().isLoaded("quarkno")) {
             OmniBlocks.GLOWSHROOMS = RegistryUtil.createBlock("glowshrooms", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.GLOWSHROOM.get()), CompatReferences.GLOWSHROOM.get()), null);
             STACKABLES.add(OmniBlocks.GLOWSHROOMS);
         }
 
-        if (ModList.get().isLoaded("buzzier_bees")) {
+        if (ModList.get().isLoaded("buzzier_beesno")) {
             OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("buttercups", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.BUTTERCUP.get()), CompatReferences.BUTTERCUP.get()), null);
             OmniBlocks.PINK_CLOVERS = RegistryUtil.createBlock("pink_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PINK_CLOVER.get()), CompatReferences.PINK_CLOVER.get()), null);
             OmniBlocks.WHITE_CLOVERS = RegistryUtil.createBlock("white_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.WHITE_CLOVER.get()), CompatReferences.WHITE_CLOVER.get()), null);
@@ -130,7 +130,7 @@ public class ColormaticModule extends AbstractModule {
             STACKABLES.add(OmniBlocks.WHITE_CLOVERS);
         }
 
-        if (ModList.get().isLoaded("environmental")) {
+        if (ModList.get().isLoaded("environmentalno")) {
             OmniBlocks.BLUEBELLS = RegistryUtil.createBlock("bluebells", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.BLUEBELL.get()), CompatReferences.BLUEBELL.get()), null);
             OmniBlocks.CARTWHEELS = RegistryUtil.createBlock("cartwheels", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.CARTWHEEL.get()), CompatReferences.CARTWHEEL.get()), null);
             OmniBlocks.DIANTHUSES = RegistryUtil.createBlock("dianthuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.DIANTHUS.get()), CompatReferences.DIANTHUS.get()), null);
@@ -157,12 +157,12 @@ public class ColormaticModule extends AbstractModule {
             STACKABLES.add(OmniBlocks.YELLOW_HIBISCUSES);
         }
 
-        if (ModList.get().isLoaded("atmospheric")) {
+        if (ModList.get().isLoaded("atmosphericno")) {
             OmniBlocks.GILIAS = RegistryUtil.createBlock("gilias", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.GILIA.get()), CompatReferences.GILIA.get()), null);
             STACKABLES.add(OmniBlocks.GILIAS);
         }
 
-        if (ModList.get().isLoaded("autumnity")) {
+        if (ModList.get().isLoaded("autumnityno")) {
             OmniBlocks.AUTUMN_CROCUSES = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.AUTUMN_CROCUS.get()), CompatReferences.AUTUMN_CROCUS.get()), null);
             STACKABLES.add(OmniBlocks.AUTUMN_CROCUSES);
         }

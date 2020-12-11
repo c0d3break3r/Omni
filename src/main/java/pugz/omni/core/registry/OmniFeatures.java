@@ -1,7 +1,7 @@
 package pugz.omni.core.registry;
 
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
@@ -19,6 +19,9 @@ public class OmniFeatures {
 
     //core
     public static RegistryObject<Feature<ExposedOreFeatureConfig>> EXPOSED_ORE;
+
+    //wild west
+    public static RegistryObject<Feature<NoFeatureConfig>> SAGUARO_CACTUS;
 
     public static class Configured {
         //cavier caves
@@ -46,5 +49,8 @@ public class OmniFeatures {
         public static ConfiguredFeature<?, ?> PURPLE_LOTUS_FLOWER;
         public static ConfiguredFeature<?, ?> BLACK_LOTUS_FLOWER;
         public static ConfiguredFeature<?, ?> WHITE_LOTUS_FLOWER;
+
+        //wild west
+        public static ConfiguredFeature<?, ?> SAGUARO_CACTUS;
     }
 }

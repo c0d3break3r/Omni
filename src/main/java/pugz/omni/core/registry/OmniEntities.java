@@ -9,6 +9,7 @@ import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
+import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.core.Omni;
 
 public class OmniEntities {
@@ -21,6 +22,9 @@ public class OmniEntities {
 
     //paradise
     public static RegistryObject<EntityType<SeahorseEntity>> SEAHORSE;
+
+    //wild west
+    public static RegistryObject<EntityType<TumbleweedEntity>> TUMBLEWEED;
 
     public static EntityType<SpeleothemEntity> createSpeleothemEntity() {
         return EntityType.Builder.<SpeleothemEntity>create(SpeleothemEntity::new, EntityClassification.MISC)
@@ -40,6 +44,14 @@ public class OmniEntities {
                 .setCustomClientFactory((spawnEntity, world) -> new FallingConcretePowderEntity(FALLING_CONCRETE_POWDER.get(), world))
                 .func_233608_b_(20)
                 .build(new ResourceLocation(Omni.MOD_ID, "falling_concrete_powder").toString());
+    }
+
+    public static EntityType<TumbleweedEntity> createTumbleweedEntity() {
+        return EntityType.Builder.<TumbleweedEntity>create(TumbleweedEntity::new, EntityClassification.MISC)
+                .size(0.7F, 0.7F)
+                .setTrackingRange(12)
+                .setShouldReceiveVelocityUpdates(true)
+                .build(new ResourceLocation(Omni.MOD_ID, "tumbleweed").toString());
     }
 
     public static  <E extends LivingEntity> EntityType<E> createLivingEntity(EntityType.IFactory<E> factory, EntityClassification entityClassification, String name, float width, float height) {

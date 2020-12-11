@@ -166,30 +166,11 @@
 
   "biome.omni.flower_field": "Flower Field",
 
-  "_comment2": "Deserted",
-
-  "block.omni.red_rock": "Red Rock",
-  "block.omni.red_rock_stairs": "Red Rock Stairs",
-  "block.omni.red_rock_slab": "Red Rock Slab",
-  "block.omni.red_rock_wall": "Red Rock Wall",
-  "block.omni.red_rock_bricks": "Red Rock Bricks",
-  "block.omni.red_rock_brick_stairs": "Red Rock Brick Stairs",
-  "block.omni.red_rock_brick_slab": "Red Rock Brick Slab",
-  "block.omni.red_rock_brick_wall": "Red Rock Brick Wall",
-  "block.omni.chiseled_red_rock_bricks": "Chiseled Red Rock Bricks",
-  "block.omni.cracked_red_rock_bricks": "Cracked Red Rock Bricks",
-  "block.omni.red_rock_pillar": "Red Rock Pillar",
-  "block.omni.red_rock_brick_button": "Red Rock Brick Button",
-  "block.omni.red_rock_brick_pressure_plate": "Red Rock Brick Pressure Plate",
-  "block.omni.red_rock_vertical_slab": "Red Rock Vertical Slab",
-  "block.omni.red_rock_brick_vertical_slab": "Red Rock Brick Vertical Slab",
-  "block.omni.red_rock_pavement": "Red Rock Pavement",
-
-  "_comment3": "Fiery Nether",
+  "_comment2": "Fiery Nether",
 
   "block.omni.cobbled_basalt": "Cobbled Basalt",
 
-  "_comment4": "Forestry",
+  "_comment3": "Forestry",
 
   "block.omni.carved_oak_wood": "Carved Oak Wood",
   "block.omni.carved_spruce_wood": "Carved Spruce Wood",
@@ -202,13 +183,13 @@
 
   "biome.omni.tall_forest": "Tall Forest",
 
-  "_comment5": "Miscellaneous",
+  "_comment4": "Miscellaneous",
 
   "block.omni.vexed_glass": "Vexed Glass",
 
   "item.omni.enchanted_golden_carrot": "Enchanted Golden Carrot",
 
-  "_comment6": "Paradise",
+  "_comment5": "Paradise",
 
   "block.omni.red_lotus_flower": "Red Lotus Flower",
   "block.omni.orange_lotus_flower": "Orange Lotus Flower",
@@ -231,5 +212,27 @@
   "coral_type.omni.fire": "Fire Seahorse",
   "coral_type.omni.tube": "Tube Seahorse",
   "coral_type.omni.brain": "Brain Seahorse",
-  "coral_type.omni.mystery": "Mystery"
+  "coral_type.omni.mystery": "Mystery",
+
+  "_comment6": "Wild West",
+
+  "block.omni.red_rock": "Red Rock",
+  "block.omni.red_rock_stairs": "Red Rock Stairs",
+  "block.omni.red_rock_slab": "Red Rock Slab",
+  "block.omni.red_rock_wall": "Red Rock Wall",
+  "block.omni.red_rock_bricks": "Red Rock Bricks",
+  "block.omni.red_rock_brick_stairs": "Red Rock Brick Stairs",
+  "block.omni.red_rock_brick_slab": "Red Rock Brick Slab",
+  "block.omni.red_rock_brick_wall": "Red Rock Brick Wall",
+  "block.omni.chiseled_red_rock_bricks": "Chiseled Red Rock Bricks",
+  "block.omni.cracked_red_rock_bricks": "Cracked Red Rock Bricks",
+  "block.omni.red_rock_pillar": "Red Rock Pillar",
+  "block.omni.red_rock_brick_button": "Red Rock Brick Button",
+  "block.omni.red_rock_brick_pressure_plate": "Red Rock Brick Pressure Plate",
+  "block.omni.red_rock_vertical_slab": "Red Rock Vertical Slab",
+  "block.omni.red_rock_brick_vertical_slab": "Red Rock Brick Vertical Slab",
+  "block.omni.red_rock_pavement": "Red Rock Pavement",
+  "block.omni.saguaro_cactus": "Saguaro Cactus",
+
+  "entity.omni.tumbleweed": "Tumbleweed"
 }

@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "omni:block/wild_west/red_rock_pillar_top",
+        "side": "omni:block/wild_west/red_rock_pillar"
+    }
+}

@@ -1,0 +1,69 @@
+{
+	"textures": {
+		"side": "omni:block/wild_west/saguaro_cactus",
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"from": [4, 8, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 16, 12]},
+			"faces": {
+				"north": {"uv": [4, 4, 12, 12], "rotation": 90, "texture": "#side"},
+				"south": {"uv": [4, 4, 12, 12], "rotation": 90, "texture": "#side"}
+			}
+		},
+		{
+			"from": [3, 8, 4],
+			"to": [13, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 16, 12]},
+			"faces": {
+				"up": {"uv": [3, 4, 13, 12], "texture": "#side"},
+				"down": {"uv": [3, 4, 13, 12], "texture": "#side"}
+			}
+		},
+		{
+			"from": [4, 7, 4],
+			"to": [12, 17, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 15, 12]},
+			"faces": {
+				"east": {"uv": [3, 4, 13, 12], "rotation": 270, "texture": "#side"},
+				"west": {"uv": [3, 4, 13, 12], "rotation": 270, "texture": "#side"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -135, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [30, 135, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"rotation": [-91, 0, 0],
+			"translation": [0, 0, -14.25]
+		}
+	}
+}

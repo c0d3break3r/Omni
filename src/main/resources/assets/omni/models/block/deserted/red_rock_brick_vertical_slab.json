@@ -1,8 +1,0 @@
-{
-  "parent": "omni:block/vertical_slab",
-  "textures": {
-    "bottom": "omni:block/deserted/red_rock_bricks",
-    "top": "omni:block/deserted/red_rock_bricks",
-    "side": "omni:block/deserted/red_rock_bricks"
-  }
-}

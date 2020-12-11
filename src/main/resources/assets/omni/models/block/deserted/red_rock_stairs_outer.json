@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "omni:block/deserted/red_rock",
-        "top": "omni:block/deserted/red_rock",
-        "side": "omni:block/deserted/red_rock"
-    }
-}

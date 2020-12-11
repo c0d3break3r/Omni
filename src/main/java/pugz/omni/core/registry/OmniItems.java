@@ -8,10 +8,6 @@ public class OmniItems {
     public static RegistryObject<Item> MALACHITE_SHARD;
     public static RegistryObject<Item> CAVE_SPIDER_SPAWN_EGG;
 
-    //deserted
-    public static RegistryObject<Item> PALO_VERDE_BOAT;
-    public static RegistryObject<Item> PALO_VERDE_SIGN;
-
     //forestry
     public static RegistryObject<Item> ENCHANTED_GOLDEN_CARROT;
 
@@ -21,4 +17,8 @@ public class OmniItems {
 
     public static RegistryObject<Item> ACAI_BOAT;
     public static RegistryObject<Item> ACAI_SIGN;
+
+    //deserted
+    public static RegistryObject<Item> PALO_VERDE_BOAT;
+    public static RegistryObject<Item> PALO_VERDE_SIGN;
 }

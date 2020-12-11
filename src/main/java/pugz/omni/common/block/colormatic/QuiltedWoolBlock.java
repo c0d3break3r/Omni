@@ -6,7 +6,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
-import pugz.omni.core.base.IBaseBlock;
+import pugz.omni.core.util.IBaseBlock;
 
 public class QuiltedWoolBlock extends Block implements IBaseBlock {
     public QuiltedWoolBlock(DyeColor color) {

@@ -28,7 +28,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import pugz.omni.core.util.CompatReferences;
 
 @Mod(Omni.MOD_ID)
 public class Omni {
@@ -71,7 +70,7 @@ public class Omni {
 
         CavierCavesModule.instance.initialize();
         ColormaticModule.instance.initialize();
-        DesertedModule.instance.initialize();
+        WildWestModule.instance.initialize();
         FieryNetherModule.instance.initialize();
         ForestryModule.instance.initialize();
         //HallowsEveModule.instance.initialize();
@@ -86,7 +85,7 @@ public class Omni {
 
         CavierCavesModule.instance.initializeClient();
         ColormaticModule.instance.initializeClient();
-        DesertedModule.instance.initializeClient();
+        WildWestModule.instance.initializeClient();
         FieryNetherModule.instance.initializeClient();
         ForestryModule.instance.initializeClient();
         //HallowsEveModule.instance.initializeClient();
@@ -100,7 +99,7 @@ public class Omni {
 
         CavierCavesModule.instance.initializePost();
         ColormaticModule.instance.initializePost();
-        DesertedModule.instance.initializePost();
+        WildWestModule.instance.initializePost();
         FieryNetherModule.instance.initializePost();
         ForestryModule.instance.initializePost();
         //HallowsEveModule.instance.initializePost();
@@ -111,7 +110,7 @@ public class Omni {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
         registerModulePost();
-        CompatReferences.initializeReferences();
+        //CompatReferences.initializeReferences();
     }
 
     private void setupClient(final FMLClientSetupEvent event) {

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "omni:block/deserted/chiseled_red_rock_bricks"
+      "model": "omni:block/wild_west/chiseled_red_rock_bricks"
     }
   }
 }
