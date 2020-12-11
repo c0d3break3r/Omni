@@ -117,32 +117,32 @@ public class ColormaticModule extends AbstractModule {
         }
 
         if (ModList.get().isLoaded("quark")) {
-            OmniBlocks.GLOWSHROOMS = RegistryUtil.createBlock("glowshrooms", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.GLOWSHROOM), CompatReferences.GLOWSHROOM), null);
+            OmniBlocks.GLOWSHROOMS = RegistryUtil.createBlock("glowshrooms", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.GLOWSHROOM.get()), CompatReferences.GLOWSHROOM.get()), null);
             STACKABLES.add(OmniBlocks.GLOWSHROOMS);
         }
 
         if (ModList.get().isLoaded("buzzier_bees")) {
-            OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("buttercups", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.BUTTERCUP), CompatReferences.BUTTERCUP), null);
-            OmniBlocks.PINK_CLOVERS = RegistryUtil.createBlock("pink_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PINK_CLOVER), CompatReferences.PINK_CLOVER), null);
-            OmniBlocks.WHITE_CLOVERS = RegistryUtil.createBlock("white_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.WHITE_CLOVER), CompatReferences.WHITE_CLOVER), null);
+            OmniBlocks.BUTTERCUPS = RegistryUtil.createBlock("buttercups", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.BUTTERCUP.get()), CompatReferences.BUTTERCUP.get()), null);
+            OmniBlocks.PINK_CLOVERS = RegistryUtil.createBlock("pink_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PINK_CLOVER.get()), CompatReferences.PINK_CLOVER.get()), null);
+            OmniBlocks.WHITE_CLOVERS = RegistryUtil.createBlock("white_clovers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.WHITE_CLOVER.get()), CompatReferences.WHITE_CLOVER.get()), null);
             STACKABLES.add(OmniBlocks.BUTTERCUPS);
             STACKABLES.add(OmniBlocks.PINK_CLOVERS);
             STACKABLES.add(OmniBlocks.WHITE_CLOVERS);
         }
 
         if (ModList.get().isLoaded("environmental")) {
-            OmniBlocks.BLUEBELLS = RegistryUtil.createBlock("bluebells", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.BLUEBELL), CompatReferences.BLUEBELL), null);
-            OmniBlocks.CARTWHEELS = RegistryUtil.createBlock("cartwheels", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.CARTWHEEL), CompatReferences.CARTWHEEL), null);
-            OmniBlocks.DIANTHUSES = RegistryUtil.createBlock("dianthuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.DIANTHUS), CompatReferences.DIANTHUS), null);
-            OmniBlocks.MAGENTA_HIBISCUSES = RegistryUtil.createBlock("magenta_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.MAGENTA_HIBISCUS), CompatReferences.MAGENTA_HIBISCUS), null);
-            OmniBlocks.ORANGE_HIBISCUSES = RegistryUtil.createBlock("orange_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.ORANGE_HIBISCUS), CompatReferences.ORANGE_HIBISCUS), null);
-            OmniBlocks.PINK_HIBISCUSES = RegistryUtil.createBlock("pink_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PINK_HIBISCUS), CompatReferences.PINK_HIBISCUS), null);
-            OmniBlocks.PURPLE_HIBISCUSES = RegistryUtil.createBlock("purple_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PURPLE_HIBISCUS), CompatReferences.PURPLE_HIBISCUS), null);
-            OmniBlocks.RED_HIBISCUSES = RegistryUtil.createBlock("red_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.RED_HIBISCUS), CompatReferences.RED_HIBISCUS), null);
-            OmniBlocks.RED_LOTUS_FLOWERS = RegistryUtil.createBlock("red_lotus_flowers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.RED_LOTUS_FLOWER), CompatReferences.RED_LOTUS_FLOWER), null);
-            OmniBlocks.VIOLETS = RegistryUtil.createBlock("violets", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.VIOLET), CompatReferences.VIOLET), null);
-            OmniBlocks.WHITE_LOTUS_FLOWERS = RegistryUtil.createBlock("white_lotus_flowers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.WHITE_LOTUS_FLOWER), CompatReferences.WHITE_LOTUS_FLOWER), null);
-            OmniBlocks.YELLOW_HIBISCUSES = RegistryUtil.createBlock("yellow_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.YELLOW_HIBISCUS), CompatReferences.YELLOW_HIBISCUS), null);
+            OmniBlocks.BLUEBELLS = RegistryUtil.createBlock("bluebells", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.BLUEBELL.get()), CompatReferences.BLUEBELL.get()), null);
+            OmniBlocks.CARTWHEELS = RegistryUtil.createBlock("cartwheels", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.CARTWHEEL.get()), CompatReferences.CARTWHEEL.get()), null);
+            OmniBlocks.DIANTHUSES = RegistryUtil.createBlock("dianthuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.DIANTHUS.get()), CompatReferences.DIANTHUS.get()), null);
+            OmniBlocks.MAGENTA_HIBISCUSES = RegistryUtil.createBlock("magenta_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.MAGENTA_HIBISCUS.get()), CompatReferences.MAGENTA_HIBISCUS.get()), null);
+            OmniBlocks.ORANGE_HIBISCUSES = RegistryUtil.createBlock("orange_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.ORANGE_HIBISCUS.get()), CompatReferences.ORANGE_HIBISCUS.get()), null);
+            OmniBlocks.PINK_HIBISCUSES = RegistryUtil.createBlock("pink_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PINK_HIBISCUS.get()), CompatReferences.PINK_HIBISCUS.get()), null);
+            OmniBlocks.PURPLE_HIBISCUSES = RegistryUtil.createBlock("purple_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.PURPLE_HIBISCUS.get()), CompatReferences.PURPLE_HIBISCUS.get()), null);
+            OmniBlocks.RED_HIBISCUSES = RegistryUtil.createBlock("red_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.RED_HIBISCUS.get()), CompatReferences.RED_HIBISCUS.get()), null);
+            OmniBlocks.RED_LOTUS_FLOWERS = RegistryUtil.createBlock("red_lotus_flowers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.RED_LOTUS_FLOWER.get()), CompatReferences.RED_LOTUS_FLOWER.get()), null);
+            OmniBlocks.VIOLETS = RegistryUtil.createBlock("violets", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.VIOLET.get()), CompatReferences.VIOLET.get()), null);
+            OmniBlocks.WHITE_LOTUS_FLOWERS = RegistryUtil.createBlock("white_lotus_flowers", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.WHITE_LOTUS_FLOWER.get()), CompatReferences.WHITE_LOTUS_FLOWER.get()), null);
+            OmniBlocks.YELLOW_HIBISCUSES = RegistryUtil.createBlock("yellow_hibiscuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.YELLOW_HIBISCUS.get()), CompatReferences.YELLOW_HIBISCUS.get()), null);
             STACKABLES.add(OmniBlocks.BLUEBELLS);
             STACKABLES.add(OmniBlocks.CARTWHEELS);
             STACKABLES.add(OmniBlocks.DIANTHUSES);
@@ -158,12 +158,12 @@ public class ColormaticModule extends AbstractModule {
         }
 
         if (ModList.get().isLoaded("atmospheric")) {
-            OmniBlocks.GILIAS = RegistryUtil.createBlock("gilias", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.GILIA), CompatReferences.GILIA), null);
+            OmniBlocks.GILIAS = RegistryUtil.createBlock("gilias", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.GILIA.get()), CompatReferences.GILIA.get()), null);
             STACKABLES.add(OmniBlocks.GILIAS);
         }
 
         if (ModList.get().isLoaded("autumnity")) {
-            OmniBlocks.AUTUMN_CROCUSES = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.AUTUMN_CROCUS), CompatReferences.AUTUMN_CROCUS), null);
+            OmniBlocks.AUTUMN_CROCUSES = RegistryUtil.createBlock("autumn_crocuses", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.AUTUMN_CROCUS.get()), CompatReferences.AUTUMN_CROCUS.get()), null);
             STACKABLES.add(OmniBlocks.AUTUMN_CROCUSES);
         }
 

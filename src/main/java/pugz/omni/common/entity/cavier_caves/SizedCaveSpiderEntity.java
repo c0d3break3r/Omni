@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-
 public class SizedCaveSpiderEntity extends CaveSpiderEntity {
     private static final DataParameter<Integer> SIZE = EntityDataManager.createKey(SizedCaveSpiderEntity.class, DataSerializers.VARINT);
 
