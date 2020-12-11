@@ -64,12 +64,6 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerBlocks() {
-        //RegistryObject<Block> SULFUR_BLOCK;
-
-        //RegistryObject<Block> PETRIFIED_PLANKS;
-
-        //RegistryObject<Block> CAVE_PAINTING;
-
         OmniBlocks.YELLOW_CAVE_MUSHROOM = RegistryUtil.createBlock("yellow_cave_mushroom", YellowCaveMushroomBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.GREEN_CAVE_MUSHROOM = RegistryUtil.createBlock("green_cave_mushroom", () -> new CaveMushroomBlock(MaterialColor.GREEN), ItemGroup.DECORATIONS);
         OmniBlocks.BLUE_CAVE_MUSHROOM = RegistryUtil.createBlock("blue_cave_mushroom", BlueCaveMushroomBlock::new, ItemGroup.DECORATIONS);
@@ -94,16 +88,6 @@ public class CavierCavesModule extends AbstractModule {
             //}
         //}
 
-        //RegistryObject<Block> WEAK_STONE;
-
-        //RegistryObject<Block> SLIME;
-
-        //RegistryObject<Block> THIN_ICE;
-        //RegistryObject<Block> PERMAFROST;
-
-        //RegistryObject<Block> STONE_SIGN;
-        //RegistryObject<Block> BLACKSTONE_SIGN;
-
         OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 0.1F)), ItemGroup.DECORATIONS);
         OmniBlocks.ICE_SPELEOTHEM = RegistryUtil.createBlock("ice_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.PACKED_ICE).slipperiness(0.98F).hardnessAndResistance(0.4F, 0.1F).sound(SoundType.GLASS)), ItemGroup.DECORATIONS);
         OmniBlocks.NETHERRACK_SPELEOTHEM = RegistryUtil.createBlock("netherrack_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(0.3F, 0.1F)), ItemGroup.DECORATIONS);
@@ -122,10 +106,6 @@ public class CavierCavesModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
-        //RegistryObject<Item> SULFUR_DUST;
-
-        //RegistryObject<Item> CRYSTAL_MELON;
-
         OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
         //OmniItems.CAVE_SPIDER_SPAWN_EGG = RegistryUtil.createOverrideItem("cave_spider_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.CAVE_SPIDER.get(), 803406, 11013646, new Item.Properties().group(ItemGroup.MATERIALS)));
     }
@@ -143,14 +123,6 @@ public class CavierCavesModule extends AbstractModule {
         OmniFeatures.TERRACOTTA_CAVE = RegistryUtil.createFeature("terracotta_cave", () -> new TerracottaCaveBiomeFeature(CaveBiomeFeatureConfig.CODEC));
 
         OmniFeatures.SPELEOTHEM = RegistryUtil.createFeature("speleothem", () -> new SpeleothemFeature(SpeleothemFeatureConfig.CODEC));
-        //RegistryObject<Feature<?>> SLIME;
-        //RegistryObject<Feature<?>> CAVE_CARVING;
-        //RegistryObject<Feature<?>> THIN_ICE;
-        //RegistryObject<Feature<?>> SPIDER_NEST;
-        //RegistryObject<Feature<?>> WALL_MUSHROOM;
-        //RegistryObject<Feature<?>> SULFUR;
-
-        //RegistryObject<Feature<?>> PETRIFIED_WOOD_REPLACEMENT;
 
         OmniFeatures.GEODE = RegistryUtil.createFeature("geode", () -> new GeodeFeature(GeodeFeatureConfig.CODEC));
     }
@@ -164,20 +136,6 @@ public class CavierCavesModule extends AbstractModule {
         OmniFeatures.Configured.MUSHROOM_CAVE = RegistryUtil.createConfiguredFeature("mushroom_cave", OmniFeatures.MUSHROOM_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.MYCELIUM.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), 64, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, false)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.4F)).chance(CoreModule.Configuration.COMMON.MUSHROOM_CAVE_CHANCE.get())));
         OmniFeatures.Configured.ICY_CAVE = RegistryUtil.createConfiguredFeature("icy_cave", OmniFeatures.ICY_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(OmniBlocks.ARCTISS_BLOCK.get().getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.STONE.getDefaultState(), 48, 0.1F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.3F)).chance(CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get())));
         OmniFeatures.Configured.TERRACOTTA_CAVE = RegistryUtil.createConfiguredFeature("terracotta_cave", OmniFeatures.TERRACOTTA_CAVE.get().withConfiguration(new CaveBiomeFeatureConfig(Blocks.RED_SAND.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), Blocks.TERRACOTTA.getDefaultState(), Blocks.RED_SANDSTONE.getDefaultState(), 56, 0.075F, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, true)).withPlacement(new ConfiguredPlacement<>(Placement.CARVING_MASK, new CaveEdgeConfig(GenerationStage.Carving.AIR, 0.4F)).chance(CoreModule.Configuration.COMMON.ICY_CAVE_CHANCE.get())));
-    }
-
-    @Override
-    protected void registerCarvers() {
-    }
-
-    @Override
-    protected void registerEffects() {
-        //RegistryObject<Effect> DEAFENED;
-    }
-
-    @Override
-    protected void registerParticles() {
-        //RegistryObject<ParticleType<?>> SULFUR;
     }
 
     @Override

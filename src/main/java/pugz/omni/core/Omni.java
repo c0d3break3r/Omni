@@ -57,10 +57,10 @@ public class Omni {
         Registries.STATS.register(eventBus);
 
         registerModuleInit();
-        eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::setupCommon);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            eventBus.addListener(EventPriority.LOWEST, this::clientSetup);
+            eventBus.addListener(EventPriority.LOWEST, this::setupClient);
         });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CoreModule.Configuration.COMMON_SPEC);
@@ -69,7 +69,6 @@ public class Omni {
     private void registerModuleInit() {
         CoreModule.instance.initialize();
 
-        //AetherModule.instance.initialize();
         CavierCavesModule.instance.initialize();
         ColormaticModule.instance.initialize();
         DesertedModule.instance.initialize();
@@ -85,7 +84,6 @@ public class Omni {
     private void registerModuleClient() {
         CoreModule.instance.initializeClient();
 
-        //AetherModule.instance.initializeClient();
         CavierCavesModule.instance.initializeClient();
         ColormaticModule.instance.initializeClient();
         DesertedModule.instance.initializeClient();
@@ -100,7 +98,6 @@ public class Omni {
     private void registerModulePost() {
         CoreModule.instance.initializePost();
 
-        //AetherModule.instance.initializePost();
         CavierCavesModule.instance.initializePost();
         ColormaticModule.instance.initializePost();
         DesertedModule.instance.initializePost();
@@ -112,12 +109,12 @@ public class Omni {
         WintertimeModule.instance.initializePost();
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private void setupCommon(final FMLCommonSetupEvent event) {
         registerModulePost();
         CompatReferences.initializeReferences();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void setupClient(final FMLClientSetupEvent event) {
         registerModuleClient();
     }
 

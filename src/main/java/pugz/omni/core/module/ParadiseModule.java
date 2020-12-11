@@ -73,27 +73,6 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerBlocks() {
-        //RegistryObject<Block> SAND_LAYER;
-        //RegistryObject<Block> RED_SAND_LAYER;
-        //RegistryObject<Block> WHITE_SAND_LAYER;
-        //RegistryObject<Block> SOUL_SAND_LAYER;
-        //RegistryObject<Block> ARID_SAND_LAYER;
-        //RegistryObject<Block> RED_ARID_SAND_LAYER;
-
-        //RegistryObject<Block> NAUTILUS_SHELL_BLOCK;
-
-        //RegistryObject<Block> WHITE_SAND;
-        //RegistryObject<Block> WHITE_SANDSTONE;
-        //RegistryObject<Block> WHITE_SANDSTONE_STAIRS;
-        //RegistryObject<Block> WHITE_SANDSTONE_SLAB;
-        //RegistryObject<Block> WHITE_SANDSTONE_WALL;
-
-        //RegistryObject<Block> PALM_LOG;
-        //RegistryObject<Block> PALM_PLANKS;
-
-        //RegistryObject<Block> COCONUT;
-        //RegistryObject<Block> COCONUT_BLOCK;
-
         OmniBlocks.RED_LOTUS_FLOWER = RegistryUtil.createBlock("red_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
         OmniBlocks.YELLOW_LOTUS_FLOWER = RegistryUtil.createBlock("yellow_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
         OmniBlocks.ORANGE_LOTUS_FLOWER = RegistryUtil.createBlock("orange_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
@@ -102,55 +81,22 @@ public class ParadiseModule extends AbstractModule {
         OmniBlocks.PURPLE_LOTUS_FLOWER = RegistryUtil.createBlock("purple_lotus_flower", () -> new LotusFlowerBlock(Effects.NAUSEA, 9), ItemGroup.DECORATIONS);
         OmniBlocks.BLACK_LOTUS_FLOWER = RegistryUtil.createBlock("black_lotus_flower", () -> new LotusFlowerBlock(Effects.BLINDNESS, 8), ItemGroup.DECORATIONS);
         OmniBlocks.WHITE_LOTUS_FLOWER = RegistryUtil.createBlock("white_lotus_flower", () -> new LotusFlowerBlock(Effects.NIGHT_VISION, 8), ItemGroup.DECORATIONS);
-
-        //RegistryObject<Block> TROPICAL_FERN;
     }
 
     @Override
     protected void registerItems() {
-        //RegistryObject<Item> COCONUT;
-        //RegistryObject<Item> COCONUT_MILK;
-        //RegistryObject<Item> COCONUT_BOMB;
-
-        //OmniItems.BAMBOO_SPEAR = RegistryUtil.createItem("bamboo_spear", () -> new SpearItem(new Item.Properties().group(ItemGroup.COMBAT).maxDamage(240)));
-        //OmniItems.LIT_BAMBOO_SPEAR = RegistryUtil.createItem("lit_bamboo_spear", () -> new LitSpearItem(new Item.Properties().group(ItemGroup.COMBAT).maxDamage(240)));
-
-        //RegistryObject<Item> NEPTFIN;
-
-        //RegistryObject<Item> TIKI_MASK;
-
-        //RegistryObject<Item> KIWI;
-
-        //RegistryObject<Item> SHELLS;
-
         OmniItems.SEAHORSE_SPAWN_EGG = RegistryUtil.createItem("seahorse_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.SEAHORSE.get(), 3966437, 14827318, new Item.Properties().group(ItemGroup.MISC)));
         OmniItems.SEAHORSE_BUCKET = RegistryUtil.createItem("seahorse_bucket", SeahorseBucketItem::new);
     }
 
     @Override
     protected void registerEntities() {
-        //RegistryObject<EntityType<?>> KIWI;
         OmniEntities.SEAHORSE = RegistryUtil.createEntity("seahorse", () -> OmniEntities.createLivingEntity(SeahorseEntity::new, EntityClassification.CREATURE, "seahorse",0.3F, 0.85F));
-        //RegistryObject<EntityType<?>> HERMIT_CRAB;
-        //RegistryObject<EntityType<?>> SEAGULL;
-
-        //OmniEntities.BAMBOO_SPEAR = RegistryUtil.createEntity("bamboo_spear", () -> OmniEntities.createBambooSpearEntity(BambooSpearEntity::new));
     }
 
     @Override
     protected void registerBiomes() {
         OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome("tropical_plains", BiomeMaker.makeJungleEdgeBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.TROPICAL_PLAINS_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.OVERWORLD);
-        //RegistryObject<Biome> TROPICAL_ISLANDS;
-    }
-
-    @Override
-    protected void registerSurfaceBuilders() {
-        //RegistryObject<SurfaceBuilder<?>> TROPICAL_ISLAND_SURFACE_BUILDER;
-    }
-
-    @Override
-    protected void registerFeatures() {
-        //RegistryObject<Feature<?>> WHITE_SAND_REPLACEMENT;
     }
 
     @Override
@@ -168,10 +114,6 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void registerParticles() {
         //OmniParticles.RED_LOTUS_LEAF = RegistryUtil.createParticle("red_lotus_leaf");
-    }
-
-    @Override
-    protected void registerSounds() {
     }
 
     public void onWandererTrades(WandererTradesEvent event) {

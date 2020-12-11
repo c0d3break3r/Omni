@@ -83,8 +83,25 @@ public class OmniBlocks {
     public static RegistryObject<Block> RED_ROCK_BRICK_BUTTON;
     public static RegistryObject<Block> RED_ROCK_BRICK_PRESSURE_PLATE;
     public static RegistryObject<Block> RED_ROCK_VERTICAL_SLAB;
-    public static RegistryObject<Block> RED_ROCK_BRICK_VERICAL_SLAB;
+    public static RegistryObject<Block> RED_ROCK_BRICK_VERTICAL_SLAB;
     public static RegistryObject<Block> RED_ROCK_PAVEMENT;
+
+    public static RegistryObject<Block> PALO_VERDE_LOG;
+    public static RegistryObject<Block> PALO_VERDE_WOOD;
+    public static RegistryObject<Block> STRIPPED_PALO_VERDE_LOG;
+    public static RegistryObject<Block> STRIPPED_PALO_VERDE_WOOD;
+    public static RegistryObject<Block> PALO_VERDE_PLANKS;
+    public static RegistryObject<Block> PALO_VERDE_STAIRS;
+    public static RegistryObject<Block> PALO_VERDE_SLAB;
+    public static RegistryObject<Block> PALO_VERDE_FENCE;
+    public static RegistryObject<Block> PALO_VERDE_FENCE_GATE;
+    public static RegistryObject<Block> PALO_VERDE_DOOR;
+    public static RegistryObject<Block> PALO_VERDE_TRAPDOOR;
+    public static RegistryObject<Block> PALO_VERDE_BUTTON;
+    public static RegistryObject<Block> PALO_VERDE_PRESSURE_PLATE;
+    public static RegistryObject<Block> PALO_VERDE_BOOKSHELF;
+    public static RegistryObject<Block> PALO_VERDE_CHEST;
+    public static RegistryObject<Block> PALO_VERDE_BEEHIVE;
 
     //fiery nether
     public static RegistryObject<Block> COBBLED_BASALT;
@@ -111,4 +128,21 @@ public class OmniBlocks {
     public static RegistryObject<Block> PURPLE_LOTUS_FLOWER;
     public static RegistryObject<Block> BLACK_LOTUS_FLOWER;
     public static RegistryObject<Block> WHITE_LOTUS_FLOWER;
+
+    public static RegistryObject<Block> ACAI_LOG;
+    public static RegistryObject<Block> ACAI_WOOD;
+    public static RegistryObject<Block> STRIPPED_ACAI_LOG;
+    public static RegistryObject<Block> STRIPPED_ACAI_WOOD;
+    public static RegistryObject<Block> ACAI_PLANKS;
+    public static RegistryObject<Block> ACAI_STAIRS;
+    public static RegistryObject<Block> ACAI_SLAB;
+    public static RegistryObject<Block> ACAI_FENCE;
+    public static RegistryObject<Block> ACAI_FENCE_GATE;
+    public static RegistryObject<Block> ACAI_DOOR;
+    public static RegistryObject<Block> ACAI_TRAPDOOR;
+    public static RegistryObject<Block> ACAI_BUTTON;
+    public static RegistryObject<Block> ACAI_PRESSURE_PLATE;
+    public static RegistryObject<Block> ACAI_BOOKSHELF;
+    public static RegistryObject<Block> ACAI_CHEST;
+    public static RegistryObject<Block> ACAI_BEEHIVE;
 }

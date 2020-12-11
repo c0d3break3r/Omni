@@ -69,82 +69,14 @@ public class DesertedModule extends AbstractModule {
 
         if (ModList.get().isLoaded("quark")) {
             OmniBlocks.RED_ROCK_VERTICAL_SLAB = RegistryUtil.createBlock("red_rock_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK.get())), ItemGroup.BUILDING_BLOCKS);
-            OmniBlocks.RED_ROCK_BRICK_VERICAL_SLAB = RegistryUtil.createBlock("red_rock_brick_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK.get())), ItemGroup.BUILDING_BLOCKS);
+            OmniBlocks.RED_ROCK_BRICK_VERTICAL_SLAB = RegistryUtil.createBlock("red_rock_brick_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.RED_ROCK_PAVEMENT = RegistryUtil.createBlock("red_rock_pavement", () -> new Block(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK_BRICKS.get())), ItemGroup.BUILDING_BLOCKS);
         }
-
-        //RegistryObject<Block> QUICKSAND;
-        //RegistryObject<Block> RED_QUICKSAND;
-        //RegistryObject<Block> WHITE_QUICKSAND;
-        //RegistryObject<Block> ARID_QUICKSAND;
-        //RegistryObject<Block> RED_ARID_QUICKSAND;
-        //RegistryObject<Block> SOUL_QUICKSAND;
-
-        //RegistryObject<Block> BLEACHED_LOG;
-    }
-
-    @Override
-    protected void registerTileEntities() {
-        //RegistryObject<TileEntityType<?>> OASSELISK;
-    }
-
-    @Override
-    protected void registerEntities() {
-        //RegistryObject<EntityType<?>> CAMEL;
-        //RegistryObject<EntityType<?>> SANDSTORM;
-        //RegistryObject<EntityType<?>> OASSIGER;
-    }
-
-    @Override
-    protected void registerBiomes() {
-        //RegistryObject<Biome> OASIS;
-
-        //RegistryObject<Biome> BADLANDS_ARCHES;
-        //RegistryObject<Biome> PAINTED_BADLANDS;
-
-        //RegistryObject<Biome> RED_DESERT;
-        //RegistryObject<Biome> ROCKY_DESERT;
-        //RegistryObject<Biome> ROCKY_RED_DESERT;
-        //RegistryObject<Biome> RED_ROCK_MOUNTAINS;
-
-        //RegistryObject<Biome> BADLANDS_FOREST;
-        //RegistryObject<Biome> BADLANDS_FOREST_HILLS;
-    }
-
-    @Override
-    protected void registerSurfaceBuilders() {
-        //RegistryObject<SurfaceBuilder<?>> BADLANDS_FOREST_SURFACE_BUILDER;
-    }
-
-    @Override
-    protected void registerFeatures() {
-        //RegistryObject<Feature<?>> ARCH;
-        //RegistryObject<Feature<?>> BLEACHED_TREE;
-        //RegistryObject<Feature<?>> QUICKSAND;
-        //RegistryObject<Feature<?>> RED_ROCK;
     }
 
     @Override
     protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.RED_ROCK = RegistryUtil.createConfiguredFeature("red_rock", OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 128)).chance(1)).range(80).square().func_242731_b(10));
-    }
-
-    @Override
-    protected void registerStructures() {
-        //RegistryObject<Structure<?>> DESERT_RUINS;
-    }
-
-    @Override
-    protected void registerEffects() {
-        //RegistryObject<Effect> CONFUSED;
-    }
-
-    @Override
-    protected void registerSounds() {
-    }
-
-    @Override
-    protected void registerStats() {
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {

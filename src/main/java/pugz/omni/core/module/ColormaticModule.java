@@ -171,59 +171,16 @@ public class ColormaticModule extends AbstractModule {
         OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new QuiltedWoolBlock(DyeColor.BLUE), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.ENCHANTERS_QUILTED_CARPET = RegistryUtil.createBlock("enchanters_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.RED), ItemGroup.DECORATIONS);
         OmniBlocks.ENCHANTERS_QUILTED_WOOL = RegistryUtil.createBlock("enchanters_quilted_wool", () -> new QuiltedWoolBlock(DyeColor.RED), ItemGroup.BUILDING_BLOCKS);
-
-        //OmniBlocks.FLOWER_STEM = RegistryUtil.createBlock(null, null, null);
-        //OmniBlocks.DANDELION_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //OmniBlocks.DANDELION_FLUFF_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //OmniBlocks.TULIP_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //OmniBlocks.ROSE_PETAL_BLOCK = RegistryUtil.createBlock(null, null, null);
-        //OmniBlocks.FLOWER_PLANKS = RegistryUtil.createBlock(null, null, null);
-    }
-
-    @Override
-    protected void registerItems() {
-        //RegistryObject<Item> DYES; ?
-
-        //RegistryObject<Item> DANDELION_FLUFF;
     }
 
     @Override
     protected void registerEntities() {
         OmniEntities.FALLING_CONCRETE_POWDER = RegistryUtil.createEntity("falling_concrete_powder", OmniEntities::createFallingBlockEntity);
-        //RegistryObject<EntityType<?>> AEROMA;
     }
 
     @Override
     protected void registerBiomes() {
         OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
-        //RegistryObject<Biome> BLOOMING_FLOWER_FIELD;
-        //RegistryObject<Biome> BLOOMING_FLOWER_FOREST;
-    }
-
-    @Override
-    protected void registerFeatures() {
-        //RegistryObject<Feature<?>> GIANT_DANDELION;
-        //RegistryObject<Feature<?>> GIANT_TULIP;
-        //RegistryObject<Feature<?>> GIANT_ROSE;
-    }
-
-    @Override
-    protected void registerEffects() {
-        //RegistryObject<Effect> ATTRACTION;
-    }
-
-    @Override
-    protected void registerParticles() {
-        //RegistryObject<ParticleType<?>> AEROMA_PARTICLE;
-        //RegistryObject<ParticleType<?>> DYE_PARTICLE;
-    }
-
-    @Override
-    protected void registerSounds() {
-    }
-
-    @Override
-    protected void registerStats() {
     }
 
     public void onWandererTrades(WandererTradesEvent event) {

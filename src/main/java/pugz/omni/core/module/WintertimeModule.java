@@ -41,52 +41,6 @@ public class WintertimeModule extends AbstractModule {
     protected void onPostInitialize() {
     }
 
-    @Override
-    protected void registerBlocks() {
-        //RegistryObject<Block> ANTLER_BLOCK;
-
-        //RegistryObject<Block> MOONSTONE_BLOCK;
-        //RegistryObject<Block> CREOSTONE;
-        //RegistryObject<Block> CREOSTONE_STAIRS;
-        //RegistryObject<Block> CREOSTONE_SLAB;
-        //RegistryObject<Block> CREOSTONE_WALL;
-
-        //RegistryObject<Block> MISTLETOE;
-    }
-
-    @Override
-    protected void registerItems() {
-        //RegistryObject<Item> BLIZZARD_SHARD;
-        //RegistryObject<Item> ANTLER;
-        //RegistryObject<Item> MOONSTONES;
-    }
-
-    @Override
-    protected void registerEntities() {
-        //RegistryObject<EntityType<?>> BLIZZARD;
-        //RegistryObject<EntityType<?>> REINDEER;
-    }
-
-    @Override
-    protected void registerStructures() {
-        //RegistryObject<Structure<?>> BLIZZARD_MONUMENT;
-    }
-
-    @Override
-    protected void registerEnchantments() {
-        //RegistryObject<Enchantment> ICY_TOUCH;
-    }
-
-    @Override
-    protected void registerParticles() {
-        //RegistryObject<ParticleType<?>> MOON;
-        //RegistryObject<ParticleType<?>> ARCTISS;
-    }
-
-    @Override
-    protected void registerSounds() {
-    }
-
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         World world = event.getWorld();
         if (world instanceof ServerWorld) {
