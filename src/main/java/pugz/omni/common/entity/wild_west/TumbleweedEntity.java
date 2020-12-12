@@ -62,9 +62,9 @@ public class TumbleweedEntity extends Entity {
     @Override
     public void tick() {
         age++;
-        if(age > 1500) remove();
+        if (age > 1500) remove();
 
-        if(!isInWater()) {
+        if (!isInWater()) {
             this.setVelocity(this.getMotion().x, this.getMotion().y - 0.04D, this.getMotion().z);
         }
 
@@ -85,13 +85,13 @@ public class TumbleweedEntity extends Entity {
 
         double vX = 0, vY = 0, vZ = 0;
 
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             float acceleration = 0.0025F;
             vX = step(this.getMotion().getX(), (windX * windOffset), acceleration);
             vZ = step(this.getMotion().getZ(), (windZ * windOffset), acceleration);
             vY = this.getMotion().getY();
 
-            if(onGround) {
+            if (onGround) {
                 vY = MathHelper.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
                 //this.playSound(BMEffects.TUMBLEWEED_TUMBLE, 0.25F, 1.0F);
             }
@@ -104,7 +104,7 @@ public class TumbleweedEntity extends Entity {
         } else {
             float xRot = 0;
             float zRot = 0;
-            if(onGround) {
+            if (onGround) {
                 makeParticles(15);
                 xRot = (float) -(disX / 0.25D);
                 zRot = (float) (disZ / 0.25D);
@@ -118,7 +118,7 @@ public class TumbleweedEntity extends Entity {
             quaternion = rot;
         }
 
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             setVelocity(vX, vY, vZ);
             this.markVelocityChanged();
         }
@@ -126,7 +126,7 @@ public class TumbleweedEntity extends Entity {
 
     @Override
     public void remove() {
-        makeParticles(30);
+        makeParticles(25);
         super.remove();
     }
 

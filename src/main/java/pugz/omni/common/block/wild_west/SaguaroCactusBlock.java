@@ -106,11 +106,6 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
         return super.isValidPosition(state, world, pos);
     }
 
-    @Override
-    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        return state.isIn(Blocks.SAND) || state.isIn(Blocks.RED_SAND);
-    }
-
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -155,6 +150,11 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     });
 
     @Override
+    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+        return (worldIn.getBlockState(pos.down()).isIn(Blocks.SAND) || worldIn.getBlockState(pos.down()).isIn(Blocks.RED_SAND)) && worldIn.getBlockState(pos.up()).getBlock() != this;
+    }
+
+    @Override
     public boolean canUseBonemeal(World world, Random rand, BlockPos pos, BlockState state) {
         return (double) world.rand.nextFloat() < 0.45D;
     }
@@ -167,7 +167,10 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (state.equals(getDefaultState()) && canGrow(world, pos, state, world.isRemote) && world.getBlockState(pos.up()).isAir() && random.nextInt(10) == 0) grow(world, random, pos, state);
+        if (world.getLight(pos.up()) >= 9 && canGrow(world, pos, state, world.isRemote) && random.nextInt(7) == 0) {
+            if (!world.isAreaLoaded(pos, 1)) return;
+            OmniFeatures.Configured.SAGUARO_CACTUS.generate(world, world.getChunkProvider().getChunkGenerator(), random, pos);
+        }
     }
 
     @Override

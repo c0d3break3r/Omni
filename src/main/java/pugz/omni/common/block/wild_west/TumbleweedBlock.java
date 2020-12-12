@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.util.IBaseBlock;
 
