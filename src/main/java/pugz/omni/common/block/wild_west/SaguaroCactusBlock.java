@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -122,8 +123,8 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     private VoxelShape getShapeForState(BlockState state) {
         VoxelShape base;
 
-        if (state.get(HORIZONTAL)) base = VoxelShapes.create(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
-        else base = VoxelShapes.create(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+        if (state.get(HORIZONTAL)) base = Block.makeCuboidShape(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+        else base = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
         List<VoxelShape> connections = Lists.newArrayList();
 
@@ -133,7 +134,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
                     double x = direction == Direction.WEST ? 0.0D : direction == Direction.EAST ? 16.0D : 4.0D;
                     double z = direction == Direction.NORTH ? 0.0D : direction == Direction.SOUTH ? 16.0D : 4.0D;
 
-                    VoxelShape shape = VoxelShapes.create(x, 8.0D, z, 12.0D, 16.0D, 12.0D);
+                    VoxelShape shape = Block.makeCuboidShape(x, 8.0D, z, 12.0D, 16.0D, 12.0D);
                     connections.add(shape);
                 }
             }
@@ -179,5 +180,11 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
         return PathNodeType.DAMAGE_CACTUS;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+        return false;
     }
 }

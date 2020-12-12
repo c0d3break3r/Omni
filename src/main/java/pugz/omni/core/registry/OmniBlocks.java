@@ -130,6 +130,7 @@ public class OmniBlocks {
     public static RegistryObject<Block> RED_ROCK_PAVEMENT;
 
     public static RegistryObject<Block> SAGUARO_CACTUS;
+    public static RegistryObject<Block> CACTUS_BLOOM;
     public static RegistryObject<Block> TUMBLEWEED;
 
     public static RegistryObject<Block> PALO_VERDE_LOG;

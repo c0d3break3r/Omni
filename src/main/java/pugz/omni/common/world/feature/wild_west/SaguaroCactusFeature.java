@@ -48,6 +48,8 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
 
             world.setBlockState(blockpos$mutable, OmniBlocks.SAGUARO_CACTUS.get().getDefaultState(), 2);
             blockpos$mutable.move(Direction.UP);
+
+            if (yy == centerHeight - 1 && random.nextInt(4) == 0) world.setBlockState(blockpos$mutable, OmniBlocks.CACTUS_BLOOM.get().getDefaultState(), 2);
         }
 
         if(!hasArms) return true;
@@ -92,6 +94,8 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
             if(!world.getBlockState(p).isAir()) return;
             world.setBlockState(p, OmniBlocks.SAGUARO_CACTUS.get().getDefaultState(), 2);
             p.move(Direction.UP);
+
+            if (i == amt - 1 && world.getRandom().nextInt(4) == 0) world.setBlockState(p, OmniBlocks.CACTUS_BLOOM.get().getDefaultState(), 2);
         }
     }
 }
