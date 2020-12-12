@@ -41,6 +41,7 @@ public class TumbleweedEntity extends Entity {
     public TumbleweedEntity(World worldIn, double x, double y, double z) {
         super(OmniEntities.TUMBLEWEED.get(), worldIn);
         this.windOffset = 1.2F - (world.getRandom().nextFloat() / 3.0F);
+        this.setPosition(x, y, z);
         this.prevPosX = x;
         this.prevPosY = y;
         this.prevPosZ = z;

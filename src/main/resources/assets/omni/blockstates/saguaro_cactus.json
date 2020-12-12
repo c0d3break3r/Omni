@@ -6,7 +6,7 @@
         "facing": "north"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk",
         "uvlock": false
       }
     },
@@ -16,7 +16,7 @@
         "facing": "south"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk",
         "uvlock": false,
         "y": 180
       }
@@ -27,7 +27,7 @@
         "facing": "east"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk",
         "uvlock": false,
         "y": 90
       }
@@ -38,7 +38,7 @@
         "facing": "west"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk",
         "uvlock": false,
         "y": 270
       }
@@ -48,7 +48,7 @@
         "horizontal": "false"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_regular",
+        "model": "omni:block/wild_west/saguaro_cactus_regular",
         "uvlock": true
       }
     },
@@ -57,7 +57,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk_part",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk_part",
         "uvlock": false
       }
     },
@@ -66,7 +66,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk_part",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk_part",
         "y": 90,
         "uvlock": false
       }
@@ -76,7 +76,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk_part",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk_part",
         "y": 180,
         "uvlock": false
       }
@@ -86,7 +86,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "omni:block/wild_west/cactus_stalk_part",
+        "model": "omni:block/wild_west/saguaro_cactus_stalk_part",
         "y": 270,
         "uvlock": false
       }
