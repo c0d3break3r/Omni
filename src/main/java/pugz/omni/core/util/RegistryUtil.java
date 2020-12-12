@@ -1,14 +1,20 @@
 package pugz.omni.core.util;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.IStatFormatter;
 import net.minecraft.stats.StatType;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.FlatGenerationSettings;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.WorldCarver;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -23,12 +29,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 public class RegistryUtil {
@@ -68,6 +74,18 @@ public class RegistryUtil {
 
     public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> createConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
+    }
+
+    public static <F extends Structure<?>> RegistryObject<F> createStructure(String name, Supplier<? extends F> supplier, GenerationStage.Decoration stage, StructureSeparationSettings settings) {
+        Structure.NAME_STRUCTURE_BIMAP.put(name.toLowerCase(Locale.ROOT), supplier.get());
+        Structure.STRUCTURE_DECORATION_STAGE_MAP.put(supplier.get(), stage);
+        DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(supplier.get(), settings).build();
+        //FlatGenerationSettings.STRUCTURES.put(supplier.get(), supplier.get().withConfiguration(new NoFeatureConfig()));
+        return Omni.Registries.STRUCTURES.register(name, supplier);
+    }
+
+    public static <FC extends IFeatureConfig> StructureFeature<FC, ?> createStructureFeature(String name, StructureFeature<FC, ?> feature) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, name, feature);
     }
 
     public static <C extends WorldCarver<?>> RegistryObject<C> createCarver(String name, Supplier<? extends C> supplier) {

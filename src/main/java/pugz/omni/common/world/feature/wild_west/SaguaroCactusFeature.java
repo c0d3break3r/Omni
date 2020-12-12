@@ -33,7 +33,7 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
         int zOffset = playerGrown ? 0 : random.nextInt(8) - random.nextInt(8);
         int yGenerate = world.getHeight(Heightmap.Type.WORLD_SURFACE, pos.getX() + xOffset, pos.getZ() + zOffset);
 
-        return generateCactus(world, random.nextBoolean(), new BlockPos(pos.getX() + xOffset, yGenerate, pos.getZ() + zOffset), random, random.nextInt(25) == 0);
+        return generateCactus(world, random.nextBoolean(), new BlockPos(pos.getX() + xOffset, yGenerate, pos.getZ() + zOffset), random, random.nextInt(50) == 0);
     }
 
     @SuppressWarnings("deprecation")

@@ -65,6 +65,7 @@ public abstract class AbstractModule {
         onPostInitialize();
 
         registerConfiguredFeatures();
+        registerStructureFeatures();
 
         ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
             if (block.getValue() instanceof IBaseBlock) {
@@ -102,6 +103,9 @@ public abstract class AbstractModule {
     }
 
     protected void registerStructures() {
+    }
+
+    protected void registerStructureFeatures() {
     }
 
     protected void registerCarvers() {

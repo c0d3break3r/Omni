@@ -1,15 +1,14 @@
 package pugz.omni.core.module;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.feature.structure.VillageStructure;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -19,9 +18,12 @@ import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
+import pugz.omni.common.world.structure.wild_west.GhostTownPools;
+import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniFeatures;
+import pugz.omni.core.registry.OmniStructures;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.*;
@@ -102,6 +104,18 @@ public class WildWestModule extends AbstractModule {
         OmniFeatures.Configured.SAGUARO_CACTUS = RegistryUtil.createConfiguredFeature("saguaro_cacti", OmniFeatures.SAGUARO_CACTUS.get().withConfiguration(new NoFeatureConfig()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12)).chance(12);
     }
 
+    @Override
+    protected void registerStructures() {
+        //OmniStructures.GHOST_TOWN = RegistryUtil.createStructure("ghost_town", () -> new GhostTownStructure(VillageConfig.field_236533_a_), GenerationStage.Decoration.SURFACE_STRUCTURES, new StructureSeparationSettings(10, 10, 1605500075));
+    }
+
+    @Override
+    protected void registerStructureFeatures() {
+        //OmniStructures.Features.GHOST_TOWN = RegistryUtil.createStructureFeature("ghost_town", OmniStructures.GHOST_TOWN.get().withConfiguration(new VillageConfig(() -> {
+        //    return GhostTownPools.field_244090_a;
+        //}, 6)));
+    }
+
     protected void onBiomeLoading(BiomeLoadingEvent event) {
         Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
@@ -110,6 +124,7 @@ public class WildWestModule extends AbstractModule {
             BiomeFeatures.addRedRock(gen);
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
+            //BiomeFeatures.addGhostTowns(gen);
         }
     }
 
