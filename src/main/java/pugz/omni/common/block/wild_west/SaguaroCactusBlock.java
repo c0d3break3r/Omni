@@ -165,13 +165,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        ConfiguredFeature<?, ?> configuredFeature = OmniFeatures.Configured.SAGUARO_CACTUS;
-        if (configuredFeature.getFeature() instanceof SaguaroCactusFeature) {
-            SaguaroCactusFeature saguaroCactusFeature = (SaguaroCactusFeature) configuredFeature.getFeature();
-            saguaroCactusFeature.setPlayerGrown(true);
-            configuredFeature = saguaroCactusFeature.withConfiguration(new NoFeatureConfig());
-            configuredFeature.generate(world, world.getChunkProvider().getChunkGenerator(), random, pos);
-        }
+        ((SaguaroCactusFeature) OmniFeatures.SAGUARO_CACTUS.get()).generateCactus(world, random.nextBoolean(), pos, random, false);
     }
 
     @Override
@@ -179,7 +173,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.getLight(pos.up()) >= 9 && canGrow(world, pos, state, world.isRemote) && random.nextInt(7) == 0) {
             if (!world.isAreaLoaded(pos, 1)) return;
-            OmniFeatures.Configured.SAGUARO_CACTUS.generate(world, world.getChunkProvider().getChunkGenerator(), random, pos);
+            ((SaguaroCactusFeature) OmniFeatures.SAGUARO_CACTUS.get()).generateCactus(world, random.nextBoolean(), pos, random, false);
         }
     }
 
