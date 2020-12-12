@@ -110,7 +110,6 @@ public class WildWestModule extends AbstractModule {
             BiomeFeatures.addRedRock(gen);
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
-            BiomeFeatures.addTumbleweeds(gen);
         }
     }
 
