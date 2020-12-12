@@ -1,7 +1,6 @@
 package pugz.omni.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,6 +14,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
+import pugz.omni.core.registry.OmniBlocks;
 
 import javax.annotation.Nonnull;
 
@@ -26,6 +26,7 @@ public class TumbleweedRenderer extends EntityRenderer<TumbleweedEntity> {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void render(TumbleweedEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
         matrixStack.push();
@@ -36,7 +37,7 @@ public class TumbleweedRenderer extends EntityRenderer<TumbleweedEntity> {
         matrixStack.translate(-0.5D, -0.5D, 0.5D);
         matrixStack.rotate(Vector3f.YP.rotationDegrees(90.0F));
 
-        Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(Blocks.DEAD_BUSH.getDefaultState(), matrixStack, bufferIn, packedLightIn,  OverlayTexture.NO_OVERLAY);
+        Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(OmniBlocks.TUMBLEWEED.get().getDefaultState(), matrixStack, bufferIn, packedLightIn,  OverlayTexture.NO_OVERLAY);
 
         matrixStack.pop();
     }

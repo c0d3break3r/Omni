@@ -68,4 +68,8 @@ public class BiomeFeatures {
     public static void addSaguaroCacti(BiomeGenerationSettingsBuilder biome) {
         biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.SAGUARO_CACTUS);
     }
+
+    public static void addTumbleweeds(BiomeGenerationSettingsBuilder biome) {
+        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.TUMBLEWEEDS);
+    }
 }

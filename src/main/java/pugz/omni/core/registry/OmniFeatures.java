@@ -33,9 +33,6 @@ public class OmniFeatures {
         public static ConfiguredFeature<?, ?> ICY_CAVE;
         public static ConfiguredFeature<?, ?> TERRACOTTA_CAVE;
 
-        //core
-        public static ConfiguredFeature<?, ?> RED_ROCK;
-
         //forestry
         public static ConfiguredFeature<?, ?> TALL_OAK_TREE;
         public static ConfiguredFeature<?, ?> GOLDEN_APPLE_TREE;
@@ -51,6 +48,8 @@ public class OmniFeatures {
         public static ConfiguredFeature<?, ?> WHITE_LOTUS_FLOWER;
 
         //wild west
+        public static ConfiguredFeature<?, ?> RED_ROCK;
         public static ConfiguredFeature<?, ?> SAGUARO_CACTUS;
+        public static ConfiguredFeature<?, ?> TUMBLEWEEDS;
     }
 }

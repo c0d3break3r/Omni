@@ -38,12 +38,6 @@ public class RegistryUtil {
         return block;
     }
 
-    public static <B extends Block> RegistryObject<B> createOverrideBlock(String name, Supplier<? extends B> supplier, @Nullable ItemGroup group) {
-        RegistryObject<B> block = Omni.OverrideRegistries.BLOCKS.register(name, supplier);
-        if (group != null) Omni.OverrideRegistries.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group)));
-        return block;
-    }
-
     public static <I extends Item> RegistryObject<I> createItem(String name, Supplier<? extends I> supplier) {
         return Omni.Registries.ITEMS.register(name, supplier);
     }

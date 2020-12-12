@@ -62,7 +62,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockState state = this.getDefaultState();
-        if(context.getFace().getHorizontalIndex() >= 0) state = state.with(HORIZONTAL, true).with(HORIZONTAL_DIRECTION, context.getFace().getOpposite()).with(FACING_PROPERTIES.get(context.getFace().getOpposite()), true);
+        if (context.getFace().getHorizontalIndex() >= 0) state = state.with(HORIZONTAL, true).with(HORIZONTAL_DIRECTION, context.getFace().getOpposite()).with(FACING_PROPERTIES.get(context.getFace().getOpposite()), true);
         return state;
     }
 
@@ -70,15 +70,15 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-        if(!isValidPosition(state, world, currentPos)) {
+        if (!isValidPosition(state, world, currentPos)) {
             world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
             return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
         }
 
-        if(facing.getAxis().isVertical()) return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
+        if (facing.getAxis().isVertical()) return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
 
-        if(facingState.getBlock() == this) {
-            if(facingState.get(HORIZONTAL) && facingState.get(FACING_PROPERTIES.get(facing.getOpposite()))) return state.with(FACING_PROPERTIES.get(facing), true);
+        if (facingState.getBlock() == this) {
+            if (facingState.get(HORIZONTAL) && facingState.get(FACING_PROPERTIES.get(facing.getOpposite()))) return state.with(FACING_PROPERTIES.get(facing), true);
         } else {
             return state.with(FACING_PROPERTIES.get(facing), false);
         }
@@ -88,17 +88,15 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        if (!state.isValidPosition(worldIn, pos)) {
-            worldIn.removeBlock(pos, true);
-        }
+        if (!state.isValidPosition(worldIn, pos)) worldIn.removeBlock(pos, true);
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        if(state.get(HORIZONTAL)) {
+        if (state.get(HORIZONTAL)) {
             Direction offset = state.get(HORIZONTAL_DIRECTION);
-            if(!world.getBlockState(pos.offset(offset)).isIn(this)) return false;
+            if (!world.getBlockState(pos.offset(offset)).isIn(this)) return false;
         } else {
             BlockState checkState = world.getBlockState(pos.down());
             return (checkState.isIn(this) || checkState.isIn(Blocks.SAND) || checkState.isIn(Blocks.RED_SAND)) && !world.getBlockState(pos.up()).getMaterial().isLiquid();
@@ -122,28 +120,24 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     private final HashMap<BlockState, VoxelShape> shapes = Util.make(Maps.newHashMap(), m -> getStateContainer().getValidStates().forEach(state -> m.put(state, getShapeForState(state))));
 
     private VoxelShape getShapeForState(BlockState state) {
-        double size = 4;
         VoxelShape base;
 
-        if(state.get(HORIZONTAL)) base = VoxelShapes.create(size, size * 2, size, 16 - size, 15.98, 16 - size);
-        else base = VoxelShapes.create(size, 0, size, 16 - size, 15.98, 16 - size);
+        if (state.get(HORIZONTAL)) base = VoxelShapes.create(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+        else base = VoxelShapes.create(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
         List<VoxelShape> connections = Lists.newArrayList();
-        for(Direction dir : Direction.values())
-        {
-            if(dir.getHorizontalIndex() < 0)
-                continue;
 
-            if(state.get(FACING_PROPERTIES.get(dir)))
-            {
-                double x= dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
-                double z= dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
+        for (Direction direction : Direction.values()) {
+            if (direction != Direction.DOWN && direction != Direction.UP) {
+                if (state.get(FACING_PROPERTIES.get(direction))) {
+                    double x = direction == Direction.WEST ? 0.0D : direction == Direction.EAST ? 16.0D : 4.0D;
+                    double z = direction == Direction.NORTH ? 0.0D : direction == Direction.SOUTH ? 16.0D : 4.0D;
 
-                VoxelShape sh = VoxelShapes.create(x, 8, z, 16 - size, 16, 16 - size);
-                connections.add(sh);
+                    VoxelShape shape = VoxelShapes.create(x, 8.0D, z, 12.0D, 16.0D, 12.0D);
+                    connections.add(shape);
+                }
             }
         }
-
         return VoxelShapes.or(base, connections.toArray(new VoxelShape[]{}));
     }
 
@@ -159,10 +153,6 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
         enumMap.put(Direction.WEST, WEST);
     });
 
-    public boolean isFertilized(IBlockReader world, BlockPos pos, BlockState state, boolean isClient) {
-        return state.equals(getDefaultState()) && canGrow(world, pos, state, isClient) && world.getBlockState(pos.up()).isAir();
-    }
-
     @Override
     public boolean canUseBonemeal(World world, Random rand, BlockPos pos, BlockState state) {
         return (double) world.rand.nextFloat() < 0.45D;
@@ -176,7 +166,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if(isFertilized(world, pos, state, world.isRemote) && random.nextInt(10) == 0) grow(world, random, pos, state);
+        if (state.equals(getDefaultState()) && canGrow(world, pos, state, world.isRemote) && world.getBlockState(pos.up()).isAir() && random.nextInt(10) == 0) grow(world, random, pos, state);
     }
 
     @Override

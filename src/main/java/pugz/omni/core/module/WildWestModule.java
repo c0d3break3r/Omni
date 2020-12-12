@@ -2,8 +2,9 @@ package pugz.omni.core.module;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,6 +19,7 @@ import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.wild_west.RedRockBrickButton;
 import pugz.omni.common.block.wild_west.RedRockBrickPressurePlate;
 import pugz.omni.common.block.wild_west.SaguaroCactusBlock;
+import pugz.omni.common.block.wild_west.TumbleweedBlock;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
@@ -29,7 +31,6 @@ import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -85,6 +86,7 @@ public class WildWestModule extends AbstractModule {
         }
 
         OmniBlocks.SAGUARO_CACTUS = RegistryUtil.createBlock("saguaro_cactus", SaguaroCactusBlock::new, ItemGroup.DECORATIONS);
+        OmniBlocks.TUMBLEWEED = RegistryUtil.createBlock("tumbleweed", TumbleweedBlock::new, ItemGroup.DECORATIONS);
     }
 
     @Override
@@ -101,6 +103,7 @@ public class WildWestModule extends AbstractModule {
     protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.RED_ROCK = RegistryUtil.createConfiguredFeature("red_rock", OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 128)).chance(1)).range(80).square().func_242731_b(10));
         OmniFeatures.Configured.SAGUARO_CACTUS = RegistryUtil.createConfiguredFeature("saguaro_cactus", OmniFeatures.SAGUARO_CACTUS.get().withConfiguration(new NoFeatureConfig()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12)).chance(12);
+        OmniFeatures.Configured.TUMBLEWEEDS = RegistryUtil.createConfiguredFeature("tumbleweeds", Feature.RANDOM_PATCH.withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.TUMBLEWEED.get().getDefaultState()), SimpleBlockPlacer.PLACER).build()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(3).chance(4)).chance(4);
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
@@ -109,8 +112,8 @@ public class WildWestModule extends AbstractModule {
         MobSpawnInfoBuilder spawns = event.getSpawns();
 
         if (category == Biome.Category.MESA || category == Biome.Category.DESERT) {
-            MobSpawnInfo seahorse = new MobSpawnInfo.Builder().withCreatureSpawnProbability(1.0F).withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 15, 1, 4)).copy();
-            seahorse.getSpawners(EntityClassification.AMBIENT).forEach((s) -> {
+            MobSpawnInfo tumbleweed = new MobSpawnInfo.Builder().withCreatureSpawnProbability(1.0F).withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 15, 1, 4)).copy();
+            tumbleweed.getSpawners(EntityClassification.AMBIENT).forEach((s) -> {
                 spawns.getSpawner(EntityClassification.AMBIENT).add(s);
             });
 
@@ -118,6 +121,7 @@ public class WildWestModule extends AbstractModule {
                 BiomeFeatures.addRedRock(gen);
                 BiomeFeatures.addTerracottaCave(gen);
                 BiomeFeatures.addSaguaroCacti(gen);
+                BiomeFeatures.addTumbleweeds(gen);
             }
         }
     }
