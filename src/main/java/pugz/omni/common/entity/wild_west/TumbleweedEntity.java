@@ -1,10 +1,8 @@
 package pugz.omni.common.entity.wild_west;
 
 import com.sun.javafx.geom.Vec3d;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,10 +13,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.core.Omni;
 import pugz.omni.core.registry.OmniEntities;
 
@@ -29,22 +25,22 @@ public class TumbleweedEntity extends Entity {
     private static final Random random = new Random();
     public Quaternion quaternion = new Quaternion(0,0,0,1);
     public Quaternion prevQuaternion = new Quaternion(0,0,0,1);
-    private float windOffset = 0;
+    private final float windOffset;
     private float age = 0;
     public static float windX = random.nextBoolean() ? random.nextFloat() / 10.0F : -random.nextFloat() / 10.0F;
     public static float windZ = random.nextBoolean() ? random.nextFloat() / 10.0F : -random.nextFloat() / 10.0F;
 
-    private static float directionX = random.nextBoolean() ? 1 : -1;
-    private static float directionZ = random.nextBoolean() ? 1 : -1;
+    private static float directionX = random.nextBoolean() ? 1.0F : -1.0F;
+    private static float directionZ = random.nextBoolean() ? 1.0F : -1.0F;
 
     public TumbleweedEntity(EntityType<TumbleweedEntity> entity, World worldIn) {
         super(entity, worldIn);
-        this.windOffset = 1F - (world.getRandom().nextFloat() / 3);
+        this.windOffset = 1.2F - (world.getRandom().nextFloat() / 3);
     }
 
     public TumbleweedEntity(World worldIn, double x, double y, double z) {
-        super(OmniEntities.FALLING_CONCRETE_POWDER.get(), worldIn);
-        this.windOffset = 1F - (world.getRandom().nextFloat() / 3);
+        super(OmniEntities.TUMBLEWEED.get(), worldIn);
+        this.windOffset = 1.2F - (world.getRandom().nextFloat() / 3.0F);
         this.prevPosX = x;
         this.prevPosY = y;
         this.prevPosZ = z;
@@ -61,12 +57,8 @@ public class TumbleweedEntity extends Entity {
 
     @Override
     public void tick() {
-        age++;
-        if (age > 1500) remove();
-
-        if (!isInWater()) {
-            this.setVelocity(this.getMotion().x, this.getMotion().y - 0.04D, this.getMotion().z);
-        }
+        if (++age > 1500) remove();
+        if (!isInWater()) this.setVelocity(this.getMotion().x, this.getMotion().y - 0.04D, this.getMotion().z);
 
         super.tick();
 
@@ -83,7 +75,7 @@ public class TumbleweedEntity extends Entity {
         double disX = fX - pX;
         double disZ = fZ - pZ;
 
-        double vX = 0, vY = 0, vZ = 0;
+        double vX = 0.0D, vY = 0.0D, vZ = 0.0D;
 
         if (!world.isRemote) {
             float acceleration = 0.0025F;
@@ -92,7 +84,7 @@ public class TumbleweedEntity extends Entity {
             vY = this.getMotion().getY();
 
             if (onGround) {
-                vY = MathHelper.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2);
+                vY = MathHelper.clamp(Math.abs(prevVelocity.y) * 0.75D, 0.31F, 2.0F);
                 //this.playSound(BMEffects.TUMBLEWEED_TUMBLE, 0.25F, 1.0F);
             }
 
@@ -102,8 +94,8 @@ public class TumbleweedEntity extends Entity {
                 vY = 0.1F;
             }
         } else {
-            float xRot = 0;
-            float zRot = 0;
+            float xRot;
+            float zRot;
             if (onGround) {
                 makeParticles(15);
                 xRot = (float) -(disX / 0.25D);
@@ -113,7 +105,7 @@ public class TumbleweedEntity extends Entity {
                 zRot = (float) (disZ / 0.6D);
             }
 
-            Quaternion rot = new Quaternion(zRot,0F, xRot, false);
+            Quaternion rot = new Quaternion(zRot,0.0F, xRot, false);
             rot.multiply(quaternion);
             quaternion = rot;
         }
@@ -140,7 +132,7 @@ public class TumbleweedEntity extends Entity {
     }
 
     private void makeParticles(int count) {
-        for(int i = 0; i < count; i++) {
+        for(int i = 0; i < count; ++i) {
             world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.DEAD_BUSH.getDefaultState()), -0.5D + (this.getPosX() + this.world.rand.nextDouble()), this.getPosY() + this.world.rand.nextDouble(), -0.5D + (this.getPosZ() + this.world.rand.nextDouble()), 0.0D, 0.0D, 0.0D);
         }
     }

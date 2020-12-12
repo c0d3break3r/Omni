@@ -17,22 +17,22 @@ import java.util.Random;
 public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
     private final Direction[] NORTH_SOUTH = {Direction.NORTH, Direction.SOUTH};
     private final Direction[] EAST_WEST = {Direction.EAST, Direction.WEST};
+    private boolean playerGrown = false;
 
     public SaguaroCactusFeature(Codec<NoFeatureConfig> configCodec) {
         super(configCodec);
     }
 
+    public final void setPlayerGrown(boolean playerGrown) {
+        this.playerGrown = playerGrown;
+    }
+
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, NoFeatureConfig config) {
-        int xOffset = random.nextInt(8) - random.nextInt(8);
-        int zOffset = random.nextInt(8) - random.nextInt(8);
-        int yGenerate;
-        try {
-            yGenerate = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, pos.getX() + xOffset, pos.getZ() + zOffset);
-        } catch (NullPointerException e) {
-            yGenerate = pos.getY();
-            e.printStackTrace();
-        }
+        int xOffset = playerGrown ? 0 : random.nextInt(8) - random.nextInt(8);
+        int zOffset = playerGrown ? 0 : random.nextInt(8) - random.nextInt(8);
+        int yGenerate = world.getHeight(Heightmap.Type.WORLD_SURFACE, pos.getX() + xOffset, pos.getZ() + zOffset);
+
         return generateCactus(world, random.nextBoolean(), new BlockPos(pos.getX() + xOffset, yGenerate, pos.getZ() + zOffset), random, random.nextInt(25) == 0);
     }
 
@@ -40,19 +40,19 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
     public boolean generateCactus(ISeedReader world, boolean northSouth, BlockPos pos, Random random, boolean isBig) {
         if (!OmniBlocks.SAGUARO_CACTUS.get().getDefaultState().isValidPosition(world, pos)) return false;
 
-        boolean hasArms = random.nextInt(10) > 1;
+        boolean hasArms = random.nextInt(10) > 0;
         boolean twoArms = random.nextInt(5) != 0;
 
         int centerHeight = world.getRandom().nextInt(4) + 4;
 
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ());
-        for (int y = 0; y < centerHeight; y++) {
+        for (int y = 0; y <= centerHeight; ++y) {
             if (y > 0 && !world.getBlockState(blockpos$mutable).isAir()) break;
 
             world.setBlockState(blockpos$mutable, OmniBlocks.SAGUARO_CACTUS.get().getDefaultState(), 2);
             blockpos$mutable.move(Direction.UP);
 
-            if (y == centerHeight - 1 && random.nextInt(4) == 0) world.setBlockState(blockpos$mutable, OmniBlocks.CACTUS_BLOOM.get().getDefaultState(), 2);
+            if (y == centerHeight - 1 && random.nextInt(3) == 0) world.setBlockState(blockpos$mutable, OmniBlocks.CACTUS_BLOOM.get().getDefaultState(), 2);
         }
 
         if (!hasArms) return true;
@@ -91,13 +91,13 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
         world.setBlockState(blockpos$mutable, OmniBlocks.SAGUARO_CACTUS.get().getDefaultState().with(SaguaroCactusBlock.HORIZONTAL, true).with(SaguaroCactusBlock.HORIZONTAL_DIRECTION, direction.getOpposite()).with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction.getOpposite()), true), 2);
 
         blockpos$mutable.move(Direction.UP);
-        int amt = Math.max(1, (centerHeight - blockpos$mutable.getY()) + world.getRandom().nextInt(2) + -3);
-        for(int i = 0; i < amt; i++) {
+        int amt = Math.max(1, (centerHeight - blockpos$mutable.getY()) + world.getRandom().nextInt(2) - 3);
+        for(int i = 0; i <= amt; ++i) {
             if (!world.getBlockState(blockpos$mutable).isAir()) return;
             world.setBlockState(blockpos$mutable, OmniBlocks.SAGUARO_CACTUS.get().getDefaultState(), 2);
             blockpos$mutable.move(Direction.UP);
 
-            if (i == amt - 1 && world.getRandom().nextInt(4) == 0) world.setBlockState(blockpos$mutable, OmniBlocks.CACTUS_BLOOM.get().getDefaultState(), 2);
+            if (i == amt - 1 && world.getRandom().nextInt(3) == 0) world.setBlockState(blockpos$mutable, OmniBlocks.CACTUS_BLOOM.get().getDefaultState(), 2);
         }
     }
 }

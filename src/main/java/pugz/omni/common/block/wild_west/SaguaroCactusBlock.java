@@ -24,8 +24,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.server.ServerWorld;
 import pugz.omni.common.block.HorizontalFacingBlock;
+import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
 import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.util.IBaseBlock;
 
@@ -161,7 +165,13 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        OmniFeatures.Configured.SAGUARO_CACTUS.generate(world, world.getChunkProvider().getChunkGenerator(), random, pos);
+        ConfiguredFeature<?, ?> configuredFeature = OmniFeatures.Configured.SAGUARO_CACTUS;
+        if (configuredFeature.getFeature() instanceof SaguaroCactusFeature) {
+            SaguaroCactusFeature saguaroCactusFeature = (SaguaroCactusFeature) configuredFeature.getFeature();
+            saguaroCactusFeature.setPlayerGrown(true);
+            configuredFeature = saguaroCactusFeature.withConfiguration(new NoFeatureConfig());
+            configuredFeature.generate(world, world.getChunkProvider().getChunkGenerator(), random, pos);
+        }
     }
 
     @Override
