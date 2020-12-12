@@ -100,7 +100,6 @@ public class WildWestModule extends AbstractModule {
     protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.RED_ROCK = RegistryUtil.createConfiguredFeature("red_rock", OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 128)).chance(1)).range(80).square().func_242731_b(10));
         OmniFeatures.Configured.SAGUARO_CACTUS = RegistryUtil.createConfiguredFeature("saguaro_cacti", OmniFeatures.SAGUARO_CACTUS.get().withConfiguration(new NoFeatureConfig()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12)).chance(12);
-        OmniFeatures.Configured.TUMBLEWEEDS = RegistryUtil.createConfiguredFeature("tumbleweeds", Feature.RANDOM_PATCH.withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.TUMBLEWEED.get().getDefaultState()), SimpleBlockPlacer.PLACER).build()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(3).chance(8)).chance(16);
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
