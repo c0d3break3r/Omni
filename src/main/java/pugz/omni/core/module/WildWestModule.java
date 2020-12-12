@@ -18,6 +18,7 @@ import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
+import pugz.omni.common.world.structure.wild_west.GhostTownPieces;
 import pugz.omni.common.world.structure.wild_west.GhostTownPools;
 import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
 import pugz.omni.core.registry.OmniBlocks;
@@ -106,7 +107,7 @@ public class WildWestModule extends AbstractModule {
 
     @Override
     protected void registerStructures() {
-        //OmniStructures.GHOST_TOWN = RegistryUtil.createStructure("ghost_town", () -> new GhostTownStructure(VillageConfig.field_236533_a_), GenerationStage.Decoration.SURFACE_STRUCTURES, new StructureSeparationSettings(10, 10, 1605500075));
+        //OmniStructures.GHOST_TOWN = RegistryUtil.createStructure("ghost_town", "Ghost Town", () -> new GhostTownStructure(VillageConfig.field_236533_a_), GenerationStage.Decoration.SURFACE_STRUCTURES, new StructureSeparationSettings(1, 0, 593751784));
     }
 
     @Override

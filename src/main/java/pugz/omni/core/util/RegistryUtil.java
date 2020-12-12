@@ -11,6 +11,7 @@ import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
@@ -76,15 +77,15 @@ public class RegistryUtil {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
     }
 
-    public static <F extends Structure<?>> RegistryObject<F> createStructure(String name, Supplier<? extends F> supplier, GenerationStage.Decoration stage, StructureSeparationSettings settings) {
-        Structure.NAME_STRUCTURE_BIMAP.put(name.toLowerCase(Locale.ROOT), supplier.get());
-        Structure.STRUCTURE_DECORATION_STAGE_MAP.put(supplier.get(), stage);
-        DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(supplier.get(), settings).build();
-        //FlatGenerationSettings.STRUCTURES.put(supplier.get(), supplier.get().withConfiguration(new NoFeatureConfig()));
+    public static <F extends Structure<?>> RegistryObject<F> createStructure(String name, String display, Supplier<? extends F> supplier, GenerationStage.Decoration stage, StructureSeparationSettings settings) {
+        //Structure.NAME_STRUCTURE_BIMAP.put(display.toLowerCase(Locale.ROOT), supplier.get());
+        //Structure.STRUCTURE_DECORATION_STAGE_MAP.put(supplier.get(), stage);
+        //DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(supplier.get(), settings).build();
         return Omni.Registries.STRUCTURES.register(name, supplier);
     }
 
     public static <FC extends IFeatureConfig> StructureFeature<FC, ?> createStructureFeature(String name, StructureFeature<FC, ?> feature) {
+        //FlatGenerationSettings.STRUCTURES.put(feature.field_236268_b_, feature);
         return Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, name, feature);
     }
 

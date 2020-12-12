@@ -65,7 +65,7 @@ public abstract class AbstractModule {
         onPostInitialize();
 
         registerConfiguredFeatures();
-        registerStructureFeatures();
+        //registerStructureFeatures();
 
         ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
             if (block.getValue() instanceof IBaseBlock) {

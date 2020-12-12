@@ -11,6 +11,6 @@ public class OmniStructures {
 
     public static class Features {
         //wild west
-        public static StructureFeature<?, ?> GHOST_TOWN;
+        public static StructureFeature<VillageConfig, ? extends Structure<VillageConfig>> GHOST_TOWN;
     }
 }

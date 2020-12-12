@@ -17,23 +17,23 @@ import java.util.Random;
 public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
     private final Direction[] NORTH_SOUTH = {Direction.NORTH, Direction.SOUTH};
     private final Direction[] EAST_WEST = {Direction.EAST, Direction.WEST};
-    private boolean playerGrown = false;
 
     public SaguaroCactusFeature(Codec<NoFeatureConfig> configCodec) {
         super(configCodec);
     }
 
-    public final void setPlayerGrown(boolean playerGrown) {
-        this.playerGrown = playerGrown;
-    }
-
     @Override
     public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, NoFeatureConfig config) {
-        int xOffset = playerGrown ? 0 : random.nextInt(8) - random.nextInt(8);
-        int zOffset = playerGrown ? 0 : random.nextInt(8) - random.nextInt(8);
+        int xOffset = random.nextInt(8) - random.nextInt(8);
+        int zOffset = random.nextInt(8) - random.nextInt(8);
         int yGenerate = world.getHeight(Heightmap.Type.WORLD_SURFACE, pos.getX() + xOffset, pos.getZ() + zOffset);
+        BlockPos place = new BlockPos(pos.getX() + xOffset, yGenerate, pos.getZ() + zOffset);
 
-        return generateCactus(world, random.nextBoolean(), new BlockPos(pos.getX() + xOffset, yGenerate, pos.getZ() + zOffset), random, random.nextInt(50) == 0);
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            if (world.getBlockState(place.offset(direction)).getBlock() instanceof SaguaroCactusBlock) return false;
+        }
+
+        return generateCactus(world, random.nextBoolean(), place, random, random.nextInt(50) == 0);
     }
 
     @SuppressWarnings("deprecation")
