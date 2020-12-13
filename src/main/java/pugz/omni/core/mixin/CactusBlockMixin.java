@@ -1,6 +1,7 @@
 package pugz.omni.core.mixin;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.CactusBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.tags.FluidTags;
@@ -24,5 +25,8 @@ public final class CactusBlockMixin {
                 info.setReturnValue(blockstate.getBlock() != OmniBlocks.SAGUARO_CACTUS.get());
             }
         }
+
+        BlockState blockstate1 = worldIn.getBlockState(pos.down());
+        info.setReturnValue((blockstate1.isIn(Blocks.CACTUS) || blockstate1.isIn(Blocks.SAND) || blockstate1.isIn(Blocks.RED_SAND)) && !worldIn.getBlockState(pos.up()).getMaterial().isLiquid());
     }
 }
