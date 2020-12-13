@@ -18,7 +18,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class LushBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
+public class WoodedBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
+    public static final SurfaceBuilderConfig RED_SAND_GRAVEL_CONFIG = new SurfaceBuilderConfig(Blocks.RED_SAND.getDefaultState(), Blocks.RED_SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState());
     private static final BlockState WHITE_TERRACOTTA = Blocks.WHITE_TERRACOTTA.getDefaultState();
     private static final BlockState ORANGE_TERRACOTTA = Blocks.ORANGE_TERRACOTTA.getDefaultState();
     private static final BlockState TERRACOTTA = Blocks.TERRACOTTA.getDefaultState();
@@ -32,15 +33,15 @@ public class LushBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderCon
     protected PerlinNoiseGenerator field_215437_d;
     protected PerlinNoiseGenerator field_215439_e;
 
-    public LushBadlandsSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232122_1_) {
+    public WoodedBadlandsSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232122_1_) {
         super(p_i232122_1_);
     }
 
     @SuppressWarnings("deprecation")
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        if (noise <= -0.5D) {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
-        } else if (noise <= 1.0D) {
+        if (noise <= -0.8D) {
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, RED_SAND_GRAVEL_CONFIG);
+        } else if (noise <= 1.5D) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG);
         } else {
             int i = x & 15;

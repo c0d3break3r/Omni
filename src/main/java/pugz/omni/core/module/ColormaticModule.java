@@ -15,6 +15,8 @@ import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
 import pugz.omni.common.block.colormatic.*;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.common.world.biome.FlowerFieldBiome;
+import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.util.CompatReferences;
@@ -172,7 +174,7 @@ public class ColormaticModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        //OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome("flower_field", OmniBiomes.createFlowerFieldBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.FLOWER_FIELD_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.RARE, BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.LUSH);
+        OmniBiomes.FLOWER_FIELD = RegistryUtil.createBiome(new FlowerFieldBiome());
     }
 
     public void onWandererTrades(WandererTradesEvent event) {

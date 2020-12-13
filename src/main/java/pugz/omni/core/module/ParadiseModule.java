@@ -26,11 +26,12 @@ import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.item.paradise.SeahorseBucketItem;
 import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.common.world.biome.BadlandsJungleBiome;
+import pugz.omni.common.world.biome.DesertJungleBiome;
+import pugz.omni.common.world.biome.TropicalPlainsBiome;
 import pugz.omni.common.world.feature.SizedBlockBlobConfig;
 import pugz.omni.common.world.feature.SizedBlockBlobFeature;
-import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
-import pugz.omni.common.world.feature.cavier_caves.caves.TerracottaCaveBiomeFeature;
 import pugz.omni.common.world.surface.LushBadlandsSurfaceBuilder;
+import pugz.omni.common.world.surface.LushDesertSurfaceBuilder;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
@@ -100,18 +101,15 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        //OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome("tropical_plains", BiomeMaker.makeJungleEdgeBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.TROPICAL_PLAINS_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.OVERWORLD);
+        OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome(new TropicalPlainsBiome());
         OmniBiomes.JUNGLE_BADLANDS = RegistryUtil.createBiome(new BadlandsJungleBiome());
+        OmniBiomes.JUNGLE_DESERT = RegistryUtil.createBiome(new DesertJungleBiome());
     }
 
     @Override
     protected void registerSurfaceBuilders() {
         OmniSurfaceBuilders.JUNGLE_BADLANDS = RegistryUtil.createSurfaceBuilder("badlands_jungle", () -> new LushBadlandsSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
-    }
-
-    @Override
-    protected void registerConfiguredSurfaceBuilders() {
-        //OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS;
+        OmniSurfaceBuilders.JUNGLE_DESERT = RegistryUtil.createSurfaceBuilder("desert_jungle", () -> new LushDesertSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
     }
 
     @Override
@@ -166,6 +164,10 @@ public class ParadiseModule extends AbstractModule {
             if (event.getName().getPath().equals(OmniBiomes.JUNGLE_BADLANDS.getRegistryName().getPath())) {
                 gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS);
                 BiomeFeatures.addTerracottaRocks(gen);
+            }
+
+            if (event.getName().getPath().equals(OmniBiomes.JUNGLE_DESERT.getRegistryName().getPath())) {
+                gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.JUNGLE_DESERT);
             }
         }
     }

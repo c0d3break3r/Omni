@@ -56,5 +56,7 @@ public class OmniFeatures {
         //wild west
         public static ConfiguredFeature<?, ?> RED_ROCK;
         public static ConfiguredFeature<?, ?> SAGUARO_CACTUS;
+
+        public static ConfiguredFeature<?, ?> DENSE_SAVANNA_TREES;
     }
 }

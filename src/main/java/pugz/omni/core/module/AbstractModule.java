@@ -65,7 +65,6 @@ public abstract class AbstractModule {
         onPostInitialize();
 
         registerConfiguredFeatures();
-        registerConfiguredSurfaceBuilders();
         //registerStructureFeatures();
 
         ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
@@ -95,9 +94,6 @@ public abstract class AbstractModule {
     }
 
     protected void registerSurfaceBuilders() {
-    }
-
-    protected void registerConfiguredSurfaceBuilders() {
     }
 
     protected void registerFeatures() {

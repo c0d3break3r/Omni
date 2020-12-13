@@ -18,6 +18,8 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import pugz.omni.common.block.forestry.CarvedLogBlock;
 import pugz.omni.common.block.forestry.GoldenOakLeavesBlock;
+import pugz.omni.common.world.biome.TallForestBiome;
+import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.util.BiomeFeatures;
@@ -62,6 +64,11 @@ public class ForestryModule extends AbstractModule {
     }
 
     @Override
+    protected void registerBiomes() {
+        OmniBiomes.TALL_FOREST = RegistryUtil.createBiome(new TallForestBiome());
+    }
+
+    @Override
     protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.TALL_OAK_TREE = RegistryUtil.createConfiguredFeature("oak_tall", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(5, 2, 6), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().setDecorators(ImmutableList.of(Features.Placements.BEES_0002_PLACEMENT)).build()));
         OmniFeatures.Configured.GOLDEN_APPLE_TREE = RegistryUtil.createConfiguredFeature("oak_tall", Feature.TREE.withConfiguration((new net.minecraft.world.gen.feature.BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(OmniBlocks.GOLDEN_OAK_LEAVES.get().getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build())).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, CoreModule.Configuration.COMMON.GOLDEN_OAK_SPAWN_CHANCE.get().floatValue(), 1)));
@@ -72,6 +79,10 @@ public class ForestryModule extends AbstractModule {
 
         if (event.getCategory() == Biome.Category.FOREST) {
             BiomeFeatures.addGoldenOakTrees(gen);
+
+            if (event.getName().getPath().equals(OmniBiomes.TALL_FOREST.getRegistryName().getPath())) {
+                BiomeFeatures.addTallOakTrees(gen);
+            }
         }
     }
 }

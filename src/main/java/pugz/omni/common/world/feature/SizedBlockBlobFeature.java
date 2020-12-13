@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class SizedBlockBlobFeature extends Feature<SizedBlockBlobConfig> {
                     }
 
                     Block block = reader.getBlockState(pos.down()).getBlock();
-                    if (!isDirt(block) && !isStone(block)) {
+                    if (!isDirt(block) && !isStone(block) && !isSand(block)) {
                         break label46;
                     }
                 }
@@ -52,5 +53,9 @@ public class SizedBlockBlobFeature extends Feature<SizedBlockBlobConfig> {
 
             pos = pos.down();
         }
+    }
+
+    public static boolean isSand(Block blockIn) {
+        return Tags.Blocks.SAND.contains(blockIn);
     }
 }

@@ -1,10 +1,13 @@
 package pugz.omni.core.module;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -15,11 +18,17 @@ import pugz.omni.client.render.TumbleweedRenderer;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
+import pugz.omni.common.world.biome.BadlandsJungleBiome;
+import pugz.omni.common.world.biome.DesertJungleBiome;
+import pugz.omni.common.world.biome.WoodedBadlandsBiome;
+import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
-import pugz.omni.core.registry.OmniBlocks;
-import pugz.omni.core.registry.OmniEntities;
-import pugz.omni.core.registry.OmniFeatures;
+import pugz.omni.common.world.surface.LushBadlandsSurfaceBuilder;
+import pugz.omni.common.world.surface.LushDesertSurfaceBuilder;
+import pugz.omni.common.world.surface.WoodedBadlandsSurfaceBuilder;
+import pugz.omni.common.world.surface.WoodedDesertSurfaceBuilder;
+import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.*;
@@ -90,6 +99,18 @@ public class WildWestModule extends AbstractModule {
     }
 
     @Override
+    protected void registerBiomes() {
+        OmniBiomes.WOODED_BADLANDS = RegistryUtil.createBiome(new WoodedBadlandsBiome());
+        OmniBiomes.WOODED_DESERT = RegistryUtil.createBiome(new WoodedDesertBiome());
+    }
+
+    @Override
+    protected void registerSurfaceBuilders() {
+        OmniSurfaceBuilders.WOODED_BADLANDS = RegistryUtil.createSurfaceBuilder("wooded_badlands", () -> new WoodedBadlandsSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
+        OmniSurfaceBuilders.WOODED_DESERT = RegistryUtil.createSurfaceBuilder("wooded_desert", () -> new WoodedDesertSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
+    }
+
+    @Override
     protected void registerFeatures() {
         OmniFeatures.SAGUARO_CACTUS = RegistryUtil.createFeature("saguaro_cactus", () -> new SaguaroCactusFeature(NoFeatureConfig.field_236558_a_));
     }
@@ -98,6 +119,8 @@ public class WildWestModule extends AbstractModule {
     protected void registerConfiguredFeatures() {
         OmniFeatures.Configured.RED_ROCK = RegistryUtil.createConfiguredFeature("red_rock", OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 128)).chance(1)).range(80).square().func_242731_b(10));
         OmniFeatures.Configured.SAGUARO_CACTUS = RegistryUtil.createConfiguredFeature("saguaro_cacti", OmniFeatures.SAGUARO_CACTUS.get().withConfiguration(new NoFeatureConfig()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12)).chance(12);
+
+        OmniFeatures.Configured.DENSE_SAVANNA_TREES = RegistryUtil.createConfiguredFeature("dense_savanna_trees", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Features.ACACIA.withChance(0.8F)), Features.OAK)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(6, 0.1F, 1))));
     }
 
     @Override
@@ -123,6 +146,15 @@ public class WildWestModule extends AbstractModule {
             if (event.getName() != null) {
                 event.getSpawns().getSpawner(EntityClassification.AMBIENT).add(new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 15, 1, 5));
             }
+        }
+
+        if (event.getName().getPath().equals(OmniBiomes.WOODED_BADLANDS.getRegistryName().getPath())) {
+            gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.WOODED_BADLANDS);
+            BiomeFeatures.addTerracottaRocks(gen);
+        }
+
+        if (event.getName().getPath().equals(OmniBiomes.WOODED_DESERT.getRegistryName().getPath())) {
+            gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.WOODED_DESERT);
         }
     }
 
