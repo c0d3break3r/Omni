@@ -1,21 +1,21 @@
 package pugz.omni.core.util;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.IStatFormatter;
 import net.minecraft.stats.StatType;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import pugz.omni.common.world.biome.OmniBiome;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -25,17 +25,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
-import java.util.Locale;
 import java.util.function.Supplier;
 
 public class RegistryUtil {
@@ -61,12 +57,18 @@ public class RegistryUtil {
         return Omni.Registries.ENTITIES.register(name, supplier);
     }
 
-    public static RegistryKey<Biome> createBiome(String name, Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Omni.MOD_ID, name));
-        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
-        BiomeDictionary.addTypes(key, types);
-        Omni.Registries.BIOMES.register(name, () -> biome);
-        return key;
+    public static Biome createBiome(OmniBiome biome) {
+        Omni.Registries.BIOMES.register(biome.getName(), biome::getBiome);
+        return biome.getBiome();
+    }
+
+    public static SurfaceBuilder<SurfaceBuilderConfig> createSurfaceBuilder(String name, SurfaceBuilder<SurfaceBuilderConfig> surfaceBuilder) {
+        Omni.Registries.SURFACE_BUILDERS.register(name, () -> surfaceBuilder);
+        return surfaceBuilder;
+    }
+
+    public static ConfiguredSurfaceBuilder<SurfaceBuilderConfig> createConfiguredSurfaceBuilder(String name, ConfiguredSurfaceBuilder<SurfaceBuilderConfig> surfaceBuilder) {
+        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, new ResourceLocation(Omni.MOD_ID, name), surfaceBuilder);
     }
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {
@@ -74,7 +76,7 @@ public class RegistryUtil {
     }
 
     public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> createConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, feature);
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(Omni.MOD_ID, name), feature);
     }
 
     public static <F extends Structure<?>> RegistryObject<F> createStructure(String name, String display, Supplier<? extends F> supplier, GenerationStage.Decoration stage, StructureSeparationSettings settings) {
@@ -86,7 +88,7 @@ public class RegistryUtil {
 
     public static <FC extends IFeatureConfig> StructureFeature<FC, ?> createStructureFeature(String name, StructureFeature<FC, ?> feature) {
         //FlatGenerationSettings.STRUCTURES.put(feature.field_236268_b_, feature);
-        return Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, name, feature);
+        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, name, feature);
     }
 
     public static <C extends WorldCarver<?>> RegistryObject<C> createCarver(String name, Supplier<? extends C> supplier) {

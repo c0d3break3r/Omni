@@ -8,7 +8,10 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import pugz.omni.common.world.biome.BadlandsJungleBiome;
 
 public class OmniBiomes {
     //colormatic
@@ -19,6 +22,12 @@ public class OmniBiomes {
 
     //paradise
     public static RegistryKey<Biome> TROPICAL_PLAINS;
+    public static RegistryKey<Biome> JUNGLE_DESERT;
+    public static Biome JUNGLE_BADLANDS;
+
+    //wild west
+    public static RegistryKey<Biome> WOODED_DESERT;
+    public static RegistryKey<Biome> WOODED_BADLANDS;
 
     public static Biome createFlowerFieldBiome() {
         MobSpawnInfo.Builder mobspawninfo$builder = getStandardMobSpawnBuilder().withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 4, 2, 3));

@@ -63,11 +63,11 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
 
         if (twoArms) {
             for (Direction d : directions) {
-                generateArm(world, d, blockpos$mutable.getX(), pos.getY() + armStart, blockpos$mutable.getZ(), centerEndY);
+                generateArm(world, d, blockpos$mutable.getX(), pos.getY() + armStart, blockpos$mutable.getZ(), centerEndY, isBig);
                 armStart = world.getRandom().nextInt(centerHeight - 3) + 1;
             }
         } else {
-            generateArm(world, directions[random.nextInt(directions.length)], blockpos$mutable.getX(), pos.getY() + armStart, blockpos$mutable.getZ(), centerEndY);
+            generateArm(world, directions[random.nextInt(directions.length)], blockpos$mutable.getX(), pos.getY() + armStart, blockpos$mutable.getZ(), centerEndY, isBig);
         }
 
         if ((!isBig && random.nextInt(10) == 0) || (isBig && random.nextInt(50) == 0)) {
@@ -78,16 +78,18 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
     }
 
     @SuppressWarnings("deprecation")
-    private void generateArm(ISeedReader world, Direction direction, int centerX, int armY, int centerZ, int centerHeight) {
+    private void generateArm(ISeedReader world, Direction direction, int centerX, int armY, int centerZ, int centerHeight, boolean isBig) {
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable(centerX + direction.getXOffset(), armY, centerZ + direction.getZOffset());
 
         if (!world.getBlockState(blockpos$mutable).isAir()) return;
 
         BlockPos centerPos = blockpos$mutable.offset(direction.getOpposite());
+        if (isBig) centerPos = blockpos$mutable.offset(direction.getOpposite());
         BlockState centerState = world.getBlockState(centerPos);
         if (!centerState.isIn(OmniBlocks.SAGUARO_CACTUS.get())) return;
 
         world.setBlockState(centerPos, centerState.with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction), true), 2);
+        if (isBig) world.setBlockState(centerPos.offset(direction), centerState.with(SaguaroCactusBlock.HORIZONTAL, true).with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction), true).with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction.getOpposite()), true), 2);
         world.setBlockState(blockpos$mutable, OmniBlocks.SAGUARO_CACTUS.get().getDefaultState().with(SaguaroCactusBlock.HORIZONTAL, true).with(SaguaroCactusBlock.HORIZONTAL_DIRECTION, direction.getOpposite()).with(SaguaroCactusBlock.FACING_PROPERTIES.get(direction.getOpposite()), true), 2);
 
         blockpos$mutable.move(Direction.UP);

@@ -6,6 +6,8 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
@@ -15,6 +17,9 @@ import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.BiomeDictionary;
@@ -22,11 +27,14 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.item.paradise.SeahorseBucketItem;
 import pugz.omni.common.item.OmniSpawnEggItem;
+import pugz.omni.common.world.biome.BadlandsJungleBiome;
+import pugz.omni.common.world.surface.LushBadlandsSurfaceBuilder;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
@@ -96,7 +104,18 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerBiomes() {
-        OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome("tropical_plains", BiomeMaker.makeJungleEdgeBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.TROPICAL_PLAINS_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.OVERWORLD);
+        //OmniBiomes.TROPICAL_PLAINS = RegistryUtil.createBiome("tropical_plains", BiomeMaker.makeJungleEdgeBiome(), BiomeManager.BiomeType.WARM, CoreModule.Configuration.COMMON.TROPICAL_PLAINS_SPAWN_WEIGHT.get(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.WET, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.OVERWORLD);
+        OmniBiomes.JUNGLE_BADLANDS = RegistryUtil.createBiome(new BadlandsJungleBiome());
+    }
+
+    @Override
+    protected void registerSurfaceBuilders() {
+        OmniSurfaceBuilders.JUNGLE_BADLANDS = RegistryUtil.createSurfaceBuilder("jungle_badlands", new LushBadlandsSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
+    }
+
+    @Override
+    protected void registerConfiguredSurfaceBuilders() {
+        //OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS;
     }
 
     @Override
@@ -131,15 +150,15 @@ public class ParadiseModule extends AbstractModule {
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
-        MobSpawnInfoBuilder spawns = event.getSpawns();
-
-        MobSpawnInfo seahorse = new MobSpawnInfo.Builder().withCreatureSpawnProbability(CoreModule.Configuration.COMMON.SEAHORSE_SPAWN_CHANCE.get().floatValue()).withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4)).copy();
-        seahorse.getSpawners(EntityClassification.WATER_AMBIENT).forEach((s) -> {
-            spawns.getSpawner(EntityClassification.WATER_AMBIENT).add(s);
-        });
 
         if (event.getCategory() == Biome.Category.JUNGLE) {
             BiomeFeatures.addLotuses(gen);
+        }
+
+        if (event.getName() != null) {
+            if (StringUtils.contains(event.getName().getPath(), "warm_ocean")) {
+                event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4));
+            }
         }
     }
 }

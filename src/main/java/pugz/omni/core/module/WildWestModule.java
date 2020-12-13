@@ -1,6 +1,11 @@
 package pugz.omni.core.module;
 
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.structure.VillageStructure;
@@ -12,9 +17,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.TumbleweedRenderer;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.wild_west.*;
+import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
@@ -125,7 +132,10 @@ public class WildWestModule extends AbstractModule {
             BiomeFeatures.addRedRock(gen);
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
-            //BiomeFeatures.addGhostTowns(gen);
+
+            if (event.getName() != null) {
+                event.getSpawns().getSpawner(EntityClassification.AMBIENT).add(new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 15, 1, 5));
+            }
         }
     }
 
