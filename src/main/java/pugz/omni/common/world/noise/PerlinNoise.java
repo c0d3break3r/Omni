@@ -1,30 +1,19 @@
 package pugz.omni.common.world.noise;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import it.unimi.dsi.fastutil.ints.IntBidirectionalIterator;
-import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
+import net.minecraft.world.gen.ImprovedNoiseGenerator;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.stream.IntStream;
 
 public class PerlinNoise implements SurfaceNoise {
-    private final ImprovedNoise[] improvedNoises;
+    private final ImprovedNoiseGenerator[] improvedNoises;
     private final DoubleList doubles;
     private final double c;
     private final double d;
-
-    public PerlinNoise(WorldGenRandom random, IntStream stream) {
-        this(random, (List)stream.boxed().collect(ImmutableList.toImmutableList()));
-    }
-
-    public PerlinNoise(WorldGenRandom random, List<Integer> integers) {
-        this(random, (IntSortedSet)(new IntRBTreeSet(integers)));
-    }
 
     public static PerlinNoise a(WorldGenRandom random, int var1, DoubleList doubles) {
         return new PerlinNoise(random, Pair.of(var1, doubles));
@@ -60,10 +49,10 @@ public class PerlinNoise implements SurfaceNoise {
     private PerlinNoise(WorldGenRandom random, Pair<Integer, DoubleList> var2) {
         int var3 = (Integer)var2.getFirst();
         this.doubles = (DoubleList)var2.getSecond();
-        ImprovedNoise noise = new ImprovedNoise(random);
+        ImprovedNoiseGenerator noise = new ImprovedNoiseGenerator(random);
         int var5 = this.doubles.size();
         int var6 = -var3;
-        this.improvedNoises = new ImprovedNoise[var5];
+        this.improvedNoises = new ImprovedNoiseGenerator[var5];
         if (var6 >= 0 && var6 < var5) {
             double var7 = this.doubles.getDouble(var6);
             if (var7 != 0.0D) {
@@ -75,7 +64,7 @@ public class PerlinNoise implements SurfaceNoise {
             if (var13 < var5) {
                 double var8 = this.doubles.getDouble(var13);
                 if (var8 != 0.0D) {
-                    this.improvedNoises[var13] = new ImprovedNoise(random);
+                    this.improvedNoises[var13] = new ImprovedNoiseGenerator(random);
                 } else {
                     random.a(262);
                 }
@@ -85,14 +74,14 @@ public class PerlinNoise implements SurfaceNoise {
         }
 
         if (var6 < var5 - 1) {
-            long var14 = (long)(noise.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D) * 9.223372036854776E18D);
+            long var14 = (long)(noise.func_215456_a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D) * 9.223372036854776E18D);
             WorldGenRandom random1 = new WorldGenRandom(var14);
 
             for(int var10 = var6 + 1; var10 < var5; ++var10) {
                 if (var10 >= 0) {
                     double var11 = this.doubles.getDouble(var10);
                     if (var11 != 0.0D) {
-                        this.improvedNoises[var10] = new ImprovedNoise(random1);
+                        this.improvedNoises[var10] = new ImprovedNoiseGenerator(random1);
                     } else {
                         random1.a(262);
                     }
@@ -116,9 +105,9 @@ public class PerlinNoise implements SurfaceNoise {
         double var16 = this.c;
 
         for(int var18 = 0; var18 < this.improvedNoises.length; ++var18) {
-            ImprovedNoise noise = this.improvedNoises[var18];
+            ImprovedNoiseGenerator noise = this.improvedNoises[var18];
             if (noise != null) {
-                var12 += this.doubles.getDouble(var18) * noise.a(a(var1 * var14), var11 ? -noise.b : a(var3 * var14), a(var5 * var14), var7 * var14, var9 * var14) * var16;
+                var12 += this.doubles.getDouble(var18) * noise.func_215456_a(a(var1 * var14), var11 ? -noise.yCoord : a(var3 * var14), a(var5 * var14), var7 * var14, var9 * var14) * var16;
             }
 
             var14 *= 2.0D;
@@ -129,7 +118,7 @@ public class PerlinNoise implements SurfaceNoise {
     }
 
     @Nullable
-    public ImprovedNoise a(int var1) {
+    public ImprovedNoiseGenerator a(int var1) {
         return this.improvedNoises[this.improvedNoises.length - 1 - var1];
     }
 
