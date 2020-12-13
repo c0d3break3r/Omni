@@ -15,6 +15,8 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import pugz.omni.common.world.biome.OmniBiome;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
@@ -62,13 +64,12 @@ public class RegistryUtil {
         return biome.getBiome();
     }
 
-    public static SurfaceBuilder<SurfaceBuilderConfig> createSurfaceBuilder(String name, SurfaceBuilder<SurfaceBuilderConfig> surfaceBuilder) {
-        Omni.Registries.SURFACE_BUILDERS.register(name, () -> surfaceBuilder);
-        return surfaceBuilder;
+    public static <S extends SurfaceBuilder<?>> RegistryObject<S> createSurfaceBuilder(String name, Supplier<? extends S> surfaceBuilder) {
+        return Omni.Registries.SURFACE_BUILDERS.register(name, surfaceBuilder);
     }
 
     public static ConfiguredSurfaceBuilder<SurfaceBuilderConfig> createConfiguredSurfaceBuilder(String name, ConfiguredSurfaceBuilder<SurfaceBuilderConfig> surfaceBuilder) {
-        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, new ResourceLocation(Omni.MOD_ID, name), surfaceBuilder);
+        return Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, new ResourceLocation(Omni.MOD_ID, name), surfaceBuilder);
     }
 
     public static <F extends Feature<?>> RegistryObject<F> createFeature(String name, Supplier<? extends F> supplier) {

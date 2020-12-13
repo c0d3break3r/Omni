@@ -68,10 +68,9 @@ public class ForestryModule extends AbstractModule {
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
-        Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
-        if (category == Biome.Category.FOREST) {
+        if (event.getCategory() == Biome.Category.FOREST) {
             BiomeFeatures.addGoldenOakTrees(gen);
         }
     }

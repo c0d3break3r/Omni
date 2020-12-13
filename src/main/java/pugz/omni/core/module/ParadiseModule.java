@@ -6,9 +6,6 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
@@ -17,14 +14,9 @@ import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +26,10 @@ import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.item.paradise.SeahorseBucketItem;
 import pugz.omni.common.item.OmniSpawnEggItem;
 import pugz.omni.common.world.biome.BadlandsJungleBiome;
+import pugz.omni.common.world.feature.SizedBlockBlobConfig;
+import pugz.omni.common.world.feature.SizedBlockBlobFeature;
+import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
+import pugz.omni.common.world.feature.cavier_caves.caves.TerracottaCaveBiomeFeature;
 import pugz.omni.common.world.surface.LushBadlandsSurfaceBuilder;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
@@ -110,12 +106,17 @@ public class ParadiseModule extends AbstractModule {
 
     @Override
     protected void registerSurfaceBuilders() {
-        OmniSurfaceBuilders.JUNGLE_BADLANDS = RegistryUtil.createSurfaceBuilder("jungle_badlands", new LushBadlandsSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
+        OmniSurfaceBuilders.JUNGLE_BADLANDS = RegistryUtil.createSurfaceBuilder("badlands_jungle", () -> new LushBadlandsSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_));
     }
 
     @Override
     protected void registerConfiguredSurfaceBuilders() {
         //OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS;
+    }
+
+    @Override
+    protected void registerFeatures() {
+        OmniFeatures.SIZED_BLOCK_BLOB = RegistryUtil.createFeature("sized_block_blob", () -> new SizedBlockBlobFeature(SizedBlockBlobConfig.CODEC));
     }
 
     @Override
@@ -128,6 +129,8 @@ public class ParadiseModule extends AbstractModule {
         OmniFeatures.Configured.PURPLE_LOTUS_FLOWER = RegistryUtil.createConfiguredFeature("purple_lotus_flower", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.PURPLE_LOTUS_FLOWER.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(6).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL)).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(CoreModule.Configuration.COMMON.LOTUS_FLOWER_SPAWN_CHANCE.get()));
         OmniFeatures.Configured.BLACK_LOTUS_FLOWER = RegistryUtil.createConfiguredFeature("black_lotus_flower", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.BLACK_LOTUS_FLOWER.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(3).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL)).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(Math.round(CoreModule.Configuration.COMMON.LOTUS_FLOWER_SPAWN_CHANCE.get() * 1.5F)));
         OmniFeatures.Configured.WHITE_LOTUS_FLOWER = RegistryUtil.createConfiguredFeature("white_lotus_flower", Feature.RANDOM_PATCH.withConfiguration((new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.WHITE_LOTUS_FLOWER.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(3).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, Blocks.PODZOL)).func_227317_b_().build()).func_242730_a(FeatureSpread.func_242253_a(-1, 4)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5).chance(Math.round(CoreModule.Configuration.COMMON.LOTUS_FLOWER_SPAWN_CHANCE.get() * 1.5F)));
+
+        OmniFeatures.Configured.TERRACOTTA_ROCK = RegistryUtil.createConfiguredFeature("terracotta_rock", OmniFeatures.SIZED_BLOCK_BLOB.get().withConfiguration(new SizedBlockBlobConfig(Blocks.TERRACOTTA.getDefaultState(), 1)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).chance(2).func_242732_c(2));
     }
 
     @Override
@@ -158,6 +161,11 @@ public class ParadiseModule extends AbstractModule {
         if (event.getName() != null) {
             if (StringUtils.contains(event.getName().getPath(), "warm_ocean")) {
                 event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4));
+            }
+
+            if (event.getName().getPath().equals(OmniBiomes.JUNGLE_BADLANDS.getRegistryName().getPath())) {
+                gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS);
+                BiomeFeatures.addTerracottaRocks(gen);
             }
         }
     }

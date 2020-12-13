@@ -36,62 +36,11 @@ public class LushBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderCon
         super(p_i232122_1_);
     }
 
-    @SuppressWarnings("deprecation")
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        if (noise <= 0.5D) {
-            BlockState blockstate = config.getTop();
-            BlockState blockstate1 = config.getUnder();
-            BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-            int i = -1;
-            int j = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
-            int k = x & 15;
-            int l = z & 15;
-
-            for(int i1 = startHeight; i1 >= 0; --i1) {
-                blockpos$mutable.setPos(k, i1, l);
-                BlockState blockstate2 = chunkIn.getBlockState(blockpos$mutable);
-                if (blockstate2.isAir()) {
-                    i = -1;
-                } else if (blockstate2.isIn(defaultBlock.getBlock())) {
-                    if (i == -1) {
-                        if (j <= 0) {
-                            blockstate = Blocks.AIR.getDefaultState();
-                            blockstate1 = defaultBlock;
-                        } else if (i1 >= seaLevel - 4 && i1 <= seaLevel + 1) {
-                            blockstate = config.getTop();
-                            blockstate1 = config.getUnder();
-                        }
-
-                        if (i1 < seaLevel && blockstate.isAir()) {
-                            if (biomeIn.getTemperature(blockpos$mutable.setPos(x, i1, z)) < 0.15F) {
-                                blockstate = Blocks.ICE.getDefaultState();
-                            } else {
-                                blockstate = defaultFluid;
-                            }
-
-                            blockpos$mutable.setPos(k, i1, l);
-                        }
-
-                        i = j;
-                        if (i1 >= seaLevel - 1) {
-                            chunkIn.setBlockState(blockpos$mutable, blockstate, false);
-                        } else if (i1 < seaLevel - 7 - j) {
-                            blockstate = Blocks.AIR.getDefaultState();
-                            blockstate1 = defaultBlock;
-                            chunkIn.setBlockState(blockpos$mutable, config.getUnderWaterMaterial(), false);
-                        } else {
-                            chunkIn.setBlockState(blockpos$mutable, blockstate1, false);
-                        }
-                    } else if (i > 0) {
-                        --i;
-                        chunkIn.setBlockState(blockpos$mutable, blockstate1, false);
-                        if (i == 0 && blockstate1.isIn(Blocks.SAND) && j > 1) {
-                            i = random.nextInt(4) + Math.max(0, i1 - 63);
-                            blockstate1 = blockstate1.isIn(Blocks.RED_SAND) ? Blocks.RED_SANDSTONE.getDefaultState() : Blocks.SANDSTONE.getDefaultState();
-                        }
-                    }
-                }
-            }
+        if (noise <= -0.5D) {
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
+        } else if (noise <= 1.0D) {
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG);
         } else {
             int i = x & 15;
             int j = z & 15;
@@ -100,14 +49,14 @@ public class LushBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderCon
             BlockState blockstate1 = isurfacebuilderconfig.getUnder();
             BlockState blockstate2 = isurfacebuilderconfig.getTop();
             BlockState blockstate3 = blockstate1;
-            int k = (int) (noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
+            int k = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
             boolean flag = Math.cos(noise / 3.0D * Math.PI) > 0.0D;
             int l = -1;
             boolean flag1 = false;
             int i1 = 0;
             BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
-            for (int j1 = startHeight; j1 >= 0; --j1) {
+            for(int j1 = startHeight; j1 >= 0; --j1) {
                 if (i1 < 15) {
                     blockpos$mutable.setPos(i, j1, j);
                     BlockState blockstate4 = chunkIn.getBlockState(blockpos$mutable);
@@ -234,6 +183,7 @@ public class LushBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderCon
         int j4 = 0;
 
         for(int l4 = 0; l4 < k3; ++l4) {
+            int i5 = 1;
             j4 += sharedseedrandom.nextInt(16) + 4;
 
             for(int k1 = 0; j4 + k1 < 64 && k1 < 1; ++k1) {

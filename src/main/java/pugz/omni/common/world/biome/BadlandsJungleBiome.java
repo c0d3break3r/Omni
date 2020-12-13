@@ -7,8 +7,6 @@ import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import pugz.omni.core.registry.OmniSurfaceBuilders;
@@ -74,7 +72,7 @@ public class BadlandsJungleBiome extends OmniBiome {
     @Override
     BiomeGenerationSettings getGenerationSettings() {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
-        builder.withSurfaceBuilder(OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS);
+        builder.withSurfaceBuilder(() -> OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS);
         builder.withStructure(StructureFeatures.RUINED_PORTAL_JUNGLE);
         builder.withStructure(StructureFeatures.JUNGLE_PYRAMID);
         DefaultBiomeFeatures.withBadlandsStructures(builder);
@@ -86,6 +84,8 @@ public class BadlandsJungleBiome extends OmniBiome {
         DefaultBiomeFeatures.withExtraGoldOre(builder);
         DefaultBiomeFeatures.withDisks(builder);
         DefaultBiomeFeatures.withWarmFlowers(builder);
+        DefaultBiomeFeatures.withBadlandsGrassAndBush(builder);
+        DefaultBiomeFeatures.withBadlandsVegetation(builder);
         DefaultBiomeFeatures.withJungleGrass(builder);
         DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
         DefaultBiomeFeatures.withSugarCaneAndPumpkins(builder);

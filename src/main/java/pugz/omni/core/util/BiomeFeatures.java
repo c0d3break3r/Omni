@@ -70,6 +70,10 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.SAGUARO_CACTUS);
     }
 
+    public static void addTerracottaRocks(BiomeGenerationSettingsBuilder biome) {
+        biome.getFeatures(GenerationStage.Decoration.LOCAL_MODIFICATIONS).add(() -> OmniFeatures.Configured.TERRACOTTA_ROCK);
+    }
+
     public static void addGhostTowns(BiomeGenerationSettingsBuilder biome) {
         biome.getStructures().add(() -> OmniStructures.Features.GHOST_TOWN);
     }

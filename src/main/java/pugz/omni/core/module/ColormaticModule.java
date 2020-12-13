@@ -15,7 +15,6 @@ import pugz.omni.client.render.FallingConcretePowderRenderer;
 import pugz.omni.common.block.AbstractStackableBlock;
 import pugz.omni.common.block.colormatic.*;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
-import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.util.CompatReferences;
@@ -25,20 +24,14 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.HugeFungusConfig;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
@@ -67,7 +60,6 @@ public class ColormaticModule extends AbstractModule {
 
     public void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
         MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
     }
@@ -187,16 +179,6 @@ public class ColormaticModule extends AbstractModule {
         event.getGenericTrades().addAll(ImmutableSet.of(
                 new TradeUtils.ItemsForEmeraldsTrade(new ItemStack(OmniBlocks.TRADERS_QUILTED_WOOL.get()), CoreModule.Configuration.COMMON.TRADERS_WOOL_TRADE_PRICE.get(), 8, 8, 2)
         ));
-    }
-
-    protected void onBiomeLoading(BiomeLoadingEvent event) {
-        BiomeGenerationSettingsBuilder gen = event.getGeneration();
-        ResourceLocation name = event.getName();
-
-        if (name.equals(new ResourceLocation("omni", "flower_field"))) {
-            gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FOREST_FLOWER_VEGETATION_COMMON);
-            gen.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> Features.FLOWER_FOREST);
-        }
     }
 
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {

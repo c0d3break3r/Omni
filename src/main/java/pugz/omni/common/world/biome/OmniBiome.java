@@ -3,10 +3,10 @@ package pugz.omni.common.world.biome;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.core.Omni;
 import pugz.omni.core.util.IBaseBiome;
 
@@ -40,7 +40,7 @@ public abstract class OmniBiome implements IBaseBiome {
         BiomeManager.addBiome(this.getBiomeType(), new BiomeManager.BiomeEntry(this.getKey(), this.getWeight()));
         BiomeDictionary.addTypes(this.getKey(), this.getBiomeDictionaryTypes());
 
-        this.key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Omni.MOD_ID, this.name));
+        this.key = RegistryKey.getOrCreateKey(ForgeRegistries.Keys.BIOMES, new ResourceLocation(Omni.MOD_ID, this.name));
     }
 
     public String getName() {

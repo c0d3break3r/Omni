@@ -1,17 +1,10 @@
 package pugz.omni.core.module;
 
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.feature.structure.VillageStructure;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -21,17 +14,12 @@ import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.TumbleweedRenderer;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.wild_west.*;
-import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
-import pugz.omni.common.world.structure.wild_west.GhostTownPieces;
-import pugz.omni.common.world.structure.wild_west.GhostTownPools;
-import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.registry.OmniEntities;
 import pugz.omni.core.registry.OmniFeatures;
-import pugz.omni.core.registry.OmniStructures;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
 import net.minecraft.block.*;
@@ -125,10 +113,9 @@ public class WildWestModule extends AbstractModule {
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
-        Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
 
-        if (category == Biome.Category.MESA) {
+        if (event.getCategory() == Biome.Category.MESA || StringUtils.contains(event.getName().getPath(), "badland")) {
             BiomeFeatures.addRedRock(gen);
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
