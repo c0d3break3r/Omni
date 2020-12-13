@@ -18,11 +18,12 @@ import pugz.omni.core.registry.OmniBlocks;
 public final class CactusBlockMixin {
     @Inject(at = @At(value = "HEAD"), method = "isValidPosition", cancellable = true)
     private void isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
-        for(Direction direction : Direction.Plane.HORIZONTAL) {
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState blockstate = worldIn.getBlockState(pos.offset(direction));
+            if (blockstate.getBlock() == OmniBlocks.SAGUARO_CACTUS.get()) info.setReturnValue(true);
             Material material = blockstate.getMaterial();
             if (material.isSolid() || worldIn.getFluidState(pos.offset(direction)).isTagged(FluidTags.LAVA)) {
-                info.setReturnValue(blockstate.getBlock() != OmniBlocks.SAGUARO_CACTUS.get());
+                info.setReturnValue(false);
             }
         }
 
