@@ -14,7 +14,7 @@ import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
 
-public class TropicalPlainsBiome extends OmniBiome {
+public class TropicalPlainsBiome extends AbstractBiome {
     public TropicalPlainsBiome() {
         super("tropical_plains");
     }

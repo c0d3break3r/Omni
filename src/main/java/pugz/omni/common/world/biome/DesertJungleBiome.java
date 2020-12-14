@@ -11,7 +11,7 @@ import pugz.omni.core.registry.OmniSurfaceBuilders;
 
 import javax.annotation.Nonnull;
 
-public class DesertJungleBiome extends OmniBiome {
+public class DesertJungleBiome extends AbstractBiome {
     public DesertJungleBiome() {
         super("desert_jungle");
     }
@@ -91,6 +91,8 @@ public class DesertJungleBiome extends OmniBiome {
         DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
         DefaultBiomeFeatures.withDesertWells(builder);
         DefaultBiomeFeatures.withFrozenTopLayer(builder);
+        DefaultBiomeFeatures.withJungleTrees(builder);
+        DefaultBiomeFeatures.withLightBambooVegetation(builder);
         return builder.build();
     }
 

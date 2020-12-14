@@ -11,7 +11,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import java.util.Random;
 
 public class LushDesertSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-    public static final SurfaceBuilderConfig SANDSTONE_WHITE_TERRACOTTA_GRAVEL_CONFIG = new SurfaceBuilderConfig(Blocks.SANDSTONE.getDefaultState(), Blocks.WHITE_TERRACOTTA.getDefaultState(), Blocks.GRAVEL.getDefaultState());
+    public static final SurfaceBuilderConfig SANDSTONE_WHITE_TERRACOTTA_GRAVEL_CONFIG = new SurfaceBuilderConfig(Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), Blocks.GRAVEL.getDefaultState());
 
     public LushDesertSurfaceBuilder(Codec<SurfaceBuilderConfig> p_i232122_1_) {
         super(p_i232122_1_);
@@ -23,7 +23,7 @@ public class LushDesertSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfi
         } else if (noise <= 1.0D) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceBuilder.SAND_SAND_GRAVEL_CONFIG);
         } else {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SANDSTONE_WHITE_TERRACOTTA_GRAVEL_CONFIG);
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceBuilder.SAND_CONFIG);
         }
     }
 }

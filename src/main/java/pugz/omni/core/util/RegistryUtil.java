@@ -5,7 +5,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.IStatFormatter;
 import net.minecraft.stats.StatType;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.WorldCarver;
@@ -15,9 +14,7 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import pugz.omni.common.world.biome.OmniBiome;
+import pugz.omni.common.world.biome.AbstractBiome;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -59,7 +56,7 @@ public class RegistryUtil {
         return Omni.Registries.ENTITIES.register(name, supplier);
     }
 
-    public static Biome createBiome(OmniBiome biome) {
+    public static Biome createBiome(AbstractBiome biome) {
         Omni.Registries.BIOMES.register(biome.getName(), biome::getBiome);
         return biome.getBiome();
     }

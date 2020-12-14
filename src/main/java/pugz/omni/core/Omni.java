@@ -70,12 +70,12 @@ public class Omni {
 
         CavierCavesModule.instance.initialize();
         ColormaticModule.instance.initialize();
-        WildWestModule.instance.initialize();
         FieryNetherModule.instance.initialize();
         ForestryModule.instance.initialize();
         //HallowsEveModule.instance.initialize();
         MiscellaneousModule.instance.initialize();
         ParadiseModule.instance.initialize();
+        WildWestModule.instance.initialize();
         WintertimeModule.instance.initialize();
     }
 
@@ -85,12 +85,12 @@ public class Omni {
 
         CavierCavesModule.instance.initializeClient();
         ColormaticModule.instance.initializeClient();
-        WildWestModule.instance.initializeClient();
         FieryNetherModule.instance.initializeClient();
         ForestryModule.instance.initializeClient();
         //HallowsEveModule.instance.initializeClient();
         MiscellaneousModule.instance.initializeClient();
         ParadiseModule.instance.initializeClient();
+        WildWestModule.instance.initializeClient();
         WintertimeModule.instance.initializeClient();
     }
 
@@ -99,12 +99,12 @@ public class Omni {
 
         CavierCavesModule.instance.initializePost();
         ColormaticModule.instance.initializePost();
-        WildWestModule.instance.initializePost();
         FieryNetherModule.instance.initializePost();
         ForestryModule.instance.initializePost();
         //HallowsEveModule.instance.initializePost();
         MiscellaneousModule.instance.initializePost();
         ParadiseModule.instance.initializePost();
+        WildWestModule.instance.initializePost();
         WintertimeModule.instance.initializePost();
     }
 

@@ -13,7 +13,7 @@ import pugz.omni.core.registry.OmniSurfaceBuilders;
 
 import javax.annotation.Nonnull;
 
-public class BadlandsJungleBiome extends OmniBiome {
+public class BadlandsJungleBiome extends AbstractBiome {
     public BadlandsJungleBiome() {
         super("badlands_jungle");
     }

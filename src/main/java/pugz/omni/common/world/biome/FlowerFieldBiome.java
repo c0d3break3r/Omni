@@ -15,7 +15,7 @@ import net.minecraftforge.common.BiomeManager;
 
 import javax.annotation.Nonnull;
 
-public class FlowerFieldBiome extends OmniBiome {
+public class FlowerFieldBiome extends AbstractBiome {
     public FlowerFieldBiome() {
         super("flower_field");
     }
@@ -78,7 +78,9 @@ public class FlowerFieldBiome extends OmniBiome {
         DefaultBiomeFeatures.withCavesAndCanyons(builder);
         DefaultBiomeFeatures.withLavaAndWaterLakes(builder);
         DefaultBiomeFeatures.withMonsterRoom(builder);
-        DefaultBiomeFeatures.withNoiseTallGrass(builder);
+        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FOREST_FLOWER_VEGETATION_COMMON);
+        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_FOREST);
+        DefaultBiomeFeatures.withBadlandsGrass(builder);
         builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
         DefaultBiomeFeatures.withCommonOverworldBlocks(builder);
         DefaultBiomeFeatures.withOverworldOres(builder);

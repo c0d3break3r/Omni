@@ -6,16 +6,14 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
-import pugz.omni.core.registry.OmniFeatures;
 import pugz.omni.core.registry.OmniSurfaceBuilders;
 
 import javax.annotation.Nonnull;
 
-public class WoodedBadlandsBiome extends OmniBiome {
+public class WoodedBadlandsBiome extends AbstractBiome {
     public WoodedBadlandsBiome() {
         super("wooded_badlands");
     }
@@ -89,7 +87,6 @@ public class WoodedBadlandsBiome extends OmniBiome {
         DefaultBiomeFeatures.withCommonOverworldBlocks(builder);
         DefaultBiomeFeatures.withOverworldOres(builder);
         DefaultBiomeFeatures.withDisks(builder);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, OmniFeatures.Configured.DENSE_SAVANNA_TREES);
         DefaultBiomeFeatures.withWarmFlowers(builder);
         DefaultBiomeFeatures.withSavannaGrass(builder);
         DefaultBiomeFeatures.withBadlandsGrassAndBush(builder);

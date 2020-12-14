@@ -13,7 +13,7 @@ import net.minecraftforge.common.BiomeManager;
 
 import javax.annotation.Nonnull;
 
-public class TallForestBiome extends OmniBiome {
+public class TallForestBiome extends AbstractBiome {
     public TallForestBiome() {
         super("tall_forest");
     }

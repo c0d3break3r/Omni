@@ -78,6 +78,10 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.TALL_OAK_TREE);
     }
 
+    public static void addDenseSavannaTrees(BiomeGenerationSettingsBuilder biome) {
+        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.DENSE_SAVANNA_TREES);
+    }
+
     public static void addGhostTowns(BiomeGenerationSettingsBuilder biome) {
         biome.getStructures().add(() -> OmniStructures.Features.GHOST_TOWN);
     }

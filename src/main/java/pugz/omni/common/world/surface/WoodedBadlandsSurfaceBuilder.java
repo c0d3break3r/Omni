@@ -39,10 +39,12 @@ public class WoodedBadlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderC
 
     @SuppressWarnings("deprecation")
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        if (noise <= -0.8D) {
+        if (noise <= -0.4D) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, RED_SAND_GRAVEL_CONFIG);
-        } else if (noise <= 1.5D) {
+        } else if (noise <= 0.2D) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG);
+        } else if (noise <= 1.5D) {
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, CORASE_DIRT_DIRT_GRAVEL_CONFIG);
         } else {
             int i = x & 15;
             int j = z & 15;
