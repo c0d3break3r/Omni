@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -24,6 +26,8 @@ import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
+import pugz.omni.common.world.structure.wild_west.GhostTownPools;
+import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
 import pugz.omni.common.world.surface.LushBadlandsSurfaceBuilder;
 import pugz.omni.common.world.surface.LushDesertSurfaceBuilder;
 import pugz.omni.common.world.surface.WoodedBadlandsSurfaceBuilder;
@@ -64,6 +68,7 @@ public class WildWestModule extends AbstractModule {
 
     @Override
     protected void onPostInitialize() {
+        GhostTownStructure.setup();
     }
 
     @Override
@@ -125,14 +130,14 @@ public class WildWestModule extends AbstractModule {
 
     @Override
     protected void registerStructures() {
-        //OmniStructures.GHOST_TOWN = RegistryUtil.createStructure("ghost_town", "Ghost Town", () -> new GhostTownStructure(VillageConfig.field_236533_a_), GenerationStage.Decoration.SURFACE_STRUCTURES, new StructureSeparationSettings(1, 0, 593751784));
+        OmniStructures.GHOST_TOWN = RegistryUtil.createStructure("ghost_town", () -> new GhostTownStructure(VillageConfig.field_236533_a_));
     }
 
     @Override
     protected void registerStructureFeatures() {
-        //OmniStructures.Features.GHOST_TOWN = RegistryUtil.createStructureFeature("ghost_town", OmniStructures.GHOST_TOWN.get().withConfiguration(new VillageConfig(() -> {
-        //    return GhostTownPools.field_244090_a;
-        //}, 6)));
+        OmniStructures.Features.GHOST_TOWN = RegistryUtil.createStructureFeature("ghost_town", OmniStructures.GHOST_TOWN.get().withConfiguration(new VillageConfig(() -> {
+            return GhostTownPools.field_244090_a;
+        }, 6)));
     }
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {

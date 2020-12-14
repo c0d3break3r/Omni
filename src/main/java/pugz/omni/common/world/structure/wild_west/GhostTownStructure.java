@@ -1,5 +1,7 @@
 package pugz.omni.common.world.structure.wild_west;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
@@ -11,7 +13,10 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.IStructureProcessorType;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import pugz.omni.core.Omni;
+import pugz.omni.core.registry.OmniStructures;
 
 import javax.annotation.Nonnull;
 
@@ -26,8 +31,10 @@ public class GhostTownStructure extends JigsawStructure {
         return random.nextInt(5) >= 2;
     }
 
-    public static void registerShit() {
-        Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(Omni.MOD_ID, "ghost_town"), GHOST_TOWN_PROCESSOR);
+    public static void setup() {
+        Structure.NAME_STRUCTURE_BIMAP.put(OmniStructures.GHOST_TOWN.get().getRegistryName().toString(), OmniStructures.GHOST_TOWN.get());
+        Structure.field_236384_t_ = ImmutableList.<Structure<?>>builder().addAll(Structure.field_236384_t_).add(OmniStructures.GHOST_TOWN.get()).build();
+        DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(OmniStructures.GHOST_TOWN.get(), new StructureSeparationSettings(10, 5, 1928563917)).build();
     }
 
     @Nonnull
