@@ -6,6 +6,10 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
@@ -17,8 +21,10 @@ import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.SeahorseRenderer;
 import pugz.omni.common.block.paradise.LotusFlowerBlock;
@@ -60,6 +66,7 @@ public class ParadiseModule extends AbstractModule {
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
+        MinecraftForge.EVENT_BUS.addListener(this::onItemColorHandler);
     }
 
     @Override
@@ -73,7 +80,6 @@ public class ParadiseModule extends AbstractModule {
     @Override
     protected void onPostInitialize() {
         GlobalEntityTypeAttributes.put(OmniEntities.SEAHORSE.get(), SeahorseEntity.registerAttributes().create());
-        EntitySpawnPlacementRegistry.register(OmniEntities.SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSeahorseSpawn);
     }
 
     @Override
@@ -151,24 +157,30 @@ public class ParadiseModule extends AbstractModule {
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
+        ResourceLocation name = event.getName();
+        //Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
 
         if (event.getCategory() == Biome.Category.JUNGLE) {
             BiomeFeatures.addLotuses(gen);
         }
 
-        if (event.getName() != null) {
-            if (StringUtils.contains(event.getName().getPath(), "warm_ocean")) {
-                event.getSpawns().getSpawner(EntityClassification.WATER_CREATURE).add(new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 15, 1, 4));
+        if (name != null) {
+            if (StringUtils.contains(name.getPath(), "warm_ocean")) {
+                event.getSpawns().withSpawner(EntityClassification.WATER_CREATURE, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 8, 1, 4));
             }
 
-            if (event.getName().getPath().equals(OmniBiomes.JUNGLE_BADLANDS.getRegistryName().getPath())) {
+            if (name.getPath().equals(OmniBiomes.JUNGLE_BADLANDS.getRegistryName().getPath())) {
                 gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.JUNGLE_BADLANDS);
                 BiomeFeatures.addTerracottaRocks(gen);
             }
 
-            if (event.getName().getPath().equals(OmniBiomes.JUNGLE_DESERT.getRegistryName().getPath())) {
+            if (name.getPath().equals(OmniBiomes.JUNGLE_DESERT.getRegistryName().getPath())) {
                 gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.JUNGLE_DESERT);
             }
         }
+    }
+
+    public void onItemColorHandler(ColorHandlerEvent.Item event) {
+        event.getItemColors().register((stack, i) -> ((OmniSpawnEggItem) OmniItems.SEAHORSE_SPAWN_EGG.get()).getColor(i), OmniItems.SEAHORSE_SPAWN_EGG.get());
     }
 }

@@ -3,11 +3,11 @@ package pugz.omni.common.entity.wild_west;
 import com.sun.javafx.geom.Vec3d;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.BlockParticleData;
@@ -19,6 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import pugz.omni.core.Omni;
 import pugz.omni.core.registry.OmniEntities;
@@ -144,17 +145,17 @@ public class TumbleweedEntity extends Entity {
     }
 
     public static void updateWind() {
-        if(random.nextInt(100) == 0) {
-            directionX = directionX * -1;
+        if (random.nextInt(100) == 0) {
+            directionX *= -1;
             windX += directionX * (random.nextFloat() / 25.0F);
         }
 
-        if(random.nextInt(100) == 0) {
-            directionZ = directionZ * -1;
+        if (random.nextInt(100) == 0) {
+            directionZ *= -1;
             windZ += directionZ * (random.nextFloat() / 25.0F);
         }
 
-        if(random.nextInt(20) == 0) {
+        if (random.nextInt(20) == 0) {
             windX += directionX * (random.nextFloat() / 30.0F);
             windZ += directionZ * (random.nextFloat() / 30.0F);
 
@@ -170,11 +171,11 @@ public class TumbleweedEntity extends Entity {
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
+    public void readAdditional(CompoundNBT compound) {
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT compound) {
+    public void writeAdditional(CompoundNBT compound) {
     }
 
     @Override

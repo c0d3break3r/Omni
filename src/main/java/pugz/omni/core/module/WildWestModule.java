@@ -2,34 +2,35 @@ package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.TumbleweedRenderer;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
-import pugz.omni.common.world.biome.BadlandsJungleBiome;
-import pugz.omni.common.world.biome.DesertJungleBiome;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
 import pugz.omni.common.world.structure.wild_west.GhostTownPools;
 import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
-import pugz.omni.common.world.surface.LushBadlandsSurfaceBuilder;
-import pugz.omni.common.world.surface.LushDesertSurfaceBuilder;
 import pugz.omni.common.world.surface.WoodedBadlandsSurfaceBuilder;
 import pugz.omni.common.world.surface.WoodedDesertSurfaceBuilder;
 import pugz.omni.core.registry.*;
@@ -142,24 +143,26 @@ public class WildWestModule extends AbstractModule {
 
     protected void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
+        ResourceLocation name = event.getName();
 
-        if (event.getCategory() == Biome.Category.MESA || StringUtils.contains(event.getName().getPath(), "badland")) {
+        if (event.getCategory() == Biome.Category.MESA || StringUtils.contains(name.getPath(), "badland")) {
             BiomeFeatures.addRedRock(gen);
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
+            BiomeFeatures.addGhostTowns(gen);
 
-            if (event.getName() != null) {
-                event.getSpawns().getSpawner(EntityClassification.AMBIENT).add(new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 15, 1, 5));
+            if (name != null) {
+                event.getSpawns().withSpawner(EntityClassification.MISC, new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 10, 1, 3));
             }
         }
 
-        if (event.getName().getPath().equals(OmniBiomes.WOODED_BADLANDS.getRegistryName().getPath())) {
+        if (name.equals(OmniBiomes.WOODED_BADLANDS.getRegistryName().getPath())) {
             gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.WOODED_BADLANDS);
             BiomeFeatures.addDenseSavannaTrees(gen);
             BiomeFeatures.addTerracottaRocks(gen);
         }
 
-        if (event.getName().getPath().equals(OmniBiomes.WOODED_DESERT.getRegistryName().getPath())) {
+        if (name.getPath().equals(OmniBiomes.WOODED_DESERT.getRegistryName().getPath())) {
             gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.WOODED_DESERT);
             BiomeFeatures.addDenseSavannaTrees(gen);
         }
