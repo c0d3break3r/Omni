@@ -237,5 +237,8 @@
   "block.omni.cactus_bloom": "Cactus Bloom",
   "block.omni.tumbleweed": "Tumbleweed",
 
-  "entity.omni.tumbleweed": "Tumbleweed"
+  "entity.omni.tumbleweed": "Tumbleweed",
+
+  "biome.omni.wooded_badlands": "Wooded Badlands",
+  "biome.omni.wooded_desert": "Wooded Desert"
 }

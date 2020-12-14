@@ -75,7 +75,7 @@ public class BiomeFeatures {
     }
 
     public static void addTallOakTrees(BiomeGenerationSettingsBuilder biome) {
-        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.TALL_OAK_TREE);
+        biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.TALL_OAK_TREES);
     }
 
     public static void addDenseSavannaTrees(BiomeGenerationSettingsBuilder biome) {

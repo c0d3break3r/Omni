@@ -39,6 +39,7 @@ public class OmniFeatures {
 
         //forestry
         public static ConfiguredFeature<?, ?> TALL_OAK_TREE;
+        public static ConfiguredFeature<?, ?> TALL_OAK_TREES;
         public static ConfiguredFeature<?, ?> GOLDEN_APPLE_TREE;
 
         //paradise
