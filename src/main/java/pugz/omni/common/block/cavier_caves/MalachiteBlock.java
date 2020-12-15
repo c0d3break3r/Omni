@@ -20,7 +20,7 @@ import pugz.omni.core.registry.OmniSoundEvents;
 
 public class MalachiteBlock extends Block implements IBaseBlock {
     public MalachiteBlock() {
-        super(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WARPED_WART).hardnessAndResistance(4.5F, 10.0F).sound(SoundType.SNOW));
+        super(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WARPED_WART).hardnessAndResistance(4.5F, 10.0F).sound(SoundType.STONE));
     }
 
     @Override
