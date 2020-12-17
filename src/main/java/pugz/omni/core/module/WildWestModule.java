@@ -23,6 +23,7 @@ import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
+import pugz.omni.common.world.feature.gen.PaloVerdeTrunkPlacer;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
 import pugz.omni.common.world.structure.wild_west.GhostTownPools;
 import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
@@ -122,6 +123,11 @@ public class WildWestModule extends AbstractModule {
         OmniFeatures.Configured.SAGUARO_CACTUS = RegistryUtil.createConfiguredFeature("saguaro_cacti", OmniFeatures.SAGUARO_CACTUS.get().withConfiguration(new NoFeatureConfig()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12)).chance(12);
 
         OmniFeatures.Configured.DENSE_SAVANNA_TREES = RegistryUtil.createConfiguredFeature("dense_savanna_trees", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Features.ACACIA.withChance(0.8F)), Features.OAK)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
+    }
+
+    @Override
+    protected void registerPlacers() {
+        OmniFeatures.Placers.PALO_VERDE_TRUNK_PLACER = RegistryUtil.createTrunkPlacer("palo_verde_trunk_placer", PaloVerdeTrunkPlacer.CODEC);
     }
 
     @Override

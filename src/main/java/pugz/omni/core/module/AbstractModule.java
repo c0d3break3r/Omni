@@ -36,6 +36,7 @@ public abstract class AbstractModule {
         registerBiomes();
         registerSurfaceBuilders();
         registerFeatures();
+        registerPlacers();
         registerStructures();
         registerCarvers();
         registerDimensions();
@@ -100,6 +101,9 @@ public abstract class AbstractModule {
     }
 
     protected void registerConfiguredFeatures() {
+    }
+
+    protected void registerPlacers() {
     }
 
     protected void registerStructures() {

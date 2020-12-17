@@ -35,7 +35,14 @@ public class OmniBlocks {
     public static RegistryObject<Block> CAVE_MUSHROOM_FENCE_GATE;
     public static RegistryObject<Block> CAVE_MUSHROOM_BUTTON;
     public static RegistryObject<Block> CAVE_MUSHROOM_PRESSURE_PLATE;
+    public static RegistryObject<Block> CAVE_MUSHROOM_DOOR;
+    public static RegistryObject<Block> CAVE_MUSHROOM_TRAPDOOR;
+    public static RegistryObject<Block> CAVE_MUSHROOM_BOOKSHELF;
+    public static RegistryObject<Block> CAVE_MUSHROOM_CHEST;
+    public static RegistryObject<Block> CAVE_MUSHROOM_TRAPPED_CHEST;
+    public static RegistryObject<Block> CAVE_MUSHROOM_BEEHIVE;
     public static RegistryObject<Block> CAVE_MUSHROOM_VERTICAL_SLAB;
+    public static RegistryObject<Block> VERTICAL_CAVE_MUSHROOM_PLANKS;
 
     public static RegistryObject<Block> CAVE_SPIDER_SAC;
     public static RegistryObject<Block> COBWEB_CARPET;
@@ -110,6 +117,8 @@ public class OmniBlocks {
     public static RegistryObject<Block> ACAI_BOOKSHELF;
     public static RegistryObject<Block> ACAI_CHEST;
     public static RegistryObject<Block> ACAI_BEEHIVE;
+    public static RegistryObject<Block> ACAI_VERTICAL_SLAB;
+    public static RegistryObject<Block> VERTICAL_ACAI_PLANKS;
 
     //deserted
     public static RegistryObject<Block> RED_ROCK;
@@ -149,4 +158,6 @@ public class OmniBlocks {
     public static RegistryObject<Block> PALO_VERDE_BOOKSHELF;
     public static RegistryObject<Block> PALO_VERDE_CHEST;
     public static RegistryObject<Block> PALO_VERDE_BEEHIVE;
+    public static RegistryObject<Block> PALO_VERDE_VERTICAL_SLAB;
+    public static RegistryObject<Block> VERTICAL_PALO_VERDE_PLANKS;
 }

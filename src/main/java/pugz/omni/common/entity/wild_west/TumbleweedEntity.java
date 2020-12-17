@@ -170,7 +170,6 @@ public class TumbleweedEntity extends Entity {
             windX = MathHelper.clamp(windX, -0.7F, 0.7F);
             windZ = MathHelper.clamp(windZ, -0.7F, 0.7F);
         }
-
     }
 
     @Override

@@ -19,6 +19,8 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SizedCaveSpiderRenderer;
 import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.HorizontalFacingBlock;
+import pugz.omni.common.block.OmniChestBlock;
+import pugz.omni.common.block.OmniTrappedChestBlock;
 import pugz.omni.common.block.VerticalSlabBlock;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
@@ -83,9 +85,14 @@ public class CavierCavesModule extends AbstractModule {
             OmniBlocks.CAVE_MUSHROOM_FENCE_GATE = RegistryUtil.createBlock("cave_mushroom_fence_gate", () -> new FenceGateBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.REDSTONE);
             OmniBlocks.CAVE_MUSHROOM_BUTTON = RegistryUtil.createBlock("cave_mushroom_button", () -> new WoodButtonBlock(AbstractBlock.Properties.from(Blocks.OAK_BUTTON)), ItemGroup.REDSTONE);
             OmniBlocks.CAVE_MUSHROOM_PRESSURE_PLATE = RegistryUtil.createBlock("cave_mushroom_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PRESSURE_PLATE)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_DOOR = RegistryUtil.createDoor("cave_mushroom_door", () -> new DoorBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_TRAPDOOR = RegistryUtil.createBlock("cave_mushroom_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.from(Blocks.OAK_TRAPDOOR)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_BOOKSHELF = RegistryUtil.createBlock("cave_mushroom_bookshelf", () -> new Block(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_CHEST = RegistryUtil.createBlock("cave_mushroom_chest", () -> new OmniChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_TRAPPED_CHEST = RegistryUtil.createBlock("cave_mushroom_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
 
             if (ModList.get().isLoaded("quark")) {
-                //vertical cave mushroom planks
+                OmniBlocks.VERTICAL_CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("vertical_cave_mushroom_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
                 OmniBlocks.CAVE_MUSHROOM_VERTICAL_SLAB = RegistryUtil.createBlock("cave_mushroom_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             }
         //}

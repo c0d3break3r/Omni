@@ -2,6 +2,8 @@ package pugz.omni.core.registry;
 
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
+import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.SizedBlockBlobConfig;
 import pugz.omni.common.world.feature.cavier_caves.caves.CaveBiomeFeatureConfig;
@@ -9,6 +11,7 @@ import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
+import pugz.omni.common.world.feature.gen.PaloVerdeTrunkPlacer;
 
 public class OmniFeatures {
     //cavier caves
@@ -59,5 +62,9 @@ public class OmniFeatures {
         public static ConfiguredFeature<?, ?> SAGUARO_CACTUS;
 
         public static ConfiguredFeature<?, ?> DENSE_SAVANNA_TREES;
+    }
+
+    public static class Placers {
+        public static TrunkPlacerType<PaloVerdeTrunkPlacer> PALO_VERDE_TRUNK_PLACER;
     }
 }

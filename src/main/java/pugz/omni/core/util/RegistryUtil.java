@@ -1,23 +1,22 @@
 package pugz.omni.core.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import com.mojang.serialization.Codec;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.TallBlockItem;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.IStatFormatter;
 import net.minecraft.stats.StatType;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.FlatGenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
+import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
 import pugz.omni.common.world.biome.AbstractBiome;
 import pugz.omni.core.Omni;
 import net.minecraft.block.Block;
@@ -42,6 +41,12 @@ public class RegistryUtil {
     public static <B extends Block> RegistryObject<B> createBlock(String name, Supplier<? extends B> supplier, @Nullable ItemGroup group) {
         RegistryObject<B> block = Omni.Registries.BLOCKS.register(name, supplier);
         if (group != null) Omni.Registries.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group)));
+        return block;
+    }
+
+    public static <B extends Block> RegistryObject<B> createDoor(String name, Supplier<? extends B> supplier, @Nullable ItemGroup group) {
+        RegistryObject<B> block = Omni.Registries.BLOCKS.register(name, supplier);
+        if (group != null) Omni.Registries.ITEMS.register(name, () -> new TallBlockItem(block.get(), new Item.Properties().group(group)));
         return block;
     }
 
@@ -80,6 +85,10 @@ public class RegistryUtil {
 
     public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> createConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(Omni.MOD_ID, name), feature);
+    }
+
+    public static <P extends AbstractTrunkPlacer> TrunkPlacerType<P> createTrunkPlacer(String name, Codec<P> codec) {
+        return Registry.register(Registry.TRUNK_REPLACER, name, new TrunkPlacerType<>(codec));
     }
 
     public static <F extends Structure<?>> RegistryObject<F> createStructure(String name, Supplier<? extends F> supplier) {
