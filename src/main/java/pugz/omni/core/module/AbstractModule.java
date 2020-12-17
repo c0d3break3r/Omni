@@ -56,7 +56,7 @@ public abstract class AbstractModule {
             if (block.getValue() instanceof IBaseBlock) {
                 IBaseBlock baseBlock = (IBaseBlock) block.getValue();
 
-                if (baseBlock.getRenderType() != RenderType.getSolid()) RenderTypeLookup.setRenderLayer((Block) baseBlock, baseBlock.getRenderType());
+                if (baseBlock.getRenderType() != RenderType.getSolid()) RenderTypeLookup.setRenderLayer(block, baseBlock.getRenderType());
             }
         });
     }
