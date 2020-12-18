@@ -18,10 +18,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pugz.omni.client.render.SizedCaveSpiderRenderer;
 import pugz.omni.client.render.SpeleothemRenderer;
-import pugz.omni.common.block.HorizontalFacingBlock;
-import pugz.omni.common.block.OmniChestBlock;
-import pugz.omni.common.block.OmniTrappedChestBlock;
-import pugz.omni.common.block.VerticalSlabBlock;
+import pugz.omni.common.block.*;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.common.world.feature.cavier_caves.*;
@@ -90,6 +87,8 @@ public class CavierCavesModule extends AbstractModule {
             OmniBlocks.CAVE_MUSHROOM_BOOKSHELF = RegistryUtil.createBlock("cave_mushroom_bookshelf", () -> new Block(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
             OmniBlocks.CAVE_MUSHROOM_CHEST = RegistryUtil.createBlock("cave_mushroom_chest", () -> new OmniChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
             OmniBlocks.CAVE_MUSHROOM_TRAPPED_CHEST = RegistryUtil.createBlock("cave_mushroom_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_SIGN = RegistryUtil.createBlock("cave_mushroom_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.REDSTONE);
+            OmniBlocks.CAVE_MUSHROOM_WALL_SIGN = RegistryUtil.createBlock("cave_mushroom_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.CAVE_MUSHROOM_SIGN.get())));
 
             if (ModList.get().isLoaded("quark")) {
                 OmniBlocks.VERTICAL_CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("vertical_cave_mushroom_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);

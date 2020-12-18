@@ -44,6 +44,10 @@ public class RegistryUtil {
         return block;
     }
 
+    public static <B extends Block> RegistryObject<B> createBlock(String name, Supplier<? extends B> supplier) {
+        return Omni.Registries.BLOCKS.register(name, supplier);
+    }
+
     public static <B extends Block> RegistryObject<B> createDoor(String name, Supplier<? extends B> supplier, @Nullable ItemGroup group) {
         RegistryObject<B> block = Omni.Registries.BLOCKS.register(name, supplier);
         if (group != null) Omni.Registries.ITEMS.register(name, () -> new TallBlockItem(block.get(), new Item.Properties().group(group)));

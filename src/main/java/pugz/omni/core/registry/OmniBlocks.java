@@ -40,6 +40,8 @@ public class OmniBlocks {
     public static RegistryObject<Block> CAVE_MUSHROOM_BOOKSHELF;
     public static RegistryObject<Block> CAVE_MUSHROOM_CHEST;
     public static RegistryObject<Block> CAVE_MUSHROOM_TRAPPED_CHEST;
+    public static RegistryObject<Block> CAVE_MUSHROOM_SIGN;
+    public static RegistryObject<Block> CAVE_MUSHROOM_WALL_SIGN;
     public static RegistryObject<Block> CAVE_MUSHROOM_BEEHIVE;
     public static RegistryObject<Block> CAVE_MUSHROOM_VERTICAL_SLAB;
     public static RegistryObject<Block> VERTICAL_CAVE_MUSHROOM_PLANKS;
@@ -116,6 +118,9 @@ public class OmniBlocks {
     public static RegistryObject<Block> ACAI_PRESSURE_PLATE;
     public static RegistryObject<Block> ACAI_BOOKSHELF;
     public static RegistryObject<Block> ACAI_CHEST;
+    public static RegistryObject<Block> ACAI_TRAPPED_CHEST;
+    public static RegistryObject<Block> ACAI_SIGN;
+    public static RegistryObject<Block> ACAI_WALL_SIGN;
     public static RegistryObject<Block> ACAI_BEEHIVE;
     public static RegistryObject<Block> ACAI_VERTICAL_SLAB;
     public static RegistryObject<Block> VERTICAL_ACAI_PLANKS;
@@ -157,6 +162,9 @@ public class OmniBlocks {
     public static RegistryObject<Block> PALO_VERDE_PRESSURE_PLATE;
     public static RegistryObject<Block> PALO_VERDE_BOOKSHELF;
     public static RegistryObject<Block> PALO_VERDE_CHEST;
+    public static RegistryObject<Block> PALO_VERDE_TRAPPED_CHEST;
+    public static RegistryObject<Block> PALO_VERDE_SIGN;
+    public static RegistryObject<Block> PALO_VERDE_WALL_SIGN;
     public static RegistryObject<Block> PALO_VERDE_BEEHIVE;
     public static RegistryObject<Block> PALO_VERDE_VERTICAL_SLAB;
     public static RegistryObject<Block> VERTICAL_PALO_VERDE_PLANKS;
