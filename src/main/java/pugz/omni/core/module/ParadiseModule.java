@@ -175,6 +175,6 @@ public class ParadiseModule extends AbstractModule {
     }
 
     public void onItemColorHandler(ColorHandlerEvent.Item event) {
-        event.getItemColors().register((stack, i) -> ((OmniSpawnEggItem) OmniItems.SEAHORSE_SPAWN_EGG.get()).getColor(i), OmniItems.SEAHORSE_SPAWN_EGG.get());
+        event.getItemColors().register((stack, tintIndex) -> ((OmniSpawnEggItem) OmniItems.SEAHORSE_SPAWN_EGG.get()).getColor(tintIndex), OmniItems.SEAHORSE_SPAWN_EGG.get());
     }
 }

@@ -152,7 +152,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
 
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        return (worldIn.getBlockState(pos.down()).isIn(Blocks.SAND) || worldIn.getBlockState(pos.down()).isIn(Blocks.RED_SAND)) && worldIn.getBlockState(pos.up()).getBlock() != this;
+        return state == this.getDefaultState() && (worldIn.getBlockState(pos.down()).isIn(Blocks.SAND) || worldIn.getBlockState(pos.down()).isIn(Blocks.RED_SAND)) && worldIn.getBlockState(pos.up()).getBlock() != this;
     }
 
     @Override

@@ -148,7 +148,7 @@ public class TumbleweedEntity extends Entity {
 
     private void makeParticles(int count) {
         for(int i = 0; i < count; ++i) {
-            world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.DEAD_BUSH.getDefaultState()), -0.5D + (this.getPosX() + this.world.rand.nextDouble()), this.getPosY() + this.world.rand.nextDouble(), -0.5D + (this.getPosZ() + this.world.rand.nextDouble()), 0.0D, 0.0D, 0.0D);
+            world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, OmniBlocks.TUMBLEWEED.get().getDefaultState()), -0.5D + (this.getPosX() + this.world.rand.nextDouble()), this.getPosY() + this.world.rand.nextDouble(), -0.5D + (this.getPosZ() + this.world.rand.nextDouble()), 0.0D, 0.0D, 0.0D);
         }
     }
 
