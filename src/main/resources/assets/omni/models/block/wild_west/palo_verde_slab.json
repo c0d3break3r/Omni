@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "omni:block/wild_west/palo_verde_planks",
+    "top": "omni:block/wild_west/palo_verde_planks",
+    "side": "omni:block/wild_west/palo_verde_planks"
+  }
+}

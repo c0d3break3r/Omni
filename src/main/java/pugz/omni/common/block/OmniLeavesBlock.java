@@ -1,4 +1,4 @@
-package pugz.omni.common.block.forestry;
+package pugz.omni.common.block;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import pugz.omni.core.util.IBaseBlock;
 
-public class GoldenOakLeavesBlock extends Block implements IBaseBlock {
-    public GoldenOakLeavesBlock() {
+public class OmniLeavesBlock extends Block implements IBaseBlock {
+    public OmniLeavesBlock() {
         super(AbstractBlock.Properties.from(Blocks.OAK_LEAVES));
     }
 

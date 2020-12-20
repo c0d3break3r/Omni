@@ -144,15 +144,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
 
     private boolean hasLiquidAbove(BlockState state, ServerWorld world, BlockPos pos, ITag.INamedTag<Fluid> tag) {
         if (state.get(PART) == Part.UPPER && (world.isAirBlock(pos.down()) || world.getFluidState(pos.down()).isTagged(FluidTags.WATER))) {
-            BlockPos.Mutable check = pos.toMutable();
-            for (int y = pos.getY(); y <= 128; ++y) {
-                check.setPos(pos.getX(), y, pos.getZ());
-                BlockState block = world.getBlockState(check);
-
-                if (!(block.getBlock() instanceof SpeleothemBlock)) break;
-            }
-
-            return world.getFluidState(check.up(2)).isTagged(tag);
+            return world.getFluidState(pos.up(2)).isTagged(tag);
         }
         return false;
     }
@@ -182,21 +174,29 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
                         world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
                         return state.with(PART, Part.UPPER).with(STATIC, false);
                     } else return state.with(PART, Part.UPPER).with(STATIC, true);
-                } else if (!up.isSolid() && down.isSolid()) {
+                }
+
+                else if (!up.isSolid() && down.isSolid()) {
                     if (world.isAirBlock(currentPos.down()) || canFallThrough(world.getBlockState(currentPos.down()))) {
                         world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
-                        return state.with(PART, Part.UPPER).with(STATIC, false);
+                        return state.with(PART, Part.LOWER).with(STATIC, false);
                     } else return state.with(PART, Part.LOWER).with(STATIC, true);
-                } else if (!down.isSolid() && !up.isSolid()) {
+                }
+
+                else if (!down.isSolid() && !up.isSolid()) {
                     world.getPendingBlockTicks().scheduleTick(currentPos.up(), this, 1);
                     return state.with(STATIC, false);
                 }
-            } else if (part == Part.UPPER) {
+            }
+
+            else if (part == Part.UPPER) {
                 if (!up.isSolid()) {
                     world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
                     return state.with(STATIC, false);
                 }
-            } else {
+            }
+
+            else {
                 if (!down.isSolid()) {
                     world.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
                     return state.with(STATIC, false);

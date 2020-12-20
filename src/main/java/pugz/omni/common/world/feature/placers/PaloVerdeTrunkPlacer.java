@@ -1,4 +1,4 @@
-package pugz.omni.common.world.feature.gen;
+package pugz.omni.common.world.feature.placers;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
@@ -23,8 +23,8 @@ public class PaloVerdeTrunkPlacer extends AbstractTrunkPlacer {
         return func_236915_a_(p_236883_0_).apply(p_236883_0_, PaloVerdeTrunkPlacer::new);
     });
 
-    public PaloVerdeTrunkPlacer(int p_i232053_1_, int p_i232053_2_, int p_i232053_3_) {
-        super(p_i232053_1_, p_i232053_2_, p_i232053_3_);
+    public PaloVerdeTrunkPlacer(int baseHeight, int p_i232053_2_, int p_i232053_3_) {
+        super(baseHeight, p_i232053_2_, p_i232053_3_);
     }
 
     @Nonnull

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "omni:block/wild_west/stripped_palo_verde_log",
+    "end": "omni:block/wild_west/stripped_palo_verde_log_top"
+  }
+}

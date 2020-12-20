@@ -17,7 +17,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import pugz.omni.common.block.forestry.CarvedLogBlock;
-import pugz.omni.common.block.forestry.GoldenOakLeavesBlock;
+import pugz.omni.common.block.OmniLeavesBlock;
 import pugz.omni.common.world.biome.TallForestBiome;
 import pugz.omni.core.registry.OmniBiomes;
 import pugz.omni.core.registry.OmniBlocks;
@@ -60,7 +60,7 @@ public class ForestryModule extends AbstractModule {
         OmniBlocks.CARVED_SPRUCE_WOOD = RegistryUtil.createBlock("carved_spruce_wood", () -> new CarvedLogBlock(MaterialColor.OBSIDIAN), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.CARVED_OAK_WOOD = RegistryUtil.createBlock("carved_oak_wood", () -> new CarvedLogBlock(MaterialColor.WOOD), ItemGroup.BUILDING_BLOCKS);
 
-        OmniBlocks.GOLDEN_OAK_LEAVES = RegistryUtil.createBlock("golden_oak_leaves", GoldenOakLeavesBlock::new, ItemGroup.DECORATIONS);
+        OmniBlocks.GOLDEN_OAK_LEAVES = RegistryUtil.createBlock("golden_oak_leaves", OmniLeavesBlock::new, ItemGroup.DECORATIONS);
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+    "parent": "block/pressure_plate_up",
+    "textures": {
+        "texture": "omni:block/wild_west/palo_verde_planks"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "block/button_inventory",
+    "textures": {
+        "texture": "omni:block/wild_west/palo_verde_planks"
+    }
+}

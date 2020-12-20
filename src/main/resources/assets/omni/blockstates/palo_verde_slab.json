@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "omni:block/wild_west/palo_verde_slab" },
+    "type=top": { "model": "omni:block/wild_west/palo_verde_slab_top" },
+    "type=double": { "model": "omni:block/wild_west/palo_verde_planks" }
+  }
+}

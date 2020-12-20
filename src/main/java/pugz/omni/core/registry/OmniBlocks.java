@@ -107,6 +107,7 @@ public class OmniBlocks {
     public static RegistryObject<Block> ACAI_WOOD;
     public static RegistryObject<Block> STRIPPED_ACAI_LOG;
     public static RegistryObject<Block> STRIPPED_ACAI_WOOD;
+    public static RegistryObject<Block> ACAI_LEAVES;
     public static RegistryObject<Block> ACAI_PLANKS;
     public static RegistryObject<Block> ACAI_STAIRS;
     public static RegistryObject<Block> ACAI_SLAB;
@@ -151,6 +152,7 @@ public class OmniBlocks {
     public static RegistryObject<Block> PALO_VERDE_WOOD;
     public static RegistryObject<Block> STRIPPED_PALO_VERDE_LOG;
     public static RegistryObject<Block> STRIPPED_PALO_VERDE_WOOD;
+    public static RegistryObject<Block> PALO_VERDE_LEAVES;
     public static RegistryObject<Block> PALO_VERDE_PLANKS;
     public static RegistryObject<Block> PALO_VERDE_STAIRS;
     public static RegistryObject<Block> PALO_VERDE_SLAB;
