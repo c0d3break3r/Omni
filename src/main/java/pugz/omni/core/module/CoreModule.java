@@ -135,10 +135,6 @@ public class CoreModule extends AbstractModule {
             CONCRETE_POWDER_FALLS = builder.define("concrete_powder_falls", true);
             builder.pop();
 
-            builder.push(WildWestModule.instance.getName());
-            RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
-            builder.pop();
-
             builder.push(ForestryModule.instance.getName());
             GOLDEN_OAK_SPAWN_CHANCE = builder.define("golden_oak_spawn_chance", 0.005D);
             builder.pop();
@@ -157,6 +153,10 @@ public class CoreModule extends AbstractModule {
             TROPICAL_PLAINS_SPAWN_WEIGHT = builder.defineInRange("tropical_plains_spawn_weight", 2, 0, 100);
             LOTUS_FLOWER_SPAWN_CHANCE = builder.defineInRange("lotus_flower_spawn_chance", 8, 0, 1000);
             LOTUS_FLOWER_TRADE_PRICE = builder.defineInRange("lotus_flower_trade_price", 1, 0, 64);
+            builder.pop();
+
+            builder.push(WildWestModule.instance.getName());
+            RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
             builder.pop();
 
             builder.push(WintertimeModule.instance.getName());

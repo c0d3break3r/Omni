@@ -68,9 +68,9 @@ public abstract class AbstractModule {
         registerConfiguredFeatures();
         registerStructureFeatures();
 
-        ForgeRegistries.BLOCKS.getEntries().forEach((block) -> {
-            if (block.getValue() instanceof IBaseBlock) {
-                IBaseBlock baseBlock = (IBaseBlock) block.getValue();
+        ForgeRegistries.BLOCKS.getValues().forEach((block) -> {
+            if (block instanceof IBaseBlock) {
+                IBaseBlock baseBlock = (IBaseBlock) block;
                 final FireBlock fire = (FireBlock) Blocks.FIRE;
 
                 if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());

@@ -60,13 +60,14 @@ public class ParadiseModule extends AbstractModule {
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
-        MinecraftForge.EVENT_BUS.addListener(this::onItemColorHandler);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
         RenderingRegistry.registerEntityRenderingHandler(OmniEntities.SEAHORSE.get(), SeahorseRenderer::new);
+
+        MinecraftForge.EVENT_BUS.addListener(this::onItemColorHandler);
 
         //Minecraft.getInstance().particles.registerFactory(OmniParticles.RED_LOTUS_LEAF.get(), LotusPetalParticle.Factory::new);
     }
