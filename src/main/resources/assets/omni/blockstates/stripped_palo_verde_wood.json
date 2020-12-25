@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "omni:block/wild_west/stripped_palo_verde_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "omni:block/wild_west/stripped_palo_verde_wood"
+    },
+    "axis=z": {
+      "model": "omni:block/wild_west/stripped_palo_verde_wood",
+      "x": 90
+    }
+  }
+}

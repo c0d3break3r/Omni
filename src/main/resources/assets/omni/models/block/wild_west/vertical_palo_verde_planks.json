@@ -1,0 +1,6 @@
+{
+    "parent": "omni:block/vertical_planks",
+    "textures": {
+        "all": "omni:block/palo_verde_planks"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "omni:block/wild_west/stripped_palo_verde_log"
+  }
+}

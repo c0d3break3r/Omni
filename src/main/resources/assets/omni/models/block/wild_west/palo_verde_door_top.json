@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_top",
+    "textures": {
+        "bottom": "omni:block/wild_west/palo_verde_door_bottom",
+        "top": "omni:block/wild_west/palo_verde_door_top"
+    }
+}

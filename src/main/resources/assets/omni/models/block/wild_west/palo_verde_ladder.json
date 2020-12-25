@@ -1,0 +1,8 @@
+{
+    "parent": "block/ladder",
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "omni:block/wild_west/palo_verde_ladder",
+        "texture": "omni:block/wild_west/palo_verde_ladder"
+    }
+}
