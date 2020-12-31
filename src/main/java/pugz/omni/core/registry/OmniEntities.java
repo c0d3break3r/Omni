@@ -20,6 +20,9 @@ public class OmniEntities {
     //colormatic
     public static RegistryObject<EntityType<FallingConcretePowderEntity>> FALLING_CONCRETE_POWDER;
 
+    //core
+    //public static RegistryObject<EntityType<OmniBoatEntity>> BOAT;
+
     //paradise
     public static RegistryObject<EntityType<SeahorseEntity>> SEAHORSE;
 

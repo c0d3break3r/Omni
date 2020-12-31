@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.item.BoatItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -29,6 +30,7 @@ import pugz.omni.client.render.TumbleweedRenderer;
 import pugz.omni.common.block.*;
 import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
+import pugz.omni.common.item.OmniBoatItem;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
@@ -130,7 +132,7 @@ public class WildWestModule extends AbstractModule {
 
     @Override
     protected void registerItems() {
-        OmniItems.PALO_VERDE_BOAT = RegistryUtil.createItem("palo_verde_boat", () -> new BoatItem(null, new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)));
+        OmniItems.PALO_VERDE_BOAT = RegistryUtil.createItem("palo_verde_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)));
     }
 
     @Override
