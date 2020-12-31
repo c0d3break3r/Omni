@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "omni:block/wild_west/palo_verde_planks",
+        "side": "omni:block/wild_west/palo_verde_bookshelf"
+    }
+}

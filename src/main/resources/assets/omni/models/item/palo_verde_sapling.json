@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "omni:block/wild_west/palo_verde_sapling"
+  }
+}

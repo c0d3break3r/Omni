@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "omni:block/cavier_caves/cave_mushroom_bookshelf",
+    "end": "omni:block/cavier_caves/cave_mushroom_planks"
+  }
+}
