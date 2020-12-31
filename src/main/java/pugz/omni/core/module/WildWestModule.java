@@ -5,6 +5,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.BoatItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -24,16 +26,14 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.TumbleweedRenderer;
-import pugz.omni.common.block.OmniLeavesBlock;
-import pugz.omni.common.block.OmniStandingSignBlock;
-import pugz.omni.common.block.OmniWallSignBlock;
-import pugz.omni.common.block.VerticalSlabBlock;
+import pugz.omni.common.block.*;
 import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.placers.PaloVerdeTrunkPlacer;
+import pugz.omni.common.world.feature.tree.PaloVerdeTree;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
 import pugz.omni.common.world.structure.wild_west.GhostTownPools;
 import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
@@ -119,12 +119,18 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_PRESSURE_PLATE = RegistryUtil.createBlock("palo_verde_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PRESSURE_PLATE)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_BOOKSHELF = RegistryUtil.createBlock("palo_verde_bookshelf", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.PALO_VERDE_LEAVES = RegistryUtil.createBlock("palo_verde_leaves", OmniLeavesBlock::new, ItemGroup.DECORATIONS);
+        OmniBlocks.PALO_VERDE_SAPLING = RegistryUtil.createBlock("palo_verde_sapling", () -> new OmniSaplingBlock(new PaloVerdeTree()), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get())));
         if (ModList.get().isLoaded("quark")) {
             OmniBlocks.VERTICAL_PALO_VERDE_PLANKS = RegistryUtil.createBlock("vertical_palo_verde_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.PALO_VERDE_VERTICAL_SLAB = RegistryUtil.createBlock("palo_verde_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
         }
+    }
+
+    @Override
+    protected void registerItems() {
+        OmniItems.PALO_VERDE_BOAT = RegistryUtil.createItem("palo_verde_boat", () -> new BoatItem(null, new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pugz.omni.core.registry;
 
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
