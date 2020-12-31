@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "omni:palo_verde_planks"
+    }
+  },
+  "result": {
+    "item": "omni:palo_verde_boat"
+  }
+}

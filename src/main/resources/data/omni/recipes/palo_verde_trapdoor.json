@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_trapdoor",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "omni:palo_verde_planks"
+    }
+  },
+  "result": {
+    "item": "omni:palo_verde_trapdoor",
+    "count": 2
+  }
+}

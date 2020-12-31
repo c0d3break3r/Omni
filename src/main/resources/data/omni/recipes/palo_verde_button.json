@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "omni:palo_verde_planks"
+    }
+  ],
+  "result": {
+    "item": "omni:palo_verde_button"
+  }
+}

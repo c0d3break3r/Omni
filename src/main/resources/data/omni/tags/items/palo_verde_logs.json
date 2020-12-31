@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "omni:palo_verde_log",
+    "omni:palo_verde_wood",
+    "omni:stripped_palo_verde_log",
+    "omni:stripped_palo_verde_wood"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "omni:palo_verde_log"
+    }
+  },
+  "result": {
+    "item": "omni:palo_verde_wood",
+    "count": 3
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "omni:palo_verde_logs"
+    }
+  ],
+  "result": {
+    "item": "omni:palo_verde_planks",
+    "count": 4
+  }
+}

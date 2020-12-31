@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "omni:palo_verde_planks"
+    },
+    "X": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "omni:palo_verde_bookshelf"
+  },
+  "conditions": [
+    {
+      "type": "abnormals_core:quark_flag",
+       "flag": "variant_bookshelves"
+    }
+  ]
+}
