@@ -114,7 +114,7 @@ public class CoreModule extends AbstractModule {
             GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.defineInRange("budding_malachite_growth_chance", 5, 0, 1000);
-            SPELEOTHEMS_SPAWN_PROBABILITY = builder.define("speleothems_spawn_probability", 0.04D);
+            SPELEOTHEMS_SPAWN_PROBABILITY = builder.defineInRange("speleothems_spawn_probability", 0.04D, 0.0D, 1.0D);
             SPELEOTHEMS_FALL = builder.define("speleothems_fall", true);
             SPELEOTHEMS_FALL_BY_PROJECTILES = builder.define("speleothems_fall_by_projectiles", true);
             SPELEOTHEMS_FILL_CAULDRONS = builder.define("speleothems_fill_cauldrons", true);
@@ -136,16 +136,16 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(ForestryModule.instance.getName());
-            GOLDEN_OAK_SPAWN_CHANCE = builder.define("golden_oak_spawn_chance", 0.005D);
+            GOLDEN_OAK_SPAWN_CHANCE = builder.defineInRange("golden_oak_spawn_chance", 0.005D, 0.0D, 1.0D);
             builder.pop();
 
             builder.push(MiscellaneousModule.instance.getName());
-            ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.define("enchanted_golden_carrot_spawn_chance", 0.03D);
+            ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE = builder.defineInRange("enchanted_golden_carrot_spawn_chance", 0.03D, 0.0D, 1.0D);
             ZOMBIE_HORSE_TRANSMUTATION = builder.define("zombie_horse_transmutation", true);
             builder.pop();
 
             builder.push(ParadiseModule.instance.getName());
-            SEAHORSE_SPAWN_CHANCE = builder.define("seahorse_spawn_chance", 0.75D);
+            SEAHORSE_SPAWN_CHANCE = builder.defineInRange("seahorse_spawn_chance", 0.75D, 0.0D, 1.0D);
             SEAHORSE_TAME_CHANCE = builder.defineInRange("seahorse_tame_chance", 5, 0, 1000);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
