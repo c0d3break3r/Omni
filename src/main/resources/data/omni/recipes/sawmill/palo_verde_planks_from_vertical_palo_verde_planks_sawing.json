@@ -1,0 +1,15 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "item": "environmental:vertical_palo_verde_planks"
+  },
+  "result": "omni:palo_verde_planks",
+  "count": 1,
+  "conditions":[
+    
+    {
+      "type": "forge:mod_loaded",
+      "modid": "environmental"
+    }
+  ]
+}

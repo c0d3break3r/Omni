@@ -124,6 +124,7 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_SAPLING = RegistryUtil.createBlock("palo_verde_sapling", () -> new OmniSaplingBlock(new PaloVerdeTree()), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get())));
+        OmniBlocks.PALO_VERDE_BEEHIVE = RegistryUtil.createBlock("palo_verde_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
         if (ModList.get().isLoaded("quark")) {
             OmniBlocks.VERTICAL_PALO_VERDE_PLANKS = RegistryUtil.createBlock("vertical_palo_verde_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.PALO_VERDE_VERTICAL_SLAB = RegistryUtil.createBlock("palo_verde_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
