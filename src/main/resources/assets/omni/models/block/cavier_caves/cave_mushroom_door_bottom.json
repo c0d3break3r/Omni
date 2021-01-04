@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom",
+    "textures": {
+        "bottom": "omni:block/cavier_caves/cave_mushroom_door_bottom",
+        "top": "omni:block/cavier_caves/cave_mushroom_door_top"
+    }
+}
