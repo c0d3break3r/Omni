@@ -8,5 +8,11 @@
   "result": {
     "item": "omni:red_rock_brick_slab",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ]
 }

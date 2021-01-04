@@ -1,0 +1,14 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "tag": "omni:cave_mushroom_stems"
+  },
+  "result": "omni:vertical_cave_mushroom_planks",
+  "count": 4,
+  "conditions":[
+    {
+      "type": "forge:mod_loaded",
+      "modid": "environmental"
+    }
+  ]
+}

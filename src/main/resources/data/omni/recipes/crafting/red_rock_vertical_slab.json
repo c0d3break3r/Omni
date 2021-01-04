@@ -7,17 +7,17 @@
   ],
   "key": {
     "#": {
-      "item": "omni:palo_verde_slab"
+      "item": "omni:red_rock_slab"
     }
   },
   "result": {
-    "item": "omni:palo_verde_vertical_slab",
+    "item": "omni:red_rock_vertical_slab",
     "count": 3
   },
   "conditions": [
     {
-      "type": "abnormals_core:quark_flag",
-       "flag": "vertical_slabs"
+      "type": "forge:mod_loaded",
+      "modid": "quark"
     }
   ]
 }

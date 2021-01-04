@@ -8,5 +8,11 @@
   "result": {
     "item": "omni:cave_mushroom_slab",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ]
 }

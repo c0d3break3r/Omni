@@ -4,5 +4,11 @@
     "item": "omni:red_rock_slab"
   },
   "result": "omni:red_rock_vertical_slab",
-  "count": 1
+  "count": 1,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    }
+  ]
 }

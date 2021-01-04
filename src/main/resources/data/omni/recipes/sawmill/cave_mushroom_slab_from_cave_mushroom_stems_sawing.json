@@ -1,0 +1,14 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "tag": "omni:cave_mushroom_stems"
+  },
+  "result": "omni:cave_mushroom_slab",
+  "count": 8,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "environmental"
+    }
+  ]
+}
