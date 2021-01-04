@@ -7,10 +7,6 @@
   "count": 1,
   "conditions":[
     {
-      "type":"abnormals_core:quark_flag",
-      "flag":"vertical_slabs"
-    },
-    {
       "type": "forge:mod_loaded",
       "modid": "environmental"
     }

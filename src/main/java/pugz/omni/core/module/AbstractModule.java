@@ -6,6 +6,7 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.item.AxeItem;
 import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.core.util.IBaseBlock;
 
@@ -75,6 +76,7 @@ public abstract class AbstractModule {
 
                 if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());
                 if (baseBlock.getCompostChance() != 0.0F) ComposterBlock.CHANCES.put(((Block) baseBlock).asItem(), baseBlock.getCompostChance());
+                if (baseBlock.getStrippedBlock() != null) AxeItem.BLOCK_STRIPPING_MAP.put((Block) baseBlock, baseBlock.getStrippedBlock());
             }
         });
     }

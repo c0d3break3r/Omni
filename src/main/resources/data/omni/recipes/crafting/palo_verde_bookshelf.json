@@ -15,11 +15,5 @@
   },
   "result": {
     "item": "omni:palo_verde_bookshelf"
-  },
-  "conditions": [
-    {
-      "type": "abnormals_core:quark_flag",
-       "flag": "variant_bookshelves"
-    }
-  ]
+  }
 }

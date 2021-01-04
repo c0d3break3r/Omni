@@ -81,6 +81,7 @@ public class WildWestModule extends AbstractModule {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void registerBlocks() {
         OmniBlocks.RED_ROCK = RegistryUtil.createBlock("red_rock", () -> new Block(AbstractBlock.Properties.from(Blocks.SANDSTONE)), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.RED_ROCK_STAIRS = RegistryUtil.createBlock("red_rock_stairs", () -> new StairsBlock(() -> OmniBlocks.RED_ROCK.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.COBBLESTONE)), ItemGroup.BUILDING_BLOCKS);
@@ -120,10 +121,13 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_BUTTON = RegistryUtil.createBlock("palo_verde_button", () -> new WoodButtonBlock(AbstractBlock.Properties.from(Blocks.OAK_BUTTON)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_PRESSURE_PLATE = RegistryUtil.createBlock("palo_verde_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PRESSURE_PLATE)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_BOOKSHELF = RegistryUtil.createBlock("palo_verde_bookshelf", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.PALO_VERDE_CHEST = RegistryUtil.createBlock("palo_verde_chest", () -> new OmniChestBlock(AbstractBlock.Properties.from(Blocks.CHEST)), ItemGroup.DECORATIONS);
+        OmniBlocks.PALO_VERDE_TRAPPED_CHEST = RegistryUtil.createBlock("palo_verde_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.TRAPPED_CHEST)), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_LEAVES = RegistryUtil.createBlock("palo_verde_leaves", OmniLeavesBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SAPLING = RegistryUtil.createBlock("palo_verde_sapling", () -> new OmniSaplingBlock(new PaloVerdeTree()), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get())));
+        OmniBlocks.PALO_VERDE_LADDER = RegistryUtil.createBlock("palo_verde_ladder", () -> new LadderBlock(AbstractBlock.Properties.from(Blocks.LADDER)), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_BEEHIVE = RegistryUtil.createBlock("palo_verde_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
         if (ModList.get().isLoaded("quark")) {
             OmniBlocks.VERTICAL_PALO_VERDE_PLANKS = RegistryUtil.createBlock("vertical_palo_verde_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
