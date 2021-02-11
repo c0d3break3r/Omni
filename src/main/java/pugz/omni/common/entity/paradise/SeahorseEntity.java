@@ -99,10 +99,10 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         return new SwimmerPathNavigator(this, worldIn);
     }
 
-    public static boolean canSeahorseSpawn(EntityType<? extends SeahorseEntity> seahorse, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canSeahorseSpawn(EntityType<? extends SeahorseEntity> seahorse, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         for (String spawnBiomeName : CoreModule.Configuration.COMMON.SEAHORSE_SPAWN_BIOMES.get().replace(" ", "").split(",")) {
-            if (worldIn.getBiome(pos).getRegistryName().toString().equals(spawnBiomeName) && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER)) {
-                return true;
+            if (world.getBiome(pos).getRegistryName().toString().equals(spawnBiomeName)) {
+                return world.hasWater(pos);
             }
         } return false;
     }

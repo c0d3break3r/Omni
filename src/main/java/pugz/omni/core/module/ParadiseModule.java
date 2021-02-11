@@ -2,11 +2,13 @@ package pugz.omni.core.module;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
@@ -60,6 +62,8 @@ public class ParadiseModule extends AbstractModule {
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onWandererTrades);
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
+
+        EntitySpawnPlacementRegistry.register(OmniEntities.SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSeahorseSpawn);
     }
 
     @Override
@@ -161,7 +165,7 @@ public class ParadiseModule extends AbstractModule {
 
         if (name != null) {
             if (StringUtils.contains(name.getPath(), "warm_ocean")) {
-                event.getSpawns().withSpawner(EntityClassification.WATER_CREATURE, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 8, 1, 4));
+                event.getSpawns().withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1));
             }
 
             if (name.getPath().equals(OmniBiomes.JUNGLE_BADLANDS.getRegistryName().getPath())) {

@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import pugz.omni.core.registry.OmniStructures;
 
 import javax.annotation.Nullable;
 
@@ -84,9 +83,5 @@ public class BiomeFeatures {
 
     public static void addPaloVerdeTrees(BiomeGenerationSettingsBuilder biome) {
         biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> OmniFeatures.Configured.PALO_VERDE_TREES);
-    }
-
-    public static void addGhostTowns(BiomeGenerationSettingsBuilder biome) {
-        biome.getStructures().add(() -> OmniStructures.Features.GHOST_TOWN);
     }
 }

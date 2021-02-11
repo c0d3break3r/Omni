@@ -5,8 +5,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.item.BoatItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +12,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -37,8 +34,6 @@ import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
 import pugz.omni.common.world.feature.placers.PaloVerdeTrunkPlacer;
 import pugz.omni.common.world.feature.tree.PaloVerdeTree;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
-import pugz.omni.common.world.structure.wild_west.GhostTownPools;
-import pugz.omni.common.world.structure.wild_west.GhostTownStructure;
 import pugz.omni.common.world.surface.WoodedBadlandsSurfaceBuilder;
 import pugz.omni.common.world.surface.WoodedDesertSurfaceBuilder;
 import pugz.omni.core.registry.*;
@@ -77,7 +72,6 @@ public class WildWestModule extends AbstractModule {
 
     @Override
     protected void onPostInitialize() {
-        GhostTownStructure.setup();
     }
 
     @Override
@@ -178,18 +172,6 @@ public class WildWestModule extends AbstractModule {
         OmniFeatures.Placers.PALO_VERDE_TRUNK_PLACER = RegistryUtil.createTrunkPlacer("palo_verde_trunk_placer", PaloVerdeTrunkPlacer.CODEC);
     }
 
-    @Override
-    protected void registerStructures() {
-        OmniStructures.GHOST_TOWN = RegistryUtil.createStructure("ghost_town", () -> new GhostTownStructure(VillageConfig.field_236533_a_));
-    }
-
-    @Override
-    protected void registerStructureFeatures() {
-        OmniStructures.Features.GHOST_TOWN = RegistryUtil.createStructureFeature("ghost_town", OmniStructures.GHOST_TOWN.get().withConfiguration(new VillageConfig(() -> {
-            return GhostTownPools.field_244090_a;
-        }, 6)));
-    }
-
     protected void onBiomeLoading(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
         ResourceLocation name = event.getName();
@@ -199,7 +181,6 @@ public class WildWestModule extends AbstractModule {
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
             if (!name.getPath().equals("wooded_badlands")) BiomeFeatures.addPaloVerdeTrees(gen);
-            BiomeFeatures.addGhostTowns(gen);
 
             event.getSpawns().withSpawner(EntityClassification.MISC, new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 10, 1, 3));
 

@@ -1,19 +1,18 @@
 package pugz.omni.core.module;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.monster.StrayEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 
 public class WintertimeModule extends AbstractModule {
     public static final WintertimeModule instance = new WintertimeModule();
@@ -43,9 +42,9 @@ public class WintertimeModule extends AbstractModule {
 
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         World world = event.getWorld();
-        if (world instanceof ServerWorld) {
+        Entity entity = event.getEntity();
+        if (world instanceof ServerWorld && entity instanceof LivingEntity) {
             ServerWorld serverWorld = (ServerWorld) world;
-            Entity entity = event.getEntity();
             if (CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get() > 0) {
                 if (entity.getType() == EntityType.POLAR_BEAR && world.getRandom().nextInt(MathHelper.clamp(CoreModule.Configuration.COMMON.POLAR_BEAR_JOCKEY_CHANCE.get(), 1, 1000)) == 0) {
                     Entity entity1 = EntityType.STRAY.spawn(serverWorld, null, null, entity.getPosition(), SpawnReason.JOCKEY, false, false);

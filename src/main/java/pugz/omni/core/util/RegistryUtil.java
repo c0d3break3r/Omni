@@ -8,7 +8,6 @@ import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.IStatFormatter;
 import net.minecraft.stats.StatType;
 import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -32,7 +31,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.RegistryObject;
-import pugz.omni.core.registry.OmniStructures;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -100,7 +98,6 @@ public class RegistryUtil {
     }
 
     public static <FC extends IFeatureConfig> StructureFeature<FC, ?> createStructureFeature(String name, StructureFeature<FC, ?> feature) {
-        FlatGenerationSettings.STRUCTURES.put(OmniStructures.GHOST_TOWN.get(), feature);
         return Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Omni.MOD_ID, name), feature);
     }
 
