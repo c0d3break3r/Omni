@@ -3,6 +3,8 @@ package pugz.omni.core.module;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -68,6 +70,9 @@ public class WildWestModule extends AbstractModule {
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
         RenderingRegistry.registerEntityRenderingHandler(OmniEntities.TUMBLEWEED.get(), TumbleweedRenderer::new);
+
+        RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_DOOR.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_TRAPDOOR.get(), RenderType.getCutout());
     }
 
     @Override

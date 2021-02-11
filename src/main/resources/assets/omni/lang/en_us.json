@@ -37,6 +37,7 @@
   "block.omni.cave_mushroom_vertical_slab": "Cave Mushroom Vertical Slab",
   "block.omni.cave_mushroom_trapdoor": "Cave Mushroom Trapdoor",
   "block.omni.cave_mushroom_door": "Cave Mushroom Door",
+  "block.omni.cave_mushroom_ladder": "Cave Mushroom Ladder",
   "block.omni.cave_mushroom_bookshelf": "Cave Mushroom Bookshelf",
   "block.omni.cave_mushroom_chest": "Cave Mushroom Chest",
   "block.omni.cave_mushroom_trapped_chest": "Cave Mushroom Trapped Chest",
@@ -46,6 +47,7 @@
   "block.omni.arctiss_block": "Arctiss Block",
 
   "item.omni.malachite_shard": "Malachite Shard",
+  "item.omni.cave_mushroom_boat": "Cave Mushroom Boat",
 
   "entity.omni.speleothem": "Speleothem",
   "entity.omni.cave_spider": "Cave Spider",
