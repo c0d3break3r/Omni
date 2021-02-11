@@ -1,8 +1,8 @@
 {
   "variants": {
-    "facing=north": { "model": "omni:block/palo_verde_ladder" },
-    "facing=east":  { "model": "omni:block/palo_verde_ladder", "y": 90 },
-    "facing=south": { "model": "omni:block/palo_verde_ladder", "y": 180 },
-    "facing=west":  { "model": "omni:block/palo_verde_ladder", "y": 270 }
+    "facing=north": { "model": "omni:block/wild_west/palo_verde_ladder" },
+    "facing=east":  { "model": "omni:block/wild_west/palo_verde_ladder", "y": 90 },
+    "facing=south": { "model": "omni:block/wild_west/palo_verde_ladder", "y": 180 },
+    "facing=west":  { "model": "omni:block/wild_west/palo_verde_ladder", "y": 270 }
   }
 }
