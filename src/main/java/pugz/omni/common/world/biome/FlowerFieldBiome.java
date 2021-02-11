@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import pugz.omni.core.module.CoreModule;
 
 import javax.annotation.Nonnull;
 
@@ -53,7 +54,7 @@ public class FlowerFieldBiome extends AbstractBiome {
 
     @Override
     int getWeight() {
-        return 3;
+        return CoreModule.Configuration.COMMON.FLOWER_FIELD_SPAWN_WEIGHT.get();
     }
 
     @Nonnull

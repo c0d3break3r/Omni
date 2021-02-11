@@ -9,6 +9,7 @@ import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniSurfaceBuilders;
 
 import javax.annotation.Nonnull;
@@ -56,7 +57,7 @@ public class WoodedBadlandsBiome extends AbstractBiome {
 
     @Override
     int getWeight() {
-        return 2;
+        return CoreModule.Configuration.COMMON.WOODED_BADLANDS_SPAWN_WEIGHT.get();
     }
 
     @Nonnull

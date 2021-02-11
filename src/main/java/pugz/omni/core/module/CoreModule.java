@@ -85,9 +85,12 @@ public class CoreModule extends AbstractModule {
 
         //deserted
         public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
+        public final ForgeConfigSpec.IntValue WOODED_BADLANDS_SPAWN_WEIGHT;
+        public final ForgeConfigSpec.IntValue WOODED_DESERT_SPAWN_WEIGHT;
 
         //forestry
         public final ForgeConfigSpec.ConfigValue<Double> GOLDEN_OAK_SPAWN_CHANCE;
+        public final ForgeConfigSpec.IntValue TALL_FOREST_SPAWN_WEIGHT;
 
         //miscellaneous
         public final ForgeConfigSpec.ConfigValue<Double> ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE;
@@ -102,6 +105,8 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.IntValue TROPICAL_PLAINS_SPAWN_WEIGHT;
         public final ForgeConfigSpec.IntValue LOTUS_FLOWER_SPAWN_CHANCE;
         public final ForgeConfigSpec.IntValue LOTUS_FLOWER_TRADE_PRICE;
+        public final ForgeConfigSpec.IntValue BADLANDS_JUNGLE_SPAWN_WEIGHT;
+        public final ForgeConfigSpec.IntValue DESERT_JUNGLE_SPAWN_WEIGHT;
 
         //wintertime
         public final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
@@ -130,13 +135,14 @@ public class CoreModule extends AbstractModule {
             CONNECTABLE_QUILTED_CARPETS = builder.define("connectable_quilted_carpets", true);
             TRADERS_WOOL_TRADE_PRICE = builder.defineInRange("traders_wool_trade_price", 1, 0, 64);
             STACK_FLOWERS = builder.define("stack_flowers", true);
-            FLOWER_FIELD_SPAWN_WEIGHT = builder.defineInRange("flower_field_spawn_weight", 1, 0, 100);
+            FLOWER_FIELD_SPAWN_WEIGHT = builder.defineInRange("flower_field_spawn_weight", 3, 0, 100);
             LAYER_CONCRETE = builder.define("layer_concrete", true);
             CONCRETE_POWDER_FALLS = builder.define("concrete_powder_falls", true);
             builder.pop();
 
             builder.push(ForestryModule.instance.getName());
             GOLDEN_OAK_SPAWN_CHANCE = builder.defineInRange("golden_oak_spawn_chance", 0.005D, 0.0D, 1.0D);
+            TALL_FOREST_SPAWN_WEIGHT = builder.defineInRange("tall_forest_spawn_weight", 3, 0, 100);
             builder.pop();
 
             builder.push(MiscellaneousModule.instance.getName());
@@ -153,10 +159,14 @@ public class CoreModule extends AbstractModule {
             TROPICAL_PLAINS_SPAWN_WEIGHT = builder.defineInRange("tropical_plains_spawn_weight", 2, 0, 100);
             LOTUS_FLOWER_SPAWN_CHANCE = builder.defineInRange("lotus_flower_spawn_chance", 8, 0, 1000);
             LOTUS_FLOWER_TRADE_PRICE = builder.defineInRange("lotus_flower_trade_price", 1, 0, 64);
+            BADLANDS_JUNGLE_SPAWN_WEIGHT = builder.defineInRange("badlands_jungle_spawn_weight", 2, 0, 100);
+            DESERT_JUNGLE_SPAWN_WEIGHT = builder.defineInRange("desert_jungle_spawn_weight", 2, 0, 100);
             builder.pop();
 
             builder.push(WildWestModule.instance.getName());
             RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
+            WOODED_BADLANDS_SPAWN_WEIGHT = builder.defineInRange("wooded_badlands_spawn_weight", 2, 0, 100);
+            WOODED_DESERT_SPAWN_WEIGHT = builder.defineInRange("wooded_desert_spawn_weight", 3, 0, 100);
             builder.pop();
 
             builder.push(WintertimeModule.instance.getName());
