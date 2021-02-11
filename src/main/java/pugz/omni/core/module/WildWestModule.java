@@ -73,6 +73,7 @@ public class WildWestModule extends AbstractModule {
 
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_DOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_TRAPDOOR.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_LADDER.get(), RenderType.getCutout());
     }
 
     @Override

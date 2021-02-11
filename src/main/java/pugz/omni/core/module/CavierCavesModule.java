@@ -62,6 +62,7 @@ public class CavierCavesModule extends AbstractModule {
 
         RenderTypeLookup.setRenderLayer(OmniBlocks.CAVE_MUSHROOM_DOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.CAVE_MUSHROOM_TRAPDOOR.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(OmniBlocks.CAVE_MUSHROOM_LADDER.get(), RenderType.getCutout());
     }
 
     @Override
