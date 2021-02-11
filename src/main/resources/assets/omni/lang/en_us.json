@@ -24,6 +24,8 @@
 
   "block.omni.cave_mushroom_stem": "Cave Mushroom Stem",
   "block.omni.stripped_cave_mushroom_stem": "Stripped Cave Mushroom Stem",
+  "block.omni.cave_mushroom_hyphae": "Cave Mushroom Hyphae",
+  "block.omni.stripped_cave_mushroom_hyphae": "Stripped Cave Mushroom Hyphae",
   "block.omni.cave_mushroom_planks": "Cave Mushroom Planks",
   "block.omni.cave_mushroom_stairs": "Cave Mushroom Stairs",
   "block.omni.cave_mushroom_slab": "Cave Mushroom Slab",
@@ -35,6 +37,7 @@
   "block.omni.cave_mushroom_vertical_slab": "Cave Mushroom Vertical Slab",
   "block.omni.cave_mushroom_trapdoor": "Cave Mushroom Trapdoor",
   "block.omni.cave_mushroom_door": "Cave Mushroom Door",
+  "block.omni.cave_mushroom_bookshelf": "Cave Mushroom Bookshelf",
   "block.omni.cave_mushroom_chest": "Cave Mushroom Chest",
   "block.omni.cave_mushroom_trapped_chest": "Cave Mushroom Trapped Chest",
   "block.omni.cave_mushroom_beehive": "Cave Mushroom Beehive",

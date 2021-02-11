@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "omni:block/cave_mushroom_ladder" },
+    "facing=east":  { "model": "omni:block/cave_mushroom_ladder", "y": 90 },
+    "facing=south": { "model": "omni:block/cave_mushroom_ladder", "y": 180 },
+    "facing=west":  { "model": "omni:block/cave_mushroom_ladder", "y": 270 }
+  }
+}

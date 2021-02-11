@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "omni:item/wild_west/palo_verde_ladder"
+        "layer0": "omni:block/wild_west/palo_verde_ladder"
     }
 }

@@ -1,0 +1,8 @@
+{
+  "parent": "block/ladder",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "omni:block/cavier_caves/cave_mushroom_ladder",
+    "texture": "omni:block/cavier_caves/cave_mushroom_ladder"
+  }
+}

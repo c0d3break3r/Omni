@@ -29,6 +29,8 @@ public class OmniBlocks {
 
     public static RegistryObject<Block> CAVE_MUSHROOM_STEM;
     public static RegistryObject<Block> STRIPPED_CAVE_MUSHROOM_STEM;
+    public static RegistryObject<Block> CAVE_MUSHROOM_HYPHAE;
+    public static RegistryObject<Block> STRIPPED_CAVE_MUSHROOM_HYPHAE;
     public static RegistryObject<Block> CAVE_MUSHROOM_PLANKS;
     public static RegistryObject<Block> CAVE_MUSHROOM_STAIRS;
     public static RegistryObject<Block> CAVE_MUSHROOM_SLAB;
@@ -38,6 +40,7 @@ public class OmniBlocks {
     public static RegistryObject<Block> CAVE_MUSHROOM_PRESSURE_PLATE;
     public static RegistryObject<Block> CAVE_MUSHROOM_DOOR;
     public static RegistryObject<Block> CAVE_MUSHROOM_TRAPDOOR;
+    public static RegistryObject<Block> CAVE_MUSHROOM_LADDER;
     public static RegistryObject<Block> CAVE_MUSHROOM_BOOKSHELF;
     public static RegistryObject<Block> CAVE_MUSHROOM_CHEST;
     public static RegistryObject<Block> CAVE_MUSHROOM_TRAPPED_CHEST;
