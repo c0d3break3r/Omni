@@ -121,7 +121,7 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_PRESSURE_PLATE = RegistryUtil.createBlock("palo_verde_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PRESSURE_PLATE)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_BOOKSHELF = RegistryUtil.createBlock("palo_verde_bookshelf", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.PALO_VERDE_CHEST = RegistryUtil.createBlock("palo_verde_chest", () -> new OmniChestBlock(AbstractBlock.Properties.from(Blocks.CHEST)), ItemGroup.DECORATIONS);
-        OmniBlocks.PALO_VERDE_TRAPPED_CHEST = RegistryUtil.createBlock("palo_verde_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.TRAPPED_CHEST)), ItemGroup.DECORATIONS);
+        OmniBlocks.PALO_VERDE_TRAPPED_CHEST = RegistryUtil.createBlock("palo_verde_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.TRAPPED_CHEST)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_LEAVES = RegistryUtil.createBlock("palo_verde_leaves", OmniLeavesBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SAPLING = RegistryUtil.createBlock("palo_verde_sapling", () -> new OmniSaplingBlock(new PaloVerdeTree()), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.DECORATIONS);
