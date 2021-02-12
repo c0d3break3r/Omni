@@ -1,7 +1,6 @@
 package pugz.omni.common.item;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BoatItem;
 import net.minecraft.item.ItemStack;
@@ -15,13 +14,17 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import pugz.omni.common.entity.OmniBoatEntity;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class OmniBoatItem extends BoatItem {
-    public OmniBoatItem(Properties properties) {
+    private final String woodType;
+
+    public OmniBoatItem(Properties properties, String woodType) {
         super(null, properties);
+        this.woodType = woodType;
     }
 
     @Nonnull
@@ -46,7 +49,8 @@ public class OmniBoatItem extends BoatItem {
             }
 
             if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
-                BoatEntity boatentity = new BoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
+                OmniBoatEntity boatentity = new OmniBoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
+                boatentity.setWoodType(woodType);
                 boatentity.rotationYaw = playerIn.rotationYaw;
                 if (!worldIn.hasNoCollisions(boatentity, boatentity.getBoundingBox().grow(-0.1D))) {
                     return new ActionResult<>(ActionResultType.FAIL, itemstack);

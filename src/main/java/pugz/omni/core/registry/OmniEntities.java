@@ -2,6 +2,7 @@ package pugz.omni.core.registry;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
+import pugz.omni.common.entity.OmniBoatEntity;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.common.entity.cavier_caves.SpeleothemEntity;
 import pugz.omni.common.entity.paradise.SeahorseEntity;
@@ -21,7 +22,7 @@ public class OmniEntities {
     public static RegistryObject<EntityType<FallingConcretePowderEntity>> FALLING_CONCRETE_POWDER;
 
     //core
-    //public static RegistryObject<EntityType<OmniBoatEntity>> BOAT;
+    public static RegistryObject<EntityType<OmniBoatEntity>> BOAT;
 
     //paradise
     public static RegistryObject<EntityType<SeahorseEntity>> SEAHORSE;

@@ -83,7 +83,7 @@ public class MiscellaneousModule extends AbstractModule {
         if (name.toString().equals(LootTables.CHESTS_ABANDONED_MINESHAFT.toString()) || name.toString().equals(LootTables.CHESTS_SIMPLE_DUNGEON.toString()) || name.toString().equals(LootTables.BASTION_TREASURE.toString()) || name.toString().equals(LootTables.CHESTS_DESERT_PYRAMID.toString()) || name.toString().equals(LootTables.RUINED_PORTAL.toString()) || name.toString().equals(LootTables.CHESTS_WOODLAND_MANSION.toString())) {
             float chance = CoreModule.Configuration.COMMON.ENCHANTED_GOLDEN_CARROT_SPAWN_CHANCE.get().floatValue();
             if (name.toString().equals(LootTables.BASTION_TREASURE.toString())) chance *= 3.0D;
-            LootPool pool = new LootPool.Builder().name("omni_inject").addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(chance)).build();
+            LootPool pool = new LootPool.Builder().name("egc_inject").addEntry(TableLootEntry.builder(new ResourceLocation(Omni.MOD_ID, "injects/enchanted_golden_carrot"))).acceptCondition(RandomChance.builder(chance)).build();
             table.addPool(pool);
         }
     }

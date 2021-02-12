@@ -128,7 +128,7 @@ public class CavierCavesModule extends AbstractModule {
     protected void registerItems() {
         OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
         //OmniItems.CAVE_SPIDER_SPAWN_EGG = RegistryUtil.createOverrideItem("cave_spider_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.CAVE_SPIDER.get(), 803406, 11013646, new Item.Properties().group(ItemGroup.MATERIALS)));
-        OmniItems.CAVE_MUSHROOM_BOAT = RegistryUtil.createItem("cave_mushroom_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)));
+        OmniItems.CAVE_MUSHROOM_BOAT = RegistryUtil.createItem("cave_mushroom_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), "cave_mushroom"));
     }
 
     @Override
