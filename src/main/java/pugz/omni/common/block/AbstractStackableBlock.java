@@ -80,16 +80,14 @@ public abstract class AbstractStackableBlock extends BushBlock implements IBaseB
         ItemStack held = player.getHeldItem(handIn);
 
         if (held.getItem() == getBase().asItem()) {
-            if (!world.isRemote) {
-                int i = state.get(getCountProperty());
-                if (i < 4) {
-                    if (!player.isCreative()) {
-                        held.shrink(1);
-                    }
-
-                    world.setBlockState(pos, state.with(getCountProperty(), i + 1), 3);
-                    return ActionResultType.func_233537_a_(world.isRemote);
+            int i = state.get(getCountProperty());
+            if (i < 4) {
+                if (!player.isCreative()) {
+                    held.shrink(1);
                 }
+
+                world.setBlockState(pos, state.with(getCountProperty(), i + 1), 3);
+                return ActionResultType.func_233537_a_(world.isRemote);
             }
         }
         return ActionResultType.PASS;

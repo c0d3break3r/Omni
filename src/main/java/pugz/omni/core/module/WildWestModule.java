@@ -108,9 +108,9 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.TUMBLEWEED = RegistryUtil.createBlock("tumbleweed", TumbleweedBlock::new, ItemGroup.DECORATIONS);
 
         OmniBlocks.STRIPPED_PALO_VERDE_LOG = RegistryUtil.createBlock("stripped_palo_verde_log", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.PALO_VERDE_LOG = RegistryUtil.createBlock("palo_verde_log", () -> new OmniLogBlock(OmniBlocks.STRIPPED_PALO_VERDE_LOG.get()), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.PALO_VERDE_LOG = RegistryUtil.createBlock("palo_verde_log", () -> new OmniLogBlock((RotatedPillarBlock) OmniBlocks.STRIPPED_PALO_VERDE_LOG.get()), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.STRIPPED_PALO_VERDE_WOOD = RegistryUtil.createBlock("stripped_palo_verde_wood", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
-        OmniBlocks.PALO_VERDE_WOOD = RegistryUtil.createBlock("palo_verde_wood", () -> new OmniLogBlock(OmniBlocks.STRIPPED_PALO_VERDE_WOOD.get()), ItemGroup.BUILDING_BLOCKS);
+        OmniBlocks.PALO_VERDE_WOOD = RegistryUtil.createBlock("palo_verde_wood", () -> new OmniLogBlock((RotatedPillarBlock) OmniBlocks.STRIPPED_PALO_VERDE_WOOD.get()), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.PALO_VERDE_PLANKS = RegistryUtil.createBlock("palo_verde_planks", () -> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.PALO_VERDE_STAIRS = RegistryUtil.createBlock("palo_verde_stairs", () -> new StairsBlock(() -> OmniBlocks.PALO_VERDE_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.PALO_VERDE_SLAB = RegistryUtil.createBlock("palo_verde_slab", () -> new SlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);

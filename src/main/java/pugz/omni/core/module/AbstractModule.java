@@ -38,7 +38,6 @@ public abstract class AbstractModule {
         registerSurfaceBuilders();
         registerFeatures();
         registerPlacers();
-        registerStructures();
         registerCarvers();
         registerDimensions();
         registerEnchantments();
@@ -67,7 +66,6 @@ public abstract class AbstractModule {
         onPostInitialize();
 
         registerConfiguredFeatures();
-        registerStructureFeatures();
 
         ForgeRegistries.BLOCKS.getValues().forEach((block) -> {
             if (block instanceof IBaseBlock) {
@@ -76,7 +74,6 @@ public abstract class AbstractModule {
 
                 if (baseBlock.getFireFlammability() != 0 && baseBlock.getFireEncouragement() != 0) fire.setFireInfo((Block) baseBlock, baseBlock.getFireEncouragement(), baseBlock.getFireFlammability());
                 if (baseBlock.getCompostChance() != 0.0F) ComposterBlock.CHANCES.put(((Block) baseBlock).asItem(), baseBlock.getCompostChance());
-                if (baseBlock.getStrippedBlock() != null) AxeItem.BLOCK_STRIPPING_MAP.put((Block) baseBlock, baseBlock.getStrippedBlock());
             }
         });
     }
@@ -106,12 +103,6 @@ public abstract class AbstractModule {
     }
 
     protected void registerPlacers() {
-    }
-
-    protected void registerStructures() {
-    }
-
-    protected void registerStructureFeatures() {
     }
 
     protected void registerCarvers() {

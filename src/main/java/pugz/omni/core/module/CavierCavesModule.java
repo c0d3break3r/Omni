@@ -86,9 +86,9 @@ public class CavierCavesModule extends AbstractModule {
 
         //if (ModList.get().isLoaded("enhanced_mushrooms")) {
             OmniBlocks.STRIPPED_CAVE_MUSHROOM_STEM = RegistryUtil.createBlock("stripped_cave_mushroom_stem", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)), ItemGroup.BUILDING_BLOCKS);
-            OmniBlocks.CAVE_MUSHROOM_STEM = RegistryUtil.createBlock("cave_mushroom_stem", () -> new OmniLogBlock(OmniBlocks.STRIPPED_CAVE_MUSHROOM_STEM.get()), ItemGroup.BUILDING_BLOCKS);
+            OmniBlocks.CAVE_MUSHROOM_STEM = RegistryUtil.createBlock("cave_mushroom_stem", () -> new OmniLogBlock((RotatedPillarBlock) OmniBlocks.STRIPPED_CAVE_MUSHROOM_STEM.get()), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.STRIPPED_CAVE_MUSHROOM_HYPHAE = RegistryUtil.createBlock("stripped_cave_mushroom_hyphae", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)), ItemGroup.BUILDING_BLOCKS);
-            OmniBlocks.CAVE_MUSHROOM_HYPHAE = RegistryUtil.createBlock("cave_mushroom_hyphae", () -> new OmniLogBlock(OmniBlocks.STRIPPED_CAVE_MUSHROOM_HYPHAE.get()), ItemGroup.BUILDING_BLOCKS);
+            OmniBlocks.CAVE_MUSHROOM_HYPHAE = RegistryUtil.createBlock("cave_mushroom_hyphae", () -> new OmniLogBlock((RotatedPillarBlock) OmniBlocks.STRIPPED_CAVE_MUSHROOM_HYPHAE.get()), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("cave_mushroom_planks", () -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CAVE_MUSHROOM_STAIRS = RegistryUtil.createBlock("cave_mushroom_stairs", () -> new StairsBlock(OmniBlocks.CAVE_MUSHROOM_PLANKS.get()::getDefaultState, AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CAVE_MUSHROOM_SLAB = RegistryUtil.createBlock("cave_mushroom_slab", () -> new SlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
