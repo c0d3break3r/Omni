@@ -105,10 +105,10 @@ public class CavierCavesModule extends AbstractModule {
             OmniBlocks.CAVE_MUSHROOM_SIGN = RegistryUtil.createBlock("cave_mushroom_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.DECORATIONS);
             OmniBlocks.CAVE_MUSHROOM_WALL_SIGN = RegistryUtil.createBlock("cave_mushroom_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.CAVE_MUSHROOM_SIGN.get())));
             OmniBlocks.CAVE_MUSHROOM_BEEHIVE = RegistryUtil.createBlock("cave_mushroom_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
-            if (ModList.get().isLoaded("quark")) {
+            //if (ModList.get().isLoaded("quark")) {
                 OmniBlocks.VERTICAL_CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("vertical_cave_mushroom_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
                 OmniBlocks.CAVE_MUSHROOM_VERTICAL_SLAB = RegistryUtil.createBlock("cave_mushroom_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
-            }
+            //}
         //}
 
         OmniBlocks.STONE_SPELEOTHEM = RegistryUtil.createBlock("stone_speleothem", () -> new SpeleothemBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 0.1F)), ItemGroup.DECORATIONS);

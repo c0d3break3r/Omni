@@ -97,11 +97,11 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.RED_ROCK_BRICK_BUTTON = RegistryUtil.createBlock("red_rock_brick_button", RedRockBrickButton::new, ItemGroup.REDSTONE);
         OmniBlocks.RED_ROCK_BRICK_PRESSURE_PLATE = RegistryUtil.createBlock("red_rock_brick_pressure_plate", RedRockBrickPressurePlate::new, ItemGroup.REDSTONE);
 
-        if (ModList.get().isLoaded("quark")) {
+        //if (ModList.get().isLoaded("quark")) {
             OmniBlocks.RED_ROCK_VERTICAL_SLAB = RegistryUtil.createBlock("red_rock_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.RED_ROCK_BRICK_VERTICAL_SLAB = RegistryUtil.createBlock("red_rock_brick_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.RED_ROCK_PAVEMENT = RegistryUtil.createBlock("red_rock_pavement", () -> new Block(AbstractBlock.Properties.from(OmniBlocks.RED_ROCK_BRICKS.get())), ItemGroup.BUILDING_BLOCKS);
-        }
+        //}
 
         OmniBlocks.SAGUARO_CACTUS = RegistryUtil.createBlock("saguaro_cactus", SaguaroCactusBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.CACTUS_BLOOM = RegistryUtil.createBlock("cactus_bloom", CactusBloomBlock::new, ItemGroup.DECORATIONS);
@@ -129,10 +129,10 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get())));
         OmniBlocks.PALO_VERDE_LADDER = RegistryUtil.createBlock("palo_verde_ladder", () -> new LadderBlock(AbstractBlock.Properties.from(Blocks.LADDER)), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_BEEHIVE = RegistryUtil.createBlock("palo_verde_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
-        if (ModList.get().isLoaded("quark")) {
+        //if (ModList.get().isLoaded("quark")) {
             OmniBlocks.VERTICAL_PALO_VERDE_PLANKS = RegistryUtil.createBlock("vertical_palo_verde_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.PALO_VERDE_VERTICAL_SLAB = RegistryUtil.createBlock("palo_verde_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
-        }
+        //}
     }
 
     @Override

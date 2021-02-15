@@ -66,4 +66,10 @@ public class OmniEntities {
                 .setUpdateInterval(3)
                 .build(new ResourceLocation(Omni.MOD_ID, name).toString());
     }
+
+    public static EntityType<OmniBoatEntity> createBoatEntity() {
+        return EntityType.Builder.<OmniBoatEntity>create(OmniBoatEntity::new, EntityClassification.MISC)
+                .size(1.375F, 0.5625F)
+                .build(new ResourceLocation(Omni.MOD_ID, "boat").toString());
+    }
 }
