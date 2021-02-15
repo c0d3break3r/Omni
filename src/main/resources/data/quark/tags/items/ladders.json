@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:palo_verde_ladder"
+    "omni:palo_verde_ladder",
+    "omni:cave_mushroom_ladder"
   ]
 }

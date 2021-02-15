@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:palo_verde_beehive"
+    "omni:palo_verde_beehive",
+    "omni:cave_mushroom_beehive"
   ]
 }

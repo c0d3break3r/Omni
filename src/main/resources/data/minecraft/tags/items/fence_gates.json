@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:cave_mushroom_fence_gate"
+    "omni:cave_mushroom_fence_gate",
+    "omni:palo_verde_fence_gate"
   ]
 }
