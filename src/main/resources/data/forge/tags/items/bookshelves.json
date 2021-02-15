@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:palo_verde_bookshelf"
+    "omni:palo_verde_bookshelf",
+    "omni:cave_mushroom_bookshelf"
   ]
 }

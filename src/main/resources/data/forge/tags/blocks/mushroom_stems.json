@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:cave_mushroom_stem"
+    "omni:cave_mushroom_stem",
+    "omni:stripped_cave_mushroom_stem"
   ]
 }

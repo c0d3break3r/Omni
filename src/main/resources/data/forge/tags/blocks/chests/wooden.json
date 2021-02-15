@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "omni:palo_verde_chest"
+    "omni:palo_verde_chest",
+    "omni:cave_mushroom_chest"
   ]
 }
