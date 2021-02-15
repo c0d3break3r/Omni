@@ -8,8 +8,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.*;
 import net.minecraft.stats.IStatFormatter;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.*;
@@ -18,6 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.SizedCaveSpiderRenderer;
 import pugz.omni.client.render.SpeleothemRenderer;
 import pugz.omni.common.block.*;
@@ -181,11 +184,17 @@ public class CavierCavesModule extends AbstractModule {
     protected void onBiomeLoading(BiomeLoadingEvent event) {
         Biome.Category category = event.getCategory();
         BiomeGenerationSettingsBuilder gen = event.getGeneration();
+        ResourceLocation name = event.getName();
 
-        if (category != Biome.Category.NETHER && category != Biome.Category.THEEND) {
+        if (category != Biome.Category.NETHER && category != Biome.Category.THEEND && category != Biome.Category.NONE) {
             BiomeFeatures.addStoneSpeleothems(gen);
             BiomeFeatures.addMalachiteGeodes(gen);
+        } else {
+            for (String s : StringUtils.split(CoreModule.Configuration.COMMON.MALACHITE_BIOME_BLACKLIST.get(), ",")) {
+                if (s.equals(name.toString())) BiomeFeatures.addMalachiteGeodes(gen);
+            }
         }
+
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addIcicles(gen);
             BiomeFeatures.addIcyCave(gen);

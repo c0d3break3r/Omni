@@ -61,6 +61,7 @@ public class CoreModule extends AbstractModule {
     public static class Configuration {
         //cavier caves
         public final ForgeConfigSpec.IntValue MALACHITE_GEODE_SPAWN_CHANCE;
+        public final ForgeConfigSpec.ConfigValue<String> MALACHITE_BIOME_BLACKLIST;
         public final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_OUTER_BLOCK;
         public final ForgeConfigSpec.ConfigValue<String> GEODE_SHELL_INNER_BLOCK;
         public final ForgeConfigSpec.IntValue BUDDING_MALACHITE_GROWTH_CHANCE;
@@ -116,6 +117,7 @@ public class CoreModule extends AbstractModule {
 
             builder.push(CavierCavesModule.instance.getName());
             MALACHITE_GEODE_SPAWN_CHANCE = builder.defineInRange("malachite_geode_spawn_chance", 48, 0, 1000);
+            MALACHITE_BIOME_BLACKLIST = builder.define("malachite_biome_blacklist", "");
             GEODE_SHELL_OUTER_BLOCK = builder.define("geode_shell_outer_block", "minecraft:granite");
             GEODE_SHELL_INNER_BLOCK = builder.define("geode_shell_inner_block", "minecraft:diorite");
             BUDDING_MALACHITE_GROWTH_CHANCE = builder.defineInRange("budding_malachite_growth_chance", 5, 0, 1000);

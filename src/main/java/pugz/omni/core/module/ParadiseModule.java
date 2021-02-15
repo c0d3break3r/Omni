@@ -165,6 +165,10 @@ public class ParadiseModule extends AbstractModule {
         if (name != null) {
             if (StringUtils.contains(name.getPath(), "warm_ocean")) {
                 event.getSpawns().withSpawner(EntityClassification.WATER_AMBIENT, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1));
+            } else {
+                for (String s : StringUtils.split(CoreModule.Configuration.COMMON.SEAHORSE_SPAWN_BIOMES.get(), ",")) {
+                    if (s.equals(name.toString())) event.getSpawns().withSpawner(EntityClassification.WATER_CREATURE, new MobSpawnInfo.Spawners(OmniEntities.SEAHORSE.get(), 100, 1, 1));
+                }
             }
 
             if (name.getPath().equals(OmniBiomes.JUNGLE_BADLANDS.getRegistryName().getPath())) {
