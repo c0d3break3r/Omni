@@ -19,10 +19,13 @@ import net.minecraft.tileentity.IChestLid;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMerger;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import pugz.omni.common.tileentity.OmniChestTileEntity;
+import pugz.omni.core.Omni;
 
 import java.util.Calendar;
 
@@ -42,7 +45,7 @@ public class OmniChestTileEntityRenderer<T extends TileEntity & IChestLid> exten
     public OmniChestTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
         Calendar calendar = Calendar.getInstance();
-        if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
+        if (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26) {
             this.isChristmas = true;
         }
 
@@ -125,6 +128,6 @@ public class OmniChestTileEntityRenderer<T extends TileEntity & IChestLid> exten
     }
 
     protected RenderMaterial getMaterial(T tileEntity, ChestType chestType) {
-        return Atlases.getChestMaterial(tileEntity, chestType, this.isChristmas);
+        return isChristmas ? Atlases.CHEST_XMAS_MATERIAL : new RenderMaterial(Atlases.CHEST_ATLAS, new ResourceLocation(Omni.MOD_ID,"entity/chest/" + ((OmniChestTileEntity)tileEntity).getWoodType() + "_" + chestType));
     }
 }
