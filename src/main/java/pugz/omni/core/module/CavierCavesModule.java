@@ -100,7 +100,7 @@ public class CavierCavesModule extends AbstractModule {
             OmniBlocks.CAVE_MUSHROOM_BOOKSHELF = RegistryUtil.createBlock("cave_mushroom_bookshelf", () -> new Block(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CAVE_MUSHROOM_CHEST = RegistryUtil.createBlock("cave_mushroom_chest", () -> new OmniChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.DECORATIONS);
             OmniBlocks.CAVE_MUSHROOM_TRAPPED_CHEST = RegistryUtil.createBlock("cave_mushroom_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
-            OmniBlocks.CAVE_MUSHROOM_SIGN = RegistryUtil.createBlock("cave_mushroom_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), null);
+            OmniBlocks.CAVE_MUSHROOM_SIGN = RegistryUtil.createBlock("cave_mushroom_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)));
             OmniBlocks.CAVE_MUSHROOM_WALL_SIGN = RegistryUtil.createBlock("cave_mushroom_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.CAVE_MUSHROOM_SIGN.get())));
             OmniBlocks.CAVE_MUSHROOM_BEEHIVE = RegistryUtil.createBlock("cave_mushroom_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
             //if (ModList.get().isLoaded("quark")) {

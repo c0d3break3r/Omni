@@ -115,7 +115,7 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_TRAPPED_CHEST = RegistryUtil.createBlock("palo_verde_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.TRAPPED_CHEST)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_LEAVES = RegistryUtil.createBlock("palo_verde_leaves", OmniLeavesBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SAPLING = RegistryUtil.createBlock("palo_verde_sapling", () -> new OmniSaplingBlock(new PaloVerdeTree()), ItemGroup.DECORATIONS);
-        OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)), ItemGroup.DECORATIONS);
+        OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)));
         OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get())));
         OmniBlocks.PALO_VERDE_LADDER = RegistryUtil.createBlock("palo_verde_ladder", () -> new LadderBlock(AbstractBlock.Properties.from(Blocks.LADDER)), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_BEEHIVE = RegistryUtil.createBlock("palo_verde_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
