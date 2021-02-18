@@ -62,7 +62,7 @@ public class FungiBlock extends AbstractStackableBlock implements IGrowable, IBa
     }
 
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        Block block = ((HugeFungusConfig)(this.fungusFeature.get()).config).field_236303_f_.getBlock();
+        Block block = (this.fungusFeature.get()).config.field_236303_f_.getBlock();
         Block block1 = worldIn.getBlockState(pos.down()).getBlock();
         return block1 == block;
     }

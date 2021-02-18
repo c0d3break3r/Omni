@@ -41,7 +41,7 @@ public class SeahorseRenderer extends MobRenderer<SeahorseEntity, EntityModel<Se
     protected void applyRotations(SeahorseEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         if (!entityLiving.isInWater() && !entityLiving.isBeingRidden()) {
-            matrixStackIn.translate((double)0.2F, (double)0.1F, 0.0D);
+            matrixStackIn.translate(0.2F, 0.1F, 0.0D);
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90.0F));
         }
     }

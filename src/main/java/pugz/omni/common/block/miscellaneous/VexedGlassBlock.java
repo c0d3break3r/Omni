@@ -82,18 +82,18 @@ public class VexedGlassBlock extends Block implements IBaseBlock {
 
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return (BlockState)this.getDefaultState().with(POWERED, context.getWorld().isBlockPowered(context.getPos()));
+        return this.getDefaultState().with(POWERED, context.getWorld().isBlockPowered(context.getPos()));
     }
 
     @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!worldIn.isRemote) {
-            boolean flag = (Boolean)state.get(POWERED);
+            boolean flag = state.get(POWERED);
             if (flag != worldIn.isBlockPowered(pos)) {
                 if (flag) {
                     worldIn.getPendingBlockTicks().scheduleTick(pos, this, 4);
                 } else {
-                    worldIn.setBlockState(pos, (BlockState)state.func_235896_a_(POWERED), 2);
+                    worldIn.setBlockState(pos, state.func_235896_a_(POWERED), 2);
                 }
             }
         }
@@ -101,8 +101,8 @@ public class VexedGlassBlock extends Block implements IBaseBlock {
 
     @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        if ((Boolean)state.get(POWERED) && !worldIn.isBlockPowered(pos)) {
-            worldIn.setBlockState(pos, (BlockState)state.func_235896_a_(POWERED), 2);
+        if (state.get(POWERED) && !worldIn.isBlockPowered(pos)) {
+            worldIn.setBlockState(pos, state.func_235896_a_(POWERED), 2);
         }
     }
 

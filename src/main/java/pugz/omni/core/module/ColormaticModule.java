@@ -239,7 +239,7 @@ public class ColormaticModule extends AbstractModule {
                     if (block.getRegistryName().getPath().equals(fallingBlock.getBlockState().getBlock().getRegistryName().getPath())) {
                         event.setCanceled(true);
                         world.removeBlock(fallingBlock.getPosition(), false);
-                        FallingConcretePowderEntity fallingConcretePowder = new FallingConcretePowderEntity(world, (double) fallingBlock.getPosition().getX() + 0.5D, (double) fallingBlock.getPosition().getY(), (double) fallingBlock.getPosition().getZ() + 0.5D, 8, block.getDefaultState());
+                        FallingConcretePowderEntity fallingConcretePowder = new FallingConcretePowderEntity(world, (double) fallingBlock.getPosition().getX() + 0.5D, fallingBlock.getPosition().getY(), (double) fallingBlock.getPosition().getZ() + 0.5D, 8, block.getDefaultState());
                         world.addEntity(fallingConcretePowder);
                     }
                 }

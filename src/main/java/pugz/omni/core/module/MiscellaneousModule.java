@@ -119,7 +119,7 @@ public class MiscellaneousModule extends AbstractModule {
                 if (horse.isChild()) zombieHorse.setChild(true);
                 if (!horse.horseChest.func_233543_f_().isEmpty()) zombieHorse.horseChest = horse.horseChest;
                 zombieHorse.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
-                zombieHorse.onInitialSpawn((ServerWorld) world, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.CONVERSION, (ILivingEntityData) null, (CompoundNBT) null);
+                zombieHorse.onInitialSpawn((ServerWorld) world, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.CONVERSION, null, null);
             }
         }
     }

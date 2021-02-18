@@ -44,12 +44,12 @@
   "block.omni.cave_mushroom_chest": "Cave Mushroom Chest",
   "block.omni.cave_mushroom_trapped_chest": "Cave Mushroom Trapped Chest",
   "block.omni.cave_mushroom_beehive": "Cave Mushroom Beehive",
-
   "block.omni.arctiss": "Arctiss",
   "block.omni.arctiss_block": "Arctiss Block",
 
   "item.omni.malachite_shard": "Malachite Shard",
   "item.omni.cave_mushroom_boat": "Cave Mushroom Boat",
+  "item.omni.cave_mushroom_sign": "Cave Mushroom Sign",
 
   "entity.omni.speleothem": "Speleothem",
   "entity.omni.cave_spider": "Cave Spider",
@@ -249,7 +249,6 @@
   "block.omni.red_rock_pavement": "Red Rock Pavement",
   "block.omni.saguaro_cactus": "Saguaro Cactus",
   "block.omni.cactus_bloom": "Cactus Bloom",
-  "block.omni.tumbleweed": "Tumbleweed",
 
   "block.omni.palo_verde_log": "Palo Verde Log",
   "block.omni.palo_verde_wood": "Palo Verde Wood",
@@ -277,8 +276,7 @@
   "block.omni.vertical_palo_verde_planks": "Vertical Palo Verde Planks",
 
   "item.omni.palo_verde_boat": "Palo Verde Boat",
-
-  "entity.omni.tumbleweed": "Tumbleweed",
+  "item.omni.palo_verde_sign": "Palo Verde Sign",
 
   "biome.omni.wooded_badlands": "Wooded Badlands",
   "biome.omni.wooded_desert": "Wooded Desert"

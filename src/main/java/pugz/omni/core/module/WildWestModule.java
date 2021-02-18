@@ -5,13 +5,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.SignItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
@@ -21,14 +20,9 @@ import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.apache.commons.lang3.StringUtils;
-import pugz.omni.client.render.TumbleweedRenderer;
 import pugz.omni.common.block.*;
 import pugz.omni.common.block.wild_west.*;
-import pugz.omni.common.entity.wild_west.TumbleweedEntity;
 import pugz.omni.common.item.OmniBoatItem;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
@@ -63,14 +57,11 @@ public class WildWestModule extends AbstractModule {
     @Override
     protected void onInitialize() {
         MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoading);
-        MinecraftForge.EVENT_BUS.addListener(this::onServerTick);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void onClientInitialize() {
-        RenderingRegistry.registerEntityRenderingHandler(OmniEntities.TUMBLEWEED.get(), TumbleweedRenderer::new);
-
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_DOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_TRAPDOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_LADDER.get(), RenderType.getCutout());
@@ -105,7 +96,6 @@ public class WildWestModule extends AbstractModule {
 
         OmniBlocks.SAGUARO_CACTUS = RegistryUtil.createBlock("saguaro_cactus", SaguaroCactusBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.CACTUS_BLOOM = RegistryUtil.createBlock("cactus_bloom", CactusBloomBlock::new, ItemGroup.DECORATIONS);
-        OmniBlocks.TUMBLEWEED = RegistryUtil.createBlock("tumbleweed", TumbleweedBlock::new, ItemGroup.DECORATIONS);
 
         OmniBlocks.STRIPPED_PALO_VERDE_LOG = RegistryUtil.createBlock("stripped_palo_verde_log", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN_TERRACOTTA).hardnessAndResistance(2.0F).sound(SoundType.WOOD)), ItemGroup.BUILDING_BLOCKS);
         OmniBlocks.PALO_VERDE_LOG = RegistryUtil.createBlock("palo_verde_log", () -> new OmniLogBlock((RotatedPillarBlock) OmniBlocks.STRIPPED_PALO_VERDE_LOG.get()), ItemGroup.BUILDING_BLOCKS);
@@ -138,11 +128,7 @@ public class WildWestModule extends AbstractModule {
     @Override
     protected void registerItems() {
         OmniItems.PALO_VERDE_BOAT = RegistryUtil.createItem("palo_verde_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), "palo_verde"));
-    }
-
-    @Override
-    protected void registerEntities() {
-        OmniEntities.TUMBLEWEED = RegistryUtil.createEntity("tumbleweed", OmniEntities::createTumbleweedEntity);
+        OmniItems.PALO_VERDE_SIGN = RegistryUtil.createItem("palo_verde_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), OmniBlocks.PALO_VERDE_SIGN.get(), OmniBlocks.PALO_VERDE_WALL_SIGN.get()));
     }
 
     @Override
@@ -187,9 +173,6 @@ public class WildWestModule extends AbstractModule {
             BiomeFeatures.addTerracottaCave(gen);
             BiomeFeatures.addSaguaroCacti(gen);
             if (!name.getPath().equals("wooded_badlands")) BiomeFeatures.addPaloVerdeTrees(gen);
-
-            event.getSpawns().withSpawner(EntityClassification.MISC, new MobSpawnInfo.Spawners(OmniEntities.TUMBLEWEED.get(), 10, 1, 3));
-
         }
 
         if (name.equals(OmniBiomes.WOODED_BADLANDS.getRegistryName().getPath())) {
@@ -204,9 +187,5 @@ public class WildWestModule extends AbstractModule {
             BiomeFeatures.addDenseSavannaTrees(gen);
             BiomeFeatures.addPaloVerdeTrees(gen);
         }
-    }
-
-    protected void onServerTick(TickEvent.ServerTickEvent event) {
-        TumbleweedEntity.updateWind();
     }
 }

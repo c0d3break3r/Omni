@@ -49,12 +49,12 @@ public abstract class AbstractStackableBlock extends BushBlock implements IBaseB
     }
 
     public void removeOne(World world, BlockPos pos, BlockState state) {
-        world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
+        world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
         if (!world.isRemote) {
             int i = state.get(getCountProperty());
             switch (i) {
                 case 1:
-                    world.destroyBlock(pos, true, (PlayerEntity) null);
+                    world.destroyBlock(pos, true, null);
                     break;
                 case 2:
                     world.setBlockState(pos, getBase().getDefaultState(), 3);

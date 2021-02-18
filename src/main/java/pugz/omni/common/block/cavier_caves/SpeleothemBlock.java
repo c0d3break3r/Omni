@@ -116,7 +116,7 @@ public class SpeleothemBlock extends FallingBlock implements IWaterLoggable, IBa
     private void trySpawnEntity(World world, BlockPos pos) {
         if (CoreModule.Configuration.COMMON.SPELEOTHEMS_FALL.get()) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down()))) {
-                SpeleothemEntity fallingblockentity = new SpeleothemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
+                SpeleothemEntity fallingblockentity = new SpeleothemEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, world.getBlockState(pos));
                 world.addEntity(fallingblockentity);
                 world.getPendingBlockTicks().scheduleTick(pos.up(), this, 1);
             }

@@ -47,8 +47,8 @@ public class PerlinNoise implements SurfaceNoise {
     }
 
     private PerlinNoise(WorldGenRandom random, Pair<Integer, DoubleList> var2) {
-        int var3 = (Integer)var2.getFirst();
-        this.doubles = (DoubleList)var2.getSecond();
+        int var3 = var2.getFirst();
+        this.doubles = var2.getSecond();
         ImprovedNoiseGenerator noise = new ImprovedNoiseGenerator(random);
         int var5 = this.doubles.size();
         int var6 = -var3;
@@ -91,8 +91,8 @@ public class PerlinNoise implements SurfaceNoise {
             }
         }
 
-        this.d = Math.pow(2.0D, (double)(-var6));
-        this.c = Math.pow(2.0D, (double)(var5 - 1)) / (Math.pow(2.0D, (double)var5) - 1.0D);
+        this.d = Math.pow(2.0D, -var6);
+        this.c = Math.pow(2.0D, var5 - 1) / (Math.pow(2.0D, var5) - 1.0D);
     }
 
     public double a(double var1, double var3, double var5) {
@@ -123,7 +123,7 @@ public class PerlinNoise implements SurfaceNoise {
     }
 
     public static double a(double var0) {
-        return var0 - (double)Math.floor(var0 / 3.3554432E7D + 0.5D) * 3.3554432E7D;
+        return var0 - Math.floor(var0 / 3.3554432E7D + 0.5D) * 3.3554432E7D;
     }
 
     public double a(double var1, double var3, double var5, double var7) {

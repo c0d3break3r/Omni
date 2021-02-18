@@ -50,7 +50,7 @@ public class FallingConcretePowderRenderer extends EntityRenderer<FallingConcret
                     }
                 }
 
-                ForgeHooksClient.setRenderLayer((RenderType)null);
+                ForgeHooksClient.setRenderLayer(null);
                 matrixstack.pop();
                 super.render(entity, p_225623_2_, p_225623_3_, matrixstack, buffer, p_225623_6_);
             }

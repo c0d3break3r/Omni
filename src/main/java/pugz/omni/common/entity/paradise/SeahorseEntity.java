@@ -240,7 +240,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
 
     @Nullable
     public UUID getOwnerUniqueId() {
-        return this.dataManager.get(OWNER_UNIQUE_ID).orElse((UUID)null);
+        return this.dataManager.get(OWNER_UNIQUE_ID).orElse(null);
     }
 
     public void setOwnerUniqueId(@Nullable UUID uniqueId) {
@@ -366,7 +366,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
         this.setVariantType(seahorseentity$coraltype);
         this.setSeahorseSize(worldIn.getRandom().nextInt(4));
         if (worldIn.getRandom().nextInt(CoreModule.Configuration.COMMON.LARGE_SEAHORSE_SPAWN_CHANCE.get()) == 0) this.setSeahorseSize(this.rand.nextInt(1) + 6);
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(this.getModifiedMaxHealth());
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -420,7 +420,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
     public void livingTick() {
         if (!this.isInWater()) {
             if (this.onGround && this.collidedVertically) {
-                this.setMotion(this.getMotion().add((double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F), (double) 0.4F, (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+                this.setMotion(this.getMotion().add((this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.rand.nextFloat() * 2.0F - 1.0F) * 0.05F));
                 this.onGround = false;
                 this.isAirBorne = true;
                 this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getSoundPitch());
@@ -523,11 +523,11 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 float f = livingentity.moveStrafing * 0.75F;
                 if (this.canPassengerSteer()) {
                     this.setAIMoveSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.9F);
-                    this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y, (double)f1));
+                    this.moveRelative(0.1F, new Vector3d(f, livingentity.getLookVec().y, f1));
                     this.move(MoverType.PLAYER, this.getMotion());
                     this.setMotion(this.getMotion().scale(0.9D));
                 } else if (livingentity instanceof PlayerEntity) {
-                    this.moveRelative(0.1F, new Vector3d((double)f, livingentity.getLookVec().y * 0.5F, (double)f1));
+                    this.moveRelative(0.1F, new Vector3d(f, livingentity.getLookVec().y * 0.5F, f1));
                     this.move(MoverType.SELF, this.getMotion());
                     this.setMotion(this.getMotion().scale(0.9D));
                 }
@@ -577,7 +577,7 @@ public class SeahorseEntity extends TameableEntity implements IMob {
                 double d0 = this.posX - this.seahorse.getPosX();
                 double d1 = this.posY - this.seahorse.getPosY();
                 double d2 = this.posZ - this.seahorse.getPosZ();
-                double d3 = (double) MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+                double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 d1 = d1 / d3;
                 float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
                 this.seahorse.rotationYaw = this.limitAngle(this.seahorse.rotationYaw, f, 90.0F);

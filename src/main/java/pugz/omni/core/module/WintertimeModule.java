@@ -51,7 +51,7 @@ public class WintertimeModule extends AbstractModule {
                     if (entity1 instanceof StrayEntity) {
                         StrayEntity stray = (StrayEntity) entity1;
                         stray.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
-                        stray.onInitialSpawn(serverWorld, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.JOCKEY, (ILivingEntityData) null, (CompoundNBT) null);
+                        stray.onInitialSpawn(serverWorld, new DifficultyInstance(world.getDifficulty(), world.getGameTime(), world.getChunkAt(entity.getPosition()).getInhabitedTime(), world.getMoonFactor()), SpawnReason.JOCKEY, null, null);
                         stray.startRiding(entity);
 
                         serverWorld.addEntity(stray);

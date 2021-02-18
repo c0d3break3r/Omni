@@ -103,17 +103,17 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                             while(true) {
                                 while(var44.hasNext()) {
                                     BlockPos var46 = (BlockPos)var44.next();
-                                    BlockState crystalBudState = (BlockState)var42.get(rand.nextInt(var42.size()));
+                                    BlockState crystalBudState = var42.get(rand.nextInt(var42.size()));
 
                                     for (Direction var37 : directions) {
                                         if (crystalBudState.hasProperty(BlockStateProperties.FACING)) {
-                                            crystalBudState = (BlockState) crystalBudState.with(BlockStateProperties.FACING, var37);
+                                            crystalBudState = crystalBudState.with(BlockStateProperties.FACING, var37);
                                         }
 
                                         BlockPos var50 = var46.offset(var37);
                                         BlockState var52 = world.getBlockState(var50);
                                         if (crystalBudState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                                            crystalBudState = (BlockState) crystalBudState.with(BlockStateProperties.WATERLOGGED, var52.getFluidState().isTagged(FluidTags.WATER));
+                                            crystalBudState = crystalBudState.with(BlockStateProperties.WATERLOGGED, var52.getFluidState().isTagged(FluidTags.WATER));
                                         }
 
                                         if (BuddingMalachiteBlock.isStateAir(var52)) {
@@ -128,7 +128,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                         }
 
                         var43 = (BlockPos)var41.next();
-                        double var45 = noise.a((double)var43.getX(), (double)var43.getY(), (double)var43.getZ()) * config.noiseMultiplier;
+                        double var45 = noise.a(var43.getX(), var43.getY(), var43.getZ()) * config.noiseMultiplier;
                         var34 = 0.0D;
                         var36 = 0.0D;
 

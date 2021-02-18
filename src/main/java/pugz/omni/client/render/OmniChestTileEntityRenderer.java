@@ -99,10 +99,10 @@ public class OmniChestTileEntityRenderer<T extends TileEntity & IChestLid> exten
                 icallbackwrapper = TileEntityMerger.ICallback::func_225537_b_;
             }
 
-            float f1 = icallbackwrapper.<Float2FloatFunction>apply(ChestBlock.getLidRotationCallback(tileEntityIn)).get(partialTicks);
+            float f1 = icallbackwrapper.apply(ChestBlock.getLidRotationCallback(tileEntityIn)).get(partialTicks);
             f1 = 1.0F - f1;
             f1 = 1.0F - f1 * f1 * f1;
-            int i = icallbackwrapper.<Int2IntFunction>apply(new DualBrightnessCallback<>()).applyAsInt(combinedLightIn);
+            int i = icallbackwrapper.apply(new DualBrightnessCallback<>()).applyAsInt(combinedLightIn);
             RenderMaterial rendermaterial = this.getMaterial(tileEntityIn, chesttype);
             IVertexBuilder ivertexbuilder = rendermaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
             if (flag1) {

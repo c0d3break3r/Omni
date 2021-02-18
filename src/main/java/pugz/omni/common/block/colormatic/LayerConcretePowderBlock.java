@@ -144,7 +144,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (!world.isRemote) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
-                FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
+                FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
                 world.addEntity(entity);
             }
         }

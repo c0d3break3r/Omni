@@ -60,7 +60,7 @@ public class QuiltedCarpetBlock extends Block implements IBaseBlock {
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
         if (CoreModule.Configuration.COMMON.CONNECTABLE_QUILTED_CARPETS.get()) {
             if (!state.isValidPosition(world, pos)) return Blocks.AIR.getDefaultState();
-            return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? (BlockState) state.with((Property) FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
+            return direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? state.with(FACING_TO_PROPERTY_MAP.get(direction), canConnect(state, state2)) : super.updatePostPlacement(state, direction, state2, world, pos, pos2);
         } else return super.updatePostPlacement(state, direction, state2, world, pos, pos2);
     }
 
@@ -74,11 +74,11 @@ public class QuiltedCarpetBlock extends Block implements IBaseBlock {
     public BlockState rotate(BlockState state, Rotation rotation) {
         switch(rotation) {
             case CLOCKWISE_180:
-                return (BlockState)((BlockState)((BlockState)((BlockState)state.with(NORTH, state.get(SOUTH))).with(EAST, state.get(WEST))).with(SOUTH, state.get(NORTH))).with(WEST, state.get(EAST));
+                return state.with(NORTH, state.get(SOUTH)).with(EAST, state.get(WEST)).with(SOUTH, state.get(NORTH)).with(WEST, state.get(EAST));
             case COUNTERCLOCKWISE_90:
-                return (BlockState)((BlockState)((BlockState)((BlockState)state.with(NORTH, state.get(EAST))).with(EAST, state.get(SOUTH))).with(SOUTH, state.get(WEST))).with(WEST, state.get(NORTH));
+                return state.with(NORTH, state.get(EAST)).with(EAST, state.get(SOUTH)).with(SOUTH, state.get(WEST)).with(WEST, state.get(NORTH));
             case CLOCKWISE_90:
-                return (BlockState)((BlockState)((BlockState)((BlockState)state.with(NORTH, state.get(WEST))).with(EAST, state.get(NORTH))).with(SOUTH, state.get(EAST))).with(WEST, state.get(SOUTH));
+                return state.with(NORTH, state.get(WEST)).with(EAST, state.get(NORTH)).with(SOUTH, state.get(EAST)).with(WEST, state.get(SOUTH));
             default:
                 return state;
         }
@@ -89,9 +89,9 @@ public class QuiltedCarpetBlock extends Block implements IBaseBlock {
     public BlockState mirror(BlockState state, Mirror mirror) {
         switch(mirror) {
             case LEFT_RIGHT:
-                return (BlockState)((BlockState)state.with(NORTH, state.get(SOUTH))).with(SOUTH, state.get(NORTH));
+                return state.with(NORTH, state.get(SOUTH)).with(SOUTH, state.get(NORTH));
             case FRONT_BACK:
-                return (BlockState)((BlockState)state.with(EAST, state.get(WEST))).with(WEST, state.get(EAST));
+                return state.with(EAST, state.get(WEST)).with(WEST, state.get(EAST));
             default:
                 return super.mirror(state, mirror);
         }
@@ -115,7 +115,7 @@ public class QuiltedCarpetBlock extends Block implements IBaseBlock {
             BlockState lvt_10_1_ = world.getBlockState(east);
             BlockState lvt_11_1_ = world.getBlockState(south);
             BlockState lvt_12_1_ = world.getBlockState(west);
-            return (BlockState) ((BlockState) ((BlockState) ((BlockState) ((BlockState) super.getStateForPlacement(context).with(NORTH, canConnect(state, lvt_9_1_))).with(EAST, canConnect(state, lvt_10_1_))).with(SOUTH, canConnect(state, lvt_11_1_))).with(WEST, canConnect(state, lvt_12_1_)));
+            return super.getStateForPlacement(context).with(NORTH, canConnect(state, lvt_9_1_)).with(EAST, canConnect(state, lvt_10_1_)).with(SOUTH, canConnect(state, lvt_11_1_)).with(WEST, canConnect(state, lvt_12_1_));
         } else return super.getStateForPlacement(context);
     }
 
@@ -129,8 +129,8 @@ public class QuiltedCarpetBlock extends Block implements IBaseBlock {
         EAST = SixWayBlock.EAST;
         SOUTH = SixWayBlock.SOUTH;
         WEST = SixWayBlock.WEST;
-        FACING_TO_PROPERTY_MAP = (Map)SixWayBlock.FACING_TO_PROPERTY_MAP.entrySet().stream().filter((directions) -> {
-            return ((Direction)directions.getKey()).getAxis().isHorizontal();
+        FACING_TO_PROPERTY_MAP = SixWayBlock.FACING_TO_PROPERTY_MAP.entrySet().stream().filter((directions) -> {
+            return directions.getKey().getAxis().isHorizontal();
         }).collect(Util.toMapCollector());
     }
 }
