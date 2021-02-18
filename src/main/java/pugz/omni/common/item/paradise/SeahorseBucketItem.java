@@ -53,7 +53,7 @@ public class SeahorseBucketItem extends BucketItem {
             SeahorseEntity seahorse = (SeahorseEntity)entity;
             CompoundNBT nbt = stack.getTag();
 
-            int coralType = world.getRandom().nextInt(SeahorseEntity.CoralType.values().length);
+            int coralType = world.getRandom().nextInt(SeahorseEntity.CoralType.values().length - 1);
             int size = world.getRandom().nextInt(8);
             if (nbt != null) {
                 if (nbt.contains("SeahorseVariantTag", 3)) coralType = nbt.getInt("SeahorseVariantTag");

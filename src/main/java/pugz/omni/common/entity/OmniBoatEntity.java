@@ -34,7 +34,7 @@ public class OmniBoatEntity extends BoatEntity {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(WOOD_TYPE, "minecraft:oak");
+        this.dataManager.register(WOOD_TYPE, "oak");
     }
 
     @Override

@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
-import net.minecraft.item.SignItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -24,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import pugz.omni.common.block.*;
 import pugz.omni.common.block.wild_west.*;
 import pugz.omni.common.item.OmniBoatItem;
+import pugz.omni.common.item.OmniSignItem;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
@@ -115,8 +115,8 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_TRAPPED_CHEST = RegistryUtil.createBlock("palo_verde_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.TRAPPED_CHEST)), ItemGroup.REDSTONE);
         OmniBlocks.PALO_VERDE_LEAVES = RegistryUtil.createBlock("palo_verde_leaves", OmniLeavesBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_SAPLING = RegistryUtil.createBlock("palo_verde_sapling", () -> new OmniSaplingBlock(new PaloVerdeTree()), ItemGroup.DECORATIONS);
-        OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)));
-        OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get())));
+        OmniBlocks.PALO_VERDE_SIGN = RegistryUtil.createBlock("palo_verde_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN), "palo_verde"));
+        OmniBlocks.PALO_VERDE_WALL_SIGN = RegistryUtil.createBlock("palo_verde_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.PALO_VERDE_SIGN.get()), "palo_verde"));
         OmniBlocks.PALO_VERDE_LADDER = RegistryUtil.createBlock("palo_verde_ladder", () -> new LadderBlock(AbstractBlock.Properties.from(Blocks.LADDER)), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_BEEHIVE = RegistryUtil.createBlock("palo_verde_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
         //if (ModList.get().isLoaded("quark")) {
@@ -128,7 +128,7 @@ public class WildWestModule extends AbstractModule {
     @Override
     protected void registerItems() {
         OmniItems.PALO_VERDE_BOAT = RegistryUtil.createItem("palo_verde_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), "palo_verde"));
-        OmniItems.PALO_VERDE_SIGN = RegistryUtil.createItem("palo_verde_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(1), OmniBlocks.PALO_VERDE_SIGN.get(), OmniBlocks.PALO_VERDE_WALL_SIGN.get()));
+        OmniItems.PALO_VERDE_SIGN = RegistryUtil.createItem("palo_verde_sign", () -> new OmniSignItem(new Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(1), OmniBlocks.PALO_VERDE_SIGN.get(), OmniBlocks.PALO_VERDE_WALL_SIGN.get()));
     }
 
     @Override

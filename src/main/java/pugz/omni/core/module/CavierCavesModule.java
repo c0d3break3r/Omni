@@ -25,6 +25,7 @@ import pugz.omni.common.block.*;
 import pugz.omni.common.block.cavier_caves.*;
 import pugz.omni.common.entity.cavier_caves.SizedCaveSpiderEntity;
 import pugz.omni.common.item.OmniBoatItem;
+import pugz.omni.common.item.OmniSignItem;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.caves.*;
 import pugz.omni.core.registry.*;
@@ -100,8 +101,8 @@ public class CavierCavesModule extends AbstractModule {
             OmniBlocks.CAVE_MUSHROOM_BOOKSHELF = RegistryUtil.createBlock("cave_mushroom_bookshelf", () -> new Block(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.CAVE_MUSHROOM_CHEST = RegistryUtil.createBlock("cave_mushroom_chest", () -> new OmniChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.DECORATIONS);
             OmniBlocks.CAVE_MUSHROOM_TRAPPED_CHEST = RegistryUtil.createBlock("cave_mushroom_trapped_chest", () -> new OmniTrappedChestBlock(AbstractBlock.Properties.from(Blocks.OAK_DOOR)), ItemGroup.REDSTONE);
-            OmniBlocks.CAVE_MUSHROOM_SIGN = RegistryUtil.createBlock("cave_mushroom_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN)));
-            OmniBlocks.CAVE_MUSHROOM_WALL_SIGN = RegistryUtil.createBlock("cave_mushroom_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.CAVE_MUSHROOM_SIGN.get())));
+            OmniBlocks.CAVE_MUSHROOM_SIGN = RegistryUtil.createBlock("cave_mushroom_sign", () -> new OmniStandingSignBlock(AbstractBlock.Properties.from(Blocks.OAK_SIGN), "palo_verde"));
+            OmniBlocks.CAVE_MUSHROOM_WALL_SIGN = RegistryUtil.createBlock("cave_mushroom_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.CAVE_MUSHROOM_SIGN.get()), "palo_verde"));
             OmniBlocks.CAVE_MUSHROOM_BEEHIVE = RegistryUtil.createBlock("cave_mushroom_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
             //if (ModList.get().isLoaded("quark")) {
                 OmniBlocks.VERTICAL_CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("vertical_cave_mushroom_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
@@ -130,7 +131,7 @@ public class CavierCavesModule extends AbstractModule {
         OmniItems.MALACHITE_SHARD = RegistryUtil.createItem("malachite_shard", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
         //OmniItems.CAVE_SPIDER_SPAWN_EGG = RegistryUtil.createOverrideItem("cave_spider_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.CAVE_SPIDER.get(), 803406, 11013646, new Item.Properties().group(ItemGroup.MATERIALS)));
         OmniItems.CAVE_MUSHROOM_BOAT = RegistryUtil.createItem("cave_mushroom_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), "cave_mushroom"));
-        OmniItems.CAVE_MUSHROOM_SIGN = RegistryUtil.createItem("cave_mushroom_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(1), OmniBlocks.CAVE_MUSHROOM_SIGN.get(), OmniBlocks.CAVE_MUSHROOM_WALL_SIGN.get()));
+        OmniItems.CAVE_MUSHROOM_SIGN = RegistryUtil.createItem("cave_mushroom_sign", () -> new OmniSignItem(new Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(1), OmniBlocks.CAVE_MUSHROOM_SIGN.get(), OmniBlocks.CAVE_MUSHROOM_WALL_SIGN.get()));
     }
 
     @Override

@@ -2,7 +2,6 @@ package pugz.omni.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -17,10 +16,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.lang3.StringUtils;
+import pugz.omni.common.block.OmniAbstractSignBlock;
 import pugz.omni.common.block.OmniStandingSignBlock;
 import pugz.omni.common.block.OmniWallSignBlock;
 import pugz.omni.common.tileentity.OmniSignTileEntity;
+import pugz.omni.core.Omni;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class OmniSignTileEntityRenderer<S extends OmniSignTileEntity> extends Ti
         float scale = 0.6666667F;
         matrixStack.push();
         matrixStack.scale(scale, -scale, -scale);
-        IVertexBuilder ivertexbuilder = buffer.getBuffer(RenderType.getEntityCutoutNoCull(getLocationTexture(blockstate.getBlock())));
+        IVertexBuilder ivertexbuilder = buffer.getBuffer(RenderType.getEntityCutoutNoCull(getLocationTexture((OmniAbstractSignBlock) blockstate.getBlock())));
         this.model.signBoard.render(matrixStack, ivertexbuilder, combinedLightIn, combinedOverlayIn);
         this.model.signStick.render(matrixStack, ivertexbuilder, combinedLightIn, combinedOverlayIn);
         matrixStack.pop();
@@ -79,13 +79,8 @@ public class OmniSignTileEntityRenderer<S extends OmniSignTileEntity> extends Ti
         matrixStack.pop();
     }
 
-    private static ResourceLocation getLocationTexture(Block block) {
-        if (block.getRegistryName() != null) {
-            ResourceLocation location = block.getRegistryName();
-            StringUtils.replace("_sign", location.getPath(), "");
-            return location;
-        }
-        else return null;
+    private static ResourceLocation getLocationTexture(OmniAbstractSignBlock block) {
+        return new ResourceLocation(Omni.MOD_ID, block.getWood());
     }
 
     @OnlyIn(Dist.CLIENT)

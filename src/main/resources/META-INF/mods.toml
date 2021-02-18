@@ -16,7 +16,7 @@ license="https://github.com/c0d3break3r/Omni/blob/main/LICENSE"
 [[dependencies.omni]]
     modId="forge"
     mandatory=true
-    versionRange="[36.0.0,)"
+    versionRange="[34.1.0,)"
     ordering="NONE"
     side="BOTH"
 

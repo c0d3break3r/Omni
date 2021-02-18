@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 public class OmniStandingSignBlock extends OmniAbstractSignBlock {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_0_15;
 
-    public OmniStandingSignBlock(AbstractBlock.Properties properties) {
-        super(properties);
+    public OmniStandingSignBlock(AbstractBlock.Properties properties, String wood) {
+        super(properties, wood);
         this.setDefaultState(this.stateContainer.getBaseState().with(ROTATION, 0).with(WATERLOGGED, false));
     }
 

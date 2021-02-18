@@ -1,8 +1,5 @@
 package pugz.omni.core.module;
 
-import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
-import net.minecraft.entity.EntityClassification;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -12,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import pugz.omni.client.render.OmniBoatRenderer;
 import pugz.omni.client.render.OmniChestTileEntityRenderer;
 import pugz.omni.client.render.OmniSignTileEntityRenderer;
-import pugz.omni.common.entity.paradise.SeahorseEntity;
 import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
 import pugz.omni.common.tileentity.OmniChestTileEntity;
 import pugz.omni.common.tileentity.OmniSignTileEntity;

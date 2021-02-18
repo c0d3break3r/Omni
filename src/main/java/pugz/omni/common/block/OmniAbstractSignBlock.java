@@ -19,8 +19,11 @@ import pugz.omni.common.tileentity.OmniSignTileEntity;
 import javax.annotation.Nonnull;
 
 public class OmniAbstractSignBlock extends AbstractSignBlock {
-    public OmniAbstractSignBlock(AbstractBlock.Properties properties) {
+    private final String woodType;
+
+    public OmniAbstractSignBlock(AbstractBlock.Properties properties, String woodType) {
         super(properties, null);
+        this.woodType = woodType;
     }
 
     @Nonnull
@@ -51,10 +54,7 @@ public class OmniAbstractSignBlock extends AbstractSignBlock {
         return new OmniSignTileEntity();
     }
 
-    @Nonnull
-    @Override
-    @SuppressWarnings("deprecation")
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
+    public String getWood() {
+        return woodType;
     }
 }
