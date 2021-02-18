@@ -128,7 +128,7 @@ public class WildWestModule extends AbstractModule {
     @Override
     protected void registerItems() {
         OmniItems.PALO_VERDE_BOAT = RegistryUtil.createItem("palo_verde_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), "palo_verde"));
-        OmniItems.PALO_VERDE_SIGN = RegistryUtil.createItem("palo_verde_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), OmniBlocks.PALO_VERDE_SIGN.get(), OmniBlocks.PALO_VERDE_WALL_SIGN.get()));
+        OmniItems.PALO_VERDE_SIGN = RegistryUtil.createItem("palo_verde_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(1), OmniBlocks.PALO_VERDE_SIGN.get(), OmniBlocks.PALO_VERDE_WALL_SIGN.get()));
     }
 
     @Override

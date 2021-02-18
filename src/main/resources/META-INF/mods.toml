@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[36,)"
 
 issueTrackerURL="https://github.com/c0d3break3r/Omni/issues"
 license="https://github.com/c0d3break3r/Omni/blob/main/LICENSE"
@@ -16,7 +16,7 @@ license="https://github.com/c0d3break3r/Omni/blob/main/LICENSE"
 [[dependencies.omni]]
     modId="forge"
     mandatory=true
-    versionRange="[34.1.0,)"
+    versionRange="[36.0.0,)"
     ordering="NONE"
     side="BOTH"
 
