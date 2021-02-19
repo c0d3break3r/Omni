@@ -24,7 +24,7 @@ public class CompatReferences {
     public static RegistryObject<Block> WHITE_CLOVER;
     public static RegistryObject<Block> WHITE_LOTUS_FLOWER;
     public static RegistryObject<Block> YELLOW_HIBISCUS;
-    public static RegistryObject<Block> YUCCA_FLOWER;
+    public static RegistryObject<Block> HONEY_SPROUT;
 
     public static void initializeReferences() {
         AUTUMN_CROCUS = RegistryObject.of(new ResourceLocation("autumnity", "autumn_crocus"), ForgeRegistries.BLOCKS);
@@ -45,6 +45,6 @@ public class CompatReferences {
         WHITE_CLOVER = RegistryObject.of(new ResourceLocation("buzzier_bees", "violet"), ForgeRegistries.BLOCKS);
         WHITE_LOTUS_FLOWER = RegistryObject.of(new ResourceLocation("environmental", "violet"), ForgeRegistries.BLOCKS);
         YELLOW_HIBISCUS = RegistryObject.of(new ResourceLocation("environmental", "violet"), ForgeRegistries.BLOCKS);
-        YUCCA_FLOWER = RegistryObject.of(new ResourceLocation("atmospheric", "yucca_flower"), ForgeRegistries.BLOCKS);
+        HONEY_SPROUT = RegistryObject.of(new ResourceLocation("minibloom", "honey_sprout"), ForgeRegistries.BLOCKS);
     }
 }

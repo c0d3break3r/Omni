@@ -161,6 +161,11 @@ public class ColormaticModule extends AbstractModule {
             STACKABLES.add(OmniBlocks.AUTUMN_CROCUSES);
         }
 
+        if (ModList.get().isLoaded("minibloom")) {
+            OmniBlocks.HONEY_SPROUTS = RegistryUtil.createBlock("honey_sprouts", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.HONEY_SPROUT.get()), CompatReferences.HONEY_SPROUT.get()), null);
+            STACKABLES.add(OmniBlocks.HONEY_SPROUTS);
+        }
+
         OmniBlocks.TRADERS_QUILTED_CARPET = RegistryUtil.createBlock("traders_quilted_carpet", () -> new QuiltedCarpetBlock(DyeColor.BLUE), ItemGroup.DECORATIONS);
         OmniBlocks.TRADERS_QUILTED_WOOL = RegistryUtil.createBlock("traders_quilted_wool", () -> new QuiltedWoolBlock(DyeColor.BLUE), ItemGroup.BUILDING_BLOCKS);
 

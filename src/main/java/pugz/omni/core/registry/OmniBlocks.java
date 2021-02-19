@@ -77,6 +77,7 @@ public class OmniBlocks {
     public static RegistryObject<AbstractStackableBlock> WHITE_CLOVERS;
     public static RegistryObject<AbstractStackableBlock> WHITE_LOTUS_FLOWERS;
     public static RegistryObject<AbstractStackableBlock> YELLOW_HIBISCUSES;
+    public static RegistryObject<AbstractStackableBlock> HONEY_SPROUTS;
 
     public static RegistryObject<Block> TRADERS_QUILTED_WOOL;
     public static RegistryObject<Block> TRADERS_QUILTED_CARPET;
