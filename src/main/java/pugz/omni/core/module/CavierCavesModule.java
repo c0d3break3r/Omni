@@ -124,6 +124,8 @@ public class CavierCavesModule extends AbstractModule {
 
         OmniBlocks.ARCTISS = RegistryUtil.createBlock("arctiss", ArctissBlock::new, ItemGroup.DECORATIONS);
         OmniBlocks.ARCTISS_BLOCK = RegistryUtil.createBlock("arctiss_block", () -> new Block(AbstractBlock.Properties.from(Blocks.STONE)), ItemGroup.BUILDING_BLOCKS);
+
+        OmniBlocks.LYCHGATE_BLOCK = RegistryUtil.createBlock("lychgate_block", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(5.0F, 15.0F).setRequiresTool().sound(SoundType.ANCIENT_DEBRIS)), ItemGroup.BUILDING_BLOCKS);
     }
 
     @Override
@@ -132,6 +134,7 @@ public class CavierCavesModule extends AbstractModule {
         //OmniItems.CAVE_SPIDER_SPAWN_EGG = RegistryUtil.createOverrideItem("cave_spider_spawn_egg", () -> new OmniSpawnEggItem(() -> OmniEntities.CAVE_SPIDER.get(), 803406, 11013646, new Item.Properties().group(ItemGroup.MATERIALS)));
         OmniItems.CAVE_MUSHROOM_BOAT = RegistryUtil.createItem("cave_mushroom_boat", () -> new OmniBoatItem(new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1), "cave_mushroom"));
         OmniItems.CAVE_MUSHROOM_SIGN = RegistryUtil.createItem("cave_mushroom_sign", () -> new OmniSignItem(new Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(1), OmniBlocks.CAVE_MUSHROOM_SIGN.get(), OmniBlocks.CAVE_MUSHROOM_WALL_SIGN.get()));
+        OmniItems.LYCHMETAL_INGOT = RegistryUtil.createItem("lychmetal_ingot", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
     }
 
     @Override

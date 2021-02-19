@@ -9,6 +9,7 @@ public class OmniItems {
     public static RegistryObject<Item> CAVE_SPIDER_SPAWN_EGG;
     public static RegistryObject<Item> CAVE_MUSHROOM_BOAT;
     public static RegistryObject<Item> CAVE_MUSHROOM_SIGN;
+    public static RegistryObject<Item> LYCHMETAL_INGOT;
 
     //forestry
     public static RegistryObject<Item> ENCHANTED_GOLDEN_CARROT;

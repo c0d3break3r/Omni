@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:stone"
+  },
+  "addition": {
+    "item": "omni:lychmetal_ingot"
+  },
+  "result": {
+    "item": "omni:lychgate_block"
+  }
+}

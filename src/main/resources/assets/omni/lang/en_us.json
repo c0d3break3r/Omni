@@ -46,10 +46,12 @@
   "block.omni.cave_mushroom_beehive": "Cave Mushroom Beehive",
   "block.omni.arctiss": "Arctiss",
   "block.omni.arctiss_block": "Arctiss Block",
+  "block.omni.lychgate_block": "Lychgate Block",
 
   "item.omni.malachite_shard": "Malachite Shard",
   "item.omni.cave_mushroom_boat": "Cave Mushroom Boat",
   "item.omni.cave_mushroom_sign": "Cave Mushroom Sign",
+  "item.omni.lychmetal_ingot": "Lychmetal Ingot",
 
   "entity.omni.speleothem": "Speleothem",
   "entity.omni.cave_spider": "Cave Spider",

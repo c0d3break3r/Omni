@@ -1,9 +1,6 @@
 package pugz.omni.common.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.AbstractSignBlock;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
@@ -22,7 +19,7 @@ public class OmniAbstractSignBlock extends AbstractSignBlock {
     private final String woodType;
 
     public OmniAbstractSignBlock(AbstractBlock.Properties properties, String woodType) {
-        super(properties, null);
+        super(properties, WoodType.OAK);
         this.woodType = woodType;
     }
 

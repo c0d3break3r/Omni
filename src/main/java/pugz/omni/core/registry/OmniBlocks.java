@@ -56,6 +56,8 @@ public class OmniBlocks {
     public static RegistryObject<Block> ARCTISS;
     public static RegistryObject<Block> ARCTISS_BLOCK;
 
+    public static RegistryObject<Block> LYCHGATE_BLOCK;
+
     //colormatic
     public static RegistryObject<AbstractStackableBlock> AUTUMN_CROCUSES;
     public static RegistryObject<AbstractStackableBlock> BLUEBELLS;
