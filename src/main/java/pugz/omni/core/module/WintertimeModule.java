@@ -2,17 +2,14 @@ package pugz.omni.core.module;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.StrayEntity;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 
 public class WintertimeModule extends AbstractModule {
     public static final WintertimeModule instance = new WintertimeModule();

@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "refmap": "omni.refmap.json",
   "mixins": [
+    "FireBlockMixin",
     "CactusBlockMixin"
   ],
   "injectors": {

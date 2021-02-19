@@ -26,7 +26,7 @@ public final class CactusBlockMixin {
             }
         }
 
-        BlockState blockstate1 = worldIn.getBlockState(pos.down());
-        info.setReturnValue((blockstate1.isIn(Blocks.CACTUS) || blockstate1.isIn(Blocks.SAND) || blockstate1.isIn(Blocks.RED_SAND)) && !worldIn.getBlockState(pos.up()).getMaterial().isLiquid());
+        BlockState down = worldIn.getBlockState(pos.down());
+        info.setReturnValue((down.isIn(Blocks.CACTUS) || down.isIn(Blocks.SAND) || down.isIn(Blocks.RED_SAND)) && !worldIn.getBlockState(pos.up()).getMaterial().isLiquid());
     }
 }

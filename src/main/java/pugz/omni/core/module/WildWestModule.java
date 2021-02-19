@@ -170,12 +170,11 @@ public class WildWestModule extends AbstractModule {
 
         if (event.getCategory() == Biome.Category.MESA || StringUtils.contains(name.getPath(), "badland")) {
             BiomeFeatures.addRedRock(gen);
-            BiomeFeatures.addTerracottaCave(gen);
+            BiomeFeatures.addTerracottaCaves(gen);
             BiomeFeatures.addSaguaroCacti(gen);
-            if (!name.getPath().equals("wooded_badlands")) BiomeFeatures.addPaloVerdeTrees(gen);
         }
 
-        if (name.equals(OmniBiomes.WOODED_BADLANDS.getRegistryName().getPath())) {
+        if (name.getPath().equals(OmniBiomes.WOODED_BADLANDS.getRegistryName().getPath())) {
             gen.withSurfaceBuilder(OmniSurfaceBuilders.Configured.WOODED_BADLANDS);
             BiomeFeatures.addDenseSavannaTrees(gen);
             BiomeFeatures.addTerracottaRocks(gen);

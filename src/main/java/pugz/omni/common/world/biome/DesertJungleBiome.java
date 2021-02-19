@@ -57,7 +57,6 @@ public class DesertJungleBiome extends AbstractBiome {
     @Override
     BiomeDictionary.Type[] getBiomeDictionaryTypes() {
         return new BiomeDictionary.Type[]{
-                BiomeDictionary.Type.MESA,
                 BiomeDictionary.Type.HOT,
                 BiomeDictionary.Type.WET,
                 BiomeDictionary.Type.JUNGLE,

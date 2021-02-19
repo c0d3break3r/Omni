@@ -200,13 +200,13 @@ public class CavierCavesModule extends AbstractModule {
 
         if (category == Biome.Category.ICY) {
             BiomeFeatures.addIcicles(gen);
-            BiomeFeatures.addIcyCave(gen);
+            BiomeFeatures.addIcyCaves(gen);
         }
         if (category == Biome.Category.NETHER) {
             BiomeFeatures.addNetherrackSpeleothems(gen);
         }
         if (category == Biome.Category.MUSHROOM) {
-            BiomeFeatures.addMushroomCave(gen);
+            BiomeFeatures.addMushroomCaves(gen);
         }
     }
     

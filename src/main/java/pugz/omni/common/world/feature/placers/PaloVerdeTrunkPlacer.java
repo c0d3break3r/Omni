@@ -62,7 +62,7 @@ public class PaloVerdeTrunkPlacer extends AbstractTrunkPlacer {
         l = pos.getZ();
         Direction direction1 = Direction.Plane.HORIZONTAL.random(random);
         if (direction1 != direction) {
-            int k2 = i - random.nextInt(2) - 1;
+            int k2 = i - random.nextInt(2);
             int l1 = 1 + random.nextInt(3);
             i1 = 0;
 

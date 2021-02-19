@@ -49,15 +49,15 @@ public class BiomeFeatures {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.Configured.MALACHITE_GEODE);
     }
 
-    public static void addMushroomCave(BiomeGenerationSettingsBuilder biome) {
+    public static void addMushroomCaves(BiomeGenerationSettingsBuilder biome) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.Configured.MUSHROOM_CAVE);
     }
 
-    public static void addIcyCave(BiomeGenerationSettingsBuilder biome) {
+    public static void addIcyCaves(BiomeGenerationSettingsBuilder biome) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.Configured.ICY_CAVE);
     }
 
-    public static void addTerracottaCave(BiomeGenerationSettingsBuilder biome) {
+    public static void addTerracottaCaves(BiomeGenerationSettingsBuilder biome) {
         biome.getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION).add(() -> OmniFeatures.Configured.TERRACOTTA_CAVE);
     }
 

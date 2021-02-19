@@ -95,11 +95,6 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.BooleanValue LAYER_CONCRETE;
         public final ForgeConfigSpec.BooleanValue CONCRETE_POWDER_FALLS;
 
-        //deserted
-        public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
-        public final ForgeConfigSpec.IntValue WOODED_BADLANDS_SPAWN_WEIGHT;
-        public final ForgeConfigSpec.IntValue WOODED_DESERT_SPAWN_WEIGHT;
-
         //forestry
         public final ForgeConfigSpec.ConfigValue<Double> GOLDEN_OAK_SPAWN_CHANCE;
         public final ForgeConfigSpec.IntValue TALL_FOREST_SPAWN_WEIGHT;
@@ -119,6 +114,12 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.IntValue LOTUS_FLOWER_TRADE_PRICE;
         public final ForgeConfigSpec.IntValue BADLANDS_JUNGLE_SPAWN_WEIGHT;
         public final ForgeConfigSpec.IntValue DESERT_JUNGLE_SPAWN_WEIGHT;
+
+        //wild west
+        public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
+        public final ForgeConfigSpec.IntValue WOODED_BADLANDS_SPAWN_WEIGHT;
+        public final ForgeConfigSpec.IntValue WOODED_DESERT_SPAWN_WEIGHT;
+        //multi saguaros
 
         //wintertime
         public final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
