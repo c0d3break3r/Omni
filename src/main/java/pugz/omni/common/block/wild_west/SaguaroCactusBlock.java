@@ -90,7 +90,7 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        if (!state.isValidPosition(worldIn, pos)) worldIn.removeBlock(pos, true);
+        if (!state.isValidPosition(worldIn, pos)) worldIn.destroyBlock(pos, true);
     }
 
     @Override

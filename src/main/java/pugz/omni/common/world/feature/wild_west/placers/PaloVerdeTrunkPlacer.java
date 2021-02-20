@@ -1,4 +1,4 @@
-package pugz.omni.common.world.feature.placers;
+package pugz.omni.common.world.feature.wild_west.placers;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;

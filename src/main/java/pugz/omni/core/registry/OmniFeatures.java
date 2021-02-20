@@ -11,7 +11,7 @@ import pugz.omni.common.world.feature.cavier_caves.GeodeFeatureConfig;
 import pugz.omni.common.world.feature.cavier_caves.SpeleothemFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
-import pugz.omni.common.world.feature.placers.PaloVerdeTrunkPlacer;
+import pugz.omni.common.world.feature.wild_west.placers.PaloVerdeTrunkPlacer;
 
 public class OmniFeatures {
     //cavier caves
@@ -60,7 +60,7 @@ public class OmniFeatures {
         //wild west
         public static ConfiguredFeature<?, ?> RED_ROCK;
         public static ConfiguredFeature<?, ?> SAGUARO_CACTUS;
-        public static ConfiguredFeature<?, ?> PALO_VERDE_TREE;
+        public static ConfiguredFeature<BaseTreeFeatureConfig, ?> PALO_VERDE_TREE;
         public static ConfiguredFeature<?, ?> PALO_VERDE_TREES;
 
         public static ConfiguredFeature<?, ?> DENSE_SAVANNA_TREES;

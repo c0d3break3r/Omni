@@ -27,8 +27,8 @@ import pugz.omni.common.item.OmniSignItem;
 import pugz.omni.common.world.biome.WoodedBadlandsBiome;
 import pugz.omni.common.world.biome.WoodedDesertBiome;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
-import pugz.omni.common.world.feature.placers.PaloVerdeTrunkPlacer;
-import pugz.omni.common.world.feature.tree.PaloVerdeTree;
+import pugz.omni.common.world.feature.wild_west.placers.PaloVerdeTrunkPlacer;
+import pugz.omni.common.world.feature.wild_west.tree.PaloVerdeTree;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
 import pugz.omni.common.world.surface.WoodedBadlandsSurfaceBuilder;
 import pugz.omni.common.world.surface.WoodedDesertSurfaceBuilder;
@@ -153,7 +153,7 @@ public class WildWestModule extends AbstractModule {
         OmniFeatures.Configured.RED_ROCK = RegistryUtil.createConfiguredFeature("red_rock", OmniFeatures.EXPOSED_ORE.get().withConfiguration(new ExposedOreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, OmniBlocks.RED_ROCK.get().getDefaultState(), null, CoreModule.Configuration.COMMON.RED_ROCK_GEN_SIZE.get(), ExposedOreFeatureConfig.CaveFace.ALL)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(0, 0, 128)).chance(1)).range(80).square().func_242731_b(10));
         OmniFeatures.Configured.SAGUARO_CACTUS = RegistryUtil.createConfiguredFeature("saguaro_cacti", OmniFeatures.SAGUARO_CACTUS.get().withConfiguration(new NoFeatureConfig()).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12)).chance(12);
 
-        OmniFeatures.Configured.PALO_VERDE_TREE = RegistryUtil.createConfiguredFeature("palo_verde", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.PALO_VERDE_LOG.get().getDefaultState()), new SimpleBlockStateProvider(OmniBlocks.PALO_VERDE_LEAVES.get().getDefaultState()), new BushFoliagePlacer(FeatureSpread.func_242252_a(1), FeatureSpread.func_242252_a(0), 1), new PaloVerdeTrunkPlacer(2, 0, 1), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().setDecorators(ImmutableList.of(Features.Placements.BEES_0002_PLACEMENT)).build()).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
+        OmniFeatures.Configured.PALO_VERDE_TREE = RegistryUtil.createConfiguredFeature("palo_verde", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(OmniBlocks.PALO_VERDE_LOG.get().getDefaultState()), new SimpleBlockStateProvider(OmniBlocks.PALO_VERDE_LEAVES.get().getDefaultState()), new BushFoliagePlacer(FeatureSpread.func_242252_a(1), FeatureSpread.func_242252_a(0), 1), new PaloVerdeTrunkPlacer(3, 0, 1), new TwoLayerFeature(2, 0, 1))).setIgnoreVines().setDecorators(ImmutableList.of(Features.Placements.BEES_0002_PLACEMENT)).build()));
         OmniFeatures.Configured.PALO_VERDE_TREES = RegistryUtil.createConfiguredFeature("palo_verde_trees", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(OmniFeatures.Configured.PALO_VERDE_TREE.withChance(0.8F)), OmniFeatures.Configured.PALO_VERDE_TREE)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(5, 0.5F, 1))));
 
         OmniFeatures.Configured.DENSE_SAVANNA_TREES = RegistryUtil.createConfiguredFeature("dense_savanna_trees", Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Features.ACACIA.withChance(0.8F)), Features.OAK)).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
