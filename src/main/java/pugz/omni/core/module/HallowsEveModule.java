@@ -2,6 +2,7 @@ package pugz.omni.core.module;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class HallowsEveModule extends AbstractModule {
     public static final HallowsEveModule instance = new HallowsEveModule();
@@ -25,6 +26,6 @@ public class HallowsEveModule extends AbstractModule {
     }
 
     @Override
-    protected void onPostInitialize() {
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
     }
 }

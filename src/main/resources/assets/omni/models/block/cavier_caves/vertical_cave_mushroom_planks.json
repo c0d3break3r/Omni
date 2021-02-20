@@ -1,6 +1,6 @@
 {
     "parent": "omni:block/vertical_planks",
     "textures": {
-        "all": "omni:block/wild_west/palo_verde_planks"
+        "all": "omni:block/cavier_caves/cave_mushroom_planks"
     }
 }

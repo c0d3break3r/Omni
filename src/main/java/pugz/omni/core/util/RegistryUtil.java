@@ -2,6 +2,7 @@ package pugz.omni.core.util;
 
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.TallBlockItem;
 import net.minecraft.particles.BasicParticleType;
@@ -33,9 +34,13 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class RegistryUtil {
+    public static final List<RenderMaterial> sprites = new ArrayList<>();
+
     public static <B extends Block> RegistryObject<B> createBlock(String name, Supplier<? extends B> supplier, @Nullable ItemGroup group) {
         RegistryObject<B> block = Omni.Registries.BLOCKS.register(name, supplier);
         if (group != null) Omni.Registries.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group)));

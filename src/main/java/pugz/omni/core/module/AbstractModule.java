@@ -7,6 +7,7 @@ import net.minecraft.block.FireBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.core.util.IBaseBlock;
 
@@ -25,7 +26,7 @@ public abstract class AbstractModule {
 
     protected abstract void onClientInitialize();
 
-    protected abstract void onPostInitialize();
+    protected abstract void onPostInitialize(final FMLCommonSetupEvent event);
 
     protected abstract void sendInitMessage();
 
@@ -62,8 +63,8 @@ public abstract class AbstractModule {
         });
     }
 
-    public void initializePost() {
-        onPostInitialize();
+    public void initializePost(final FMLCommonSetupEvent event) {
+        onPostInitialize(event);
 
         registerConfiguredFeatures();
 

@@ -3,10 +3,13 @@ package pugz.omni.core.module;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -19,6 +22,7 @@ import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.commons.lang3.StringUtils;
 import pugz.omni.common.block.*;
 import pugz.omni.common.block.wild_west.*;
@@ -32,6 +36,7 @@ import pugz.omni.common.world.feature.wild_west.tree.PaloVerdeTree;
 import pugz.omni.common.world.feature.wild_west.SaguaroCactusFeature;
 import pugz.omni.common.world.surface.WoodedBadlandsSurfaceBuilder;
 import pugz.omni.common.world.surface.WoodedDesertSurfaceBuilder;
+import pugz.omni.core.Omni;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
@@ -65,10 +70,16 @@ public class WildWestModule extends AbstractModule {
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_DOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_TRAPDOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.PALO_VERDE_LADDER.get(), RenderType.getCutout());
+
+        RegistryUtil.sprites.add(new RenderMaterial(Atlases.SIGN_ATLAS, new ResourceLocation(Omni.MOD_ID, "entity/sign/palo_verde")));
     }
 
     @Override
-    protected void onPostInitialize() {
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.PALO_VERDE_SIGN.get());
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.PALO_VERDE_WALL_SIGN.get());
+        });
     }
 
     @Override
@@ -120,7 +131,7 @@ public class WildWestModule extends AbstractModule {
         OmniBlocks.PALO_VERDE_LADDER = RegistryUtil.createBlock("palo_verde_ladder", () -> new LadderBlock(AbstractBlock.Properties.from(Blocks.LADDER)), ItemGroup.DECORATIONS);
         OmniBlocks.PALO_VERDE_BEEHIVE = RegistryUtil.createBlock("palo_verde_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
         //if (ModList.get().isLoaded("quark")) {
-            OmniBlocks.VERTICAL_PALO_VERDE_PLANKS = RegistryUtil.createBlock("vertical_palo_verde_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
+            OmniBlocks.VERTICAL_PALO_VERDE_PLANKS = RegistryUtil.createBlock("vertical_palo_verde_planks", () -> new Block(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             OmniBlocks.PALO_VERDE_VERTICAL_SLAB = RegistryUtil.createBlock("palo_verde_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.PALO_VERDE_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
         //}
     }

@@ -17,7 +17,7 @@ public class YellowCaveMushroomBlock extends CaveMushroomBlock implements IBaseB
     @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (entityIn instanceof ProjectileEntity) {
-            entityIn.entityCollisionReduction = Float.MAX_VALUE;
+            entityIn.addVelocity(-entityIn.getMotion().x, -entityIn.getMotion().y, -entityIn.getMotion().z);
         }
     }
 }

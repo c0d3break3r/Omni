@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class WintertimeModule extends AbstractModule {
     public static final WintertimeModule instance = new WintertimeModule();
@@ -34,7 +35,7 @@ public class WintertimeModule extends AbstractModule {
     }
 
     @Override
-    protected void onPostInitialize() {
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
     }
 
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {

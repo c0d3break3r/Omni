@@ -21,6 +21,4 @@ public interface IBaseBlock {
     default float getCompostChance() {
         return 0.0F;
     }
-
-    default boolean isSign() { return false; }
 }

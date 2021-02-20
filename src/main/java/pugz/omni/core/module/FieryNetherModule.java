@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import pugz.omni.core.registry.OmniBlocks;
 import pugz.omni.core.util.RegistryUtil;
 
@@ -31,7 +32,7 @@ public class FieryNetherModule extends AbstractModule {
     }
 
     @Override
-    protected void onPostInitialize() {
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
     }
 
     @Override

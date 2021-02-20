@@ -1,13 +1,16 @@
 package pugz.omni.core.module;
 
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.*;
 import net.minecraft.stats.IStatFormatter;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -18,6 +21,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.commons.lang3.StringUtils;
 import pugz.omni.client.render.SizedCaveSpiderRenderer;
 import pugz.omni.client.render.SpeleothemRenderer;
@@ -28,6 +32,7 @@ import pugz.omni.common.item.OmniBoatItem;
 import pugz.omni.common.item.OmniSignItem;
 import pugz.omni.common.world.feature.cavier_caves.*;
 import pugz.omni.common.world.feature.cavier_caves.caves.*;
+import pugz.omni.core.Omni;
 import pugz.omni.core.registry.*;
 import pugz.omni.core.util.BiomeFeatures;
 import pugz.omni.core.util.RegistryUtil;
@@ -65,11 +70,19 @@ public class CavierCavesModule extends AbstractModule {
         RenderTypeLookup.setRenderLayer(OmniBlocks.CAVE_MUSHROOM_DOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.CAVE_MUSHROOM_TRAPDOOR.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OmniBlocks.CAVE_MUSHROOM_LADDER.get(), RenderType.getCutout());
+
+        RegistryUtil.sprites.add(new RenderMaterial(Atlases.SIGN_ATLAS, new ResourceLocation(Omni.MOD_ID, "entity/sign/cave_mushroom")));
     }
 
     @Override
-    protected void onPostInitialize() {
+    @SuppressWarnings("deprecation")
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
         GlobalEntityTypeAttributes.put(OmniEntities.CAVE_SPIDER.get(), SizedCaveSpiderEntity.registerAttributes().create());
+
+        event.enqueueWork(() -> {
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.CAVE_MUSHROOM_SIGN.get());
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.CAVE_MUSHROOM_WALL_SIGN.get());
+        });
     }
 
     @Override
@@ -105,7 +118,7 @@ public class CavierCavesModule extends AbstractModule {
             OmniBlocks.CAVE_MUSHROOM_WALL_SIGN = RegistryUtil.createBlock("cave_mushroom_wall_sign", () -> new OmniWallSignBlock(AbstractBlock.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(OmniBlocks.CAVE_MUSHROOM_SIGN.get()), "palo_verde"));
             OmniBlocks.CAVE_MUSHROOM_BEEHIVE = RegistryUtil.createBlock("cave_mushroom_beehive", OmniBeehiveBlock::new, ItemGroup.DECORATIONS);
             //if (ModList.get().isLoaded("quark")) {
-                OmniBlocks.VERTICAL_CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("vertical_cave_mushroom_planks", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
+                OmniBlocks.VERTICAL_CAVE_MUSHROOM_PLANKS = RegistryUtil.createBlock("vertical_cave_mushroom_planks", () -> new Block(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
                 OmniBlocks.CAVE_MUSHROOM_VERTICAL_SLAB = RegistryUtil.createBlock("cave_mushroom_vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.from(OmniBlocks.CAVE_MUSHROOM_PLANKS.get())), ItemGroup.BUILDING_BLOCKS);
             //}
         //}

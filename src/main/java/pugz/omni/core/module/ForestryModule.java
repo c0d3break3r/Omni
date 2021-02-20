@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import pugz.omni.common.block.forestry.CarvedLogBlock;
 import pugz.omni.common.block.OmniLeavesBlock;
 import pugz.omni.common.world.biome.TallForestBiome;
@@ -48,7 +49,7 @@ public class ForestryModule extends AbstractModule {
     }
 
     @Override
-    protected void onPostInitialize() {
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
     }
 
     @Override

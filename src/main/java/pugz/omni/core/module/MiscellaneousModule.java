@@ -27,6 +27,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import pugz.omni.common.block.miscellaneous.VexedGlassBlock;
 import pugz.omni.common.item.forestry.EnchantedGoldenCarrotItem;
 import pugz.omni.core.Omni;
@@ -62,7 +63,7 @@ public class MiscellaneousModule extends AbstractModule {
     }
 
     @Override
-    protected void onPostInitialize() {
+    protected void onPostInitialize(final FMLCommonSetupEvent event) {
     }
 
     @Override

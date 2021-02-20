@@ -97,31 +97,26 @@ public class Omni {
         WintertimeModule.instance.initializeClient();
     }
 
-    private void registerModulePost() {
-        CoreModule.instance.initializePost();
+    private void registerModulePost(final FMLCommonSetupEvent event) {
+        CoreModule.instance.initializePost(event);
 
-        CavierCavesModule.instance.initializePost();
-        ColormaticModule.instance.initializePost();
-        FieryNetherModule.instance.initializePost();
-        ForestryModule.instance.initializePost();
-        //HallowsEveModule.instance.initializePost();
-        MiscellaneousModule.instance.initializePost();
-        ParadiseModule.instance.initializePost();
-        WildWestModule.instance.initializePost();
-        WintertimeModule.instance.initializePost();
+        CavierCavesModule.instance.initializePost(event);
+        ColormaticModule.instance.initializePost(event);
+        FieryNetherModule.instance.initializePost(event);
+        ForestryModule.instance.initializePost(event);
+        //HallowsEveModule.instance.initializePost(event);
+        MiscellaneousModule.instance.initializePost(event);
+        ParadiseModule.instance.initializePost(event);
+        WildWestModule.instance.initializePost(event);
+        WintertimeModule.instance.initializePost(event);
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
-        registerModulePost();
-
         event.enqueueWork(() -> {
             TileEntityType.SIGN.validBlocks = new HashSet<>(TileEntityType.SIGN.validBlocks);
-            TileEntityType.SIGN.validBlocks.add(OmniBlocks.CAVE_MUSHROOM_SIGN.get());
-            TileEntityType.SIGN.validBlocks.add(OmniBlocks.CAVE_MUSHROOM_WALL_SIGN.get());
-            TileEntityType.SIGN.validBlocks.add(OmniBlocks.PALO_VERDE_SIGN.get());
-            TileEntityType.SIGN.validBlocks.add(OmniBlocks.PALO_VERDE_WALL_SIGN.get());
         });
 
+        registerModulePost(event);
         //CompatReferences.initializeReferences();
     }
 
