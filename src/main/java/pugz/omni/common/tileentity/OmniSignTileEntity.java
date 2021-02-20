@@ -4,13 +4,11 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.SignTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.IReorderingProcessor;
@@ -30,7 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
-public class OmniSignTileEntity extends SignTileEntity {
+public class OmniSignTileEntity extends TileEntity {
     private final ITextComponent[] signText = new ITextComponent[]{StringTextComponent.EMPTY, StringTextComponent.EMPTY, StringTextComponent.EMPTY, StringTextComponent.EMPTY};
     private boolean isEditable = true;
     private PlayerEntity player;
@@ -38,20 +36,15 @@ public class OmniSignTileEntity extends SignTileEntity {
     private DyeColor textColor = DyeColor.BLACK;
 
     public OmniSignTileEntity() {
-        super();
+        super(TileEntityType.SIGN);
     }
 
     @Nonnull
     @Override
-    public TileEntityType<?> getType() {
-        return OmniTileEntities.SIGN.get();
-    }
-
-    @Nonnull
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
 
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             String s = ITextComponent.Serializer.toJson(this.signText[i]);
             compound.putString("Text" + (i + 1), s);
         }
@@ -60,17 +53,18 @@ public class OmniSignTileEntity extends SignTileEntity {
         return compound;
     }
 
+    @Override
     public void read(BlockState state, CompoundNBT nbt) {
         this.isEditable = false;
         super.read(state, nbt);
         this.textColor = DyeColor.byTranslationKey(nbt.getString("Color"), DyeColor.BLACK);
 
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             String s = nbt.getString("Text" + (i + 1));
             ITextComponent itextcomponent = ITextComponent.Serializer.getComponentFromJson(s.isEmpty() ? "\"\"" : s);
             if (this.world instanceof ServerWorld) {
                 try {
-                    this.signText[i] = TextComponentUtils.func_240645_a_(this.getCommandSource((ServerPlayerEntity)null), itextcomponent, (Entity)null, 0);
+                    this.signText[i] = TextComponentUtils.func_240645_a_(this.getCommandSource(null), itextcomponent, null, 0);
                 } catch (CommandSyntaxException commandsyntaxexception) {
                     this.signText[i] = itextcomponent;
                 }
@@ -83,7 +77,6 @@ public class OmniSignTileEntity extends SignTileEntity {
 
     }
 
-    @Nonnull
     @OnlyIn(Dist.CLIENT)
     public ITextComponent getText(int line) {
         return this.signText[line];
@@ -104,16 +97,19 @@ public class OmniSignTileEntity extends SignTileEntity {
         return this.renderText[p_242686_1_];
     }
 
+    @Override
     @Nullable
     public SUpdateTileEntityPacket getUpdatePacket() {
         return new SUpdateTileEntityPacket(this.pos, 9, this.getUpdateTag());
     }
 
     @Nonnull
+    @Override
     public CompoundNBT getUpdateTag() {
         return this.write(new CompoundNBT());
     }
 
+    @Override
     public boolean onlyOpsCanSetNbt() {
         return true;
     }
@@ -140,12 +136,12 @@ public class OmniSignTileEntity extends SignTileEntity {
     }
 
     public boolean executeCommand(PlayerEntity playerIn) {
-        for(ITextComponent itextcomponent : this.signText) {
+        for (ITextComponent itextcomponent : this.signText) {
             Style style = itextcomponent == null ? null : itextcomponent.getStyle();
             if (style != null && style.getClickEvent() != null) {
                 ClickEvent clickevent = style.getClickEvent();
                 if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                    playerIn.getServer().getCommandManager().handleCommand(this.getCommandSource((ServerPlayerEntity)playerIn), clickevent.getValue());
+                    playerIn.getServer().getCommandManager().handleCommand(this.getCommandSource((ServerPlayerEntity) playerIn), clickevent.getValue());
                 }
             }
         }
@@ -155,8 +151,8 @@ public class OmniSignTileEntity extends SignTileEntity {
 
     public CommandSource getCommandSource(@Nullable ServerPlayerEntity playerIn) {
         String s = playerIn == null ? "Sign" : playerIn.getName().getString();
-        ITextComponent itextcomponent = (ITextComponent)(playerIn == null ? new StringTextComponent("Sign") : playerIn.getDisplayName());
-        return new CommandSource(ICommandSource.DUMMY, Vector3d.copyCentered(this.pos), Vector2f.ZERO, (ServerWorld)this.world, 2, s, itextcomponent, this.world.getServer(), playerIn);
+        ITextComponent itextcomponent = (playerIn == null ? new StringTextComponent("Sign") : playerIn.getDisplayName());
+        return new CommandSource(ICommandSource.DUMMY, Vector3d.copyCentered(this.pos), Vector2f.ZERO, (ServerWorld) this.world, 2, s, itextcomponent, this.world.getServer(), playerIn);
     }
 
     public DyeColor getTextColor() {

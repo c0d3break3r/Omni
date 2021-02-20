@@ -11,7 +11,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class OmniTileEntities {
     public static RegistryObject<TileEntityType<OmniBeehiveTileEntity>> BEEHIVE;
-    public static RegistryObject<TileEntityType<OmniSignTileEntity>> SIGN;
     public static RegistryObject<TileEntityType<OmniChestTileEntity>> CHEST;
     public static RegistryObject<TileEntityType<OmniTrappedChestTileEntity>> TRAPPED_CHEST;
 

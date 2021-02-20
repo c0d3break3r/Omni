@@ -6,7 +6,8 @@
   "refmap": "omni.refmap.json",
   "mixins": [
     "FireBlockMixin",
-    "CactusBlockMixin"
+    "CactusBlockMixin",
+    "SignTileEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

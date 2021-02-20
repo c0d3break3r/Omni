@@ -16,7 +16,11 @@ import pugz.omni.core.registry.OmniBlocks;
 
 @Mixin(CactusBlock.class)
 public final class CactusBlockMixin {
-    @Inject(at = @At(value = "HEAD"), method = "isValidPosition", cancellable = true)
+    @Inject(
+            at = @At(value = "HEAD"),
+            method = "isValidPosition",
+            cancellable = true
+    )
     private void isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState blockstate = worldIn.getBlockState(pos.offset(direction));

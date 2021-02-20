@@ -6,6 +6,7 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.core.util.IBaseBlock;
 

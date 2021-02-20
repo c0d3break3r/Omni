@@ -2,15 +2,13 @@ package pugz.omni.common.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -20,17 +18,31 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import pugz.omni.core.util.IBaseBlock;
+import pugz.omni.core.util.IOmniSign;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class OmniWallSignBlock extends OmniAbstractSignBlock {
+public class OmniWallSignBlock extends WallSignBlock implements IBaseBlock, IOmniSign {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.makeCuboidShape(0.0D, 4.5D, 14.0D, 16.0D, 12.5D, 16.0D), Direction.SOUTH, Block.makeCuboidShape(0.0D, 4.5D, 0.0D, 16.0D, 12.5D, 2.0D), Direction.EAST, Block.makeCuboidShape(0.0D, 4.5D, 0.0D, 2.0D, 12.5D, 16.0D), Direction.WEST, Block.makeCuboidShape(14.0D, 4.5D, 0.0D, 16.0D, 12.5D, 16.0D)));
+    private final String wood;
 
     public OmniWallSignBlock(Properties properties, String wood) {
-        super(properties, wood);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, Boolean.valueOf(false)));
+        super(properties, WoodType.OAK);
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+        this.wood = wood;
+    }
+
+    @Override
+    public boolean isSign() {
+        return true;
+    }
+
+    @Override
+    public String getWood() {
+        return wood;
     }
 
     @Nonnull
@@ -43,7 +55,6 @@ public class OmniWallSignBlock extends OmniAbstractSignBlock {
         return SHAPES.get(state.get(FACING));
     }
 
-    @SuppressWarnings("deprecation")
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.offset(state.get(FACING).getOpposite())).getMaterial().isSolid();
     }
@@ -85,6 +96,7 @@ public class OmniWallSignBlock extends OmniAbstractSignBlock {
         return state.rotate(mirrorIn.toRotation(state.get(FACING)));
     }
 
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING, WATERLOGGED);
     }

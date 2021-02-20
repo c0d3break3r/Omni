@@ -161,7 +161,7 @@ public class ColormaticModule extends AbstractModule {
             STACKABLES.add(OmniBlocks.AUTUMN_CROCUSES);
         }
 
-        if (ModList.get().isLoaded("minibloom")) {
+        if (ModList.get().isLoaded("minibloomno")) {
             OmniBlocks.HONEY_SPROUTS = RegistryUtil.createBlock("honey_sprouts", () -> new FlowersBlock(AbstractBlock.Properties.from(CompatReferences.HONEY_SPROUT.get()), CompatReferences.HONEY_SPROUT.get()), null);
             STACKABLES.add(OmniBlocks.HONEY_SPROUTS);
         }

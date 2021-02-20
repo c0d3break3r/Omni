@@ -28,6 +28,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import pugz.omni.core.registry.OmniBlocks;
+
+import java.util.HashSet;
 
 @Mod(Omni.MOD_ID)
 public class Omni {
@@ -110,6 +113,15 @@ public class Omni {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
         registerModulePost();
+
+        event.enqueueWork(() -> {
+            TileEntityType.SIGN.validBlocks = new HashSet<>(TileEntityType.SIGN.validBlocks);
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.CAVE_MUSHROOM_SIGN.get());
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.CAVE_MUSHROOM_WALL_SIGN.get());
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.PALO_VERDE_SIGN.get());
+            TileEntityType.SIGN.validBlocks.add(OmniBlocks.PALO_VERDE_WALL_SIGN.get());
+        });
+
         //CompatReferences.initializeReferences();
     }
 

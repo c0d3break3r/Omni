@@ -8,7 +8,6 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 import pugz.omni.client.render.OmniBoatRenderer;
 import pugz.omni.client.render.OmniChestTileEntityRenderer;
-import pugz.omni.client.render.OmniSignTileEntityRenderer;
 import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
 import pugz.omni.common.tileentity.OmniChestTileEntity;
 import pugz.omni.common.tileentity.OmniSignTileEntity;
@@ -41,7 +40,6 @@ public class CoreModule extends AbstractModule {
     protected void onClientInitialize() {
         ClientRegistry.bindTileEntityRenderer(OmniTileEntities.CHEST.get(), OmniChestTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(OmniTileEntities.TRAPPED_CHEST.get(), OmniChestTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(OmniTileEntities.SIGN.get(), OmniSignTileEntityRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(OmniEntities.BOAT.get(), OmniBoatRenderer::new);
     }
@@ -53,7 +51,6 @@ public class CoreModule extends AbstractModule {
     @Override
     protected void registerTileEntities() {
         OmniTileEntities.BEEHIVE = RegistryUtil.createTileEntity("beehive", OmniBeehiveTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniBeehiveTileEntity.class));
-        OmniTileEntities.SIGN = RegistryUtil.createTileEntity("sign", OmniSignTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniSignTileEntity.class));
         OmniTileEntities.CHEST = RegistryUtil.createTileEntity("chest", OmniChestTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniChestTileEntity.class));
         OmniTileEntities.TRAPPED_CHEST = RegistryUtil.createTileEntity("trapped_chest", OmniTrappedChestTileEntity::new, () -> OmniTileEntities.collectBlocks(OmniTrappedChestTileEntity.class));
     }
