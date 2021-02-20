@@ -10,6 +10,7 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import pugz.omni.common.block.wild_west.SaguaroCactusBlock;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
 import java.util.Random;
@@ -30,7 +31,7 @@ public class SaguaroCactusFeature extends Feature<NoFeatureConfig> {
             if (world.getBlockState(place.offset(direction)).getBlock() instanceof SaguaroCactusBlock) return false;
         }
 
-        if (world.getBlockState(place.offset(Direction.DOWN)).getBlock() instanceof SaguaroCactusBlock && random.nextBoolean()) return false;
+        if (world.getBlockState(place.offset(Direction.DOWN)).getBlock() instanceof SaguaroCactusBlock && random.nextBoolean() && !CoreModule.Configuration.COMMON.FANTASTICAL_SAGUAROS.get()) return false;
 
         return generateCactus(world, random.nextBoolean(), place, random, random.nextInt(50) == 0);
     }

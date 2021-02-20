@@ -35,6 +35,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.entity.colormatic.FallingConcretePowderEntity;
+import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.util.IBaseBlock;
 
 import javax.annotation.Nonnull;
@@ -117,8 +118,10 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
     @Nonnull
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, this.getFallDelay());
-        return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : isTouchingLiquid(worldIn, currentPos) ? this.solidifiedState.with(LAYERS, stateIn.get(LAYERS)).with(WATERLOGGED, stateIn.get(WATERLOGGED)) : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        if (CoreModule.Configuration.COMMON.CONCRETE_POWDER_FALLS.get()) {
+            worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, this.getFallDelay());
+            return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : isTouchingLiquid(worldIn, currentPos) ? this.solidifiedState.with(LAYERS, stateIn.get(LAYERS)).with(WATERLOGGED, stateIn.get(WATERLOGGED)) : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        } else return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Nonnull
@@ -142,7 +145,7 @@ public class LayerConcretePowderBlock extends FallingBlock implements IWaterLogg
 
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        if (!world.isRemote) {
+        if (!world.isRemote && CoreModule.Configuration.COMMON.CONCRETE_POWDER_FALLS.get()) {
             if (world.isAirBlock(pos.down()) || canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= 0) {
                 FallingConcretePowderEntity entity = new FallingConcretePowderEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, state.get(LAYERS), state);
                 world.addEntity(entity);

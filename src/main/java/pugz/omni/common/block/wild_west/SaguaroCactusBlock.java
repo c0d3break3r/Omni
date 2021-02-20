@@ -98,10 +98,10 @@ public class SaguaroCactusBlock extends Block implements IGrowable, IBaseBlock {
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         if (state.get(HORIZONTAL)) {
             Direction offset = state.get(HORIZONTAL_DIRECTION);
-            if (!world.getBlockState(pos.offset(offset)).isIn(this)) return false;
+            if (!(world.getBlockState(pos.offset(offset)).getBlock() instanceof SaguaroCactusBlock)) return false;
         } else {
             BlockState checkState = world.getBlockState(pos.down());
-            return (checkState.isIn(this) || checkState.isIn(Blocks.SAND) || checkState.isIn(Blocks.RED_SAND)) && !world.getBlockState(pos.up()).getMaterial().isLiquid();
+            return (checkState.getBlock() instanceof SaguaroCactusBlock || checkState.isIn(Blocks.SAND) || checkState.isIn(Blocks.RED_SAND)) && !world.getBlockState(pos.up()).getMaterial().isLiquid();
         }
 
         return super.isValidPosition(state, world, pos);

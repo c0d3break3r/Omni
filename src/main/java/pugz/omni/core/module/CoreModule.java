@@ -119,7 +119,7 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.IntValue RED_ROCK_GEN_SIZE;
         public final ForgeConfigSpec.IntValue WOODED_BADLANDS_SPAWN_WEIGHT;
         public final ForgeConfigSpec.IntValue WOODED_DESERT_SPAWN_WEIGHT;
-        //multi saguaros
+        public final ForgeConfigSpec.BooleanValue FANTASTICAL_SAGUAROS;
 
         //wintertime
         public final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
@@ -181,6 +181,7 @@ public class CoreModule extends AbstractModule {
             RED_ROCK_GEN_SIZE = builder.defineInRange("red_rock_gen_size", 36, 0, 128);
             WOODED_BADLANDS_SPAWN_WEIGHT = builder.defineInRange("wooded_badlands_spawn_weight", 2, 0, 100);
             WOODED_DESERT_SPAWN_WEIGHT = builder.defineInRange("wooded_desert_spawn_weight", 3, 0, 100);
+            FANTASTICAL_SAGUAROS = builder.define("fantastical_saguaros", true);
             builder.pop();
 
             builder.push(WintertimeModule.instance.getName());
