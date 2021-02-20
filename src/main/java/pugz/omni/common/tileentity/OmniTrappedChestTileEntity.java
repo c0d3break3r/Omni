@@ -1,10 +1,8 @@
 package pugz.omni.common.tileentity;
 
-import pugz.omni.core.registry.OmniTileEntities;
-
 public class OmniTrappedChestTileEntity extends OmniChestTileEntity {
     public OmniTrappedChestTileEntity() {
-        super(OmniTileEntities.TRAPPED_CHEST.get());
+        super();
     }
 
     protected void onOpenOrClose() {

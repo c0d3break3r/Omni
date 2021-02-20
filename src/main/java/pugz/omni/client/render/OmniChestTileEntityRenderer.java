@@ -26,6 +26,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import pugz.omni.common.tileentity.OmniChestTileEntity;
 import pugz.omni.core.Omni;
+import pugz.omni.core.util.IOmniChest;
 
 import java.util.Calendar;
 
@@ -103,8 +104,7 @@ public class OmniChestTileEntityRenderer<T extends TileEntity & IChestLid> exten
             f1 = 1.0F - f1;
             f1 = 1.0F - f1 * f1 * f1;
             int i = icallbackwrapper.apply(new DualBrightnessCallback<>()).applyAsInt(combinedLightIn);
-            RenderMaterial rendermaterial = this.getMaterial(tileEntityIn, chesttype);
-            IVertexBuilder ivertexbuilder = rendermaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(this.getChestTexture(tileEntityIn, chesttype)));
             if (flag1) {
                 if (chesttype == ChestType.LEFT) {
                     this.renderModels(matrixStackIn, ivertexbuilder, this.leftLid, this.leftLatch, this.leftBottom, f1, i, combinedOverlayIn);
@@ -127,7 +127,26 @@ public class OmniChestTileEntityRenderer<T extends TileEntity & IChestLid> exten
         chestBottom.render(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
     }
 
-    protected RenderMaterial getMaterial(T tileEntity, ChestType chestType) {
-        return isChristmas ? Atlases.CHEST_XMAS_MATERIAL : new RenderMaterial(Atlases.CHEST_ATLAS, new ResourceLocation(Omni.MOD_ID,"entity/chest/" + ((OmniChestTileEntity)tileEntity).getWoodType() + "_" + chestType));
+    protected ResourceLocation getChestTexture(T tileEntity, ChestType chestType) {
+        String modid = Omni.MOD_ID;
+        Block inventoryBlock = tileEntity.getBlockState().getBlock();
+        IOmniChest block = (IOmniChest) inventoryBlock;
+
+        String type = block.getWood() + (block.isTrapped() ? "trapped" : "normal");
+
+        if (this.isChristmas) {
+            type = "christmas";
+            modid = "minecraft";
+        }
+
+        switch(chestType) {
+            default:
+            case SINGLE:
+                return new ResourceLocation(modid, "textures/entity/chest/" + type +".png");
+            case LEFT:
+                return new ResourceLocation(modid, "textures/entity/chest/" + type + "_left.png");
+            case RIGHT:
+                return new ResourceLocation(modid, "textures/entity/chest/" + type + "_right.png");
+        }
     }
 }
