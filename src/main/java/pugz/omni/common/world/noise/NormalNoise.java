@@ -13,10 +13,6 @@ public class NormalNoise {
         return new NormalNoise(random, var1, new DoubleArrayList(doubles));
     }
 
-    public static NormalNoise a(WorldGenRandom random, int var1, DoubleList doubles) {
-        return new NormalNoise(random, var1, doubles);
-    }
-
     private NormalNoise(WorldGenRandom random, int var2, DoubleList doubles) {
         this.perlinNoise1 = PerlinNoise.a(random, var2, doubles);
         this.perlinNoise2 = PerlinNoise.a(random, var2, doubles);

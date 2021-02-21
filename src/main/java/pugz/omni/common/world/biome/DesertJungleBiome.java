@@ -1,5 +1,7 @@
 package pugz.omni.common.world.biome;
 
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
@@ -101,7 +103,10 @@ public class DesertJungleBiome extends AbstractBiome {
     MobSpawnInfo getMobSpawns() {
         MobSpawnInfo.Builder builder = new MobSpawnInfo.Builder();
         DefaultBiomeFeatures.withDesertMobs(builder);
+        builder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.PARROT, 10, 1, 1)).withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.OCELOT, 2, 1, 1)).withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.PANDA, 1, 1, 2));
         builder.isValidSpawnBiomeForPlayer();
+        DefaultBiomeFeatures.withBatsAndHostiles(builder);
+        DefaultBiomeFeatures.withSpawnsWithExtraChickens(builder);
         return builder.copy();
     }
 }

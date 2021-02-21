@@ -7,9 +7,7 @@ import it.unimi.dsi.fastutil.ints.IntBidirectionalIterator;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import net.minecraft.world.gen.ImprovedNoiseGenerator;
 
-import javax.annotation.Nullable;
-
-public class PerlinNoise implements SurfaceNoise {
+public class PerlinNoise {
     private final ImprovedNoiseGenerator[] improvedNoises;
     private final DoubleList doubles;
     private final double c;
@@ -40,10 +38,6 @@ public class PerlinNoise implements SurfaceNoise {
                 return Pair.of(-var1, var4);
             }
         }
-    }
-
-    private PerlinNoise(WorldGenRandom random, IntSortedSet var2) {
-        this(random, a(var2));
     }
 
     private PerlinNoise(WorldGenRandom random, Pair<Integer, DoubleList> var2) {
@@ -117,16 +111,7 @@ public class PerlinNoise implements SurfaceNoise {
         return var12;
     }
 
-    @Nullable
-    public ImprovedNoiseGenerator a(int var1) {
-        return this.improvedNoises[this.improvedNoises.length - 1 - var1];
-    }
-
     public static double a(double var0) {
         return var0 - Math.floor(var0 / 3.3554432E7D + 0.5D) * 3.3554432E7D;
-    }
-
-    public double a(double var1, double var3, double var5, double var7) {
-        return this.a(var1, var3, 0.0D, var5, var7, false);
     }
 }

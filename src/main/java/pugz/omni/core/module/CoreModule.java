@@ -11,7 +11,6 @@ import pugz.omni.client.render.OmniBoatRenderer;
 import pugz.omni.client.render.OmniChestTileEntityRenderer;
 import pugz.omni.common.tileentity.OmniBeehiveTileEntity;
 import pugz.omni.common.tileentity.OmniChestTileEntity;
-import pugz.omni.common.tileentity.OmniSignTileEntity;
 import pugz.omni.common.tileentity.OmniTrappedChestTileEntity;
 import pugz.omni.common.world.feature.ExposedOreFeature;
 import pugz.omni.common.world.feature.ExposedOreFeatureConfig;
@@ -123,7 +122,7 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.IntValue POLAR_BEAR_JOCKEY_CHANCE;
 
         public Configuration(ForgeConfigSpec.Builder builder) {
-            builder.comment("Omni Common Configuration");
+            builder.comment("Omni Configuration");
 
             builder.push(CavierCavesModule.instance.getName());
             MALACHITE_GEODE_SPAWN_CHANCE = builder.defineInRange("malachite_geode_spawn_chance", 48, 0, 1000);
