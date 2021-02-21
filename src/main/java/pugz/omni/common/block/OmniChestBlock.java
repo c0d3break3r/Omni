@@ -11,20 +11,12 @@ import pugz.omni.common.tileentity.OmniChestTileEntity;
 import pugz.omni.core.registry.OmniTileEntities;
 import pugz.omni.core.util.IOmniChest;
 
-import javax.annotation.Nullable;
-
 public class OmniChestBlock extends ChestBlock implements IOmniChest {
     private final String wood;
 
     public OmniChestBlock(AbstractBlock.Properties properties, String wood) {
         super(properties, () -> OmniTileEntities.CHEST.get());
         this.wood = wood;
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new OmniChestTileEntity();
     }
 
     @Override
