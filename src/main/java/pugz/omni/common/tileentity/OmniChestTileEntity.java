@@ -10,6 +10,10 @@ public class OmniChestTileEntity extends ChestTileEntity {
         super(OmniTileEntities.CHEST.get());
     }
 
+    public OmniChestTileEntity(TileEntityType<?> tileEntity) {
+        super(tileEntity);
+    }
+
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return new AxisAlignedBB(this.pos.getX() - 1, this.pos.getY(), this.pos.getZ() - 1, this.pos.getX() + 2, this.pos.getY() + 2, this.pos.getZ() + 2);

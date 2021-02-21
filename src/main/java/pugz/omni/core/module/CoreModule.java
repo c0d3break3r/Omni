@@ -102,7 +102,7 @@ public class CoreModule extends AbstractModule {
         public final ForgeConfigSpec.BooleanValue ZOMBIE_HORSE_TRANSMUTATION;
 
         //paradise
-        public final ForgeConfigSpec.IntValue SEAHORSE_SPAWN_CHANCE;
+        public final ForgeConfigSpec.IntValue SEAHORSE_SPAWN_WEIGHT;
         public final ForgeConfigSpec.IntValue SEAHORSE_TAME_CHANCE;
         public final ForgeConfigSpec.BooleanValue RIDEABLE_SEAHORSES;
         public final ForgeConfigSpec.ConfigValue<String> SEAHORSE_SPAWN_BIOMES;
@@ -163,7 +163,7 @@ public class CoreModule extends AbstractModule {
             builder.pop();
 
             builder.push(ParadiseModule.instance.getName());
-            SEAHORSE_SPAWN_CHANCE = builder.defineInRange("seahorse_spawn_chance", 8, 0, 1000);
+            SEAHORSE_SPAWN_WEIGHT = builder.defineInRange("seahorse_spawn_weight", 8, 0, 1000);
             SEAHORSE_TAME_CHANCE = builder.defineInRange("seahorse_tame_chance", 5, 0, 1000);
             RIDEABLE_SEAHORSES = builder.define("rideable_seahorses", true);
             SEAHORSE_SPAWN_BIOMES = builder.define("seahorse_spawn_biomes", "minecraft:warm_ocean,minecraft:deep_warm_ocean");
