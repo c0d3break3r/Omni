@@ -7,8 +7,7 @@
   "mixins": [
     "FireBlockMixin",
     "CactusBlockMixin",
-    "SignTileEntityRendererMixin",
-    "AtlasesMixin"
+    "SignTileEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
