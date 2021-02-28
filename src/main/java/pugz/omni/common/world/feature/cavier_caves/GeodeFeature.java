@@ -68,6 +68,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
             if (var28) {
                 var29 = rand.nextInt(4);
                 var30 = var9 * 2 + 1;
+                // var30 must be the four corners of the geode
                 if (var29 == 0) {
                     var12.add(pos.add(var30, 7, 0));
                     var12.add(pos.add(var30, 5, 0));
@@ -98,6 +99,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                     do {
                         if (!var41.hasNext()) {
                             List<BlockState> var42 = ImmutableList.of(OmniBlocks.SMALL_MALACHITE_BUD.get().getDefaultState(), OmniBlocks.MEDIUM_MALACHITE_BUD.get().getDefaultState(), OmniBlocks.LARGE_MALACHITE_BUD.get().getDefaultState(), OmniBlocks.MALACHITE_CLUSTER.get().getDefaultState());
+                            // list of positions of every Malachite Block in the geode
                             Iterator var44 = var40.iterator();
 
                             while(true) {
@@ -128,6 +130,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
                         }
 
                         var43 = (BlockPos)var41.next();
+                        // noise is applied to change shape? (Try removing)
                         double var45 = noise.a(var43.getX(), var43.getY(), var43.getZ()) * config.noiseMultiplier;
                         var34 = 0.0D;
                         var36 = 0.0D;
