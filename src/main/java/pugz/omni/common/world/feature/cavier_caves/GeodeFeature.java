@@ -10,6 +10,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3i;
@@ -20,7 +21,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.registries.ForgeRegistries;
 import pugz.omni.common.block.cavier_caves.BuddingMalachiteBlock;
 import pugz.omni.common.world.noise.NormalNoise;
-import pugz.omni.common.world.noise.WorldGenRandom;
 import pugz.omni.core.module.CoreModule;
 import pugz.omni.core.registry.OmniBlocks;
 
@@ -45,7 +45,7 @@ public class GeodeFeature extends Feature<GeodeFeatureConfig> {
         } else {
             List<Pair<BlockPos, Integer>> var8 = Lists.newLinkedList();
             int var9 = config.minDistribution + rand.nextInt(config.maxDistribution - config.minDistribution);
-            WorldGenRandom worldGenRandom = new WorldGenRandom(world.getSeed());
+            SharedSeedRandom worldGenRandom = new SharedSeedRandom(world.getSeed());
             NormalNoise noise = NormalNoise.a(worldGenRandom, -4, 1.0D);
             List<BlockPos> var12 = Lists.newLinkedList();
             double var13 = (double)var9 / (double)config.maxOuterDistance;

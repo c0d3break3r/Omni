@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import it.unimi.dsi.fastutil.ints.IntBidirectionalIterator;
 import it.unimi.dsi.fastutil.ints.IntSortedSet;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.world.gen.ImprovedNoiseGenerator;
 
 public class PerlinNoise {
@@ -13,7 +14,7 @@ public class PerlinNoise {
     private final double c;
     private final double d;
 
-    public static PerlinNoise a(WorldGenRandom random, int var1, DoubleList doubles) {
+    public static PerlinNoise a(SharedSeedRandom random, int var1, DoubleList doubles) {
         return new PerlinNoise(random, Pair.of(var1, doubles));
     }
 
@@ -40,7 +41,7 @@ public class PerlinNoise {
         }
     }
 
-    private PerlinNoise(WorldGenRandom random, Pair<Integer, DoubleList> var2) {
+    private PerlinNoise(SharedSeedRandom random, Pair<Integer, DoubleList> var2) {
         int var3 = var2.getFirst();
         this.doubles = var2.getSecond();
         ImprovedNoiseGenerator noise = new ImprovedNoiseGenerator(random);
@@ -60,16 +61,16 @@ public class PerlinNoise {
                 if (var8 != 0.0D) {
                     this.improvedNoises[var13] = new ImprovedNoiseGenerator(random);
                 } else {
-                    random.a(262);
+                    random.skip(262);
                 }
             } else {
-                random.a(262);
+                random.skip(262);
             }
         }
 
         if (var6 < var5 - 1) {
             long var14 = (long)(noise.func_215456_a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D) * 9.223372036854776E18D);
-            WorldGenRandom random1 = new WorldGenRandom(var14);
+            SharedSeedRandom random1 = new SharedSeedRandom(var14);
 
             for(int var10 = var6 + 1; var10 < var5; ++var10) {
                 if (var10 >= 0) {
@@ -77,10 +78,10 @@ public class PerlinNoise {
                     if (var11 != 0.0D) {
                         this.improvedNoises[var10] = new ImprovedNoiseGenerator(random1);
                     } else {
-                        random1.a(262);
+                        random1.skip(262);
                     }
                 } else {
-                    random1.a(262);
+                    random1.skip(262);
                 }
             }
         }

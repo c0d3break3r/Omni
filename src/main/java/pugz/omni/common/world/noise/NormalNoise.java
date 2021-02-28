@@ -3,17 +3,18 @@ package pugz.omni.common.world.noise;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import it.unimi.dsi.fastutil.doubles.DoubleListIterator;
+import net.minecraft.util.SharedSeedRandom;
 
 public class NormalNoise {
     private final double a;
     private final PerlinNoise perlinNoise1;
     private final PerlinNoise perlinNoise2;
 
-    public static NormalNoise a(WorldGenRandom random, int var1, double... doubles) {
+    public static NormalNoise a(SharedSeedRandom random, int var1, double... doubles) {
         return new NormalNoise(random, var1, new DoubleArrayList(doubles));
     }
 
-    private NormalNoise(WorldGenRandom random, int var2, DoubleList doubles) {
+    private NormalNoise(SharedSeedRandom random, int var2, DoubleList doubles) {
         this.perlinNoise1 = PerlinNoise.a(random, var2, doubles);
         this.perlinNoise2 = PerlinNoise.a(random, var2, doubles);
         int var4 = 2147483647;
